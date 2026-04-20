@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:pharmacy_app/core/router/app_router.dart';
+import 'package:pharmacy_app/core/storage/prefs/shared_prefs_helper.dart';
 import 'package:pharmacy_app/core/theme/app_theme.dart';
 import 'package:pharmacy_app/l10n/app_localizations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
+  await SharedPrefsHelper.init();
   runApp(const PharmacyApp());
 }
 

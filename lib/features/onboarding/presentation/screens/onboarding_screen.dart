@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:pharmacy_app/core/consts/sizes/screen_size.dart';
 import 'package:pharmacy_app/core/consts/spaces/spaces.dart';
 import 'package:pharmacy_app/core/extensions/localization_ext.dart';
 import 'package:pharmacy_app/core/extensions/text_theme_ext.dart';
 import 'package:pharmacy_app/core/extensions/theme_colors_ext.dart';
+import 'package:pharmacy_app/core/router/app_routes.dart';
+import 'package:pharmacy_app/core/storage/prefs/shared_prefs_helper.dart';
+import 'package:pharmacy_app/core/storage/prefs/shared_prefs_keys.dart';
 import 'package:pharmacy_app/features/onboarding/data/models/onboarding_page_model.dart';
 import 'package:pharmacy_app/features/onboarding/data/pages/onboarding_pages.dart';
 import 'package:pharmacy_app/features/onboarding/presentation/widgets/onboarding_button.dart';
@@ -62,9 +66,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     }
   }
 
-  void _finish() {
+  void _finish() async {
+    await SharedPrefsHelper.setBool(PrefsKeys.isOnboardingSeen, true);
     if (!mounted) return;
-    // context.go('/login');
+    context.go(AppRoutes.login);
   }
 
   @override

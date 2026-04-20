@@ -6,6 +6,8 @@ import 'package:pharmacy_app/core/extensions/localization_ext.dart';
 import 'package:pharmacy_app/core/extensions/text_theme_ext.dart';
 import 'package:pharmacy_app/core/extensions/theme_colors_ext.dart';
 import 'package:pharmacy_app/core/router/app_routes.dart';
+import 'package:pharmacy_app/core/storage/prefs/shared_prefs_helper.dart';
+import 'package:pharmacy_app/core/storage/prefs/shared_prefs_keys.dart';
 import 'package:pharmacy_app/features/splash/presentation/widgets/beaming_pulse.dart';
 import 'package:pharmacy_app/features/splash/presentation/widgets/bouncing_pill.dart';
 import 'package:pharmacy_app/features/splash/presentation/widgets/jumping_dots.dart';
@@ -20,9 +22,17 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
+    bool isOnboardingSeen = SharedPrefsHelper.getBool(
+      PrefsKeys.isOnboardingSeen,
+    );
     Future.delayed(const Duration(seconds: 3), () {
       if (!mounted) return;
-      context.go(AppRoutes.onboarding);
+
+      if (isOnboardingSeen) {
+        context.go(AppRoutes.login);
+      } else {
+        context.go(AppRoutes.onboarding);
+      }
     });
     super.initState();
   }
