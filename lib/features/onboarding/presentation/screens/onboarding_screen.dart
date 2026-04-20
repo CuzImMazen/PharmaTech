@@ -18,171 +18,147 @@ class OnboardingScreen extends StatefulWidget {
 }
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
-  late final PageController _pageController;
-  List<OnboardingPageModel>? _pages;
-  int _currentPage = 0;
+  late final PageController _controller;
 
-  @override
-  void initState() {
-    super.initState();
-    _pageController = PageController();
-  }
+  int _index = 0;
+
+  late final List<OnboardingPageModel> _pages;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+    _pages = getOnboardingPages(context);
+  }
 
-    _pages ??= getOnboardingPages(context);
+  @override
+  void initState() {
+    super.initState();
+    _controller = PageController();
   }
 
   @override
   void dispose() {
-    _pageController.dispose();
+    _controller.dispose();
     super.dispose();
   }
 
-  void _handleNext() {
-    if (_pages == null) return;
-
-    if (_currentPage < _pages!.length - 1) {
-      if (_pageController.hasClients) {
-        _pageController.nextPage(
-          duration: const Duration(milliseconds: 300),
-          curve: Curves.easeInOut,
-        );
-      }
+  void _next() {
+    if (_index < _pages.length - 1) {
+      _controller.nextPage(
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
     } else {
-      _finishOnboarding();
+      _finish();
     }
   }
 
-  Future<void> _finishOnboarding() async {
+  void _back() {
+    if (_index > 0) {
+      _controller.previousPage(
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
+    }
+  }
+
+  void _finish() {
     if (!mounted) return;
     // context.go('/login');
   }
 
   @override
   Widget build(BuildContext context) {
-    if (_pages == null) return const Scaffold();
-
     final size = ScreenSize(context);
-
     final isTablet = size.width > 600;
-    final horizontalPadding = isTablet ? 32.0 : size.wp(0.08);
 
-    final isLastPage = _currentPage == _pages!.length - 1;
-    final isFirstPage = _currentPage == 0;
+    final isLast = _index == _pages.length - 1;
+    final isFirst = _index == 0;
 
-    return PopScope(
-      canPop: false,
-      onPopInvokedWithResult: (didPop, result) {
-        if (didPop) return;
-        if (!isFirstPage && _pageController.hasClients) {
-          _pageController.previousPage(
-            duration: const Duration(milliseconds: 300),
-            curve: Curves.easeInOut,
-          );
-        }
-      },
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          automaticallyImplyLeading: false,
-          actions: [
-            if (!isLastPage)
-              TextButton(
-                onPressed: _finishOnboarding,
-                child: Text(
-                  context.tr.onboarding_skip,
-                  style: context.text.bodyLarge?.copyWith(
-                    color: context.colors.secondary,
-                    fontWeight: FontWeight.w600,
-                  ),
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        actions: [
+          if (!isLast)
+            TextButton(
+              onPressed: _finish,
+              child: Text(
+                context.tr.onboarding_skip,
+                style: context.text.bodyLarge?.copyWith(
+                  color: context.colors.secondary,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
-          ],
-        ),
-        body: SafeArea(
-          child: Center(
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(
-                maxWidth: 600,
-              ), // Limits width on wide screens
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
-                child: Column(
-                  children: [
-                    Expanded(
-                      child: PageView.builder(
-                        controller: _pageController,
-                        itemCount: _pages!.length,
-                        onPageChanged: (index) =>
-                            setState(() => _currentPage = index),
-                        itemBuilder: (context, index) =>
-                            OnboardingPage(model: _pages![index]),
-                      ),
+            ),
+        ],
+      ),
+      body: SafeArea(
+        child: Center(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 600),
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: isTablet ? 32 : size.wp(0.08),
+              ),
+              child: Column(
+                children: [
+                  Expanded(
+                    child: PageView.builder(
+                      controller: _controller,
+                      itemCount: _pages.length,
+                      onPageChanged: (i) => setState(() => _index = i),
+                      itemBuilder: (context, i) =>
+                          OnboardingPage(model: _pages[i]),
                     ),
-                    SmoothPageIndicator(
-                      controller: _pageController,
-                      count: _pages!.length,
-                      effect: ExpandingDotsEffect(
-                        dotHeight: 10,
-                        dotWidth: 10,
-                        expansionFactor: 3,
-                        activeDotColor: context.colors.primary,
-                        dotColor: context.colors.primary.withValues(alpha: 0.2),
-                      ),
+                  ),
+                  SmoothPageIndicator(
+                    controller: _controller,
+                    count: _pages.length,
+                    effect: ExpandingDotsEffect(
+                      dotHeight: 8,
+                      dotWidth: 8,
+                      expansionFactor: 3,
+                      activeDotColor: context.colors.primary,
+                      dotColor: context.colors.primary.withValues(alpha: 0.2),
                     ),
-                    AppSpaces.vXl,
-                    Row(
-                      children: [
-                        Expanded(
-                          flex: 2,
-                          child: AnimatedOpacity(
-                            duration: const Duration(milliseconds: 200),
-                            opacity: isFirstPage ? 0.0 : 1.0,
-                            child: IgnorePointer(
-                              ignoring: isFirstPage,
-                              child: _buildBackButton(),
+                  ),
+                  AppSpaces.vXl,
+                  Row(
+                    children: [
+                      if (!isFirst)
+                        SizedBox(
+                          width: 110,
+                          child: TextButton.icon(
+                            onPressed: _back,
+                            icon: const Icon(
+                              Icons.arrow_back,
+                              size: 18,
+                              color: Colors.grey,
+                            ),
+                            label: Text(
+                              context.tr.onboarding_back,
+                              style: context.text.bodyLarge?.copyWith(
+                                color: Colors.grey,
+                              ),
                             ),
                           ),
                         ),
-                        if (!isFirstPage) AppSpaces.hMd,
-                        Expanded(
-                          flex: 3,
-                          child: OnboardingActionButton(
-                            isLastPage: isLastPage,
-                            onTap: _handleNext,
-                          ),
+                      AppSpaces.hMd,
+                      Expanded(
+                        child: OnboardingActionButton(
+                          isLastPage: isLast,
+                          onTap: _next,
                         ),
-                      ],
-                    ),
-                    AppSpaces.vLg,
-                  ],
-                ),
+                      ),
+                    ],
+                  ),
+                  AppSpaces.vLg,
+                ],
               ),
             ),
           ),
         ),
-      ),
-    );
-  }
-
-  Widget _buildBackButton() {
-    return TextButton.icon(
-      onPressed: () {
-        if (_pageController.hasClients) {
-          _pageController.previousPage(
-            duration: const Duration(milliseconds: 300),
-            curve: Curves.easeInOut,
-          );
-        }
-      },
-      icon: const Icon(Icons.arrow_back, color: Colors.grey, size: 20),
-      label: Text(
-        context.tr.onboarding_back,
-        style: context.text.bodyLarge?.copyWith(color: Colors.grey),
       ),
     );
   }
