@@ -1,0 +1,20 @@
+{
+  "@@locale": "ar",
+
+  "@@section_splash": "================ SPLASH SCREEN ================",
+
+  "splash_title": "صيدليتي",
+  "splash_subtitle": "نظام إدارة الصيدليات",
+
+  "@@section_onboarding": "================ OBOARDING SCREEN ================",
+  "onboarding_skip": "تخطي"
+  ,"onboarding_page1_title": "إدارة المخزون بسهولة"
+  ,"onboarding_page1_desc": "تتبع الأدوية ومستويات المخزون وتواريخ انتهاء الصلاحية في مكان واحد"
+  ,"onboarding_page2_title": "نظام مبيعات سريع"
+  ,"onboarding_page2_desc": "معالجة المبيعات بسرعة مع دعم المسح الضوئي للباركود"
+  ,"onboarding_page3_title": "تقارير وتحليلات"
+  ,"onboarding_page3_desc": "حصل على رؤى شاملة حول مبيعاتك ومخزونك"
+  ,"onboarding_next": "التالي"
+  , "onboarding_back": "السابق"
+  ,"onboarding_start": "ابدأ الآن"
+}

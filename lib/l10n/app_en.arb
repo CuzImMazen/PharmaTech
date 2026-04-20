@@ -1,0 +1,24 @@
+{
+  "@@locale": "en",
+  
+  "@@section_splash": "================ SPLASH SCREEN ================",
+
+  "splash_title": "Pharmacy App",
+  "splash_subtitle": "Pharmacy management system",
+
+   "@@section_onboarding": "================ OBOARDING SCREEN ================",
+
+  "onboarding_skip": "Skip"
+  ,"onboarding_page1_title": "Manage inventory with ease"
+  ,"onboarding_page1_desc": "Track medications, stock levels, and expiration dates all in one place"
+  ,"onboarding_page2_title": "Fast sales system"
+  ,"onboarding_page2_desc": "Process sales quickly with barcode scanning support"
+  ,"onboarding_page3_title": "Reports and analytics"
+  ,"onboarding_page3_desc": "Get comprehensive insights into your sales and inventory"
+  ,"onboarding_next": "Next"
+  , "onboarding_back": "Back"
+  ,"onboarding_start": "Start Now"
+  
+  
+ 
+}
