@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:pharmacy_app/core/consts/sizes/screen_size.dart';
 import 'package:pharmacy_app/core/consts/sizes/sizes.dart';
 import 'package:pharmacy_app/core/extensions/theme_colors_ext.dart';
 
-class OboardingIconContainer extends StatelessWidget {
-  const OboardingIconContainer({
+class OnboardingIconContainer extends StatelessWidget {
+  const OnboardingIconContainer({
     super.key,
     required this.color,
     required this.icon,
@@ -12,10 +13,12 @@ class OboardingIconContainer extends StatelessWidget {
   final IconData icon;
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size.width * 0.60;
+    ScreenSize size = ScreenSize(context);
+
+    final containerSize = size.wp(0.55).clamp(160.0, 280.0);
     return Container(
-      height: size,
-      width: size,
+      height: containerSize,
+      width: containerSize,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(AppBorderRadius.xl),
 

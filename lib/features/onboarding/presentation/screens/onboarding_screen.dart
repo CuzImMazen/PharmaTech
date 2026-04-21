@@ -26,12 +26,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   int _index = 0;
 
-  late final List<OnboardingPageModel> _pages;
+  List<OnboardingPageModel>? _pages;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    _pages = getOnboardingPages(context);
+    _pages ??= getOnboardingPages(context);
   }
 
   @override
@@ -47,10 +47,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   }
 
   void _next() {
-    if (_index < _pages.length - 1) {
+    if (_index < _pages!.length - 1) {
       _controller.nextPage(
         duration: const Duration(milliseconds: 300),
-        curve: Curves.easeInOut,
+        curve: Curves.easeOutCubic,
       );
     } else {
       _finish();
@@ -61,7 +61,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     if (_index > 0) {
       _controller.previousPage(
         duration: const Duration(milliseconds: 300),
-        curve: Curves.easeInOut,
+        curve: Curves.easeOutCubic,
       );
     }
   }
@@ -77,7 +77,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     final size = ScreenSize(context);
     final isTablet = size.width > 600;
 
-    final isLast = _index == _pages.length - 1;
+    final pages = _pages!;
+    final isLast = _index == pages.length - 1;
     final isFirst = _index == 0;
 
     return Scaffold(
@@ -111,15 +112,15 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   Expanded(
                     child: PageView.builder(
                       controller: _controller,
-                      itemCount: _pages.length,
+                      itemCount: pages.length,
                       onPageChanged: (i) => setState(() => _index = i),
                       itemBuilder: (context, i) =>
-                          OnboardingPage(model: _pages[i]),
+                          OnboardingPage(model: pages[i]),
                     ),
                   ),
                   SmoothPageIndicator(
                     controller: _controller,
-                    count: _pages.length,
+                    count: pages.length,
                     effect: ExpandingDotsEffect(
                       dotHeight: 8,
                       dotWidth: 8,
@@ -158,7 +159,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       ),
                     ],
                   ),
-                  AppSpaces.vLg,
+
+                  SizedBox(height: MediaQuery.of(context).padding.bottom + 24),
                 ],
               ),
             ),

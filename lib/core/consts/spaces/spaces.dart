@@ -7,6 +7,7 @@ class AppSpaces {
   static const vLg = SizedBox(height: 24);
   static const vXl = SizedBox(height: 32);
   static const vXxl = SizedBox(height: 48);
+  static const vHuge = SizedBox(height: 64);
 
   static const hXs = SizedBox(width: 4);
   static const hSm = SizedBox(width: 8);

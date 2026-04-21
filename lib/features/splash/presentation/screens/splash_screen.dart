@@ -26,8 +26,9 @@ class _SplashScreenState extends State<SplashScreen> {
       PrefsKeys.isOnboardingSeen,
     );
     Future.delayed(const Duration(seconds: 3), () {
-      if (!mounted) return;
-
+      if (!mounted) {
+        return;
+      }
       if (isOnboardingSeen) {
         context.go(AppRoutes.login);
       } else {
