@@ -166,6 +166,84 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Start Now'**
   String get onboarding_start;
+
+  /// No description provided for @auth_login_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome back'**
+  String get auth_login_title;
+
+  /// No description provided for @auth_login_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Log in to continue working'**
+  String get auth_login_subtitle;
+
+  /// No description provided for @auth_email_label.
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get auth_email_label;
+
+  /// No description provided for @auth_password_label.
+  ///
+  /// In en, this message translates to:
+  /// **'Password'**
+  String get auth_password_label;
+
+  /// No description provided for @auth_remember_me.
+  ///
+  /// In en, this message translates to:
+  /// **'Remember me'**
+  String get auth_remember_me;
+
+  /// No description provided for @auth_forgot_password.
+  ///
+  /// In en, this message translates to:
+  /// **'Forgot password?'**
+  String get auth_forgot_password;
+
+  /// No description provided for @auth_login_button.
+  ///
+  /// In en, this message translates to:
+  /// **'SignIn'**
+  String get auth_login_button;
+
+  /// No description provided for @auth_no_account.
+  ///
+  /// In en, this message translates to:
+  /// **'Don\'t have an account? '**
+  String get auth_no_account;
+
+  /// No description provided for @auth_create_account.
+  ///
+  /// In en, this message translates to:
+  /// **'Create a new account'**
+  String get auth_create_account;
+
+  /// No description provided for @auth_email_is_required.
+  ///
+  /// In en, this message translates to:
+  /// **'Email is required'**
+  String get auth_email_is_required;
+
+  /// No description provided for @auth_password_is_required.
+  ///
+  /// In en, this message translates to:
+  /// **'Password is required'**
+  String get auth_password_is_required;
+
+  /// No description provided for @auth_invalid_email.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid email format'**
+  String get auth_invalid_email;
+
+  /// No description provided for @auth_password_min_length.
+  ///
+  /// In en, this message translates to:
+  /// **'Password must be at least 8 characters'**
+  String get auth_password_min_length;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

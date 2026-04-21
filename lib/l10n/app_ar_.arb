@@ -16,5 +16,19 @@
   ,"onboarding_page3_desc": "حصل على رؤى شاملة حول مبيعاتك ومخزونك"
   ,"onboarding_next": "التالي"
   , "onboarding_back": "السابق"
-  ,"onboarding_start": "ابدأ الآن"
+  ,"onboarding_start": "ابدأ الآن",
+   "@@section_auth": "================ AUTH SCREEN ================",
+  "auth_login_title": "مرحباً بعودتك",
+  "auth_login_subtitle": "سجّل الدخول لمتابعة العمل"
+  ,"auth_email_label": "البريد الإلكتروني"
+  ,"auth_password_label": "كلمة المرور"
+  ,"auth_remember_me": "تذكرني"
+  ,"auth_forgot_password": "نسيت كلمة المرور؟"
+  ,"auth_login_button": "تسجيل الدخول"
+  ,"auth_no_account": "ليس لديك حساب؟ "
+  ,"auth_create_account": "إنشاء حساب جديد"
+  ,"auth_email_is_required": "البريد الإلكتروني مطلوب"
+  ,"auth_password_is_required": "كلمة المرور مطلوبة"
+  ,"auth_invalid_email": "صيغة البريد الإلكتروني غير صحيحة"
+  ,"auth_password_min_length": "كلمة المرور يجب أن تكون 8 أحرف على الأقل"
 }

@@ -1,27 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/core/consts/sizes/sizes.dart';
-import 'package:pharmacy_app/core/consts/spaces/spaces.dart';
-import 'package:pharmacy_app/core/extensions/localization_ext.dart';
 import 'package:pharmacy_app/core/extensions/text_theme_ext.dart';
 import 'package:pharmacy_app/core/extensions/theme_colors_ext.dart';
 
-class OnboardingButton extends StatelessWidget {
-  final bool isLastPage;
-  final VoidCallback onTap;
-
-  const OnboardingButton({
-    super.key,
-    required this.isLastPage,
-    required this.onTap,
-  });
+class CustomButton extends StatelessWidget {
+  const CustomButton({super.key, required this.onTap, required this.text});
+  final void Function()? onTap;
+  final String text;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: onTap,
       borderRadius: BorderRadius.circular(AppBorderRadius.lg),
+      onTap: onTap,
       child: Ink(
+        width: double.infinity,
+        height: 65,
         decoration: BoxDecoration(
+          color: context.colors.primary,
           borderRadius: BorderRadius.circular(AppBorderRadius.lg),
           gradient: LinearGradient(
             colors: [
@@ -37,22 +33,15 @@ class OnboardingButton extends StatelessWidget {
             ),
           ],
         ),
-        padding: const EdgeInsets.symmetric(vertical: AppPadding.lg),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              isLastPage
-                  ? context.tr.onboarding_start
-                  : context.tr.onboarding_next,
-              style: context.text.bodyLarge?.copyWith(
-                color: Colors.white,
-                fontWeight: FontWeight.w600,
-              ),
+        child: Center(
+          child: Text(
+            text,
+            style: context.text.labelLarge?.copyWith(
+              color: Colors.white,
+              fontWeight: FontWeight.w600,
+              fontSize: 18,
             ),
-            AppSpaces.hSm,
-            const Icon(Icons.arrow_forward, color: Colors.white),
-          ],
+          ),
         ),
       ),
     );

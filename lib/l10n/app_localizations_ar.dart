@@ -43,4 +43,43 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get onboarding_start => 'ابدأ الآن';
+
+  @override
+  String get auth_login_title => 'مرحباً بعودتك';
+
+  @override
+  String get auth_login_subtitle => 'سجّل الدخول لمتابعة العمل';
+
+  @override
+  String get auth_email_label => 'البريد الإلكتروني';
+
+  @override
+  String get auth_password_label => 'كلمة المرور';
+
+  @override
+  String get auth_remember_me => 'تذكرني';
+
+  @override
+  String get auth_forgot_password => 'نسيت كلمة المرور؟';
+
+  @override
+  String get auth_login_button => 'تسجيل الدخول';
+
+  @override
+  String get auth_no_account => 'ليس لديك حساب؟ ';
+
+  @override
+  String get auth_create_account => 'إنشاء حساب جديد';
+
+  @override
+  String get auth_email_is_required => 'البريد الإلكتروني مطلوب';
+
+  @override
+  String get auth_password_is_required => 'كلمة المرور مطلوبة';
+
+  @override
+  String get auth_invalid_email => 'صيغة البريد الإلكتروني غير صحيحة';
+
+  @override
+  String get auth_password_min_length => 'كلمة المرور يجب أن تكون 8 أحرف على الأقل';
 }

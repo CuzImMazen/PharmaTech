@@ -17,8 +17,20 @@
   ,"onboarding_page3_desc": "Get comprehensive insights into your sales and inventory"
   ,"onboarding_next": "Next"
   , "onboarding_back": "Back"
-  ,"onboarding_start": "Start Now"
-  
-  
+  ,"onboarding_start": "Start Now",
+    "@@section_auth": "================ AUTH SCREEN ================",
+  "auth_login_title": "Welcome back",
+  "auth_login_subtitle": "Log in to continue working"
+  ,"auth_email_label": "Email"
+  ,"auth_password_label": "Password",
+    "auth_remember_me": "Remember me",
+    "auth_forgot_password": "Forgot password?"
+    ,"auth_login_button": "SignIn"
+    ,"auth_no_account": "Don't have an account? "
+    ,"auth_create_account": "Create a new account"
+    ,"auth_email_is_required": "Email is required"
+    ,"auth_password_is_required": "Password is required"  ,
+    "auth_invalid_email": "Invalid email format",
+    "auth_password_min_length": "Password must be at least 8 characters"
  
 }
