@@ -11,11 +11,16 @@ class CustomTextField extends StatefulWidget {
     this.isPassword = false,
     required this.validator,
     required this.controller,
-    this.isNumber = false,
+    // Removed isNumber and added keyboardType
+    this.keyboardType = TextInputType.text,
     this.isName = false,
     this.readOnly = false,
     this.onTap,
     this.blockArabic = false,
+    this.textInputAction,
+    this.focusNode,
+    this.onEditingComplete,
+    this.onFieldSubmitted,
   });
 
   final String hintText;
@@ -24,11 +29,15 @@ class CustomTextField extends StatefulWidget {
   final bool isPassword;
   final String? Function(String?)? validator;
   final TextEditingController controller;
-  final bool isNumber;
+  final TextInputType keyboardType; // Changed to TextInputType
   final bool isName;
   final bool readOnly;
   final void Function()? onTap;
   final bool blockArabic;
+  final TextInputAction? textInputAction;
+  final FocusNode? focusNode;
+  final void Function()? onEditingComplete;
+  final void Function(String)? onFieldSubmitted;
 
   @override
   State<CustomTextField> createState() => _AuthTextFieldState();
@@ -56,18 +65,21 @@ class _AuthTextFieldState extends State<CustomTextField> {
         Directionality(
           textDirection: TextDirection.ltr,
           child: TextFormField(
+            onFieldSubmitted: widget.onFieldSubmitted,
+            onEditingComplete: widget.onEditingComplete,
             controller: widget.controller,
+            focusNode: widget.focusNode,
             onTap: widget.onTap,
             readOnly: widget.readOnly,
             validator: widget.validator,
             obscureText: widget.isPassword ? _obscureText : false,
             obscuringCharacter: '•',
-
+            textInputAction: widget.textInputAction,
             textAlign: TextAlign.start,
 
-            keyboardType: widget.isNumber
-                ? TextInputType.phone
-                : TextInputType.text,
+            // Now using the passed keyboardType directly
+            keyboardType: widget.keyboardType,
+
             inputFormatters: [
               if (widget.blockArabic)
                 FilteringTextInputFormatter.deny(RegExp(r'[\u0600-\u06FF]')),
@@ -83,7 +95,6 @@ class _AuthTextFieldState extends State<CustomTextField> {
               filled: true,
               fillColor: colorScheme.surface,
 
-              // Icons
               prefixIcon: widget.prefixIcon != null
                   ? Icon(
                       widget.prefixIcon,
@@ -110,7 +121,6 @@ class _AuthTextFieldState extends State<CustomTextField> {
                 vertical: 20,
               ),
 
-              // Borders
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(16),
                 borderSide: BorderSide(

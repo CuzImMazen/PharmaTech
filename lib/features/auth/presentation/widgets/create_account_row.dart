@@ -3,33 +3,31 @@ import 'package:pharmacy_app/core/extensions/localization_ext.dart';
 import 'package:pharmacy_app/core/extensions/text_theme_ext.dart';
 import 'package:pharmacy_app/core/extensions/theme_colors_ext.dart';
 
-class RememberMeRow extends StatelessWidget {
-  const RememberMeRow({
-    super.key,
-    required this.rememberMe,
-    required this.onChanged,
-  });
-  final bool rememberMe;
-  final void Function(bool?)? onChanged;
+class CreateAccountRow extends StatelessWidget {
+  const CreateAccountRow({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Checkbox(value: rememberMe, onChanged: onChanged),
         Text(
-          context.tr.auth_remember_me,
-          style: context.text.titleSmall?.copyWith(
-            fontWeight: FontWeight.w600,
+          "${context.tr.auth_no_account} ",
+          style: context.text.bodyMedium!.copyWith(
             color: context.colors.secondary,
           ),
         ),
-        Spacer(),
         TextButton(
           onPressed: () {
-            //TODO Navigate to forgot password screen
+            // TODO: navigate to register
           },
+          style: TextButton.styleFrom(
+            padding: EdgeInsets.zero,
+            minimumSize: const Size(0, 0),
+            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+          ),
           child: Text(
-            context.tr.auth_forgot_password,
+            context.tr.auth_create_account,
             style: context.text.bodyMedium!.copyWith(
               color: context.colors.primary,
               fontWeight: FontWeight.w600,

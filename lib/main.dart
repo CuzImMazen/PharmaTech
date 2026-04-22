@@ -14,6 +14,7 @@ void main() async {
     SystemUiOverlayStyle(statusBarColor: Colors.transparent),
   );
   runApp(
+    // PharmacyApp(),
     DevicePreview(
       enabled: true,
       builder: (context) => const PharmacyApp(),
@@ -43,7 +44,7 @@ class PharmacyApp extends StatelessWidget {
 
       //Localization
       supportedLocales: const [Locale('en'), Locale('ar')],
-      // locale: const Locale('ar'),
+      //locale: const Locale('ar'),
       localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
