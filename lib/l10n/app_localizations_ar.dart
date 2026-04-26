@@ -9,6 +9,15 @@ class AppLocalizationsAr extends AppLocalizations {
   AppLocalizationsAr([String locale = 'ar']) : super(locale);
 
   @override
+  String get error_network => 'No internet connection';
+
+  @override
+  String get error_timeout => 'Request timed out';
+
+  @override
+  String get error_unknown => 'Something went wrong, please try again';
+
+  @override
   String get splash_title => 'صيدليتي';
 
   @override
@@ -82,4 +91,25 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get auth_password_min_length => 'كلمة المرور يجب أن تكون 8 أحرف على الأقل';
+
+  @override
+  String get agree_to => 'أوافق على ';
+
+  @override
+  String get terms_and_conditions => 'الشروط والأحكام';
+
+  @override
+  String get and => ' و ';
+
+  @override
+  String get privacy_policy => 'سياسة الخصوصية';
+
+  @override
+  String get auth_email_not_registered => 'البريد الإلكتروني غير مسجل';
+
+  @override
+  String get auth_wrong_password => 'كلمة المرور غير صحيحة';
+
+  @override
+  String get auth_login_success => 'تم تسجيل الدخول بنجاح';
 }

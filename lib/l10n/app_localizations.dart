@@ -95,6 +95,24 @@ abstract class AppLocalizations {
     Locale('en')
   ];
 
+  /// No description provided for @error_network.
+  ///
+  /// In en, this message translates to:
+  /// **'No internet connection'**
+  String get error_network;
+
+  /// No description provided for @error_timeout.
+  ///
+  /// In en, this message translates to:
+  /// **'Request timed out'**
+  String get error_timeout;
+
+  /// No description provided for @error_unknown.
+  ///
+  /// In en, this message translates to:
+  /// **'Something went wrong, please try again'**
+  String get error_unknown;
+
   /// No description provided for @splash_title.
   ///
   /// In en, this message translates to:
@@ -244,6 +262,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Password must be at least 8 characters'**
   String get auth_password_min_length;
+
+  /// No description provided for @agree_to.
+  ///
+  /// In en, this message translates to:
+  /// **'I agree to '**
+  String get agree_to;
+
+  /// No description provided for @terms_and_conditions.
+  ///
+  /// In en, this message translates to:
+  /// **'Terms and Conditions'**
+  String get terms_and_conditions;
+
+  /// No description provided for @and.
+  ///
+  /// In en, this message translates to:
+  /// **' and '**
+  String get and;
+
+  /// No description provided for @privacy_policy.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy Policy'**
+  String get privacy_policy;
+
+  /// No description provided for @auth_email_not_registered.
+  ///
+  /// In en, this message translates to:
+  /// **'Email is not registered'**
+  String get auth_email_not_registered;
+
+  /// No description provided for @auth_wrong_password.
+  ///
+  /// In en, this message translates to:
+  /// **'Incorrect password'**
+  String get auth_wrong_password;
+
+  /// No description provided for @auth_login_success.
+  ///
+  /// In en, this message translates to:
+  /// **'Logged in successfully'**
+  String get auth_login_success;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

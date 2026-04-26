@@ -9,6 +9,15 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
+  String get error_network => 'No internet connection';
+
+  @override
+  String get error_timeout => 'Request timed out';
+
+  @override
+  String get error_unknown => 'Something went wrong, please try again';
+
+  @override
   String get splash_title => 'Pharmacy App';
 
   @override
@@ -82,4 +91,25 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get auth_password_min_length => 'Password must be at least 8 characters';
+
+  @override
+  String get agree_to => 'I agree to ';
+
+  @override
+  String get terms_and_conditions => 'Terms and Conditions';
+
+  @override
+  String get and => ' and ';
+
+  @override
+  String get privacy_policy => 'Privacy Policy';
+
+  @override
+  String get auth_email_not_registered => 'Email is not registered';
+
+  @override
+  String get auth_wrong_password => 'Incorrect password';
+
+  @override
+  String get auth_login_success => 'Logged in successfully';
 }

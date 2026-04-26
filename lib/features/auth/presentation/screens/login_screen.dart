@@ -1,13 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:pharmacy_app/core/consts/sizes/sizes.dart';
 import 'package:pharmacy_app/core/consts/spaces/spaces.dart';
+import 'package:pharmacy_app/core/enums/enums.dart';
+import 'package:pharmacy_app/core/error/failure_message_localization_ext.dart';
 import 'package:pharmacy_app/core/extensions/input_validator_error_ext.dart';
 import 'package:pharmacy_app/core/extensions/localization_ext.dart';
+import 'package:pharmacy_app/core/extensions/theme_colors_ext.dart';
+import 'package:pharmacy_app/core/utils/messages/snackbar.dart';
 import 'package:pharmacy_app/core/utils/validator/validators_manager.dart';
 import 'package:pharmacy_app/core/widgets/custom_button.dart';
 import 'package:pharmacy_app/core/widgets/custom_text_field.dart';
-import 'package:pharmacy_app/features/auth/presentation/widgets/create_account_row.dart';
+import 'package:pharmacy_app/features/auth/cubit/login_cubit.dart';
+import 'package:pharmacy_app/features/auth/cubit/login_state.dart';
 import 'package:pharmacy_app/features/auth/presentation/widgets/remember_me_row.dart';
+import 'package:pharmacy_app/features/auth/presentation/widgets/terms_and_conditions_row.dart';
 import 'package:pharmacy_app/features/auth/presentation/widgets/top_login_section.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -15,7 +23,12 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(body: LoginScreenBody());
+    return Scaffold(
+      body: BlocProvider(
+        create: (context) => LoginCubit(),
+        child: LoginScreenBody(),
+      ),
+    );
   }
 }
 
@@ -29,10 +42,8 @@ class LoginScreenBody extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreenBody> {
-  bool rememberMe = false;
-
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+  late final TextEditingController emailController;
+  late final TextEditingController passwordController;
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
@@ -42,8 +53,15 @@ class _LoginScreenState extends State<LoginScreenBody> {
     FocusScope.of(context).unfocus();
 
     if (formKey.currentState?.validate() ?? false) {
-      // TODO: login logic
+      context.read<LoginCubit>().test();
     }
+  }
+
+  @override
+  initState() {
+    super.initState();
+    emailController = TextEditingController();
+    passwordController = TextEditingController();
   }
 
   @override
@@ -56,15 +74,34 @@ class _LoginScreenState extends State<LoginScreenBody> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
+    return BlocListener<LoginCubit, LoginState>(
+      listenWhen: (previous, current) => previous.status != current.status,
+      listener: (context, state) {
+        if (state.status == ScreenState.success) {
+          Snackbar.show(
+            context: context,
+            message: context.tr.auth_login_success,
+            color: context.colors.primary,
+          );
+        } else if (state.status == ScreenState.failure) {
+          String message;
+
+          message = state.failure!.localizedMessage(context);
+
+          Snackbar.show(
+            context: context,
+            message: message,
+            color: context.colors.error,
+          );
+        }
+      },
+      child: SafeArea(
         child: Form(
-          autovalidateMode: AutovalidateMode.onUserInteraction,
+          autovalidateMode: AutovalidateMode.disabled,
           key: formKey,
           child: SingleChildScrollView(
-            reverse: true,
             physics: const BouncingScrollPhysics(),
-            padding: EdgeInsets.symmetric(horizontal: 16.0),
+            padding: const EdgeInsets.symmetric(horizontal: AppPadding.common),
             child: Column(
               children: [
                 AppSpaces.vHuge,
@@ -107,21 +144,31 @@ class _LoginScreenState extends State<LoginScreenBody> {
                   onFieldSubmitted: (_) => _handleLogin(),
                 ),
                 AppSpaces.vSm,
-                RememberMeRow(
-                  rememberMe: rememberMe,
-                  onChanged: (value) {
-                    setState(() {
-                      rememberMe = value ?? false;
-                    });
+                RememberMeRow(),
+                AppSpaces.vMd,
+
+                BlocBuilder<LoginCubit, LoginState>(
+                  buildWhen: (prev, curr) =>
+                      prev.acceptTerms != curr.acceptTerms ||
+                      prev.status != curr.status,
+                  builder: (context, state) {
+                    final isLoading = state.status == ScreenState.loading;
+
+                    if (isLoading) {
+                      return const SizedBox(
+                        height: 65,
+                        child: Center(child: CircularProgressIndicator()),
+                      );
+                    }
+
+                    return CustomButton(
+                      onTap: state.acceptTerms ? _handleLogin : null,
+                      text: context.tr.auth_login_button,
+                    );
                   },
                 ),
                 AppSpaces.vMd,
-                CustomButton(
-                  onTap: _handleLogin,
-                  text: context.tr.auth_login_button,
-                ),
-                AppSpaces.vLg,
-                CreateAccountRow(),
+                TermsAndConditionsRow(),
                 AppSpaces.vMd,
               ],
             ),

@@ -1,6 +1,11 @@
 {
   "@@locale": "ar",
+ "@@section_errors": "================ ERRORS ================",
 
+"error_network": "No internet connection",
+  "error_timeout": "Request timed out",
+  "error_unknown": "Something went wrong, please try again"
+,
   "@@section_splash": "================ SPLASH SCREEN ================",
 
   "splash_title": "صيدليتي",
@@ -30,5 +35,13 @@
   ,"auth_email_is_required": "البريد الإلكتروني مطلوب"
   ,"auth_password_is_required": "كلمة المرور مطلوبة"
   ,"auth_invalid_email": "صيغة البريد الإلكتروني غير صحيحة"
-  ,"auth_password_min_length": "كلمة المرور يجب أن تكون 8 أحرف على الأقل"
+  ,"auth_password_min_length": "كلمة المرور يجب أن تكون 8 أحرف على الأقل",
+   "agree_to": "أوافق على ",
+   "terms_and_conditions": "الشروط والأحكام",
+   "and": " و ",
+   "privacy_policy": "سياسة الخصوصية"
+    ,"auth_email_not_registered": "البريد الإلكتروني غير مسجل"
+    ,"auth_wrong_password": "كلمة المرور غير صحيحة"
+    , "auth_login_success": "تم تسجيل الدخول بنجاح"
+ 
 }

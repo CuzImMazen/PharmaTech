@@ -1,6 +1,13 @@
 {
   "@@locale": "en",
-  
+
+  "@@section_errors": "================ ERRORS ================",
+
+"error_network": "No internet connection",
+  "error_timeout": "Request timed out",
+  "error_unknown": "Something went wrong, please try again"
+ 
+,
   "@@section_splash": "================ SPLASH SCREEN ================",
 
   "splash_title": "Pharmacy App",
@@ -31,6 +38,13 @@
     ,"auth_email_is_required": "Email is required"
     ,"auth_password_is_required": "Password is required"  ,
     "auth_invalid_email": "Invalid email format",
-    "auth_password_min_length": "Password must be at least 8 characters"
- 
+    "auth_password_min_length": "Password must be at least 8 characters",
+    "agree_to": "I agree to ",
+    "terms_and_conditions": "Terms and Conditions",
+    "and": " and ",
+    "privacy_policy": "Privacy Policy"
+    ,"auth_email_not_registered": "Email is not registered"
+    ,"auth_wrong_password": "Incorrect password"
+    , "auth_login_success": "Logged in successfully"
+    
 }
