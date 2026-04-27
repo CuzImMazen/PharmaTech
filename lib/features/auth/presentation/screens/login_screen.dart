@@ -3,11 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:pharmacy_app/core/consts/sizes/sizes.dart';
 import 'package:pharmacy_app/core/consts/spaces/spaces.dart';
-import 'package:pharmacy_app/core/enums/enums.dart';
 import 'package:pharmacy_app/core/error/failure_message_localization_ext.dart';
 import 'package:pharmacy_app/core/extensions/input_validator_error_ext.dart';
 import 'package:pharmacy_app/core/extensions/localization_ext.dart';
 import 'package:pharmacy_app/core/extensions/theme_colors_ext.dart';
+import 'package:pharmacy_app/core/state/screen_state.dart';
 import 'package:pharmacy_app/core/utils/messages/snackbar.dart';
 import 'package:pharmacy_app/core/utils/validator/validators_manager.dart';
 import 'package:pharmacy_app/core/widgets/custom_button.dart';
@@ -53,7 +53,7 @@ class _LoginScreenState extends State<LoginScreenBody> {
     FocusScope.of(context).unfocus();
 
     if (formKey.currentState?.validate() ?? false) {
-      context.read<LoginCubit>().test();
+      context.read<LoginCubit>().testError();
     }
   }
 
@@ -75,22 +75,19 @@ class _LoginScreenState extends State<LoginScreenBody> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<LoginCubit, LoginState>(
-      listenWhen: (previous, current) => previous.status != current.status,
+      listenWhen: (previous, current) =>
+          previous.screenState != current.screenState,
       listener: (context, state) {
-        if (state.status == ScreenState.success) {
+        if (state.screenState is SuccessState) {
           Snackbar.show(
             context: context,
             message: context.tr.auth_login_success,
             color: context.colors.primary,
           );
-        } else if (state.status == ScreenState.failure) {
-          String message;
-
-          message = state.failure!.localizedMessage(context);
-
+        } else if (state.screenState case FailureState failureState) {
           Snackbar.show(
             context: context,
-            message: message,
+            message: failureState.failure.localizedMessage(context),
             color: context.colors.error,
           );
         }
@@ -150,9 +147,9 @@ class _LoginScreenState extends State<LoginScreenBody> {
                 BlocBuilder<LoginCubit, LoginState>(
                   buildWhen: (prev, curr) =>
                       prev.acceptTerms != curr.acceptTerms ||
-                      prev.status != curr.status,
+                      prev.screenState != curr.screenState,
                   builder: (context, state) {
-                    final isLoading = state.status == ScreenState.loading;
+                    final isLoading = state.screenState == const LoadingState();
 
                     if (isLoading) {
                       return const SizedBox(

@@ -9,13 +9,13 @@ class AppLocalizationsAr extends AppLocalizations {
   AppLocalizationsAr([String locale = 'ar']) : super(locale);
 
   @override
-  String get error_network => 'No internet connection';
+  String get error_network => 'لا يوجد اتصال بالإنترنت';
 
   @override
-  String get error_timeout => 'Request timed out';
+  String get error_timeout => 'انتهت مهلة الطلب';
 
   @override
-  String get error_unknown => 'Something went wrong, please try again';
+  String get error_unknown => 'حدث خطأ ما، يرجى المحاولة مرة أخرى';
 
   @override
   String get splash_title => 'صيدليتي';

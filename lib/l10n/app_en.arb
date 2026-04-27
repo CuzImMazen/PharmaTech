@@ -25,7 +25,9 @@
   ,"onboarding_next": "Next"
   , "onboarding_back": "Back"
   ,"onboarding_start": "Start Now",
+
     "@@section_auth": "================ AUTH SCREEN ================",
+    
   "auth_login_title": "Welcome back",
   "auth_login_subtitle": "Log in to continue working"
   ,"auth_email_label": "Email"

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pharmacy_app/core/enums/enums.dart';
 import 'package:pharmacy_app/core/extensions/localization_ext.dart';
 import 'package:pharmacy_app/core/extensions/text_theme_ext.dart';
 import 'package:pharmacy_app/core/extensions/theme_colors_ext.dart';
+import 'package:pharmacy_app/core/state/screen_state.dart';
 import 'package:pharmacy_app/features/auth/cubit/login_cubit.dart';
 import 'package:pharmacy_app/features/auth/cubit/login_state.dart';
 
@@ -16,9 +16,10 @@ class RememberMeRow extends StatelessWidget {
       children: [
         BlocBuilder<LoginCubit, LoginState>(
           buildWhen: (prev, curr) =>
-              prev.rememberMe != curr.rememberMe || prev.status != curr.status,
+              prev.rememberMe != curr.rememberMe ||
+              prev.screenState != curr.screenState,
           builder: (context, state) {
-            final isLoading = state.status == ScreenState.loading;
+            final isLoading = (state.screenState is LoadingState);
             return Checkbox(
               value: state.rememberMe,
               onChanged: isLoading

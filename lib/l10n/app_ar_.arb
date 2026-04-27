@@ -2,9 +2,9 @@
   "@@locale": "ar",
  "@@section_errors": "================ ERRORS ================",
 
-"error_network": "No internet connection",
-  "error_timeout": "Request timed out",
-  "error_unknown": "Something went wrong, please try again"
+"error_network": "لا يوجد اتصال بالإنترنت",
+  "error_timeout": "انتهت مهلة الطلب",
+  "error_unknown": "حدث خطأ ما، يرجى المحاولة مرة أخرى"
 ,
   "@@section_splash": "================ SPLASH SCREEN ================",
 
@@ -12,6 +12,7 @@
   "splash_subtitle": "نظام إدارة الصيدليات",
 
   "@@section_onboarding": "================ OBOARDING SCREEN ================",
+  
   "onboarding_skip": "تخطي"
   ,"onboarding_page1_title": "إدارة المخزون بسهولة"
   ,"onboarding_page1_desc": "تتبع الأدوية ومستويات المخزون وتواريخ انتهاء الصلاحية في مكان واحد"
@@ -22,7 +23,9 @@
   ,"onboarding_next": "التالي"
   , "onboarding_back": "السابق"
   ,"onboarding_start": "ابدأ الآن",
+
    "@@section_auth": "================ AUTH SCREEN ================",
+
   "auth_login_title": "مرحباً بعودتك",
   "auth_login_subtitle": "سجّل الدخول لمتابعة العمل"
   ,"auth_email_label": "البريد الإلكتروني"
