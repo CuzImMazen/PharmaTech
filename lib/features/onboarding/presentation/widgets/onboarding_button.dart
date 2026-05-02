@@ -45,13 +45,12 @@ class OnboardingButton extends StatelessWidget {
               isLastPage
                   ? context.tr.onboarding_start
                   : context.tr.onboarding_next,
-              style: context.text.bodyLarge?.copyWith(
-                color: Colors.white,
-                fontWeight: FontWeight.w600,
+              style: context.text.labelLarge?.copyWith(
+                color: context.colors.onPrimary,
               ),
             ),
             AppSpaces.hSm,
-            const Icon(Icons.arrow_forward, color: Colors.white),
+            Icon(Icons.arrow_forward, color: context.colors.onPrimary),
           ],
         ),
       ),

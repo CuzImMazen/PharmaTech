@@ -12,8 +12,9 @@ class LoadingState extends ScreenState {
   const LoadingState();
 }
 
-class SuccessState extends ScreenState {
-  const SuccessState();
+class SuccessState<T> extends ScreenState {
+  final T? data;
+  const SuccessState([this.data]);
 }
 
 class FailureState extends ScreenState {

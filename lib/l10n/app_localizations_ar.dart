@@ -21,7 +21,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get splash_title => 'صيدليتي';
 
   @override
-  String get splash_subtitle => 'نظام إدارة الصيدليات';
+  String get splash_subtitle => 'نظام لإدارة الصيدليات';
 
   @override
   String get onboarding_skip => 'تخطي';
@@ -42,7 +42,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get onboarding_page3_title => 'تقارير وتحليلات';
 
   @override
-  String get onboarding_page3_desc => 'حصل على رؤى شاملة حول مبيعاتك ومخزونك';
+  String get onboarding_page3_desc => 'أحصل على رؤى شاملة حول مبيعاتك ومخزونك';
 
   @override
   String get onboarding_next => 'التالي';

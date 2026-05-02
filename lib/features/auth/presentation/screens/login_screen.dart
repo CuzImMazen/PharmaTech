@@ -140,7 +140,7 @@ class _LoginScreenState extends State<LoginScreenBody> {
                   },
                   onFieldSubmitted: (_) => _handleLogin(),
                 ),
-                AppSpaces.vSm,
+                AppSpaces.vMd,
                 RememberMeRow(),
                 AppSpaces.vMd,
 

@@ -26,22 +26,19 @@ class OnboardingTextCard extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              overflow: TextOverflow.ellipsis,
               title,
-              maxLines: 3,
               textAlign: TextAlign.center,
-              style: context.text.headlineMedium?.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
+              style: context.text.headlineLarge,
             ),
+
             AppSpaces.vMd,
+
             Text(
-              overflow: TextOverflow.ellipsis,
-              maxLines: 4,
               description,
               textAlign: TextAlign.center,
               style: context.text.bodyLarge?.copyWith(
-                color: context.colors.secondary,
+                color: context.muted,
+                height: 1.5,
               ),
             ),
           ],

@@ -1,5 +1,4 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pharmacy_app/core/enums/enums.dart';
 import 'package:pharmacy_app/core/error/failure.dart';
 import 'package:pharmacy_app/core/state/screen_state.dart';
 import 'login_state.dart';

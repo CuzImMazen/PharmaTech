@@ -15,19 +15,15 @@ class TopLoginSection extends StatelessWidget {
         const AuthPillLogo(),
         AppSpaces.vXl,
 
-        Text(
-          context.tr.auth_login_title,
-          style: context.text.headlineMedium?.copyWith(
-            fontWeight: FontWeight.w600,
-          ),
-        ),
+        Text(context.tr.auth_login_title, style: context.text.headlineLarge),
 
         AppSpaces.vSm,
 
         Text(
           context.tr.auth_login_subtitle,
           style: context.text.bodyLarge?.copyWith(
-            color: context.colors.secondary,
+            color: context.muted,
+            height: 1.5,
           ),
         ),
       ],

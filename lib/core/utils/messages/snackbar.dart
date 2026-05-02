@@ -77,20 +77,15 @@ class Snackbar {
                             if (title != null)
                               Text(
                                 title,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 14,
+                                style: Theme.of(context).textTheme.labelMedium?.copyWith(
                                   color: isDark ? Colors.white : Colors.black87,
                                 ),
                               ),
                             Text(
                               message,
-                              style: TextStyle(
-                                fontSize: 13,
+                              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                                 color: isDark ? Colors.white70 : Colors.black54,
-                                fontWeight: title == null
-                                    ? FontWeight.w500
-                                    : FontWeight.normal,
+                                fontWeight: title == null ? FontWeight.w500 : null,
                               ),
                             ),
                           ],

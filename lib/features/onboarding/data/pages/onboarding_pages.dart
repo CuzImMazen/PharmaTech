@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
-import 'package:pharmacy_app/core/color/appcolors.dart';
+import 'package:pharmacy_app/core/theme/appcolors.dart';
 import 'package:pharmacy_app/core/extensions/localization_ext.dart';
 import 'package:pharmacy_app/core/extensions/theme_colors_ext.dart';
 import 'package:pharmacy_app/features/onboarding/data/models/onboarding_page_model.dart';

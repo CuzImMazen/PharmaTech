@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:pharmacy_app/core/color/appcolors.dart';
+import 'package:pharmacy_app/core/theme/appcolors.dart';
 import 'package:pharmacy_app/core/consts/spaces/spaces.dart';
 import 'package:pharmacy_app/core/di/service_locator.dart';
 import 'package:pharmacy_app/core/extensions/localization_ext.dart';
@@ -63,9 +63,8 @@ class _SplashScreenState extends State<SplashScreen> {
               //Title (App Name)
               Text(
                 'صيدليتي',
-                style: context.text.headlineLarge!.copyWith(
+                style: context.text.displayLarge!.copyWith(
                   color: context.colors.onPrimary,
-                  fontWeight: FontWeight.bold,
                 ),
               ),
               AppSpaces.vMd,

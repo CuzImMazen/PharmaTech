@@ -2,14 +2,14 @@
   "@@locale": "ar",
  "@@section_errors": "================ ERRORS ================",
 
-"error_network": "لا يوجد اتصال بالإنترنت",
+  "error_network": "لا يوجد اتصال بالإنترنت",
   "error_timeout": "انتهت مهلة الطلب",
   "error_unknown": "حدث خطأ ما، يرجى المحاولة مرة أخرى"
 ,
   "@@section_splash": "================ SPLASH SCREEN ================",
 
   "splash_title": "صيدليتي",
-  "splash_subtitle": "نظام إدارة الصيدليات",
+  "splash_subtitle": "نظام لإدارة الصيدليات",
 
   "@@section_onboarding": "================ OBOARDING SCREEN ================",
   
@@ -19,7 +19,7 @@
   ,"onboarding_page2_title": "نظام مبيعات سريع"
   ,"onboarding_page2_desc": "معالجة المبيعات بسرعة مع دعم المسح الضوئي للباركود"
   ,"onboarding_page3_title": "تقارير وتحليلات"
-  ,"onboarding_page3_desc": "حصل على رؤى شاملة حول مبيعاتك ومخزونك"
+  ,"onboarding_page3_desc": "أحصل على رؤى شاملة حول مبيعاتك ومخزونك"
   ,"onboarding_next": "التالي"
   , "onboarding_back": "السابق"
   ,"onboarding_start": "ابدأ الآن",

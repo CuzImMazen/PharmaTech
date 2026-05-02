@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:pharmacy_app/core/color/appcolors.dart';
+import 'package:pharmacy_app/core/theme/appcolors.dart';
+import 'package:pharmacy_app/core/extensions/theme_colors_ext.dart';
 
 class CustomTextField extends StatefulWidget {
   const CustomTextField({
@@ -11,9 +12,7 @@ class CustomTextField extends StatefulWidget {
     this.isPassword = false,
     required this.validator,
     required this.controller,
-    // Removed isNumber and added keyboardType
     this.keyboardType = TextInputType.text,
-    this.isName = false,
     this.readOnly = false,
     this.onTap,
     this.blockArabic = false,
@@ -29,8 +28,7 @@ class CustomTextField extends StatefulWidget {
   final bool isPassword;
   final String? Function(String?)? validator;
   final TextEditingController controller;
-  final TextInputType keyboardType; // Changed to TextInputType
-  final bool isName;
+  final TextInputType keyboardType;
   final bool readOnly;
   final void Function()? onTap;
   final bool blockArabic;
@@ -40,10 +38,10 @@ class CustomTextField extends StatefulWidget {
   final void Function(String)? onFieldSubmitted;
 
   @override
-  State<CustomTextField> createState() => _AuthTextFieldState();
+  State<CustomTextField> createState() => _CustomTextFieldState();
 }
 
-class _AuthTextFieldState extends State<CustomTextField> {
+class _CustomTextFieldState extends State<CustomTextField> {
   bool _obscureText = true;
 
   @override
@@ -54,98 +52,76 @@ class _AuthTextFieldState extends State<CustomTextField> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          widget.labelText,
-          style: theme.textTheme.titleSmall?.copyWith(
-            fontWeight: FontWeight.w600,
-            color: colorScheme.onSurface,
-          ),
-        ),
-        const SizedBox(height: 10),
-        Directionality(
-          textDirection: TextDirection.ltr,
-          child: TextFormField(
-            onFieldSubmitted: widget.onFieldSubmitted,
-            onEditingComplete: widget.onEditingComplete,
-            controller: widget.controller,
-            focusNode: widget.focusNode,
-            onTap: widget.onTap,
-            readOnly: widget.readOnly,
-            validator: widget.validator,
-            obscureText: widget.isPassword ? _obscureText : false,
-            obscuringCharacter: '•',
-            textInputAction: widget.textInputAction,
-            textAlign: TextAlign.start,
+        Text(widget.labelText, style: theme.textTheme.titleSmall),
+        const SizedBox(height: 8),
+        TextFormField(
+          onFieldSubmitted: widget.onFieldSubmitted,
+          onEditingComplete: widget.onEditingComplete,
+          controller: widget.controller,
+          focusNode: widget.focusNode,
+          onTap: widget.onTap,
+          readOnly: widget.readOnly,
+          validator: widget.validator,
+          obscureText: widget.isPassword ? _obscureText : false,
+          obscuringCharacter: '•',
+          textInputAction: widget.textInputAction,
+          keyboardType: widget.keyboardType,
+          inputFormatters: [
+            if (widget.blockArabic)
+              FilteringTextInputFormatter.deny(RegExp(r'[\u0600-\u06FF]')),
+          ],
 
-            // Now using the passed keyboardType directly
-            keyboardType: widget.keyboardType,
+          style: theme.textTheme.bodyLarge,
 
-            inputFormatters: [
-              if (widget.blockArabic)
-                FilteringTextInputFormatter.deny(RegExp(r'[\u0600-\u06FF]')),
-            ],
+          decoration: InputDecoration(
+            hintText: widget.hintText,
 
-            style: const TextStyle(fontSize: 16),
-            decoration: InputDecoration(
-              hintText: widget.hintText,
-              hintStyle: TextStyle(
-                color: colorScheme.secondary.withValues(alpha: 0.5),
-                fontSize: 16,
+            hintStyle: theme.textTheme.bodyLarge?.copyWith(
+              color: context.muted.withValues(alpha: 0.5),
+            ),
+            filled: true,
+            fillColor: colorScheme.surface,
+            prefixIcon: widget.prefixIcon != null
+                ? Icon(widget.prefixIcon, color: context.muted, size: 22)
+                : null,
+            suffixIcon: widget.isPassword
+                ? IconButton(
+                    icon: Icon(
+                      _obscureText
+                          ? Icons.visibility_off_outlined
+                          : Icons.visibility_outlined,
+                      color: context.muted,
+                      size: 20,
+                    ),
+                    onPressed: () =>
+                        setState(() => _obscureText = !_obscureText),
+                  )
+                : null,
+            contentPadding: const EdgeInsets.symmetric(
+              horizontal: 16,
+              vertical: 18,
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(16),
+              borderSide: BorderSide(
+                color: context.muted.withValues(alpha: 0.2),
+                width: 1.5,
               ),
-              filled: true,
-              fillColor: colorScheme.surface,
-
-              prefixIcon: widget.prefixIcon != null
-                  ? Icon(
-                      widget.prefixIcon,
-                      color: colorScheme.secondary,
-                      size: 22,
-                    )
-                  : null,
-              suffixIcon: widget.isPassword
-                  ? IconButton(
-                      icon: Icon(
-                        _obscureText
-                            ? Icons.visibility_off_outlined
-                            : Icons.visibility_outlined,
-                        color: colorScheme.secondary,
-                        size: 20,
-                      ),
-                      onPressed: () =>
-                          setState(() => _obscureText = !_obscureText),
-                    )
-                  : null,
-
-              contentPadding: const EdgeInsets.symmetric(
-                horizontal: 16,
-                vertical: 20,
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(16),
+              borderSide: const BorderSide(
+                color: AppColors.primaryVariant,
+                width: 1.8,
               ),
-
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(16),
-                borderSide: BorderSide(
-                  color: colorScheme.secondary.withValues(alpha: 0.2),
-                  width: 1.5,
-                ),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(16),
-                borderSide: const BorderSide(
-                  color: AppColors.primaryVariant,
-                  width: 1.8,
-                ),
-              ),
-              errorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(16),
-                borderSide: const BorderSide(color: Colors.redAccent, width: 1),
-              ),
-              focusedErrorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(16),
-                borderSide: const BorderSide(
-                  color: Colors.redAccent,
-                  width: 1.5,
-                ),
-              ),
+            ),
+            errorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(16),
+              borderSide: const BorderSide(color: Colors.redAccent, width: 1),
+            ),
+            focusedErrorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(16),
+              borderSide: const BorderSide(color: Colors.redAccent, width: 1.5),
             ),
           ),
         ),

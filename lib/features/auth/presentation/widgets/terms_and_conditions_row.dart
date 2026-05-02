@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pharmacy_app/core/extensions/localization_ext.dart';
+import 'package:pharmacy_app/core/extensions/text_theme_ext.dart';
+import 'package:pharmacy_app/core/extensions/theme_colors_ext.dart';
 import 'package:pharmacy_app/core/state/screen_state.dart';
 import 'package:pharmacy_app/features/auth/cubit/login_cubit.dart';
 import 'package:pharmacy_app/features/auth/cubit/login_state.dart';
@@ -10,8 +12,6 @@ class TermsAndConditionsRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final primaryColor = Theme.of(context).colorScheme.primary;
-
     return Row(
       children: [
         BlocBuilder<LoginCubit, LoginState>(
@@ -20,11 +20,12 @@ class TermsAndConditionsRow extends StatelessWidget {
               prev.screenState != curr.screenState,
           builder: (context, state) {
             final isLoading = (state.screenState is LoadingState);
+
             return Checkbox(
               value: state.acceptTerms,
               onChanged: isLoading
                   ? null
-                  : (value) {
+                  : (_) {
                       context.read<LoginCubit>().toggleAcceptTerms();
                     },
             );
@@ -34,22 +35,21 @@ class TermsAndConditionsRow extends StatelessWidget {
         Expanded(
           child: RichText(
             text: TextSpan(
-              style: Theme.of(context).textTheme.bodyMedium,
+              style: context.text.bodyMedium?.copyWith(
+                color: context.colors.onSurface, // removed opacity
+              ),
               children: [
-                //
                 TextSpan(text: '${context.tr.agree_to} '),
 
                 WidgetSpan(
                   alignment: PlaceholderAlignment.middle,
-                  child: GestureDetector(
-                    onTap: () {
-                      // TODO: Navigate to terms page
-                    },
+                  child: InkWell(
+                    onTap: () {},
                     child: Text(
                       context.tr.terms_and_conditions,
-                      style: TextStyle(
-                        color: primaryColor,
-                        fontWeight: FontWeight.bold,
+                      style: context.text.bodyMedium?.copyWith(
+                        color: context.colors.primary,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
                   ),
@@ -59,15 +59,13 @@ class TermsAndConditionsRow extends StatelessWidget {
 
                 WidgetSpan(
                   alignment: PlaceholderAlignment.middle,
-                  child: GestureDetector(
-                    onTap: () {
-                      // TODO: Navigate to privacy page
-                    },
+                  child: InkWell(
+                    onTap: () {},
                     child: Text(
                       context.tr.privacy_policy,
-                      style: TextStyle(
-                        color: primaryColor,
-                        fontWeight: FontWeight.bold,
+                      style: context.text.bodyMedium?.copyWith(
+                        color: context.colors.primary,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
                   ),

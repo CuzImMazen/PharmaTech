@@ -92,10 +92,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               onPressed: _finish,
               child: Text(
                 context.tr.onboarding_skip,
-                style: context.text.bodyLarge?.copyWith(
-                  color: context.colors.secondary,
-                  fontWeight: FontWeight.w600,
-                ),
+                style: context.text.labelMedium?.copyWith(color: context.muted),
               ),
             ),
         ],
@@ -135,23 +132,23 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   Row(
                     children: [
                       if (!isFirst)
-                        SizedBox(
-                          width: 110,
-                          child: TextButton.icon(
-                            onPressed: _back,
-                            icon: const Icon(
-                              Icons.arrow_back,
-                              size: 18,
-                              color: Colors.grey,
-                            ),
-                            label: Text(
-                              context.tr.onboarding_back,
-                              style: context.text.bodyLarge?.copyWith(
-                                color: Colors.grey,
+                          SizedBox(
+                            width: 110,
+                            child: TextButton.icon(
+                              onPressed: _back,
+                              icon: Icon(
+                                Icons.arrow_back,
+                                size: 18,
+                                color: context.muted,
+                              ),
+                              label: Text(
+                                context.tr.onboarding_back,
+                                style: context.text.bodyLarge?.copyWith(
+                                  color: context.muted,
+                                ),
                               ),
                             ),
                           ),
-                        ),
                       AppSpaces.hMd,
                       Expanded(
                         child: OnboardingButton(
