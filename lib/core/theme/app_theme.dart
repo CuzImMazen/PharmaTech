@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:pharmacy_app/core/theme/appcolors.dart';
 import 'package:pharmacy_app/core/theme/app_text_theme.dart';
 
@@ -18,6 +19,9 @@ class AppTheme {
     ),
 
     scaffoldBackgroundColor: AppColors.backgroundLight,
+    appBarTheme: const AppBarTheme(
+      systemOverlayStyle: SystemUiOverlayStyle.dark,
+    ),
   );
 
   // 🌙 DARK THEME
@@ -35,5 +39,8 @@ class AppTheme {
     ),
 
     scaffoldBackgroundColor: AppColors.backgroundDark,
+    appBarTheme: const AppBarTheme(
+      systemOverlayStyle: SystemUiOverlayStyle.light,
+    ),
   );
 }

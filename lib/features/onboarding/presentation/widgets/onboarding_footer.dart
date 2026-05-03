@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/core/extensions/localization_ext.dart';
-import 'package:pharmacy_app/core/extensions/padding_ext.dart';
+import 'package:pharmacy_app/core/extensions/app_design_system_ext.dart';
 import 'package:pharmacy_app/core/extensions/text_theme_ext.dart';
 import 'package:pharmacy_app/core/extensions/theme_colors_ext.dart';
 import 'package:pharmacy_app/features/onboarding/presentation/widgets/onboarding_button.dart';
@@ -33,6 +33,9 @@ class OnboardingFooter extends StatelessWidget {
                 : SizedBox(
                     width: 110,
                     child: TextButton.icon(
+                      style: TextButton.styleFrom(
+                        splashFactory: NoSplash.splashFactory,
+                      ),
                       onPressed: onBack,
                       icon: Icon(
                         Icons.arrow_back,

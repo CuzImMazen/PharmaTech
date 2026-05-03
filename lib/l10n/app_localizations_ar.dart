@@ -45,7 +45,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get onboarding_page3_desc => 'بيانات مرضاتك محمية بأعلى مستويات التشفير، مع إمكانية تنظيم جداول الموظفين والمواعيد بمكان واحد وبكل بساطة.';
 
   @override
-  String get onboarding_next => 'Next';
+  String get onboarding_next => 'التالي';
 
   @override
   String get onboarding_back => 'السابق';

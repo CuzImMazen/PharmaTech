@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:pharmacy_app/core/extensions/space_ext.dart';
+import 'package:pharmacy_app/core/extensions/app_design_system_ext.dart';
 import 'package:pharmacy_app/core/theme/appcolors.dart';
 import 'package:pharmacy_app/core/di/service_locator.dart';
 import 'package:pharmacy_app/core/extensions/localization_ext.dart';

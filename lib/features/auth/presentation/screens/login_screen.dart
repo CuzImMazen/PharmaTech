@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
-import 'package:pharmacy_app/core/consts/sizes/sizes.dart';
+
 import 'package:pharmacy_app/core/error/failure_message_localization_ext.dart';
 import 'package:pharmacy_app/core/extensions/input_validator_error_ext.dart';
 import 'package:pharmacy_app/core/extensions/localization_ext.dart';
-import 'package:pharmacy_app/core/extensions/padding_ext.dart';
-import 'package:pharmacy_app/core/extensions/space_ext.dart';
+import 'package:pharmacy_app/core/extensions/app_design_system_ext.dart';
 import 'package:pharmacy_app/core/extensions/theme_colors_ext.dart';
 import 'package:pharmacy_app/core/state/screen_state.dart';
 import 'package:pharmacy_app/core/utils/messages/snackbar.dart';
@@ -155,8 +154,8 @@ class _LoginScreenState extends State<LoginScreenBody> {
                           state.screenState == const LoadingState();
 
                       if (isLoading) {
-                        return const SizedBox(
-                          height: AppButtonSizes.lg,
+                        return SizedBox(
+                          height: context.btnLg,
                           child: Center(child: CircularProgressIndicator()),
                         );
                       }
