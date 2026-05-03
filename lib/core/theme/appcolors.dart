@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
+  // static const primary = Color(0xFF2979FF);
+  // static const primaryVariant = Color(0xFF1E90FF);
   static const primary = Color(0xFF059669);
   static const primaryVariant = Color(0xFF27C08D);
 
@@ -17,6 +19,12 @@ class AppColors {
   static const mutedDark = Color(0xFFA0AEC0);
 
   // Gradients
+
+  // static const splashGradient = [
+  //   Color(0xFF2563EB), // Royal Blue (Darker base)
+  //   Color(0xFF3B82F6), // Bright Blue
+  //   Color(0xFF60A5FA), // Soft Sky Blue
+  // ];
   static const splashGradient = [
     Color(0xFF059669),
     Color(0xFF10B981),
@@ -26,4 +34,8 @@ class AppColors {
   // Accent colors
   static const cozyBlue = Color(0xFF60A5FA);
   static const cozyPurple = Color(0xFF8B5CF6);
+  static const cozyPink = Color(0xFFF472B6);
+  static const cozyCyan = Color(0xFF22D3EE);
+  static const cozyAmber = Color(0xFFFBBF24);
+  static const cozyEmerald = Color(0xFF34D399);
 }

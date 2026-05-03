@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:pharmacy_app/core/extensions/space_ext.dart';
 import 'package:pharmacy_app/core/theme/appcolors.dart';
-import 'package:pharmacy_app/core/consts/spaces/spaces.dart';
 import 'package:pharmacy_app/core/di/service_locator.dart';
 import 'package:pharmacy_app/core/extensions/localization_ext.dart';
 import 'package:pharmacy_app/core/extensions/text_theme_ext.dart';
@@ -57,9 +57,9 @@ class _SplashScreenState extends State<SplashScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               BouncingPill(),
-              AppSpaces.vMd,
+              context.vMd,
               BeamPulse(),
-              AppSpaces.vMd,
+              context.vMd,
               //Title (App Name)
               Text(
                 'صيدليتي',
@@ -67,7 +67,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   color: context.colors.onPrimary,
                 ),
               ),
-              AppSpaces.vMd,
+              context.vMd,
               //Subtitle
               Text(
                 context.tr.splash_subtitle,
@@ -75,7 +75,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   color: context.colors.onPrimary,
                 ),
               ),
-              AppSpaces.vXl,
+              context.vXl,
               JumpingDots(),
             ],
           ),

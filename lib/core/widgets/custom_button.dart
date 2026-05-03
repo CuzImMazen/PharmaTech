@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/core/consts/sizes/sizes.dart';
+import 'package:pharmacy_app/core/extensions/radius_ext.dart';
 import 'package:pharmacy_app/core/extensions/theme_colors_ext.dart';
 
 class CustomButton extends StatelessWidget {
@@ -16,15 +17,13 @@ class CustomButton extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
 
-      height: 65,
+      height: AppButtonSizes.lg,
       child: ElevatedButton(
         onPressed: onTap,
         style:
             ElevatedButton.styleFrom(
               elevation: isDisabled ? 0 : 4,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(AppBorderRadius.lg),
-              ),
+              shape: RoundedRectangleBorder(borderRadius: context.rXl),
               padding: EdgeInsets.zero,
             ).copyWith(
               backgroundColor: WidgetStateProperty.resolveWith((states) {
@@ -43,7 +42,7 @@ class CustomButton extends StatelessWidget {
             ),
         child: Ink(
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(AppBorderRadius.lg),
+            borderRadius: context.rXl,
             gradient: isDisabled
                 ? null
                 : LinearGradient(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pharmacy_app/core/consts/spaces/spaces.dart';
 import 'package:pharmacy_app/core/extensions/localization_ext.dart';
+import 'package:pharmacy_app/core/extensions/space_ext.dart';
 import 'package:pharmacy_app/core/extensions/text_theme_ext.dart';
 import 'package:pharmacy_app/core/extensions/theme_colors_ext.dart';
 import 'package:pharmacy_app/core/state/screen_state.dart';
@@ -35,7 +35,7 @@ class RememberMeRow extends StatelessWidget {
               visualDensity: VisualDensity.compact,
             ),
 
-            AppSpaces.hSm,
+            context.hSm,
 
             Text(
               context.tr.auth_remember_me,

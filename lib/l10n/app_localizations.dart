@@ -134,37 +134,37 @@ abstract class AppLocalizations {
   /// No description provided for @onboarding_page1_title.
   ///
   /// In en, this message translates to:
-  /// **'Manage inventory with ease'**
+  /// **'Your Smart Pharmacy Partner'**
   String get onboarding_page1_title;
 
   /// No description provided for @onboarding_page1_desc.
   ///
   /// In en, this message translates to:
-  /// **'Track medications, stock levels, and expiration dates all in one place'**
+  /// **'Focus more on your patients while we handle the paperwork. Automate prescription logging and simplify your daily routine.'**
   String get onboarding_page1_desc;
 
   /// No description provided for @onboarding_page2_title.
   ///
   /// In en, this message translates to:
-  /// **'Fast sales system'**
+  /// **'Real-Time Inventory Insights'**
   String get onboarding_page2_title;
 
   /// No description provided for @onboarding_page2_desc.
   ///
   /// In en, this message translates to:
-  /// **'Process sales quickly with barcode scanning support'**
+  /// **'Never run out of essentials. Monitor stock levels and track sales performance with live analytics and automated alerts.'**
   String get onboarding_page2_desc;
 
   /// No description provided for @onboarding_page3_title.
   ///
   /// In en, this message translates to:
-  /// **'Reports and analytics'**
+  /// **'Secure & Organized Workflow'**
   String get onboarding_page3_title;
 
   /// No description provided for @onboarding_page3_desc.
   ///
   /// In en, this message translates to:
-  /// **'Get comprehensive insights into your sales and inventory'**
+  /// **'Keep patient data protected with high-level encryption while managing your team’s schedule and appointments in one place.'**
   String get onboarding_page3_desc;
 
   /// No description provided for @onboarding_next.

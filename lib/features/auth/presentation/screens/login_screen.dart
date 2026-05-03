@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:pharmacy_app/core/consts/sizes/sizes.dart';
-import 'package:pharmacy_app/core/consts/spaces/spaces.dart';
 import 'package:pharmacy_app/core/error/failure_message_localization_ext.dart';
 import 'package:pharmacy_app/core/extensions/input_validator_error_ext.dart';
 import 'package:pharmacy_app/core/extensions/localization_ext.dart';
+import 'package:pharmacy_app/core/extensions/padding_ext.dart';
+import 'package:pharmacy_app/core/extensions/space_ext.dart';
 import 'package:pharmacy_app/core/extensions/theme_colors_ext.dart';
 import 'package:pharmacy_app/core/state/screen_state.dart';
 import 'package:pharmacy_app/core/utils/messages/snackbar.dart';
@@ -96,78 +97,81 @@ class _LoginScreenState extends State<LoginScreenBody> {
         child: Form(
           autovalidateMode: AutovalidateMode.disabled,
           key: formKey,
-          child: SingleChildScrollView(
-            physics: const BouncingScrollPhysics(),
-            padding: const EdgeInsets.symmetric(horizontal: AppPadding.common),
-            child: Column(
-              children: [
-                AppSpaces.vHuge,
-                const TopLoginSection(),
-                AppSpaces.vXxl,
-                // Email Field
-                CustomTextField(
-                  keyboardType: TextInputType.emailAddress,
-                  textInputAction: TextInputAction.next,
-                  blockArabic: true,
-                  labelText: context.tr.auth_email_label,
-                  hintText: "example@example.com",
-                  prefixIcon: LucideIcons.mail,
-                  controller: emailController,
-                  validator: (value) {
-                    return ValidatorsManager.emailValidator(
-                      value,
-                    )?.localizedMessage(context);
-                  },
-                  onEditingComplete: () {
-                    _passwordFocusNode.requestFocus();
-                  },
-                ),
-                AppSpaces.vLg,
-                // Password Field
-                CustomTextField(
-                  textInputAction: TextInputAction.done,
-                  blockArabic: true,
-                  labelText: context.tr.auth_password_label,
-                  hintText: "••••••••",
-                  isPassword: true,
-                  prefixIcon: LucideIcons.lock,
-                  focusNode: _passwordFocusNode,
-                  controller: passwordController,
-                  validator: (value) {
-                    return ValidatorsManager.passwordValidator(
-                      value,
-                    )?.localizedMessage(context);
-                  },
-                  onFieldSubmitted: (_) => _handleLogin(),
-                ),
-                AppSpaces.vMd,
-                RememberMeRow(),
-                AppSpaces.vMd,
+          child: Padding(
+            padding: context.pHorizontal,
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  context.vXxl,
+                  const TopLoginSection(),
+                  context.vXxl,
+                  // Email Field
+                  CustomTextField(
+                    keyboardType: TextInputType.emailAddress,
+                    textInputAction: TextInputAction.next,
+                    blockArabic: true,
+                    labelText: context.tr.auth_email_label,
+                    hintText: "example@example.com",
+                    prefixIcon: LucideIcons.mail,
+                    controller: emailController,
+                    validator: (value) {
+                      return ValidatorsManager.emailValidator(
+                        value,
+                      )?.localizedMessage(context);
+                    },
+                    onEditingComplete: () {
+                      _passwordFocusNode.requestFocus();
+                    },
+                  ),
+                  context.vLg,
+                  // Password Field
+                  CustomTextField(
+                    textInputAction: TextInputAction.done,
+                    blockArabic: true,
+                    labelText: context.tr.auth_password_label,
+                    hintText: "••••••••",
+                    isPassword: true,
+                    prefixIcon: LucideIcons.lock,
+                    focusNode: _passwordFocusNode,
+                    controller: passwordController,
+                    validator: (value) {
+                      return ValidatorsManager.passwordValidator(
+                        value,
+                      )?.localizedMessage(context);
+                    },
+                    onFieldSubmitted: (_) => _handleLogin(),
+                  ),
+                  context.vMd,
+                  RememberMeRow(),
+                  context.vMd,
 
-                BlocBuilder<LoginCubit, LoginState>(
-                  buildWhen: (prev, curr) =>
-                      prev.acceptTerms != curr.acceptTerms ||
-                      prev.screenState != curr.screenState,
-                  builder: (context, state) {
-                    final isLoading = state.screenState == const LoadingState();
+                  BlocBuilder<LoginCubit, LoginState>(
+                    buildWhen: (prev, curr) =>
+                        prev.acceptTerms != curr.acceptTerms ||
+                        prev.screenState != curr.screenState,
+                    builder: (context, state) {
+                      final isLoading =
+                          state.screenState == const LoadingState();
 
-                    if (isLoading) {
-                      return const SizedBox(
-                        height: 65,
-                        child: Center(child: CircularProgressIndicator()),
+                      if (isLoading) {
+                        return const SizedBox(
+                          height: AppButtonSizes.lg,
+                          child: Center(child: CircularProgressIndicator()),
+                        );
+                      }
+
+                      return CustomButton(
+                        onTap: state.acceptTerms ? _handleLogin : null,
+                        text: context.tr.auth_login_button,
                       );
-                    }
-
-                    return CustomButton(
-                      onTap: state.acceptTerms ? _handleLogin : null,
-                      text: context.tr.auth_login_button,
-                    );
-                  },
-                ),
-                AppSpaces.vMd,
-                TermsAndConditionsRow(),
-                AppSpaces.vMd,
-              ],
+                    },
+                  ),
+                  context.vMd,
+                  TermsAndConditionsRow(),
+                  context.vMd,
+                ],
+              ),
             ),
           ),
         ),

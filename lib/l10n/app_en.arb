@@ -16,12 +16,12 @@
    "@@section_onboarding": "================ OBOARDING SCREEN ================",
 
   "onboarding_skip": "Skip"
-  ,"onboarding_page1_title": "Manage inventory with ease"
-  ,"onboarding_page1_desc": "Track medications, stock levels, and expiration dates all in one place"
-  ,"onboarding_page2_title": "Fast sales system"
-  ,"onboarding_page2_desc": "Process sales quickly with barcode scanning support"
-  ,"onboarding_page3_title": "Reports and analytics"
-  ,"onboarding_page3_desc": "Get comprehensive insights into your sales and inventory"
+  ,"onboarding_page1_title": "Your Smart Pharmacy Partner",
+  "onboarding_page1_desc": "Focus more on your patients while we handle the paperwork. Automate prescription logging and simplify your daily routine.",
+  "onboarding_page2_title": "Real-Time Inventory Insights",
+  "onboarding_page2_desc": "Never run out of essentials. Monitor stock levels and track sales performance with live analytics and automated alerts.",
+  "onboarding_page3_title": "Secure & Organized Workflow",
+  "onboarding_page3_desc": "Keep patient data protected with high-level encryption while managing your team’s schedule and appointments in one place."
   ,"onboarding_next": "Next"
   , "onboarding_back": "Back"
   ,"onboarding_start": "Start Now",

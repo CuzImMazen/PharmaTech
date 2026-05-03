@@ -1,19 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:pharmacy_app/core/consts/sizes/screen_size.dart';
-import 'package:pharmacy_app/core/consts/spaces/spaces.dart';
+import 'package:introduction_screen/introduction_screen.dart';
+import 'package:pharmacy_app/core/consts/strings/assets.dart';
 import 'package:pharmacy_app/core/di/service_locator.dart';
 import 'package:pharmacy_app/core/extensions/localization_ext.dart';
 import 'package:pharmacy_app/core/extensions/text_theme_ext.dart';
 import 'package:pharmacy_app/core/extensions/theme_colors_ext.dart';
 import 'package:pharmacy_app/core/router/app_routes.dart';
-import 'package:pharmacy_app/core/storage/prefs/shared_prefs_service.dart';
 import 'package:pharmacy_app/core/storage/prefs/shared_prefs_keys.dart';
-import 'package:pharmacy_app/features/onboarding/data/models/onboarding_page_model.dart';
-import 'package:pharmacy_app/features/onboarding/data/pages/onboarding_pages.dart';
-import 'package:pharmacy_app/features/onboarding/presentation/widgets/onboarding_button.dart';
-import 'package:pharmacy_app/features/onboarding/presentation/widgets/onboarding_page.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:pharmacy_app/core/storage/prefs/shared_prefs_service.dart';
+import 'package:pharmacy_app/features/onboarding/presentation/widgets/onboarding_footer.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -23,145 +19,134 @@ class OnboardingScreen extends StatefulWidget {
 }
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
-  late final PageController _controller;
-
-  int _index = 0;
-
-  List<OnboardingPageModel>? _pages;
+  final _introKey = GlobalKey<IntroductionScreenState>();
+  int _currentIndex = 0;
+  bool _isNavigating = false;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    _pages ??= getOnboardingPages(context);
+    // Logic: Precache images to prevent flickering on first swipe
+    precacheImage(AssetImage(AppAssets.onboarding1), context);
+    precacheImage(AssetImage(AppAssets.onboarding2), context);
+    precacheImage(AssetImage(AppAssets.onboarding3), context);
   }
 
-  @override
-  void initState() {
-    super.initState();
-    _controller = PageController();
+  // ---------- DECORATION ----------
+  PageDecoration _pageDecoration(BuildContext context) {
+    return PageDecoration(
+      titleTextStyle: context.text.headlineMedium!,
+      bodyTextStyle: context.text.bodyLarge!.copyWith(color: context.muted),
+    );
   }
 
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
+  // ---------- PAGES ----------
+  List<PageViewModel> _pages(BuildContext context) => [
+    _page(
+      context,
+      title: context.tr.onboarding_page1_title,
+      body: context.tr.onboarding_page1_desc,
+      image: AppAssets.onboarding1,
+    ),
+    _page(
+      context,
+      title: context.tr.onboarding_page2_title,
+      body: context.tr.onboarding_page2_desc,
+      image: AppAssets.onboarding2,
+    ),
+    _page(
+      context,
+      title: context.tr.onboarding_page3_title,
+      body: context.tr.onboarding_page3_desc,
+      image: AppAssets.onboarding3,
+    ),
+  ];
+
+  PageViewModel _page(
+    BuildContext context, {
+    required String title,
+    required String body,
+    required String image,
+  }) {
+    return PageViewModel(
+      decoration: _pageDecoration(context),
+      title: title,
+      body: body,
+      image: Image.asset(image),
+    );
   }
 
-  void _next() {
-    if (_index < _pages!.length - 1) {
-      _controller.nextPage(
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeOutCubic,
-      );
+  // ---------- NAVIGATION ----------
+  void _handleNext(bool isLast) {
+    if (isLast) {
+      _markOnboardingDoneAndGo();
     } else {
-      _finish();
+      _introKey.currentState?.next();
     }
   }
 
-  void _back() {
-    if (_index > 0) {
-      _controller.previousPage(
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeOutCubic,
-      );
-    }
+  void _handleBack() {
+    _introKey.currentState?.previous();
   }
 
-  void _finish() async {
-    await sl<SharedPrefsService>().setBool(PrefsKeys.isOnboardingSeen, true);
+  Future<void> _markOnboardingDoneAndGo() async {
+    // Logic: Guard against multiple clicks
+    if (_isNavigating) return;
+    setState(() => _isNavigating = true);
+
+    try {
+      await sl<SharedPrefsService>().setBool(PrefsKeys.isOnboardingSeen, true);
+    } catch (e) {
+      debugPrint('Failed to save onboarding state: $e');
+    }
+
     if (!mounted) return;
     context.go(AppRoutes.login);
   }
 
   @override
   Widget build(BuildContext context) {
-    final size = ScreenSize(context);
-    final isTablet = size.width > 600;
-
-    final pages = _pages!;
-    final isLast = _index == pages.length - 1;
-    final isFirst = _index == 0;
+    final pages = _pages(context);
+    final isFirst = _currentIndex == 0;
+    final isLast = _currentIndex == pages.length - 1;
 
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
-        elevation: 0,
         actions: [
           if (!isLast)
             TextButton(
-              onPressed: _finish,
+              onPressed: _markOnboardingDoneAndGo,
               child: Text(
                 context.tr.onboarding_skip,
-                style: context.text.labelMedium?.copyWith(color: context.muted),
+                style: context.text.labelLarge!.copyWith(
+                  color: context.muted,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
             ),
         ],
       ),
       body: SafeArea(
-        child: Center(
-          child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 600),
-            child: Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: isTablet ? 32 : size.wp(0.08),
-              ),
-              child: Column(
-                children: [
-                  Expanded(
-                    child: PageView.builder(
-                      controller: _controller,
-                      itemCount: pages.length,
-                      onPageChanged: (i) => setState(() => _index = i),
-                      itemBuilder: (context, i) =>
-                          OnboardingPage(model: pages[i]),
-                    ),
-                  ),
-                  AppSpaces.vMd,
-                  SmoothPageIndicator(
-                    controller: _controller,
-                    count: pages.length,
-                    effect: ExpandingDotsEffect(
-                      dotHeight: 8,
-                      dotWidth: 8,
-                      expansionFactor: 3,
-                      activeDotColor: context.colors.primary,
-                      dotColor: context.colors.primary.withValues(alpha: 0.2),
-                    ),
-                  ),
-                  AppSpaces.vXl,
-                  Row(
-                    children: [
-                      if (!isFirst)
-                          SizedBox(
-                            width: 110,
-                            child: TextButton.icon(
-                              onPressed: _back,
-                              icon: Icon(
-                                Icons.arrow_back,
-                                size: 18,
-                                color: context.muted,
-                              ),
-                              label: Text(
-                                context.tr.onboarding_back,
-                                style: context.text.bodyLarge?.copyWith(
-                                  color: context.muted,
-                                ),
-                              ),
-                            ),
-                          ),
-                      AppSpaces.hMd,
-                      Expanded(
-                        child: OnboardingButton(
-                          isLastPage: isLast,
-                          onTap: _next,
-                        ),
-                      ),
-                    ],
-                  ),
-                  AppSpaces.vMd,
-                  // SizedBox(height: MediaQuery.of(context).padding.bottom + 24),
-                ],
-              ),
+        child: IntroductionScreen(
+          key: _introKey,
+          pages: pages,
+          onChange: (index) => setState(() => _currentIndex = index),
+          showDoneButton: false,
+          showNextButton: false,
+          showBackButton: false,
+          globalFooter: OnboardingFooter(
+            isFirst: isFirst,
+            isLast: isLast,
+            onNext: () => _handleNext(isLast),
+            onBack: _handleBack,
+          ),
+          dotsDecorator: DotsDecorator(
+            activeColor: context.primary,
+            size: const Size(10, 10),
+            activeSize: const Size(22, 10),
+            activeShape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(25),
             ),
           ),
         ),
