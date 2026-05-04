@@ -10,7 +10,10 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await setupLocator();
 
-  runApp(PharmacyApp());
+  runApp(
+    //PharmacyApp()
+    DevicePreview(enabled: true, builder: (context) => const PharmacyApp()),
+  );
 }
 
 class PharmacyApp extends StatelessWidget {

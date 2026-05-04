@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/core/extensions/localization_ext.dart';
-import 'package:pharmacy_app/core/extensions/app_design_system_ext.dart';
+
 import 'package:pharmacy_app/core/extensions/text_theme_ext.dart';
 import 'package:pharmacy_app/core/extensions/theme_colors_ext.dart';
 import 'package:pharmacy_app/features/onboarding/presentation/widgets/onboarding_button.dart';
@@ -21,47 +21,44 @@ class OnboardingFooter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: context.pScreen,
-      child: Row(
-        children: [
-          AnimatedSize(
-            duration: const Duration(milliseconds: 300),
-            curve: Curves.easeInOut,
-            child: isFirst
-                ? const SizedBox.shrink()
-                : SizedBox(
-                    width: 110,
-                    child: TextButton.icon(
-                      style: TextButton.styleFrom(
-                        splashFactory: NoSplash.splashFactory,
-                      ),
-                      onPressed: onBack,
-                      icon: Icon(
-                        Icons.arrow_back,
-                        size: 18,
+    return Row(
+      children: [
+        AnimatedSize(
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeInOut,
+          child: isFirst
+              ? const SizedBox.shrink()
+              : SizedBox(
+                  width: 110,
+                  child: TextButton.icon(
+                    style: TextButton.styleFrom(
+                      splashFactory: NoSplash.splashFactory,
+                    ),
+                    onPressed: onBack,
+                    icon: Icon(
+                      Icons.arrow_back,
+                      size: 18,
+                      color: context.muted,
+                    ),
+                    label: Text(
+                      context.tr.onboarding_back,
+                      style: context.text.bodyLarge?.copyWith(
                         color: context.muted,
-                      ),
-                      label: Text(
-                        context.tr.onboarding_back,
-                        style: context.text.bodyLarge?.copyWith(
-                          color: context.muted,
-                        ),
                       ),
                     ),
                   ),
-          ),
+                ),
+        ),
 
-          AnimatedContainer(
-            duration: const Duration(milliseconds: 200),
-            width: isFirst ? 0 : 12,
-          ),
+        AnimatedContainer(
+          duration: const Duration(milliseconds: 200),
+          width: isFirst ? 0 : 12,
+        ),
 
-          Expanded(
-            child: OnboardingButton(isLastPage: isLast, onTap: onNext),
-          ),
-        ],
-      ),
+        Expanded(
+          child: OnboardingButton(isLastPage: isLast, onTap: onNext),
+        ),
+      ],
     );
   }
 }

@@ -20,6 +20,9 @@ extension AppDesignSystem on BuildContext {
   /// Returns width based on percentage of screen (0.1 = 10%)
   double wp(double percent) => screenWidth * percent;
 
+  // check device mode
+  bool get isLandScape => screenWidth > screenHeight;
+
   // 2. RAW SCALED VALUES (Doubles)
   // ------------------------------------------------------------------------
   double get sXs => _s(4);
