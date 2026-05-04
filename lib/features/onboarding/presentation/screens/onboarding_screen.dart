@@ -25,9 +25,22 @@ class OnboardingScreen extends StatefulWidget {
 class _OnboardingScreenState extends State<OnboardingScreen> {
   late final PageController _controller;
   final ValueNotifier<int> _currentPageIndex = ValueNotifier(0);
+  late List<OnBoardingPage> _pages;
 
-  List<OnBoardingPage> _buildPages(BuildContext context) {
-    return [
+  @override
+  void initState() {
+    _controller = PageController();
+    _pages = const [];
+    super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    precacheImage(AssetImage(AppAssets.onboarding1), context);
+    precacheImage(AssetImage(AppAssets.onboarding2), context);
+    precacheImage(AssetImage(AppAssets.onboarding3), context);
+    _pages = [
       OnBoardingPage(
         image: AppAssets.onboarding1,
         title: context.tr.onboarding_page1_title,
@@ -47,20 +60,15 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   }
 
   @override
-  void initState() {
-    _controller = PageController();
-    super.initState();
-  }
-
-  @override
   void dispose() {
     _controller.dispose();
     _currentPageIndex.dispose();
     super.dispose();
   }
 
-  void _nextPage(int lastPageIndex) {
-    if (_currentPageIndex.value >= lastPageIndex) {
+  void _nextPage() {
+    final int lastPageIndex = _pages.length - 1;
+    if (_currentPageIndex.value == lastPageIndex) {
       _finish();
       return;
     }
@@ -77,9 +85,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     );
   }
 
-  void _finish() {
+  void _finish() async {
     try {
-      sl<SharedPrefsService>().setBool(PrefsKeys.isOnboardingSeen, true);
+      await sl<SharedPrefsService>().setBool(PrefsKeys.isOnboardingSeen, true);
     } catch (e) {
       debugPrint('Onboarding Storage Error (Non-fatal): $e');
     }
@@ -90,8 +98,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final List<OnBoardingPage> pages = _buildPages(context);
-    final int totalPages = pages.length;
+    final int totalPages = _pages.length;
     final int lastPageIndex = totalPages - 1;
 
     return Scaffold(
@@ -133,7 +140,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 child: PageView(
                   controller: _controller,
                   onPageChanged: (index) => _currentPageIndex.value = index,
-                  children: pages,
+                  children: _pages,
                 ),
               ),
               context.vMd,
@@ -156,7 +163,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   return OnboardingFooter(
                     isFirst: pageIndex == 0,
                     isLast: pageIndex == lastPageIndex,
-                    onNext: () => _nextPage(lastPageIndex),
+                    onNext: _nextPage,
                     onBack: _previousPage,
                   );
                 },

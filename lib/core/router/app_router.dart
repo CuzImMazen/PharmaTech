@@ -6,7 +6,7 @@ import 'package:pharmacy_app/features/splash/presentation/screens/splash_screen.
 
 class AppRouter {
   static final router = GoRouter(
-    initialLocation: AppRoutes.splash,
+    initialLocation: AppRoutes.onboarding,
     routes: [
       GoRoute(
         path: AppRoutes.splash,
