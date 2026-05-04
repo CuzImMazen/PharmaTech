@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
-import 'package:pharmacy_app/core/consts/sizes/sizes.dart';
+
+import 'package:pharmacy_app/core/extensions/app_design_system_ext.dart';
 
 class BeamPulse extends StatefulWidget {
   const BeamPulse({super.key});
@@ -34,7 +35,7 @@ class BeamPulseState extends State<BeamPulse>
       animation: _animation,
       child: Icon(
         LucideIcons.activity,
-        size: AppIconSizes.lg,
+        size: context.iLg,
         color: Colors.white.withValues(alpha: 0.6),
       ),
       builder: (context, child) {

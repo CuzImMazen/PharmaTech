@@ -95,6 +95,24 @@ abstract class AppLocalizations {
     Locale('en')
   ];
 
+  /// No description provided for @error_network.
+  ///
+  /// In en, this message translates to:
+  /// **'No internet connection'**
+  String get error_network;
+
+  /// No description provided for @error_timeout.
+  ///
+  /// In en, this message translates to:
+  /// **'Request timed out'**
+  String get error_timeout;
+
+  /// No description provided for @error_unknown.
+  ///
+  /// In en, this message translates to:
+  /// **'Something went wrong, please try again'**
+  String get error_unknown;
+
   /// No description provided for @splash_title.
   ///
   /// In en, this message translates to:
@@ -116,37 +134,37 @@ abstract class AppLocalizations {
   /// No description provided for @onboarding_page1_title.
   ///
   /// In en, this message translates to:
-  /// **'Manage inventory with ease'**
+  /// **'Your Smart Pharmacy Partner'**
   String get onboarding_page1_title;
 
   /// No description provided for @onboarding_page1_desc.
   ///
   /// In en, this message translates to:
-  /// **'Track medications, stock levels, and expiration dates all in one place'**
+  /// **'Focus more on your patients while we handle the paperwork. Automate prescription logging and simplify your daily routine.'**
   String get onboarding_page1_desc;
 
   /// No description provided for @onboarding_page2_title.
   ///
   /// In en, this message translates to:
-  /// **'Fast sales system'**
+  /// **'Real-Time Inventory Insights'**
   String get onboarding_page2_title;
 
   /// No description provided for @onboarding_page2_desc.
   ///
   /// In en, this message translates to:
-  /// **'Process sales quickly with barcode scanning support'**
+  /// **'Never run out of essentials. Monitor stock levels and track sales performance with live analytics and automated alerts.'**
   String get onboarding_page2_desc;
 
   /// No description provided for @onboarding_page3_title.
   ///
   /// In en, this message translates to:
-  /// **'Reports and analytics'**
+  /// **'Secure & Organized Workflow'**
   String get onboarding_page3_title;
 
   /// No description provided for @onboarding_page3_desc.
   ///
   /// In en, this message translates to:
-  /// **'Get comprehensive insights into your sales and inventory'**
+  /// **'Keep patient data protected with high-level encryption while managing your team’s schedule and appointments in one place.'**
   String get onboarding_page3_desc;
 
   /// No description provided for @onboarding_next.
@@ -166,6 +184,126 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Start Now'**
   String get onboarding_start;
+
+  /// No description provided for @auth_login_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome back'**
+  String get auth_login_title;
+
+  /// No description provided for @auth_login_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Log in to continue working'**
+  String get auth_login_subtitle;
+
+  /// No description provided for @auth_email_label.
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get auth_email_label;
+
+  /// No description provided for @auth_password_label.
+  ///
+  /// In en, this message translates to:
+  /// **'Password'**
+  String get auth_password_label;
+
+  /// No description provided for @auth_remember_me.
+  ///
+  /// In en, this message translates to:
+  /// **'Remember me'**
+  String get auth_remember_me;
+
+  /// No description provided for @auth_forgot_password.
+  ///
+  /// In en, this message translates to:
+  /// **'Forgot password?'**
+  String get auth_forgot_password;
+
+  /// No description provided for @auth_login_button.
+  ///
+  /// In en, this message translates to:
+  /// **'SignIn'**
+  String get auth_login_button;
+
+  /// No description provided for @auth_no_account.
+  ///
+  /// In en, this message translates to:
+  /// **'Don\'t have an account? '**
+  String get auth_no_account;
+
+  /// No description provided for @auth_create_account.
+  ///
+  /// In en, this message translates to:
+  /// **'Create a new account'**
+  String get auth_create_account;
+
+  /// No description provided for @auth_email_is_required.
+  ///
+  /// In en, this message translates to:
+  /// **'Email is required'**
+  String get auth_email_is_required;
+
+  /// No description provided for @auth_password_is_required.
+  ///
+  /// In en, this message translates to:
+  /// **'Password is required'**
+  String get auth_password_is_required;
+
+  /// No description provided for @auth_invalid_email.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid email format'**
+  String get auth_invalid_email;
+
+  /// No description provided for @auth_password_min_length.
+  ///
+  /// In en, this message translates to:
+  /// **'Password must be at least 8 characters'**
+  String get auth_password_min_length;
+
+  /// No description provided for @agree_to.
+  ///
+  /// In en, this message translates to:
+  /// **'I agree to '**
+  String get agree_to;
+
+  /// No description provided for @terms_and_conditions.
+  ///
+  /// In en, this message translates to:
+  /// **'Terms and Conditions'**
+  String get terms_and_conditions;
+
+  /// No description provided for @and.
+  ///
+  /// In en, this message translates to:
+  /// **' and '**
+  String get and;
+
+  /// No description provided for @privacy_policy.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy Policy'**
+  String get privacy_policy;
+
+  /// No description provided for @auth_email_not_registered.
+  ///
+  /// In en, this message translates to:
+  /// **'Email is not registered'**
+  String get auth_email_not_registered;
+
+  /// No description provided for @auth_wrong_password.
+  ///
+  /// In en, this message translates to:
+  /// **'Incorrect password'**
+  String get auth_wrong_password;
+
+  /// No description provided for @auth_login_success.
+  ///
+  /// In en, this message translates to:
+  /// **'Logged in successfully'**
+  String get auth_login_success;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -9,6 +9,15 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
+  String get error_network => 'No internet connection';
+
+  @override
+  String get error_timeout => 'Request timed out';
+
+  @override
+  String get error_unknown => 'Something went wrong, please try again';
+
+  @override
   String get splash_title => 'Pharmacy App';
 
   @override
@@ -18,22 +27,22 @@ class AppLocalizationsEn extends AppLocalizations {
   String get onboarding_skip => 'Skip';
 
   @override
-  String get onboarding_page1_title => 'Manage inventory with ease';
+  String get onboarding_page1_title => 'Your Smart Pharmacy Partner';
 
   @override
-  String get onboarding_page1_desc => 'Track medications, stock levels, and expiration dates all in one place';
+  String get onboarding_page1_desc => 'Focus more on your patients while we handle the paperwork. Automate prescription logging and simplify your daily routine.';
 
   @override
-  String get onboarding_page2_title => 'Fast sales system';
+  String get onboarding_page2_title => 'Real-Time Inventory Insights';
 
   @override
-  String get onboarding_page2_desc => 'Process sales quickly with barcode scanning support';
+  String get onboarding_page2_desc => 'Never run out of essentials. Monitor stock levels and track sales performance with live analytics and automated alerts.';
 
   @override
-  String get onboarding_page3_title => 'Reports and analytics';
+  String get onboarding_page3_title => 'Secure & Organized Workflow';
 
   @override
-  String get onboarding_page3_desc => 'Get comprehensive insights into your sales and inventory';
+  String get onboarding_page3_desc => 'Keep patient data protected with high-level encryption while managing your team’s schedule and appointments in one place.';
 
   @override
   String get onboarding_next => 'Next';
@@ -43,4 +52,64 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get onboarding_start => 'Start Now';
+
+  @override
+  String get auth_login_title => 'Welcome back';
+
+  @override
+  String get auth_login_subtitle => 'Log in to continue working';
+
+  @override
+  String get auth_email_label => 'Email';
+
+  @override
+  String get auth_password_label => 'Password';
+
+  @override
+  String get auth_remember_me => 'Remember me';
+
+  @override
+  String get auth_forgot_password => 'Forgot password?';
+
+  @override
+  String get auth_login_button => 'SignIn';
+
+  @override
+  String get auth_no_account => 'Don\'t have an account? ';
+
+  @override
+  String get auth_create_account => 'Create a new account';
+
+  @override
+  String get auth_email_is_required => 'Email is required';
+
+  @override
+  String get auth_password_is_required => 'Password is required';
+
+  @override
+  String get auth_invalid_email => 'Invalid email format';
+
+  @override
+  String get auth_password_min_length => 'Password must be at least 8 characters';
+
+  @override
+  String get agree_to => 'I agree to ';
+
+  @override
+  String get terms_and_conditions => 'Terms and Conditions';
+
+  @override
+  String get and => ' and ';
+
+  @override
+  String get privacy_policy => 'Privacy Policy';
+
+  @override
+  String get auth_email_not_registered => 'Email is not registered';
+
+  @override
+  String get auth_wrong_password => 'Incorrect password';
+
+  @override
+  String get auth_login_success => 'Logged in successfully';
 }

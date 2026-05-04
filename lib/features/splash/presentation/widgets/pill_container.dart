@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
-import 'package:pharmacy_app/core/consts/sizes/sizes.dart';
+
+import 'package:pharmacy_app/core/extensions/app_design_system_ext.dart';
 import 'package:pharmacy_app/core/extensions/theme_colors_ext.dart';
 
 class PillContainer extends StatelessWidget {
@@ -9,22 +10,22 @@ class PillContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(40),
+      padding: EdgeInsets.all(context.sXl),
       decoration: BoxDecoration(
         color: Colors.white.withValues(alpha: 0.9),
-        borderRadius: BorderRadius.circular(100),
+        shape: BoxShape.circle,
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.1),
-            blurRadius: 30,
-            spreadRadius: 10,
+            blurRadius: context.sXl,
+            spreadRadius: context.sSm,
           ),
         ],
       ),
       child: Icon(
         LucideIcons.pill,
-        size: AppIconSizes.huge,
-        color: context.primary,
+        size: context.iHuge,
+        color: context.colors.primary,
       ),
     );
   }

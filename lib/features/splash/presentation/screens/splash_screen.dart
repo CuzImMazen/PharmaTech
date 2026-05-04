@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:pharmacy_app/core/color/appcolors.dart';
-import 'package:pharmacy_app/core/consts/spaces/spaces.dart';
+import 'package:pharmacy_app/core/extensions/app_design_system_ext.dart';
+import 'package:pharmacy_app/core/theme/appcolors.dart';
+import 'package:pharmacy_app/core/di/service_locator.dart';
 import 'package:pharmacy_app/core/extensions/localization_ext.dart';
 import 'package:pharmacy_app/core/extensions/text_theme_ext.dart';
 import 'package:pharmacy_app/core/extensions/theme_colors_ext.dart';
 import 'package:pharmacy_app/core/router/app_routes.dart';
-import 'package:pharmacy_app/core/storage/prefs/shared_prefs_helper.dart';
+import 'package:pharmacy_app/core/storage/prefs/shared_prefs_service.dart';
 import 'package:pharmacy_app/core/storage/prefs/shared_prefs_keys.dart';
 import 'package:pharmacy_app/features/splash/presentation/widgets/beaming_pulse.dart';
 import 'package:pharmacy_app/features/splash/presentation/widgets/bouncing_pill.dart';
@@ -22,12 +23,13 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    bool isOnboardingSeen = SharedPrefsHelper.getBool(
+    final isOnboardingSeen = sl<SharedPrefsService>().getBool(
       PrefsKeys.isOnboardingSeen,
     );
     Future.delayed(const Duration(seconds: 3), () {
-      if (!mounted) return;
-
+      if (!mounted) {
+        return;
+      }
       if (isOnboardingSeen) {
         context.go(AppRoutes.login);
       } else {
@@ -55,18 +57,17 @@ class _SplashScreenState extends State<SplashScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               BouncingPill(),
-              AppSpaces.vMd,
+              context.vMd,
               BeamPulse(),
-              AppSpaces.vMd,
+              context.vMd,
               //Title (App Name)
               Text(
                 'صيدليتي',
-                style: context.text.headlineLarge!.copyWith(
+                style: context.text.displayLarge!.copyWith(
                   color: context.colors.onPrimary,
-                  fontWeight: FontWeight.bold,
                 ),
               ),
-              AppSpaces.vMd,
+              context.vMd,
               //Subtitle
               Text(
                 context.tr.splash_subtitle,
@@ -74,7 +75,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   color: context.colors.onPrimary,
                 ),
               ),
-              AppSpaces.vXl,
+              context.vXl,
               JumpingDots(),
             ],
           ),

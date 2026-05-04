@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:pharmacy_app/core/consts/sizes/sizes.dart';
-import 'package:pharmacy_app/core/consts/spaces/spaces.dart';
+
+import 'package:pharmacy_app/core/extensions/app_design_system_ext.dart';
+
 import 'package:pharmacy_app/core/extensions/localization_ext.dart';
+
 import 'package:pharmacy_app/core/extensions/text_theme_ext.dart';
 import 'package:pharmacy_app/core/extensions/theme_colors_ext.dart';
 
-class OnboardingActionButton extends StatelessWidget {
+class OnboardingButton extends StatelessWidget {
   final bool isLastPage;
   final VoidCallback onTap;
 
-  const OnboardingActionButton({
+  const OnboardingButton({
     super.key,
     required this.isLastPage,
     required this.onTap,
@@ -21,10 +23,11 @@ class OnboardingActionButton extends StatelessWidget {
       color: Colors.transparent,
       child: InkWell(
         onTap: onTap,
-        borderRadius: BorderRadius.circular(AppBorderRadius.lg),
-        child: Ink(
+        borderRadius: context.rLg,
+        child: Container(
+          height: context.btnMd,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(AppBorderRadius.lg),
+            borderRadius: context.rLg,
             gradient: LinearGradient(
               colors: [
                 context.colors.primary,
@@ -39,22 +42,22 @@ class OnboardingActionButton extends StatelessWidget {
               ),
             ],
           ),
-          padding: const EdgeInsets.symmetric(vertical: AppPadding.lg),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                isLastPage
-                    ? context.tr.onboarding_start
-                    : context.tr.onboarding_next,
-                style: context.text.bodyLarge?.copyWith(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w600,
+          child: Center(
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  isLastPage
+                      ? context.tr.onboarding_start
+                      : context.tr.onboarding_next,
+                  style: context.text.labelLarge?.copyWith(
+                    color: context.colors.onPrimary,
+                  ),
                 ),
-              ),
-              AppSpaces.hSm,
-              const Icon(Icons.arrow_forward, color: Colors.white),
-            ],
+                context.hSm,
+                Icon(Icons.arrow_forward, color: context.colors.onPrimary),
+              ],
+            ),
           ),
         ),
       ),
