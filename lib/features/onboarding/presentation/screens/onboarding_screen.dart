@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pharmacy_app/core/consts/assets.dart';
@@ -8,12 +9,17 @@ import 'package:pharmacy_app/core/extensions/text_theme_ext.dart';
 import 'package:pharmacy_app/core/extensions/theme_colors_ext.dart';
 import 'package:pharmacy_app/core/router/app_routes.dart';
 import 'package:pharmacy_app/core/storage/prefs/shared_prefs_keys.dart';
-
 import 'package:pharmacy_app/core/storage/prefs/shared_prefs_service.dart';
 import 'package:pharmacy_app/features/onboarding/presentation/widgets/onboarding_footer.dart';
-
 import 'package:pharmacy_app/features/onboarding/presentation/widgets/onboarding_page.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+
+// this Screen doesnt follow Clean Architecture
+// because its only responsible for showing the onboarding pages and navigating to the next screen
+// it doesn't have any  complex business logic or data manipulation, so we can keep it simple
+// without adding unnecessary layers of abstraction.
+
+// the above comments  are written by me not Ai ...
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -24,23 +30,10 @@ class OnboardingScreen extends StatefulWidget {
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
   late final PageController _controller;
-  final ValueNotifier<int> _currentPageIndex = ValueNotifier(0);
-  late List<OnBoardingPage> _pages;
+  final ValueNotifier<int> _pageIndex = ValueNotifier(0);
 
-  @override
-  void initState() {
-    _controller = PageController();
-    _pages = const [];
-    super.initState();
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    precacheImage(AssetImage(AppAssets.onboarding1), context);
-    precacheImage(AssetImage(AppAssets.onboarding2), context);
-    precacheImage(AssetImage(AppAssets.onboarding3), context);
-    _pages = [
+  List<OnBoardingPage> _buildPages(BuildContext context) {
+    return [
       OnBoardingPage(
         image: AppAssets.onboarding1,
         title: context.tr.onboarding_page1_title,
@@ -60,15 +53,20 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    _controller = PageController();
+  }
+
+  @override
   void dispose() {
     _controller.dispose();
-    _currentPageIndex.dispose();
+    _pageIndex.dispose();
     super.dispose();
   }
 
-  void _nextPage() {
-    final int lastPageIndex = _pages.length - 1;
-    if (_currentPageIndex.value == lastPageIndex) {
+  void _next(int lastIndex) {
+    if (_pageIndex.value == lastIndex) {
       _finish();
       return;
     }
@@ -78,18 +76,18 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     );
   }
 
-  void _previousPage() {
+  void _back() {
     _controller.previousPage(
       duration: const Duration(milliseconds: 300),
       curve: Curves.easeInOut,
     );
   }
 
-  void _finish() async {
+  Future<void> _finish() async {
     try {
       await sl<SharedPrefsService>().setBool(PrefsKeys.isOnboardingSeen, true);
     } catch (e) {
-      debugPrint('Onboarding Storage Error (Non-fatal): $e');
+      debugPrint('Onboarding Storage Error: $e');
     }
 
     if (!mounted) return;
@@ -98,8 +96,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final int totalPages = _pages.length;
-    final int lastPageIndex = totalPages - 1;
+    final pages = _buildPages(context);
+    final lastPageIndex = pages.length - 1;
 
     return Scaffold(
       appBar: AppBar(
@@ -107,15 +105,14 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         elevation: 0,
         actions: [
           ValueListenableBuilder<int>(
-            valueListenable: _currentPageIndex,
-            builder: (context, pageIndex, _) {
-              final isLastPage = pageIndex == lastPageIndex;
-
+            valueListenable: _pageIndex,
+            builder: (_, index, _) {
+              final isLast = index == lastPageIndex;
               return AnimatedOpacity(
                 duration: const Duration(milliseconds: 200),
-                opacity: isLastPage ? 0.0 : 1.0,
+                opacity: isLast ? 0 : 1,
                 child: IgnorePointer(
-                  ignoring: isLastPage,
+                  ignoring: isLast,
                   child: TextButton(
                     onPressed: _finish,
                     child: Text(
@@ -139,14 +136,14 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               Expanded(
                 child: PageView(
                   controller: _controller,
-                  onPageChanged: (index) => _currentPageIndex.value = index,
-                  children: _pages,
+                  onPageChanged: (i) => _pageIndex.value = i,
+                  children: pages,
                 ),
               ),
               context.vMd,
               SmoothPageIndicator(
                 controller: _controller,
-                count: totalPages,
+                count: pages.length,
                 effect: ExpandingDotsEffect(
                   dotHeight: 10,
                   dotWidth: 10,
@@ -158,13 +155,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               ),
               context.vMd,
               ValueListenableBuilder<int>(
-                valueListenable: _currentPageIndex,
-                builder: (context, pageIndex, _) {
+                valueListenable: _pageIndex,
+                builder: (_, index, _) {
                   return OnboardingFooter(
-                    isFirst: pageIndex == 0,
-                    isLast: pageIndex == lastPageIndex,
-                    onNext: _nextPage,
-                    onBack: _previousPage,
+                    isFirst: index == 0,
+                    isLast: index == lastPageIndex,
+                    onNext: () => _next(lastPageIndex),
+                    onBack: _back,
                   );
                 },
               ),
@@ -175,3 +172,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     );
   }
 }
+
+// this Screen doesnt follow Clean Architecture
+// because its only responsible for showing the onboarding pages and navigating to the next screen
+// it doesn't have any  complex business logic or data manipulation, so we can keep it simple 
+// without adding unnecessary layers of abstraction.
+
+// the above comments  are written by me not Ai ...
+

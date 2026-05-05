@@ -62,7 +62,7 @@ class _SplashScreenState extends State<SplashScreen> {
               context.vMd,
               //Title (App Name)
               Text(
-                'صيدليتي',
+                'Pharma Tech',
                 style: context.text.displayLarge!.copyWith(
                   color: context.colors.onPrimary,
                 ),
