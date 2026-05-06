@@ -16,17 +16,18 @@ class TermsAndConditionsRow extends StatelessWidget {
       children: [
         BlocBuilder<LoginCubit, LoginState>(
           buildWhen: (prev, curr) =>
-              prev.acceptTerms != curr.acceptTerms ||
+              //  prev.acceptTerms != curr.acceptTerms ||
               prev.screenState != curr.screenState,
           builder: (context, state) {
             final isLoading = (state.screenState is LoadingState);
 
             return Checkbox(
-              value: state.acceptTerms,
+              value: //state.acceptTerms,
+                  false,
               onChanged: isLoading
                   ? null
                   : (_) {
-                      context.read<LoginCubit>().toggleAcceptTerms();
+                      // context.read<LoginCubit>().toggleAcceptTerms();
                     },
             );
           },

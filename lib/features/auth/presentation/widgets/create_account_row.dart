@@ -13,10 +13,9 @@ class CreateAccountRow extends StatelessWidget {
       children: [
         Text(
           "${context.tr.auth_no_account} ",
-          style: context.text.bodyMedium!.copyWith(
-            color: context.colors.secondary,
-          ),
+          style: context.text.bodyMedium!.copyWith(color: context.muted),
         ),
+
         TextButton(
           onPressed: () {
             // TODO: navigate to register

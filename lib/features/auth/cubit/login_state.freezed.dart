@@ -18,7 +18,6 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$LoginState {
   bool get rememberMe => throw _privateConstructorUsedError;
-  bool get acceptTerms => throw _privateConstructorUsedError;
   ScreenState get screenState => throw _privateConstructorUsedError;
 
   /// Create a copy of LoginState
@@ -35,7 +34,7 @@ abstract class $LoginStateCopyWith<$Res> {
     $Res Function(LoginState) then,
   ) = _$LoginStateCopyWithImpl<$Res, LoginState>;
   @useResult
-  $Res call({bool rememberMe, bool acceptTerms, ScreenState screenState});
+  $Res call({bool rememberMe, ScreenState screenState});
 }
 
 /// @nodoc
@@ -52,20 +51,12 @@ class _$LoginStateCopyWithImpl<$Res, $Val extends LoginState>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({
-    Object? rememberMe = null,
-    Object? acceptTerms = null,
-    Object? screenState = null,
-  }) {
+  $Res call({Object? rememberMe = null, Object? screenState = null}) {
     return _then(
       _value.copyWith(
             rememberMe: null == rememberMe
                 ? _value.rememberMe
                 : rememberMe // ignore: cast_nullable_to_non_nullable
-                      as bool,
-            acceptTerms: null == acceptTerms
-                ? _value.acceptTerms
-                : acceptTerms // ignore: cast_nullable_to_non_nullable
                       as bool,
             screenState: null == screenState
                 ? _value.screenState
@@ -86,7 +77,7 @@ abstract class _$$LoginStateImplCopyWith<$Res>
   ) = __$$LoginStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool rememberMe, bool acceptTerms, ScreenState screenState});
+  $Res call({bool rememberMe, ScreenState screenState});
 }
 
 /// @nodoc
@@ -102,20 +93,12 @@ class __$$LoginStateImplCopyWithImpl<$Res>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({
-    Object? rememberMe = null,
-    Object? acceptTerms = null,
-    Object? screenState = null,
-  }) {
+  $Res call({Object? rememberMe = null, Object? screenState = null}) {
     return _then(
       _$LoginStateImpl(
         rememberMe: null == rememberMe
             ? _value.rememberMe
             : rememberMe // ignore: cast_nullable_to_non_nullable
-                  as bool,
-        acceptTerms: null == acceptTerms
-            ? _value.acceptTerms
-            : acceptTerms // ignore: cast_nullable_to_non_nullable
                   as bool,
         screenState: null == screenState
             ? _value.screenState
@@ -131,7 +114,6 @@ class __$$LoginStateImplCopyWithImpl<$Res>
 class _$LoginStateImpl implements _LoginState {
   const _$LoginStateImpl({
     this.rememberMe = false,
-    this.acceptTerms = false,
     this.screenState = const InitialState(),
   });
 
@@ -140,14 +122,11 @@ class _$LoginStateImpl implements _LoginState {
   final bool rememberMe;
   @override
   @JsonKey()
-  final bool acceptTerms;
-  @override
-  @JsonKey()
   final ScreenState screenState;
 
   @override
   String toString() {
-    return 'LoginState(rememberMe: $rememberMe, acceptTerms: $acceptTerms, screenState: $screenState)';
+    return 'LoginState(rememberMe: $rememberMe, screenState: $screenState)';
   }
 
   @override
@@ -157,15 +136,12 @@ class _$LoginStateImpl implements _LoginState {
             other is _$LoginStateImpl &&
             (identical(other.rememberMe, rememberMe) ||
                 other.rememberMe == rememberMe) &&
-            (identical(other.acceptTerms, acceptTerms) ||
-                other.acceptTerms == acceptTerms) &&
             (identical(other.screenState, screenState) ||
                 other.screenState == screenState));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, rememberMe, acceptTerms, screenState);
+  int get hashCode => Object.hash(runtimeType, rememberMe, screenState);
 
   /// Create a copy of LoginState
   /// with the given fields replaced by the non-null parameter values.
@@ -179,14 +155,11 @@ class _$LoginStateImpl implements _LoginState {
 abstract class _LoginState implements LoginState {
   const factory _LoginState({
     final bool rememberMe,
-    final bool acceptTerms,
     final ScreenState screenState,
   }) = _$LoginStateImpl;
 
   @override
   bool get rememberMe;
-  @override
-  bool get acceptTerms;
   @override
   ScreenState get screenState;
 

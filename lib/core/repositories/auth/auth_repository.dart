@@ -1,4 +1,6 @@
 abstract class AuthRepository {
+  // *************** Authentication Actions **************** //
+
   //***************** Token Management ****************//
 
   Future<String?> getToken();
@@ -6,9 +8,4 @@ abstract class AuthRepository {
   Future<void> saveToken(String token);
 
   Future<void> clearToken();
-
-  //***************** Remember Me ****************//
-  Future<bool> getRememberMe();
-
-  Future<void> setRememberMe(bool value);
 }

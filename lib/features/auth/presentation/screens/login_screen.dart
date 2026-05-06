@@ -14,8 +14,8 @@ import 'package:pharmacy_app/core/widgets/custom_button.dart';
 import 'package:pharmacy_app/core/widgets/custom_text_field.dart';
 import 'package:pharmacy_app/features/auth/cubit/login_cubit.dart';
 import 'package:pharmacy_app/features/auth/cubit/login_state.dart';
+import 'package:pharmacy_app/features/auth/presentation/widgets/create_account_row.dart';
 import 'package:pharmacy_app/features/auth/presentation/widgets/remember_me_row.dart';
-import 'package:pharmacy_app/features/auth/presentation/widgets/terms_and_conditions_row.dart';
 import 'package:pharmacy_app/features/auth/presentation/widgets/top_login_section.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -147,7 +147,6 @@ class _LoginScreenState extends State<LoginScreenBody> {
 
                   BlocBuilder<LoginCubit, LoginState>(
                     buildWhen: (prev, curr) =>
-                        prev.acceptTerms != curr.acceptTerms ||
                         prev.screenState != curr.screenState,
                     builder: (context, state) {
                       final isLoading =
@@ -161,13 +160,14 @@ class _LoginScreenState extends State<LoginScreenBody> {
                       }
 
                       return CustomButton(
-                        onTap: state.acceptTerms ? _handleLogin : null,
+                        onTap: _handleLogin,
                         text: context.tr.auth_login_button,
                       );
                     },
                   ),
                   context.vMd,
-                  TermsAndConditionsRow(),
+                  CreateAccountRow(),
+                  // TermsAndConditionsRow(),
                   context.vMd,
                 ],
               ),

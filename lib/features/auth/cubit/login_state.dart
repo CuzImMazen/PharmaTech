@@ -6,7 +6,6 @@ part 'login_state.freezed.dart';
 class LoginState with _$LoginState {
   const factory LoginState({
     @Default(false) bool rememberMe,
-    @Default(false) bool acceptTerms,
     @Default(InitialState()) ScreenState screenState,
   }) = _LoginState;
 }

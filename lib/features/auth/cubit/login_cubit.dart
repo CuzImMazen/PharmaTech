@@ -10,10 +10,6 @@ class LoginCubit extends Cubit<LoginState> {
     emit(state.copyWith(rememberMe: !state.rememberMe));
   }
 
-  void toggleAcceptTerms() {
-    emit(state.copyWith(acceptTerms: !state.acceptTerms));
-  }
-
   void test() {
     emit(state.copyWith(screenState: const LoadingState()));
 

@@ -1,80 +1,82 @@
+import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pharmacy_app/core/router/app_routes.dart';
-import 'package:pharmacy_app/core/bootstrap/app_state_notifier.dart';
-import 'package:pharmacy_app/features/auth/presentation/screens/login_screen.dart';
-import 'package:pharmacy_app/features/onboarding/presentation/screens/onboarding_screen.dart';
-import 'package:pharmacy_app/features/splash/presentation/screens/splash_screen.dart';
+import 'package:pharmacy_app/core/router/app_routes_keys.dart';
+import 'package:pharmacy_app/core/state/app_state_notifier.dart';
 
 class AppRouter {
   AppRouter._();
 
-  static late final GoRouter router;
+  static GoRouter? _router;
+
+  static GoRouter get router {
+    if (_router == null) {
+      throw Exception(
+        'AppRouter not initialized. Call AppRouter.init() in main first.',
+      );
+    }
+    return _router!;
+  }
 
   static void init(AppStateNotifier appStateNotifier) {
-    router = GoRouter(
-      initialLocation: AppRoutes.splash,
+    _router = GoRouter(
+      initialLocation: AppRoutesKeys.splash,
       refreshListenable: appStateNotifier,
 
       redirect: (context, state) {
-        final bool isReady = appStateNotifier.ready;
-        final location = state.matchedLocation;
+        debugPrint(
+          "3. GoRouter Redirect triggered. OnboardingSeen: ${appStateNotifier.onboardingSeen}",
+        );
+        // 1. Get the current status from the Notifier
+        final bool isInitialized = appStateNotifier.isInitialized;
+        final bool isAuthenticated = appStateNotifier.isAuthenticated;
+        final bool onboardingSeen = appStateNotifier.onboardingSeen;
 
-        final bool onSplash = location == AppRoutes.splash;
-        final bool onLogin = location == AppRoutes.login;
-        final bool onOnboarding = location == AppRoutes.onboarding;
+        // 2. Get the current location
+        final String currentLocation = state.matchedLocation;
 
-        // 1. Block everything until app is ready
-        if (!isReady) {
-          return onSplash ? null : AppRoutes.splash;
+        // Helpers to check where we are
+        final bool onSplash = currentLocation == AppRoutesKeys.splash;
+        final bool onLogin = currentLocation == AppRoutesKeys.login;
+        final bool onOnboarding = currentLocation == AppRoutesKeys.onboarding;
+
+        // --- GATE 1: INITIALIZATION ---
+        // If we haven't checked storage/auth yet, stay on Splash
+        if (!isInitialized) {
+          return onSplash ? null : AppRoutesKeys.splash;
         }
 
-        final app = appStateNotifier.state!;
-
-        // 2. Handle leaving splash (single entry decision)
-        if (onSplash) {
-          if (!app.onboardingSeen) return AppRoutes.onboarding;
-          if (!app.isLoggedIn) return AppRoutes.login;
-          return AppRoutes.home;
+        // --- GATE 2: ONBOARDING ---
+        // If onboarding isn't done, force them there
+        if (!onboardingSeen) {
+          return onOnboarding ? null : AppRoutesKeys.onboarding;
         }
 
-        // 3. Enforce onboarding (cannot skip)
-        if (!app.onboardingSeen) {
-          return onOnboarding ? null : AppRoutes.onboarding;
+        // --- GATE 3: AUTHENTICATION ---
+        // If not logged in, they must go to Login
+        // (Unless they are already on Login or Onboarding)
+        if (!isAuthenticated) {
+          // If we are on Login, stay there.
+          if (onLogin) return null;
+
+          // If we are on Onboarding but we've already seen it
+          // or if we are anywhere else (like Splash), go to Login!
+          return AppRoutesKeys.login;
         }
 
-        // 4. Enforce authentication
-        if (!app.isLoggedIn) {
-          return onLogin ? null : AppRoutes.login;
+        // --- GATE 4: AUTHENTICATED USERS ---
+        // If they ARE logged in, don't let them see Login, Onboarding, or Splash
+        if (isAuthenticated) {
+          if (onLogin || onOnboarding || onSplash) {
+            return AppRoutesKeys.home;
+          }
         }
 
-        // 5. Prevent going back to auth/onboarding after login
-        if (app.isLoggedIn && (onLogin || onOnboarding)) {
-          return AppRoutes.home;
-        }
-
-        // 6. Allow everything else
+        // No redirect needed, let them go to their intended destination
         return null;
       },
 
-      routes: [
-        GoRoute(
-          path: AppRoutes.splash,
-          builder: (context, state) => const SplashScreen(),
-        ),
-        GoRoute(
-          path: AppRoutes.onboarding,
-          builder: (context, state) => const OnboardingScreen(),
-        ),
-        GoRoute(
-          path: AppRoutes.login,
-          builder: (context, state) => const LoginScreen(),
-        ),
-
-        // GoRoute(
-        //   path: AppRoutes.home,
-        //   builder: (context, state) => const HomeScreen(),
-        // ),
-      ],
+      routes: AppRoutes.routes,
     );
   }
 }
