@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pharmacy_app/core/router/app_routes.dart';
 import 'package:pharmacy_app/core/bootstrap/app_state_notifier.dart';
@@ -7,6 +6,8 @@ import 'package:pharmacy_app/features/onboarding/presentation/screens/onboarding
 import 'package:pharmacy_app/features/splash/presentation/screens/splash_screen.dart';
 
 class AppRouter {
+  AppRouter._();
+
   static late final GoRouter router;
 
   static void init(AppStateNotifier appStateNotifier) {
@@ -15,44 +16,43 @@ class AppRouter {
       refreshListenable: appStateNotifier,
 
       redirect: (context, state) {
-        final app = appStateNotifier.state;
+        final bool isReady = appStateNotifier.ready;
         final location = state.matchedLocation;
 
-        // 1. Always block navigation until app is ready
-        if (!appStateNotifier.ready || app == null) {
-          return location == AppRoutes.splash ? null : AppRoutes.splash;
-        }
-
         final bool onSplash = location == AppRoutes.splash;
-        final bool onOnboarding = location == AppRoutes.onboarding;
         final bool onLogin = location == AppRoutes.login;
+        final bool onOnboarding = location == AppRoutes.onboarding;
 
-        // 2. Decide target route ONCE (single source of truth)
-        String targetRoute;
-
-        if (!app.onboardingSeen) {
-          targetRoute = AppRoutes.onboarding;
-        } else if (!app.isLoggedIn) {
-          targetRoute = AppRoutes.login;
-        } else {
-          targetRoute = AppRoutes.home;
+        // 1. Block everything until app is ready
+        if (!isReady) {
+          return onSplash ? null : AppRoutes.splash;
         }
 
-        // 3. If we're on splash, move to correct destination
+        final app = appStateNotifier.state!;
+
+        // 2. Handle leaving splash (single entry decision)
         if (onSplash) {
-          return targetRoute;
+          if (!app.onboardingSeen) return AppRoutes.onboarding;
+          if (!app.isLoggedIn) return AppRoutes.login;
+          return AppRoutes.home;
         }
 
-        // 4. Prevent visiting auth/onboarding screens when already past them
+        // 3. Enforce onboarding (cannot skip)
+        if (!app.onboardingSeen) {
+          return onOnboarding ? null : AppRoutes.onboarding;
+        }
+
+        // 4. Enforce authentication
+        if (!app.isLoggedIn) {
+          return onLogin ? null : AppRoutes.login;
+        }
+
+        // 5. Prevent going back to auth/onboarding after login
         if (app.isLoggedIn && (onLogin || onOnboarding)) {
           return AppRoutes.home;
         }
 
-        if (!app.isLoggedIn && app.onboardingSeen && onOnboarding) {
-          return AppRoutes.login;
-        }
-
-        // 5. Let valid states continue
+        // 6. Allow everything else
         return null;
       },
 
@@ -69,6 +69,11 @@ class AppRouter {
           path: AppRoutes.login,
           builder: (context, state) => const LoginScreen(),
         ),
+
+        // GoRoute(
+        //   path: AppRoutes.home,
+        //   builder: (context, state) => const HomeScreen(),
+        // ),
       ],
     );
   }

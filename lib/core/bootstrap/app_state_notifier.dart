@@ -11,6 +11,7 @@ class AppStateNotifier extends ChangeNotifier {
   AppState? get state => _state;
   bool _ready = false;
   bool get ready => _ready;
+
   AppStateNotifier({
     required this.authRepository,
     required this.onboardingRepository,
