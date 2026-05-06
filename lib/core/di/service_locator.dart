@@ -10,35 +10,29 @@ import 'package:pharmacy_app/core/storage/secure/secure_storage_service.dart';
 final sl = GetIt.instance;
 
 Future<void> setupLocator() async {
-  // *************** Shared Preferences Service ****************//
+  // --- 1. Services  ---- ////
 
-  // 1. Create the instance
-  sl.registerSingleton<SharedPrefsService>(await SharedPrefsService().init());
-
-  //***** Secure Storage Service ****************//
+  final sharedPrefsService = await SharedPrefsService().init();
+  sl.registerSingleton<SharedPrefsService>(sharedPrefsService);
 
   sl.registerSingleton<SecureStorageService>(SecureStorageService());
 
-  //*************** App State Notifier ****************/
-  sl.registerLazySingleton<AppStateNotifier>(
-    () => AppStateNotifier(
-      authRepository: sl<AuthRepository>(),
-      onboardingRepository: sl<OnboardingRepository>(),
-    ),
-  );
-
-  //*************** Global Repositories ****************/
-  /// Auth Repository
-  sl.registerFactory<AuthRepository>(
+  /// --- 2.  Global Repositories  ---
+  sl.registerLazySingleton<AuthRepository>(
     () => AuthRepositoryImpl(
-      secureStorageService: sl<SecureStorageService>(),
-      sharedPrefsService: sl<SharedPrefsService>(),
+      secureStorageService: sl(),
+      sharedPrefsService: sl(),
     ),
   );
 
-  // Onboarding Repository
-  sl.registerFactory<OnboardingRepository>(
-    () =>
-        OnboardingRepositoryImpl(sharedPrefsService: sl<SharedPrefsService>()),
+  sl.registerLazySingleton<OnboardingRepository>(
+    () => OnboardingRepositoryImpl(sharedPrefsService: sl()),
   );
+
+  // --- 3. App State Notifier ---
+  sl.registerSingleton<AppStateNotifier>(
+    AppStateNotifier(authRepository: sl(), onboardingRepository: sl()),
+  );
+
+  // --- 4. Repositories  ---
 }

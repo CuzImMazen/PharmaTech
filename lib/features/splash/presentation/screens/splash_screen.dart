@@ -33,7 +33,7 @@ class SplashScreen extends StatelessWidget {
               context.vMd,
               //Title (App Name)
               Text(
-                'Pharma Tech',
+                'PharmaTech',
                 style: context.text.displayLarge!.copyWith(
                   color: context.colors.onPrimary,
                 ),

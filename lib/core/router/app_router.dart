@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pharmacy_app/core/router/app_routes.dart';
 import 'package:pharmacy_app/core/bootstrap/app_state_notifier.dart';
@@ -15,33 +16,43 @@ class AppRouter {
 
       redirect: (context, state) {
         final app = appStateNotifier.state;
-
         final location = state.matchedLocation;
 
-        // 🔥 1. WAIT until app is ready → show splash
-        if (!appStateNotifier.ready) {
-          return AppRoutes.splash;
+        // 1. Always block navigation until app is ready
+        if (!appStateNotifier.ready || app == null) {
+          return location == AppRoutes.splash ? null : AppRoutes.splash;
         }
 
-        if (app == null) return AppRoutes.splash;
+        final bool onSplash = location == AppRoutes.splash;
+        final bool onOnboarding = location == AppRoutes.onboarding;
+        final bool onLogin = location == AppRoutes.login;
 
-        // 🔥 2. onboarding FIRST priority
-        if (!app.onboardingSeen && location != AppRoutes.onboarding) {
-          return AppRoutes.onboarding;
+        // 2. Decide target route ONCE (single source of truth)
+        String targetRoute;
+
+        if (!app.onboardingSeen) {
+          targetRoute = AppRoutes.onboarding;
+        } else if (!app.isLoggedIn) {
+          targetRoute = AppRoutes.login;
+        } else {
+          targetRoute = AppRoutes.home;
         }
 
-        // 🔥 3. auth check
-        if (!app.isLoggedIn &&
-            location != AppRoutes.login &&
-            location != AppRoutes.onboarding) {
+        // 3. If we're on splash, move to correct destination
+        if (onSplash) {
+          return targetRoute;
+        }
+
+        // 4. Prevent visiting auth/onboarding screens when already past them
+        if (app.isLoggedIn && (onLogin || onOnboarding)) {
+          return AppRoutes.home;
+        }
+
+        if (!app.isLoggedIn && app.onboardingSeen && onOnboarding) {
           return AppRoutes.login;
         }
 
-        // 🔥 4. prevent splash revisit
-        if (location == AppRoutes.splash) {
-          return app.isLoggedIn ? AppRoutes.home : AppRoutes.login;
-        }
-
+        // 5. Let valid states continue
         return null;
       },
 
@@ -58,10 +69,6 @@ class AppRouter {
           path: AppRoutes.login,
           builder: (context, state) => const LoginScreen(),
         ),
-        // GoRoute(
-        //   path: AppRoutes.home,
-        //   builder: (context, state) => const HomeScreen(),
-        // ),
       ],
     );
   }
