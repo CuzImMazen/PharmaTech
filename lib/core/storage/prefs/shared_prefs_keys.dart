@@ -1,3 +1,4 @@
 class PrefsKeys {
-  static const String isOnboardingSeen = 'isOnboardingSeen';
+  static const String hasSeenOnboarding = 'isOnboardingSeen';
+  static const String rememberMe = 'rememberMe';
 }

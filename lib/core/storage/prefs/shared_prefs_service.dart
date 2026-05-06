@@ -3,9 +3,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 class SharedPrefsService {
   late final SharedPreferences _prefs;
 
-  /// Initialize SharedPreferences
-  Future<void> init() async {
+  Future<SharedPrefsService> init() async {
     _prefs = await SharedPreferences.getInstance();
+    return this;
   }
 
   // ---------------- BOOL ----------------
@@ -13,8 +13,9 @@ class SharedPrefsService {
     await _prefs.setBool(key, value);
   }
 
-  bool getBool(String key) {
-    return _prefs.getBool(key) ?? false;
+  Future<bool?> getBool(String key) async {
+    final value = _prefs.getBool(key);
+    return value;
   }
 
   // ---------------- STRING ----------------
@@ -22,8 +23,9 @@ class SharedPrefsService {
     await _prefs.setString(key, value);
   }
 
-  String getString(String key) {
-    return _prefs.getString(key) ?? '';
+  Future<String?> getString(String key) async {
+    final value = _prefs.getString(key);
+    return value;
   }
 
   // ---------------- INT ----------------
@@ -31,8 +33,9 @@ class SharedPrefsService {
     await _prefs.setInt(key, value);
   }
 
-  int getInt(String key) {
-    return _prefs.getInt(key) ?? 0;
+  Future<int?> getInt(String key) async {
+    final value = _prefs.getInt(key);
+    return value;
   }
 
   // ---------------- REMOVE / CLEAR ----------------

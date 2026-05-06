@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pharmacy_app/core/consts/assets.dart';
+import 'package:pharmacy_app/core/di/service_locator.dart';
 import 'package:pharmacy_app/core/extensions/app_design_system_ext.dart';
 import 'package:pharmacy_app/core/extensions/localization_ext.dart';
 import 'package:pharmacy_app/core/extensions/text_theme_ext.dart';
 import 'package:pharmacy_app/core/extensions/theme_colors_ext.dart';
+import 'package:pharmacy_app/core/repositories/onboarding/onboarding_repository.dart';
 import 'package:pharmacy_app/core/router/app_routes.dart';
-import 'package:pharmacy_app/core/storage/prefs/shared_prefs_keys.dart';
-import 'package:pharmacy_app/core/storage/prefs/shared_prefs_service.dart';
 import 'package:pharmacy_app/features/onboarding/presentation/widgets/onboarding_footer.dart';
 import 'package:pharmacy_app/features/onboarding/presentation/widgets/onboarding_page.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -19,8 +19,7 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 // the above comments  are written by me not Ai ...
 
 class OnboardingScreen extends StatefulWidget {
-  const OnboardingScreen({super.key, required this.sharedPrefsService});
-  final SharedPrefsService sharedPrefsService;
+  const OnboardingScreen({super.key});
 
   @override
   State<OnboardingScreen> createState() => _OnboardingScreenState();
@@ -110,9 +109,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   Future<void> _finish() async {
     try {
-      await widget.sharedPrefsService.setBool(PrefsKeys.isOnboardingSeen, true);
+      await sl<OnboardingRepository>().setOnboardingSeen();
     } catch (e) {
-      debugPrint('Onboarding Storage Error: $e');
+      debugPrint('Onboarding Storage Error while setting onboarding seen: $e');
     }
 
     if (!mounted) return;
