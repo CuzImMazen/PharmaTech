@@ -1,8 +1,6 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pharmacy_app/core/consts/assets.dart';
-import 'package:pharmacy_app/core/di/service_locator.dart';
 import 'package:pharmacy_app/core/extensions/app_design_system_ext.dart';
 import 'package:pharmacy_app/core/extensions/localization_ext.dart';
 import 'package:pharmacy_app/core/extensions/text_theme_ext.dart';
@@ -14,48 +12,75 @@ import 'package:pharmacy_app/features/onboarding/presentation/widgets/onboarding
 import 'package:pharmacy_app/features/onboarding/presentation/widgets/onboarding_page.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-// this Screen doesnt follow Clean Architecture
-// because its only responsible for showing the onboarding pages and navigating to the next screen
-// it doesn't have any  complex business logic or data manipulation, so we can keep it simple
-// without adding unnecessary layers of abstraction.
+// This screen intentionally avoids Clean Architecture layers.
+// It is purely UI-driven with no business logic, so adding
+// abstraction (e.g., Bloc/UseCases) would be unnecessary.
 
 // the above comments  are written by me not Ai ...
 
 class OnboardingScreen extends StatefulWidget {
-  const OnboardingScreen({super.key});
+  const OnboardingScreen({super.key, required this.sharedPrefsService});
+  final SharedPrefsService sharedPrefsService;
 
   @override
   State<OnboardingScreen> createState() => _OnboardingScreenState();
 }
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
+  //page controller for the pageview
   late final PageController _controller;
+  // using ValueNotifier to track the current page index and update only  the effected UI
   final ValueNotifier<int> _pageIndex = ValueNotifier(0);
-
-  List<OnBoardingPage> _buildPages(BuildContext context) {
-    return [
-      OnBoardingPage(
-        image: AppAssets.onboarding1,
-        title: context.tr.onboarding_page1_title,
-        description: context.tr.onboarding_page1_desc,
-      ),
-      OnBoardingPage(
-        image: AppAssets.onboarding2,
-        title: context.tr.onboarding_page2_title,
-        description: context.tr.onboarding_page2_desc,
-      ),
-      OnBoardingPage(
-        image: AppAssets.onboarding3,
-        title: context.tr.onboarding_page3_title,
-        description: context.tr.onboarding_page3_desc,
-      ),
-    ];
-  }
+  //pages not final because they may change when app Localization changes and we need to update the text accordingly
+  late List<OnBoardingPage> pages;
+  // getter for the last page index to avoid hardcoding it in multiple places
+  int get lastPageIndex => pages.length - 1;
+  //
+  bool _isImagePrecached = false;
+  Locale? _lastLocale;
 
   @override
   void initState() {
     super.initState();
     _controller = PageController();
+  }
+
+  // inializeing  static pages here because they depend on context
+  // and precaching the images to avoid jank when swiping between pages for the first time
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    final locale = Localizations.localeOf(context);
+
+    if (_lastLocale != locale) {
+      _lastLocale = locale;
+      debugPrint("pages built");
+      pages = [
+        OnBoardingPage(
+          image: AppAssets.onboarding1,
+          title: context.tr.onboarding_page1_title,
+          description: context.tr.onboarding_page1_desc,
+        ),
+        OnBoardingPage(
+          image: AppAssets.onboarding2,
+          title: context.tr.onboarding_page2_title,
+          description: context.tr.onboarding_page2_desc,
+        ),
+        OnBoardingPage(
+          image: AppAssets.onboarding3,
+          title: context.tr.onboarding_page3_title,
+          description: context.tr.onboarding_page3_desc,
+        ),
+      ];
+    }
+
+    if (!_isImagePrecached) {
+      for (var page in pages) {
+        precacheImage(AssetImage(page.image), context);
+      }
+      _isImagePrecached = true;
+    }
   }
 
   @override
@@ -65,8 +90,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     super.dispose();
   }
 
-  void _next(int lastIndex) {
-    if (_pageIndex.value == lastIndex) {
+  void _next() {
+    if (_pageIndex.value == lastPageIndex) {
       _finish();
       return;
     }
@@ -85,7 +110,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   Future<void> _finish() async {
     try {
-      await sl<SharedPrefsService>().setBool(PrefsKeys.isOnboardingSeen, true);
+      await widget.sharedPrefsService.setBool(PrefsKeys.isOnboardingSeen, true);
     } catch (e) {
       debugPrint('Onboarding Storage Error: $e');
     }
@@ -96,76 +121,84 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final pages = _buildPages(context);
-    final lastPageIndex = pages.length - 1;
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, result) {
+        if (didPop) return;
 
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        actions: [
-          ValueListenableBuilder<int>(
-            valueListenable: _pageIndex,
-            builder: (_, index, _) {
-              final isLast = index == lastPageIndex;
-              return AnimatedOpacity(
-                duration: const Duration(milliseconds: 200),
-                opacity: isLast ? 0 : 1,
-                child: IgnorePointer(
-                  ignoring: isLast,
-                  child: TextButton(
-                    onPressed: _finish,
-                    child: Text(
-                      context.tr.onboarding_skip,
-                      style: context.text.labelLarge?.copyWith(
-                        color: context.muted,
+        if (_pageIndex.value > 0) {
+          _back();
+        }
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          actions: [
+            ValueListenableBuilder<int>(
+              valueListenable: _pageIndex,
+              builder: (_, index, _) {
+                final isLast = index == lastPageIndex;
+                return AnimatedOpacity(
+                  duration: const Duration(milliseconds: 200),
+                  opacity: isLast ? 0 : 1,
+                  child: IgnorePointer(
+                    ignoring: isLast,
+                    child: TextButton(
+                      onPressed: _finish,
+                      child: Text(
+                        context.tr.onboarding_skip,
+                        style: context.text.labelLarge?.copyWith(
+                          color: context.muted,
+                        ),
                       ),
                     ),
                   ),
+                );
+              },
+            ),
+          ],
+        ),
+        body: SafeArea(
+          child: Padding(
+            padding: context.pScreen,
+            child: Column(
+              children: [
+                Expanded(
+                  child: PageView(
+                    physics: const BouncingScrollPhysics(),
+                    controller: _controller,
+                    onPageChanged: (i) => _pageIndex.value = i,
+                    children: pages,
+                  ),
                 ),
-              );
-            },
-          ),
-        ],
-      ),
-      body: SafeArea(
-        child: Padding(
-          padding: context.pScreen,
-          child: Column(
-            children: [
-              Expanded(
-                child: PageView(
+                context.vMd,
+                SmoothPageIndicator(
                   controller: _controller,
-                  onPageChanged: (i) => _pageIndex.value = i,
-                  children: pages,
+                  count: pages.length,
+                  effect: ExpandingDotsEffect(
+                    dotHeight: 10,
+                    dotWidth: 10,
+                    expansionFactor: 2,
+                    spacing: 6,
+                    activeDotColor: context.primary,
+                    dotColor: context.muted.withValues(alpha: 0.4),
+                  ),
                 ),
-              ),
-              context.vMd,
-              SmoothPageIndicator(
-                controller: _controller,
-                count: pages.length,
-                effect: ExpandingDotsEffect(
-                  dotHeight: 10,
-                  dotWidth: 10,
-                  expansionFactor: 2,
-                  spacing: 6,
-                  activeDotColor: context.primary,
-                  dotColor: context.muted.withValues(alpha: 0.4),
+                context.vMd,
+                ValueListenableBuilder<int>(
+                  valueListenable: _pageIndex,
+                  builder: (_, index, _) {
+                    return OnboardingFooter(
+                      isFirst: index == 0,
+                      isLast: index == lastPageIndex,
+                      onNext: _next,
+                      onBack: _back,
+                    );
+                  },
                 ),
-              ),
-              context.vMd,
-              ValueListenableBuilder<int>(
-                valueListenable: _pageIndex,
-                builder: (_, index, _) {
-                  return OnboardingFooter(
-                    isFirst: index == 0,
-                    isLast: index == lastPageIndex,
-                    onNext: () => _next(lastPageIndex),
-                    onBack: _back,
-                  );
-                },
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
@@ -173,10 +206,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   }
 }
 
-// this Screen doesnt follow Clean Architecture
-// because its only responsible for showing the onboarding pages and navigating to the next screen
-// it doesn't have any  complex business logic or data manipulation, so we can keep it simple 
-// without adding unnecessary layers of abstraction.
+// This screen intentionally avoids Clean Architecture layers.
+// It is purely UI-driven with almost no business logic, so adding
+// abstraction (e.g., Bloc/UseCases) would be unnecessary.
 
 // the above comments  are written by me not Ai ...
-

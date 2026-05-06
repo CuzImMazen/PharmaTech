@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pharmacy_app/core/extensions/app_design_system_ext.dart';
 import 'package:pharmacy_app/core/theme/appcolors.dart';
-import 'package:pharmacy_app/core/di/service_locator.dart';
 import 'package:pharmacy_app/core/extensions/localization_ext.dart';
 import 'package:pharmacy_app/core/extensions/text_theme_ext.dart';
 import 'package:pharmacy_app/core/extensions/theme_colors_ext.dart';
@@ -14,7 +13,8 @@ import 'package:pharmacy_app/features/splash/presentation/widgets/bouncing_pill.
 import 'package:pharmacy_app/features/splash/presentation/widgets/jumping_dots.dart';
 
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({super.key});
+  const SplashScreen({super.key, required this.sharedPrefsService});
+  final SharedPrefsService sharedPrefsService;
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
@@ -23,7 +23,7 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    final isOnboardingSeen = sl<SharedPrefsService>().getBool(
+    final isOnboardingSeen = widget.sharedPrefsService.getBool(
       PrefsKeys.isOnboardingSeen,
     );
     Future.delayed(const Duration(seconds: 3), () {

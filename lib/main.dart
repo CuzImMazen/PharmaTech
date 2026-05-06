@@ -1,4 +1,5 @@
 import 'package:device_preview/device_preview.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:pharmacy_app/core/di/service_locator.dart';
@@ -12,7 +13,10 @@ void main() async {
 
   runApp(
     //PharmacyApp()
-    DevicePreview(enabled: true, builder: (context) => const PharmacyApp()),
+    DevicePreview(
+      enabled: !kReleaseMode,
+      builder: (context) => const PharmacyApp(),
+    ),
   );
 }
 
@@ -27,18 +31,26 @@ class PharmacyApp extends StatelessWidget {
       title: 'Pharmacy App',
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
-
-      //  themeMode: ThemeMode.system,
       routerConfig: AppRouter.router,
+      builder: kReleaseMode ? null : DevicePreview.appBuilder,
 
-      // device config
-      //useInheritedMediaQuery: true,
-      locale: DevicePreview.locale(context),
-      builder: DevicePreview.appBuilder,
+      //********** Localization Section **********//
+      //locale: kReleaseMode ? null : DevicePreview.locale(context),
 
-      //Localization
-      supportedLocales: const [Locale('en'), Locale('ar')],
-      //locale: const Locale('ar'),
+      // this callback is used to determine which locale to use when the app starts
+      // it checks if the device locale is supported by the app and returns it, otherwise it
+      // this doesnt work while device preview is enabled because it overrides the device locale with the one selected in the device preview settings, so we need to check if the device preview is enabled and return the selected locale from the device preview settings instead of the device locale
+      localeResolutionCallback: (locale, supportedLocales) {
+        for (var supportedLocale in supportedLocales) {
+          if (supportedLocale.languageCode == locale?.languageCode) {
+            return supportedLocale;
+          }
+        }
+        return supportedLocales.first;
+      },
+      // App Supported Locales
+      supportedLocales: const [Locale('ar'), Locale('en')],
+      // Localization Delegates
       localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
