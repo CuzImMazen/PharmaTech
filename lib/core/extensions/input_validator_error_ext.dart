@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pharmacy_app/core/enums/enums.dart';
+import 'package:pharmacy_app/core/error/validator_error.dart';
 import 'package:pharmacy_app/core/extensions/localization_ext.dart';
 
 extension EmailInputErrorExt on EmailInputError {

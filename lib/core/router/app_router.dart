@@ -2,7 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pharmacy_app/core/router/app_routes.dart';
 import 'package:pharmacy_app/core/router/app_routes_keys.dart';
-import 'package:pharmacy_app/core/state/app_state_notifier.dart';
+import 'package:pharmacy_app/core/app/app_state_notifier.dart';
 
 class AppRouter {
   AppRouter._();

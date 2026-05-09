@@ -1,0 +1,1 @@
+enum AuthFailureType { emailNotRegistered, wrongPassword }

@@ -5,27 +5,53 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:pharmacy_app/core/state/app_state_notifier.dart';
+import 'package:pharmacy_app/core/app/app_state_notifier.dart';
 import 'package:pharmacy_app/core/di/service_locator.dart';
 import 'package:pharmacy_app/core/router/app_router.dart';
-import 'package:pharmacy_app/core/state/auth/auth_cubit.dart';
+import 'package:pharmacy_app/core/app/session/session_cubit.dart';
 import 'package:pharmacy_app/core/storage/prefs/shared_prefs_service.dart';
+import 'package:pharmacy_app/core/token/token_store.dart';
 import 'package:pharmacy_app/core/theme/app_theme.dart';
+import 'package:pharmacy_app/features/auth/data/repo/auth_repository.dart';
 import 'package:pharmacy_app/l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await setupLocator();
 
-  final appState = sl<AppStateNotifier>();
+  final authRepository = sl<AuthRepository>();
+  final tokenStore = sl<TokenStore>();
+  final sessionCubit = SessionCubit(authRepository: authRepository);
+
+  ///  1: restore token from storage ( if user choosed remmeber me)
+  final savedToken = await authRepository.getToken();
+
+  if (savedToken != null) {
+    tokenStore.set(savedToken); // for interceptor
+    sessionCubit.setAuthenticated(savedToken); // for app state
+  } else {
+    sessionCubit.setUnauthenticated(); // they need to login
+  }
+
+  final appState = AppStateNotifier(
+    sessionCubit: sessionCubit,
+    onboardingRepository: sl(),
+  );
+
   AppRouter.init(appState);
 
   runApp(
-    //const PharmacyApp(),
-    DevicePreview(
-      enabled: !kReleaseMode,
-      builder: (context) => const PharmacyApp(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider.value(value: appState),
+        BlocProvider.value(value: sessionCubit),
+      ],
+      child: DevicePreview(
+        enabled: !kReleaseMode,
+        builder: (context) => const PharmacyApp(),
+      ),
     ),
   );
 }
@@ -35,36 +61,33 @@ class PharmacyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider.value(
-      value: sl<AuthCubit>(),
-      child: MaterialApp.router(
-        showPerformanceOverlay: false,
-        debugShowCheckedModeBanner: false,
-        title: 'Pharmacy App',
-        theme: AppTheme.lightTheme,
-        darkTheme: AppTheme.darkTheme,
-        routerConfig: AppRouter.router,
-        builder: kReleaseMode ? null : DevicePreview.appBuilder,
+    return MaterialApp.router(
+      showPerformanceOverlay: false,
+      debugShowCheckedModeBanner: false,
+      title: 'Pharmacy App',
+      theme: AppTheme.lightTheme,
+      darkTheme: AppTheme.darkTheme,
+      routerConfig: AppRouter.router,
+      builder: kReleaseMode ? null : DevicePreview.appBuilder,
 
-        //********** Localization Section **********//
-        locale: kReleaseMode ? null : DevicePreview.locale(context),
+      //********** Localization Section **********//
+      locale: kReleaseMode ? null : DevicePreview.locale(context),
 
-        localeResolutionCallback: (locale, supportedLocales) {
-          for (var supportedLocale in supportedLocales) {
-            if (supportedLocale.languageCode == locale?.languageCode) {
-              return supportedLocale;
-            }
+      localeResolutionCallback: (locale, supportedLocales) {
+        for (var supportedLocale in supportedLocales) {
+          if (supportedLocale.languageCode == locale?.languageCode) {
+            return supportedLocale;
           }
-          return supportedLocales.first;
-        },
-        supportedLocales: const [Locale('ar'), Locale('en')],
-        localizationsDelegates: const [
-          AppLocalizations.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-        ],
-      ),
+        }
+        return supportedLocales.first;
+      },
+      supportedLocales: const [Locale('ar'), Locale('en')],
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
     );
   }
 }

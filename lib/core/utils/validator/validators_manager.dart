@@ -1,4 +1,4 @@
-import 'package:pharmacy_app/core/enums/enums.dart';
+import 'package:pharmacy_app/core/error/validator_error.dart';
 
 class ValidatorsManager {
   static EmailInputError? emailValidator(String? value) {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pharmacy_app/core/enums/enums.dart';
 import 'package:pharmacy_app/core/error/failure.dart';
+import 'package:pharmacy_app/core/error/failure_types.dart';
 import 'package:pharmacy_app/core/extensions/localization_ext.dart';
 
 extension FailureLocalization on Failure {
@@ -17,9 +17,9 @@ extension FailureLocalization on Failure {
 
       case AuthFailure(:final type):
         switch (type) {
-          case AuthError.emailNotRegistered:
+          case AuthFailureType.emailNotRegistered:
             return context.tr.auth_email_not_registered;
-          case AuthError.wrongPassword:
+          case AuthFailureType.wrongPassword:
             return context.tr.auth_wrong_password;
         }
     }

@@ -1,4 +1,4 @@
-import 'package:pharmacy_app/core/enums/enums.dart';
+import 'package:pharmacy_app/core/error/failure_types.dart';
 
 sealed class Failure {
   const Failure();
@@ -17,6 +17,6 @@ class UnknownFailure extends Failure {
 }
 
 class AuthFailure extends Failure {
-  final AuthError type;
+  final AuthFailureType type;
   const AuthFailure(this.type);
 }

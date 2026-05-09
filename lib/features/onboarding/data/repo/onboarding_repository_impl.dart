@@ -1,6 +1,6 @@
 import 'package:pharmacy_app/core/storage/prefs/shared_prefs_keys.dart';
 import 'package:pharmacy_app/core/storage/prefs/shared_prefs_service.dart';
-import 'package:pharmacy_app/core/repositories/onboarding/onboarding_repository.dart';
+import 'package:pharmacy_app/features/onboarding/data/repo/onboarding_repository.dart';
 import 'package:flutter/foundation.dart';
 
 class OnboardingRepositoryImpl implements OnboardingRepository {
@@ -23,7 +23,7 @@ class OnboardingRepositoryImpl implements OnboardingRepository {
   }
 
   @override
-  Future<void> setOnboardingSeen() async {
+  Future<void> saveOnboardingSeen() async {
     try {
       await sharedPrefsService.setBool(PrefsKeys.hasSeenOnboarding, true);
     } catch (e) {

@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'auth_state.dart';
+part of 'session_state.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -16,7 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 );
 
 /// @nodoc
-mixin _$AuthState {
+mixin _$SessionState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
@@ -58,22 +58,24 @@ mixin _$AuthState {
 }
 
 /// @nodoc
-abstract class $AuthStateCopyWith<$Res> {
-  factory $AuthStateCopyWith(AuthState value, $Res Function(AuthState) then) =
-      _$AuthStateCopyWithImpl<$Res, AuthState>;
+abstract class $SessionStateCopyWith<$Res> {
+  factory $SessionStateCopyWith(
+    SessionState value,
+    $Res Function(SessionState) then,
+  ) = _$SessionStateCopyWithImpl<$Res, SessionState>;
 }
 
 /// @nodoc
-class _$AuthStateCopyWithImpl<$Res, $Val extends AuthState>
-    implements $AuthStateCopyWith<$Res> {
-  _$AuthStateCopyWithImpl(this._value, this._then);
+class _$SessionStateCopyWithImpl<$Res, $Val extends SessionState>
+    implements $SessionStateCopyWith<$Res> {
+  _$SessionStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of AuthState
+  /// Create a copy of SessionState
   /// with the given fields replaced by the non-null parameter values.
 }
 
@@ -87,14 +89,14 @@ abstract class _$$InitialImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$InitialImplCopyWithImpl<$Res>
-    extends _$AuthStateCopyWithImpl<$Res, _$InitialImpl>
+    extends _$SessionStateCopyWithImpl<$Res, _$InitialImpl>
     implements _$$InitialImplCopyWith<$Res> {
   __$$InitialImplCopyWithImpl(
     _$InitialImpl _value,
     $Res Function(_$InitialImpl) _then,
   ) : super(_value, _then);
 
-  /// Create a copy of AuthState
+  /// Create a copy of SessionState
   /// with the given fields replaced by the non-null parameter values.
 }
 
@@ -105,7 +107,7 @@ class _$InitialImpl implements _Initial {
 
   @override
   String toString() {
-    return 'AuthState.initial()';
+    return 'SessionState.initial()';
   }
 
   @override
@@ -186,7 +188,7 @@ class _$InitialImpl implements _Initial {
   }
 }
 
-abstract class _Initial implements AuthState {
+abstract class _Initial implements SessionState {
   const factory _Initial() = _$InitialImpl;
 }
 
@@ -202,14 +204,14 @@ abstract class _$$AuthenticatedImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$AuthenticatedImplCopyWithImpl<$Res>
-    extends _$AuthStateCopyWithImpl<$Res, _$AuthenticatedImpl>
+    extends _$SessionStateCopyWithImpl<$Res, _$AuthenticatedImpl>
     implements _$$AuthenticatedImplCopyWith<$Res> {
   __$$AuthenticatedImplCopyWithImpl(
     _$AuthenticatedImpl _value,
     $Res Function(_$AuthenticatedImpl) _then,
   ) : super(_value, _then);
 
-  /// Create a copy of AuthState
+  /// Create a copy of SessionState
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -235,7 +237,7 @@ class _$AuthenticatedImpl implements _Authenticated {
 
   @override
   String toString() {
-    return 'AuthState.authenticated(token: $token)';
+    return 'SessionState.authenticated(token: $token)';
   }
 
   @override
@@ -249,7 +251,7 @@ class _$AuthenticatedImpl implements _Authenticated {
   @override
   int get hashCode => Object.hash(runtimeType, token);
 
-  /// Create a copy of AuthState
+  /// Create a copy of SessionState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
@@ -326,13 +328,13 @@ class _$AuthenticatedImpl implements _Authenticated {
   }
 }
 
-abstract class _Authenticated implements AuthState {
+abstract class _Authenticated implements SessionState {
   const factory _Authenticated({required final String token}) =
       _$AuthenticatedImpl;
 
   String get token;
 
-  /// Create a copy of AuthState
+  /// Create a copy of SessionState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$AuthenticatedImplCopyWith<_$AuthenticatedImpl> get copyWith =>
@@ -349,14 +351,14 @@ abstract class _$$UnauthenticatedImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$UnauthenticatedImplCopyWithImpl<$Res>
-    extends _$AuthStateCopyWithImpl<$Res, _$UnauthenticatedImpl>
+    extends _$SessionStateCopyWithImpl<$Res, _$UnauthenticatedImpl>
     implements _$$UnauthenticatedImplCopyWith<$Res> {
   __$$UnauthenticatedImplCopyWithImpl(
     _$UnauthenticatedImpl _value,
     $Res Function(_$UnauthenticatedImpl) _then,
   ) : super(_value, _then);
 
-  /// Create a copy of AuthState
+  /// Create a copy of SessionState
   /// with the given fields replaced by the non-null parameter values.
 }
 
@@ -367,7 +369,7 @@ class _$UnauthenticatedImpl implements _Unauthenticated {
 
   @override
   String toString() {
-    return 'AuthState.unauthenticated()';
+    return 'SessionState.unauthenticated()';
   }
 
   @override
@@ -448,6 +450,6 @@ class _$UnauthenticatedImpl implements _Unauthenticated {
   }
 }
 
-abstract class _Unauthenticated implements AuthState {
+abstract class _Unauthenticated implements SessionState {
   const factory _Unauthenticated() = _$UnauthenticatedImpl;
 }

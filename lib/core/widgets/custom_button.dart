@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:pharmacy_app/core/extensions/app_design_system_ext.dart';
+import 'package:pharmacy_app/core/extensions/text_theme_ext.dart';
 
 import 'package:pharmacy_app/core/extensions/theme_colors_ext.dart';
 
@@ -13,7 +14,7 @@ class CustomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDisabled = onTap == null;
-    final theme = Theme.of(context);
+    // final theme = Theme.of(context);
 
     return SizedBox(
       width: double.infinity,
@@ -59,7 +60,7 @@ class CustomButton extends StatelessWidget {
             child: Text(
               text,
 
-              style: theme.textTheme.labelLarge?.copyWith(
+              style: context.text.labelLarge?.copyWith(
                 color: context.colors.onPrimary,
               ),
             ),

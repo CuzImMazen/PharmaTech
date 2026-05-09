@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:pharmacy_app/core/repositories/auth/auth_repository.dart';
+import 'package:pharmacy_app/features/auth/data/repo/auth_repository.dart';
 import 'package:pharmacy_app/core/storage/secure/secure_storage_keys.dart';
 import 'package:pharmacy_app/core/storage/secure/secure_storage_service.dart';
 

@@ -57,8 +57,8 @@ class AppTextTheme {
     ),
 
     // LABELS
-    labelLarge: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
-    labelMedium: TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
+    labelLarge: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+    labelMedium: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
     labelSmall: TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
 
     // BODY

@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pharmacy_app/core/consts/assets.dart';
-import 'package:pharmacy_app/core/di/service_locator.dart';
 import 'package:pharmacy_app/core/extensions/app_design_system_ext.dart';
 import 'package:pharmacy_app/core/extensions/localization_ext.dart';
 import 'package:pharmacy_app/core/extensions/text_theme_ext.dart';
 import 'package:pharmacy_app/core/extensions/theme_colors_ext.dart';
-import 'package:pharmacy_app/core/repositories/onboarding/onboarding_repository.dart';
-import 'package:pharmacy_app/core/state/app_state_notifier.dart';
+import 'package:pharmacy_app/core/app/app_state_notifier.dart';
 import 'package:pharmacy_app/features/onboarding/presentation/widgets/onboarding_footer.dart';
 import 'package:pharmacy_app/features/onboarding/presentation/widgets/onboarding_page.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -106,24 +105,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     );
   }
 
-  Future<void> _finish() async {
-    try {
-      // 1. Save to local storage (Persistent)
-      await sl<OnboardingRepository>().setOnboardingSeen();
-
-      // 2. Update the Notifier (Reactive)
-      // This flips the boolean inside the Notifier, which triggers GoRouter
-      // to re-evaluate. GoRouter will see onboarding is done and move to Login.
-      sl<AppStateNotifier>().completeOnboarding();
-
-      // 3. REMOVE the context.go line.
-      // You don't need it! GoRouter will handle the transition automatically
-      // because it's listening to the AppStateNotifier.
-    } catch (e) {
-      debugPrint('Onboarding Storage Error: $e');
-      // If storage fails, we still want to move forward for a better UX
-      sl<AppStateNotifier>().completeOnboarding();
-    }
+  void _finish() {
+    context.read<AppStateNotifier>().completeOnboarding();
   }
 
   @override
