@@ -55,6 +55,7 @@ class AppStateNotifier extends ChangeNotifier {
 
   // ---------------- ACTIONS ---------------- //
 
+  // Call this when user completes onboarding
   void completeOnboarding() {
     _onboardingSeen = true;
     notifyListeners();

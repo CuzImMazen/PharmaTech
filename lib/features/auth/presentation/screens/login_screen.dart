@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
-
 import 'package:pharmacy_app/core/extensions/failure_message_localization_ext.dart';
+
 import 'package:pharmacy_app/core/extensions/input_validator_error_ext.dart';
 import 'package:pharmacy_app/core/extensions/localization_ext.dart';
 import 'package:pharmacy_app/core/extensions/app_design_system_ext.dart';
-import 'package:pharmacy_app/core/extensions/theme_colors_ext.dart';
-import 'package:pharmacy_app/core/state/screen_state.dart';
 import 'package:pharmacy_app/core/utils/messages/snackbar.dart';
+
 import 'package:pharmacy_app/core/utils/validator/validators_manager.dart';
 import 'package:pharmacy_app/core/widgets/custom_button.dart';
 import 'package:pharmacy_app/core/widgets/custom_text_field.dart';
@@ -49,11 +48,13 @@ class _LoginScreenState extends State<LoginScreenBody> {
 
   final FocusNode _passwordFocusNode = FocusNode();
 
+  final ValueNotifier<bool> _rememberMe = ValueNotifier<bool>(false);
+
   void _handleLogin() {
     FocusScope.of(context).unfocus();
 
     if (formKey.currentState?.validate() ?? false) {
-      context.read<LoginCubit>().testError();
+      context.read<LoginCubit>().test();
     }
   }
 
@@ -75,22 +76,24 @@ class _LoginScreenState extends State<LoginScreenBody> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<LoginCubit, LoginState>(
-      listenWhen: (previous, current) =>
-          previous.screenState != current.screenState,
       listener: (context, state) {
-        if (state.screenState is SuccessState) {
-          Snackbar.show(
-            context: context,
-            message: context.tr.auth_login_success,
-            color: context.colors.primary,
-          );
-        } else if (state.screenState case FailureState failureState) {
-          Snackbar.show(
-            context: context,
-            message: failureState.failure.localizedMessage(context),
-            color: context.colors.error,
-          );
-        }
+        state.maybeWhen(
+          success: (token) {
+            Snackbar.show(
+              context: context,
+              message: context.tr.auth_login_success,
+              color: Colors.green,
+            );
+          },
+          failure: (failure) {
+            Snackbar.show(
+              context: context,
+              message: failure.localizedMessage(context),
+              color: Colors.red,
+            );
+          },
+          orElse: () {},
+        );
       },
       child: SafeArea(
         child: Form(
@@ -142,32 +145,46 @@ class _LoginScreenState extends State<LoginScreenBody> {
                     onFieldSubmitted: (_) => _handleLogin(),
                   ),
                   context.vMd,
-                  RememberMeRow(),
+                  ValueListenableBuilder<bool>(
+                    valueListenable: _rememberMe,
+                    builder: (_, rememberMe, _) {
+                      return RememberMeRow(
+                        value: rememberMe,
+                        onChanged: (value) {
+                          _rememberMe.value = value ?? false;
+                        },
+                      );
+                    },
+                  ),
                   context.vMd,
-
                   BlocBuilder<LoginCubit, LoginState>(
                     buildWhen: (prev, curr) =>
-                        prev.screenState != curr.screenState,
+                        prev.runtimeType != curr.runtimeType,
                     builder: (context, state) {
-                      final isLoading =
-                          state.screenState == const LoadingState();
+                      final isLoading = state.maybeWhen(
+                        loading: () => true,
+                        orElse: () => false,
+                      );
 
-                      if (isLoading) {
-                        return SizedBox(
-                          height: context.btnLg,
-                          child: Center(child: CircularProgressIndicator()),
-                        );
-                      }
-
-                      return CustomButton(
-                        onTap: _handleLogin,
-                        text: context.tr.auth_login_button,
+                      return AnimatedSwitcher(
+                        duration: const Duration(milliseconds: 300),
+                        child: isLoading
+                            ? SizedBox(
+                                height: context.btnLg,
+                                child: const Center(
+                                  child: CircularProgressIndicator(),
+                                ),
+                              )
+                            : CustomButton(
+                                onTap: _handleLogin,
+                                text: context.tr.auth_login_button,
+                              ),
                       );
                     },
                   ),
                   context.vMd,
                   CreateAccountRow(),
-                  // TermsAndConditionsRow(),
+
                   context.vMd,
                 ],
               ),
