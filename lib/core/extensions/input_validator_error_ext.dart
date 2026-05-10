@@ -23,3 +23,61 @@ extension PasswordInputErrorExt on PasswordInputError {
     }
   }
 }
+
+extension ConfirmPasswordInputErrorExt on ConfirmPasswordInputError {
+  String localizedMessage(BuildContext context) {
+    switch (this) {
+      case ConfirmPasswordInputError.empty:
+        return context.tr.auth_confirm_password_is_required;
+      case ConfirmPasswordInputError.mismatch:
+        return context.tr.auth_passwords_do_not_match;
+    }
+  }
+}
+
+extension FirstNameInputErrorExt on FirstNameInputError {
+  String localizedMessage(BuildContext context) {
+    switch (this) {
+      case FirstNameInputError.empty:
+        return context.tr.auth_first_name_is_required;
+    }
+  }
+}
+
+extension LastNameInputErrorExt on LastNameInputError {
+  String localizedMessage(BuildContext context) {
+    switch (this) {
+      case LastNameInputError.empty:
+        return context.tr.auth_last_name_is_required;
+    }
+  }
+}
+
+extension PhoneInputErrorExt on PhoneInputError {
+  String localizedMessage(BuildContext context) {
+    switch (this) {
+      case PhoneInputError.empty:
+        return context.tr.auth_phone_is_required;
+      case PhoneInputError.invalidFormat:
+        return context.tr.auth_invalid_phone;
+    }
+  }
+}
+
+extension PharmacyNameInputErrorExt on PharmacyNameInputError {
+  String localizedMessage(BuildContext context) {
+    switch (this) {
+      case PharmacyNameInputError.empty:
+        return context.tr.auth_pharmacy_name_is_required;
+    }
+  }
+}
+
+extension PharmacyLicenseInputErrorExt on PharmacyLicenseInputError {
+  String localizedMessage(BuildContext context) {
+    switch (this) {
+      case PharmacyLicenseInputError.empty:
+        return context.tr.pharmacy_license_required;
+    }
+  }
+}

@@ -26,4 +26,59 @@ class ValidatorsManager {
     // }
     return null; // Valid password
   }
+
+  static ConfirmPasswordInputError? confirmPasswordValidator(
+    String? password,
+    String? confirmPassword,
+  ) {
+    if (confirmPassword == null || confirmPassword.isEmpty) {
+      return ConfirmPasswordInputError.empty; // Confirm password is required
+    }
+    if (password != confirmPassword) {
+      return ConfirmPasswordInputError.mismatch; // Passwords do not match
+    }
+    return null; // Valid confirm password
+  }
+
+  static FirstNameInputError? firstNameValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      return FirstNameInputError.empty; // First name is required
+    }
+    return null; // Valid first name
+  }
+
+  static LastNameInputError? lastNameValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      return LastNameInputError.empty; // Last name is required
+    }
+    return null; // Valid last name
+  }
+
+  static PhoneInputError? phoneValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      return PhoneInputError.empty;
+    }
+
+    final syrianPhoneRegex = RegExp(r'^09\d{8}$');
+
+    if (!syrianPhoneRegex.hasMatch(value)) {
+      return PhoneInputError.invalidFormat;
+    }
+
+    return null;
+  }
+
+  static PharmacyNameInputError? pharmacyNameValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      return PharmacyNameInputError.empty; // Pharmacy name is required
+    }
+    return null; // Valid pharmacy name
+  }
+
+  static PharmacyLicenseInputError? pharmacyLicenseValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      return PharmacyLicenseInputError.empty; // Pharmacy license is required
+    }
+    return null; // Valid pharmacy license
+  }
 }

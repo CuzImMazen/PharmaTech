@@ -1,10 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:pharmacy_app/core/extensions/localization_ext.dart';
 import 'package:pharmacy_app/core/extensions/text_theme_ext.dart';
 import 'package:pharmacy_app/core/extensions/theme_colors_ext.dart';
 
-class CreateAccountRow extends StatelessWidget {
-  const CreateAccountRow({super.key});
+/// Reusable row for prompts like:
+/// - "Don't have an account? Create account"
+/// - "Already have an account? Sign in"
+/// - "Forgot your password? Reset password"
+class AuthPromptRow extends StatelessWidget {
+  const AuthPromptRow({
+    super.key,
+    required this.promptText,
+    required this.actionText,
+    required this.onPressed,
+  });
+
+  /// Static text shown before the action.
+  final String promptText;
+
+  /// Clickable action text.
+  final String actionText;
+
+  /// Callback executed when the action text is tapped.
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -12,21 +29,18 @@ class CreateAccountRow extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          "${context.tr.auth_no_account} ",
+          '$promptText ',
           style: context.text.bodyMedium!.copyWith(color: context.muted),
         ),
-
         TextButton(
-          onPressed: () {
-            // TODO: navigate to register
-          },
+          onPressed: onPressed,
           style: TextButton.styleFrom(
             padding: EdgeInsets.zero,
-            minimumSize: const Size(0, 0),
+            minimumSize: Size.zero,
             tapTargetSize: MaterialTapTargetSize.shrinkWrap,
           ),
           child: Text(
-            context.tr.auth_create_account,
+            actionText,
             style: context.text.bodyMedium!.copyWith(
               color: context.colors.primary,
               fontWeight: FontWeight.w600,

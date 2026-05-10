@@ -48,5 +48,106 @@
     ,"auth_email_not_registered": "Email is not registered"
     ,"auth_wrong_password": "Incorrect password"
     , "auth_login_success": "Logged in successfully"
+    , "auth_or": "OR"
+    , "auth_signin_with_google": "Sign in with Google"
+    ,"auth_signup_account_title":"Create a new account" ,
+    "auth_signup_account_subtitle": "Create your account in just a few clicks."
+    ,"auth_confirm_password_label": "Confirm Password"
+    ,"auth_passwords_do_not_match": "Passwords do not match"
+    ,"auth_confirm_password_is_required": "Confirm Password is required"
+    ,"auth_next": "Next"
+    ,"already_have_account": "Already have an account? ",
+    "auth_signin": "Sign In"
+    ,"auth_signup_subtitle2": "Personal Information & Licensing"
+    ,"first_name_label": "First Name"
+    ,"last_name_label": "Last Name"
+    ,"phone_number_label": "Phone Number"
+    ,"first_name_hint": "John"
+    ,"last_name_hint": "Smith"
+    ,"auth_first_name_is_required": "First name is required"
+    ,"auth_last_name_is_required": "Last name is required"
+      ,"auth_phone_is_required": "Phone number is required"
+      ,"auth_invalid_phone": "Invalid phone number format"
+      ,"phone_label": "Phone Number"
+      ,"pharmacy_name_label": "Pharmacy Name"
+      ,"pharmacy_name_hint": "John's Pharmacy"
+      ,"auth_pharmacy_name_is_required": "Pharmacy name is required"
+      ,"auth_governorate_is_required": "Governorate is required"
+      , "auth_city_is_required": "City is required"
+      ,"auth_governorate_label": "Governorate"
+      ,"auth_city_label": "City"
+      ,
+  "gov_damascus": "Damascus",
+  "gov_aleppo": "Aleppo",
+  "gov_homs": "Homs",
+  "gov_hama": "Hama",
+  "gov_latakia": "Latakia",
+  "gov_tartous": "Tartous",
+  "gov_idlib": "Idlib",
+  "gov_daraa": "Daraa",
+  "gov_deir_ezzor": "Deir ez-Zor",
+  "gov_raqqa": "Raqqa",
+  "gov_hasakah": "Al-Hasakah",
+
+  "city_mazzeh": "Mazzeh",
+  "city_barzeh": "Barzeh",
+  "city_mezzah_86": "Mezzeh 86",
+  "city_kafrsouseh": "Kafr Sousa",
+  "city_ruken_al_din": "Rukn al-Din",
+  "city_old_damascus": "Old Damascus",
+
+  "city_salah_al_din": "Salah al-Din",
+  "city_hanano": "Hanano",
+  "city_ashrafieh": "Ashrafieh",
+  "city_aziziyeh": "Aziziyeh",
+  "city_jamiliyeh": "Jamiliyeh",
+  "city_seif_al_dawla": "Seif al-Dawla",
+
+  "city_al_inshaat": "Al-Inshaat",
+  "city_al_waer": "Al-Waer",
+  "city_al_hamra": "Al-Hamra",
+  "city_bab_tadmur": "Bab Tadmur",
+
+  "city_al_arbaeen": "Al-Arbaeen",
+  "city_al_nasiriya": "Al-Nasiriya",
+  "city_al_kareem": "Al-Kareem",
+
+  "city_al_ramleh": "Al-Ramleh",
+  "city_al_ziraa": "Al-Ziraa",
+  "city_corniche": "Corniche",
+
+  "city_al_sheikh_badr": "Al-Sheikh Badr",
+  "city_baniyas": "Baniyas",
+  "city_corniche_tartous": "Tartous Corniche",
+
+  "city_idlib_center": "Idlib Center",
+  "city_maarret_al_numan": "Maarat al-Numan",
+  "city_saraqib": "Saraqib",
+
+  "city_daraa_city": "Daraa City",
+  "city_busra_al_sham": "Busra al-Sham",
+  "city_nawa": "Nawa",
+
+  "city_deir_ezzor_city": "Deir ez-Zor City",
+  "city_al_mayadeen": "Al-Mayadeen",
+  "city_al_bukamal": "Al-Bukamal",
+
+  "city_raqqa_city": "Raqqa City",
+  "city_tal_abyad": "Tal Abyad",
+
+  "city_hasakah_city": "Al-Hasakah City",
+  "city_qamishli": "Qamishli",
+  "city_malikiya": "Al-Malikiyah"
+
+  ,"detailed_address_label": "Detailed Address (Optional)"
+
+  , "detailed_address_hint": "Downtown, near the main square...",
+   "pharmacy_license_label": "Pharmacy License Number"
+   ,"pharmacy_license_required": "Pharmacy license number is required"
+   ,"create_account": "Create Account"
+   , "back": "Back"
+
+
+    
     
 }

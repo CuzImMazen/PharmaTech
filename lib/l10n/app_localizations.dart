@@ -304,6 +304,510 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Logged in successfully'**
   String get auth_login_success;
+
+  /// No description provided for @auth_or.
+  ///
+  /// In en, this message translates to:
+  /// **'OR'**
+  String get auth_or;
+
+  /// No description provided for @auth_signin_with_google.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in with Google'**
+  String get auth_signin_with_google;
+
+  /// No description provided for @auth_signup_account_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Create a new account'**
+  String get auth_signup_account_title;
+
+  /// No description provided for @auth_signup_account_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Create your account in just a few clicks.'**
+  String get auth_signup_account_subtitle;
+
+  /// No description provided for @auth_confirm_password_label.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Password'**
+  String get auth_confirm_password_label;
+
+  /// No description provided for @auth_passwords_do_not_match.
+  ///
+  /// In en, this message translates to:
+  /// **'Passwords do not match'**
+  String get auth_passwords_do_not_match;
+
+  /// No description provided for @auth_confirm_password_is_required.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Password is required'**
+  String get auth_confirm_password_is_required;
+
+  /// No description provided for @auth_next.
+  ///
+  /// In en, this message translates to:
+  /// **'Next'**
+  String get auth_next;
+
+  /// No description provided for @already_have_account.
+  ///
+  /// In en, this message translates to:
+  /// **'Already have an account? '**
+  String get already_have_account;
+
+  /// No description provided for @auth_signin.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign In'**
+  String get auth_signin;
+
+  /// No description provided for @auth_signup_subtitle2.
+  ///
+  /// In en, this message translates to:
+  /// **'Personal Information & Licensing'**
+  String get auth_signup_subtitle2;
+
+  /// No description provided for @first_name_label.
+  ///
+  /// In en, this message translates to:
+  /// **'First Name'**
+  String get first_name_label;
+
+  /// No description provided for @last_name_label.
+  ///
+  /// In en, this message translates to:
+  /// **'Last Name'**
+  String get last_name_label;
+
+  /// No description provided for @phone_number_label.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone Number'**
+  String get phone_number_label;
+
+  /// No description provided for @first_name_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'John'**
+  String get first_name_hint;
+
+  /// No description provided for @last_name_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'Smith'**
+  String get last_name_hint;
+
+  /// No description provided for @auth_first_name_is_required.
+  ///
+  /// In en, this message translates to:
+  /// **'First name is required'**
+  String get auth_first_name_is_required;
+
+  /// No description provided for @auth_last_name_is_required.
+  ///
+  /// In en, this message translates to:
+  /// **'Last name is required'**
+  String get auth_last_name_is_required;
+
+  /// No description provided for @auth_phone_is_required.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone number is required'**
+  String get auth_phone_is_required;
+
+  /// No description provided for @auth_invalid_phone.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid phone number format'**
+  String get auth_invalid_phone;
+
+  /// No description provided for @phone_label.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone Number'**
+  String get phone_label;
+
+  /// No description provided for @pharmacy_name_label.
+  ///
+  /// In en, this message translates to:
+  /// **'Pharmacy Name'**
+  String get pharmacy_name_label;
+
+  /// No description provided for @pharmacy_name_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'John\'s Pharmacy'**
+  String get pharmacy_name_hint;
+
+  /// No description provided for @auth_pharmacy_name_is_required.
+  ///
+  /// In en, this message translates to:
+  /// **'Pharmacy name is required'**
+  String get auth_pharmacy_name_is_required;
+
+  /// No description provided for @auth_governorate_is_required.
+  ///
+  /// In en, this message translates to:
+  /// **'Governorate is required'**
+  String get auth_governorate_is_required;
+
+  /// No description provided for @auth_city_is_required.
+  ///
+  /// In en, this message translates to:
+  /// **'City is required'**
+  String get auth_city_is_required;
+
+  /// No description provided for @auth_governorate_label.
+  ///
+  /// In en, this message translates to:
+  /// **'Governorate'**
+  String get auth_governorate_label;
+
+  /// No description provided for @auth_city_label.
+  ///
+  /// In en, this message translates to:
+  /// **'City'**
+  String get auth_city_label;
+
+  /// No description provided for @gov_damascus.
+  ///
+  /// In en, this message translates to:
+  /// **'Damascus'**
+  String get gov_damascus;
+
+  /// No description provided for @gov_aleppo.
+  ///
+  /// In en, this message translates to:
+  /// **'Aleppo'**
+  String get gov_aleppo;
+
+  /// No description provided for @gov_homs.
+  ///
+  /// In en, this message translates to:
+  /// **'Homs'**
+  String get gov_homs;
+
+  /// No description provided for @gov_hama.
+  ///
+  /// In en, this message translates to:
+  /// **'Hama'**
+  String get gov_hama;
+
+  /// No description provided for @gov_latakia.
+  ///
+  /// In en, this message translates to:
+  /// **'Latakia'**
+  String get gov_latakia;
+
+  /// No description provided for @gov_tartous.
+  ///
+  /// In en, this message translates to:
+  /// **'Tartous'**
+  String get gov_tartous;
+
+  /// No description provided for @gov_idlib.
+  ///
+  /// In en, this message translates to:
+  /// **'Idlib'**
+  String get gov_idlib;
+
+  /// No description provided for @gov_daraa.
+  ///
+  /// In en, this message translates to:
+  /// **'Daraa'**
+  String get gov_daraa;
+
+  /// No description provided for @gov_deir_ezzor.
+  ///
+  /// In en, this message translates to:
+  /// **'Deir ez-Zor'**
+  String get gov_deir_ezzor;
+
+  /// No description provided for @gov_raqqa.
+  ///
+  /// In en, this message translates to:
+  /// **'Raqqa'**
+  String get gov_raqqa;
+
+  /// No description provided for @gov_hasakah.
+  ///
+  /// In en, this message translates to:
+  /// **'Al-Hasakah'**
+  String get gov_hasakah;
+
+  /// No description provided for @city_mazzeh.
+  ///
+  /// In en, this message translates to:
+  /// **'Mazzeh'**
+  String get city_mazzeh;
+
+  /// No description provided for @city_barzeh.
+  ///
+  /// In en, this message translates to:
+  /// **'Barzeh'**
+  String get city_barzeh;
+
+  /// No description provided for @city_mezzah_86.
+  ///
+  /// In en, this message translates to:
+  /// **'Mezzeh 86'**
+  String get city_mezzah_86;
+
+  /// No description provided for @city_kafrsouseh.
+  ///
+  /// In en, this message translates to:
+  /// **'Kafr Sousa'**
+  String get city_kafrsouseh;
+
+  /// No description provided for @city_ruken_al_din.
+  ///
+  /// In en, this message translates to:
+  /// **'Rukn al-Din'**
+  String get city_ruken_al_din;
+
+  /// No description provided for @city_old_damascus.
+  ///
+  /// In en, this message translates to:
+  /// **'Old Damascus'**
+  String get city_old_damascus;
+
+  /// No description provided for @city_salah_al_din.
+  ///
+  /// In en, this message translates to:
+  /// **'Salah al-Din'**
+  String get city_salah_al_din;
+
+  /// No description provided for @city_hanano.
+  ///
+  /// In en, this message translates to:
+  /// **'Hanano'**
+  String get city_hanano;
+
+  /// No description provided for @city_ashrafieh.
+  ///
+  /// In en, this message translates to:
+  /// **'Ashrafieh'**
+  String get city_ashrafieh;
+
+  /// No description provided for @city_aziziyeh.
+  ///
+  /// In en, this message translates to:
+  /// **'Aziziyeh'**
+  String get city_aziziyeh;
+
+  /// No description provided for @city_jamiliyeh.
+  ///
+  /// In en, this message translates to:
+  /// **'Jamiliyeh'**
+  String get city_jamiliyeh;
+
+  /// No description provided for @city_seif_al_dawla.
+  ///
+  /// In en, this message translates to:
+  /// **'Seif al-Dawla'**
+  String get city_seif_al_dawla;
+
+  /// No description provided for @city_al_inshaat.
+  ///
+  /// In en, this message translates to:
+  /// **'Al-Inshaat'**
+  String get city_al_inshaat;
+
+  /// No description provided for @city_al_waer.
+  ///
+  /// In en, this message translates to:
+  /// **'Al-Waer'**
+  String get city_al_waer;
+
+  /// No description provided for @city_al_hamra.
+  ///
+  /// In en, this message translates to:
+  /// **'Al-Hamra'**
+  String get city_al_hamra;
+
+  /// No description provided for @city_bab_tadmur.
+  ///
+  /// In en, this message translates to:
+  /// **'Bab Tadmur'**
+  String get city_bab_tadmur;
+
+  /// No description provided for @city_al_arbaeen.
+  ///
+  /// In en, this message translates to:
+  /// **'Al-Arbaeen'**
+  String get city_al_arbaeen;
+
+  /// No description provided for @city_al_nasiriya.
+  ///
+  /// In en, this message translates to:
+  /// **'Al-Nasiriya'**
+  String get city_al_nasiriya;
+
+  /// No description provided for @city_al_kareem.
+  ///
+  /// In en, this message translates to:
+  /// **'Al-Kareem'**
+  String get city_al_kareem;
+
+  /// No description provided for @city_al_ramleh.
+  ///
+  /// In en, this message translates to:
+  /// **'Al-Ramleh'**
+  String get city_al_ramleh;
+
+  /// No description provided for @city_al_ziraa.
+  ///
+  /// In en, this message translates to:
+  /// **'Al-Ziraa'**
+  String get city_al_ziraa;
+
+  /// No description provided for @city_corniche.
+  ///
+  /// In en, this message translates to:
+  /// **'Corniche'**
+  String get city_corniche;
+
+  /// No description provided for @city_al_sheikh_badr.
+  ///
+  /// In en, this message translates to:
+  /// **'Al-Sheikh Badr'**
+  String get city_al_sheikh_badr;
+
+  /// No description provided for @city_baniyas.
+  ///
+  /// In en, this message translates to:
+  /// **'Baniyas'**
+  String get city_baniyas;
+
+  /// No description provided for @city_corniche_tartous.
+  ///
+  /// In en, this message translates to:
+  /// **'Tartous Corniche'**
+  String get city_corniche_tartous;
+
+  /// No description provided for @city_idlib_center.
+  ///
+  /// In en, this message translates to:
+  /// **'Idlib Center'**
+  String get city_idlib_center;
+
+  /// No description provided for @city_maarret_al_numan.
+  ///
+  /// In en, this message translates to:
+  /// **'Maarat al-Numan'**
+  String get city_maarret_al_numan;
+
+  /// No description provided for @city_saraqib.
+  ///
+  /// In en, this message translates to:
+  /// **'Saraqib'**
+  String get city_saraqib;
+
+  /// No description provided for @city_daraa_city.
+  ///
+  /// In en, this message translates to:
+  /// **'Daraa City'**
+  String get city_daraa_city;
+
+  /// No description provided for @city_busra_al_sham.
+  ///
+  /// In en, this message translates to:
+  /// **'Busra al-Sham'**
+  String get city_busra_al_sham;
+
+  /// No description provided for @city_nawa.
+  ///
+  /// In en, this message translates to:
+  /// **'Nawa'**
+  String get city_nawa;
+
+  /// No description provided for @city_deir_ezzor_city.
+  ///
+  /// In en, this message translates to:
+  /// **'Deir ez-Zor City'**
+  String get city_deir_ezzor_city;
+
+  /// No description provided for @city_al_mayadeen.
+  ///
+  /// In en, this message translates to:
+  /// **'Al-Mayadeen'**
+  String get city_al_mayadeen;
+
+  /// No description provided for @city_al_bukamal.
+  ///
+  /// In en, this message translates to:
+  /// **'Al-Bukamal'**
+  String get city_al_bukamal;
+
+  /// No description provided for @city_raqqa_city.
+  ///
+  /// In en, this message translates to:
+  /// **'Raqqa City'**
+  String get city_raqqa_city;
+
+  /// No description provided for @city_tal_abyad.
+  ///
+  /// In en, this message translates to:
+  /// **'Tal Abyad'**
+  String get city_tal_abyad;
+
+  /// No description provided for @city_hasakah_city.
+  ///
+  /// In en, this message translates to:
+  /// **'Al-Hasakah City'**
+  String get city_hasakah_city;
+
+  /// No description provided for @city_qamishli.
+  ///
+  /// In en, this message translates to:
+  /// **'Qamishli'**
+  String get city_qamishli;
+
+  /// No description provided for @city_malikiya.
+  ///
+  /// In en, this message translates to:
+  /// **'Al-Malikiyah'**
+  String get city_malikiya;
+
+  /// No description provided for @detailed_address_label.
+  ///
+  /// In en, this message translates to:
+  /// **'Detailed Address (Optional)'**
+  String get detailed_address_label;
+
+  /// No description provided for @detailed_address_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'Downtown, near the main square...'**
+  String get detailed_address_hint;
+
+  /// No description provided for @pharmacy_license_label.
+  ///
+  /// In en, this message translates to:
+  /// **'Pharmacy License Number'**
+  String get pharmacy_license_label;
+
+  /// No description provided for @pharmacy_license_required.
+  ///
+  /// In en, this message translates to:
+  /// **'Pharmacy license number is required'**
+  String get pharmacy_license_required;
+
+  /// No description provided for @create_account.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Account'**
+  String get create_account;
+
+  /// No description provided for @back.
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get back;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

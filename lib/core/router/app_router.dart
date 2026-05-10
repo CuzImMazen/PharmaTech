@@ -24,58 +24,61 @@ class AppRouter {
       refreshListenable: appStateNotifier,
 
       redirect: (context, state) {
-        debugPrint(
-          "3. GoRouter Redirect triggered. OnboardingSeen: ${appStateNotifier.onboardingSeen}",
-        );
-        // 1. Get the current status from the Notifier
-        final bool isInitialized = appStateNotifier.isInitialized;
-        final bool isAuthenticated = appStateNotifier.isAuthenticated;
-        final bool onboardingSeen = appStateNotifier.onboardingSeen;
+        final isInitialized = appStateNotifier.isInitialized;
+        final isAuthenticated = appStateNotifier.isAuthenticated;
+        final onboardingSeen = appStateNotifier.onboardingSeen;
 
-        // 2. Get the current location
-        final String currentLocation = state.matchedLocation;
+        final location = state.matchedLocation;
 
-        // Helpers to check where we are
-        final bool onSplash = currentLocation == AppRoutesKeys.splash;
-        final bool onLogin = currentLocation == AppRoutesKeys.login;
-        final bool onOnboarding = currentLocation == AppRoutesKeys.onboarding;
+        debugPrint("LOCATION: $location");
 
-        // --- GATE 1: INITIALIZATION ---
-        // If we haven't checked storage/auth yet, stay on Splash
+        bool isOn(String route) => location.startsWith(route);
+
+        // -----------------------------
+        // ROUTES GROUPING (IMPORTANT FIX)
+        // -----------------------------
+        final isSplash = isOn(AppRoutesKeys.splash);
+        final isLogin = isOn(AppRoutesKeys.login);
+        final isOnboarding = isOn(AppRoutesKeys.onboarding);
+
+        final isRegister =
+            isOn(AppRoutesKeys.registerCredentials) ||
+            isOn(AppRoutesKeys.registerDetails);
+
+        final isAuthRoute = isLogin || isRegister;
+
+        // -----------------------------
+        // GATE 1: INITIALIZATION
+        // -----------------------------
         if (!isInitialized) {
-          return onSplash ? null : AppRoutesKeys.splash;
+          return isSplash ? null : AppRoutesKeys.splash;
         }
 
-        // --- GATE 2: ONBOARDING ---
-        // If onboarding isn't done, force them there
+        // -----------------------------
+        // GATE 2: ONBOARDING
+        // -----------------------------
         if (!onboardingSeen) {
-          return onOnboarding ? null : AppRoutesKeys.onboarding;
+          return isOnboarding ? null : AppRoutesKeys.onboarding;
         }
 
-        // --- GATE 3: AUTHENTICATION ---
-        // If not logged in, they must go to Login
-        // (Unless they are already on Login or Onboarding)
+        // -----------------------------
+        // GATE 3: NOT AUTHENTICATED
+        // -----------------------------
         if (!isAuthenticated) {
-          // If we are on Login, stay there.
-          if (onLogin) return null;
-
-          // If we are on Onboarding but we've already seen it
-          // or if we are anywhere else (like Splash), go to Login!
-          return AppRoutesKeys.login;
+          return isAuthRoute ? null : AppRoutesKeys.login;
         }
 
-        // --- GATE 4: AUTHENTICATED USERS ---
-        // If they ARE logged in, don't let them see Login, Onboarding, or Splash
+        // -----------------------------
+        // GATE 4: AUTHENTICATED USERS
+        // -----------------------------
         if (isAuthenticated) {
-          if (onLogin || onOnboarding || onSplash) {
+          if (isLogin || isOnboarding || isSplash) {
             return AppRoutesKeys.home;
           }
         }
 
-        // No redirect needed, let them go to their intended destination
         return null;
       },
-
       routes: AppRoutes.routes,
     );
   }

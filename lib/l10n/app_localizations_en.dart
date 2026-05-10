@@ -112,4 +112,256 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get auth_login_success => 'Logged in successfully';
+
+  @override
+  String get auth_or => 'OR';
+
+  @override
+  String get auth_signin_with_google => 'Sign in with Google';
+
+  @override
+  String get auth_signup_account_title => 'Create a new account';
+
+  @override
+  String get auth_signup_account_subtitle => 'Create your account in just a few clicks.';
+
+  @override
+  String get auth_confirm_password_label => 'Confirm Password';
+
+  @override
+  String get auth_passwords_do_not_match => 'Passwords do not match';
+
+  @override
+  String get auth_confirm_password_is_required => 'Confirm Password is required';
+
+  @override
+  String get auth_next => 'Next';
+
+  @override
+  String get already_have_account => 'Already have an account? ';
+
+  @override
+  String get auth_signin => 'Sign In';
+
+  @override
+  String get auth_signup_subtitle2 => 'Personal Information & Licensing';
+
+  @override
+  String get first_name_label => 'First Name';
+
+  @override
+  String get last_name_label => 'Last Name';
+
+  @override
+  String get phone_number_label => 'Phone Number';
+
+  @override
+  String get first_name_hint => 'John';
+
+  @override
+  String get last_name_hint => 'Smith';
+
+  @override
+  String get auth_first_name_is_required => 'First name is required';
+
+  @override
+  String get auth_last_name_is_required => 'Last name is required';
+
+  @override
+  String get auth_phone_is_required => 'Phone number is required';
+
+  @override
+  String get auth_invalid_phone => 'Invalid phone number format';
+
+  @override
+  String get phone_label => 'Phone Number';
+
+  @override
+  String get pharmacy_name_label => 'Pharmacy Name';
+
+  @override
+  String get pharmacy_name_hint => 'John\'s Pharmacy';
+
+  @override
+  String get auth_pharmacy_name_is_required => 'Pharmacy name is required';
+
+  @override
+  String get auth_governorate_is_required => 'Governorate is required';
+
+  @override
+  String get auth_city_is_required => 'City is required';
+
+  @override
+  String get auth_governorate_label => 'Governorate';
+
+  @override
+  String get auth_city_label => 'City';
+
+  @override
+  String get gov_damascus => 'Damascus';
+
+  @override
+  String get gov_aleppo => 'Aleppo';
+
+  @override
+  String get gov_homs => 'Homs';
+
+  @override
+  String get gov_hama => 'Hama';
+
+  @override
+  String get gov_latakia => 'Latakia';
+
+  @override
+  String get gov_tartous => 'Tartous';
+
+  @override
+  String get gov_idlib => 'Idlib';
+
+  @override
+  String get gov_daraa => 'Daraa';
+
+  @override
+  String get gov_deir_ezzor => 'Deir ez-Zor';
+
+  @override
+  String get gov_raqqa => 'Raqqa';
+
+  @override
+  String get gov_hasakah => 'Al-Hasakah';
+
+  @override
+  String get city_mazzeh => 'Mazzeh';
+
+  @override
+  String get city_barzeh => 'Barzeh';
+
+  @override
+  String get city_mezzah_86 => 'Mezzeh 86';
+
+  @override
+  String get city_kafrsouseh => 'Kafr Sousa';
+
+  @override
+  String get city_ruken_al_din => 'Rukn al-Din';
+
+  @override
+  String get city_old_damascus => 'Old Damascus';
+
+  @override
+  String get city_salah_al_din => 'Salah al-Din';
+
+  @override
+  String get city_hanano => 'Hanano';
+
+  @override
+  String get city_ashrafieh => 'Ashrafieh';
+
+  @override
+  String get city_aziziyeh => 'Aziziyeh';
+
+  @override
+  String get city_jamiliyeh => 'Jamiliyeh';
+
+  @override
+  String get city_seif_al_dawla => 'Seif al-Dawla';
+
+  @override
+  String get city_al_inshaat => 'Al-Inshaat';
+
+  @override
+  String get city_al_waer => 'Al-Waer';
+
+  @override
+  String get city_al_hamra => 'Al-Hamra';
+
+  @override
+  String get city_bab_tadmur => 'Bab Tadmur';
+
+  @override
+  String get city_al_arbaeen => 'Al-Arbaeen';
+
+  @override
+  String get city_al_nasiriya => 'Al-Nasiriya';
+
+  @override
+  String get city_al_kareem => 'Al-Kareem';
+
+  @override
+  String get city_al_ramleh => 'Al-Ramleh';
+
+  @override
+  String get city_al_ziraa => 'Al-Ziraa';
+
+  @override
+  String get city_corniche => 'Corniche';
+
+  @override
+  String get city_al_sheikh_badr => 'Al-Sheikh Badr';
+
+  @override
+  String get city_baniyas => 'Baniyas';
+
+  @override
+  String get city_corniche_tartous => 'Tartous Corniche';
+
+  @override
+  String get city_idlib_center => 'Idlib Center';
+
+  @override
+  String get city_maarret_al_numan => 'Maarat al-Numan';
+
+  @override
+  String get city_saraqib => 'Saraqib';
+
+  @override
+  String get city_daraa_city => 'Daraa City';
+
+  @override
+  String get city_busra_al_sham => 'Busra al-Sham';
+
+  @override
+  String get city_nawa => 'Nawa';
+
+  @override
+  String get city_deir_ezzor_city => 'Deir ez-Zor City';
+
+  @override
+  String get city_al_mayadeen => 'Al-Mayadeen';
+
+  @override
+  String get city_al_bukamal => 'Al-Bukamal';
+
+  @override
+  String get city_raqqa_city => 'Raqqa City';
+
+  @override
+  String get city_tal_abyad => 'Tal Abyad';
+
+  @override
+  String get city_hasakah_city => 'Al-Hasakah City';
+
+  @override
+  String get city_qamishli => 'Qamishli';
+
+  @override
+  String get city_malikiya => 'Al-Malikiyah';
+
+  @override
+  String get detailed_address_label => 'Detailed Address (Optional)';
+
+  @override
+  String get detailed_address_hint => 'Downtown, near the main square...';
+
+  @override
+  String get pharmacy_license_label => 'Pharmacy License Number';
+
+  @override
+  String get pharmacy_license_required => 'Pharmacy license number is required';
+
+  @override
+  String get create_account => 'Create Account';
+
+  @override
+  String get back => 'Back';
 }

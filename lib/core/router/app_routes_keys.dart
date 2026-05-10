@@ -3,7 +3,8 @@ class AppRoutesKeys {
   static const String onboarding = '/onboarding';
   static const String home = '/home';
   static const String login = '/login';
-  static const String register = '/register';
+  static const String registerCredentials = '/register_credentials';
+  static const String registerDetails = '/register_details';
   static const String profile = '/profile';
   static const String settings = '/settings';
 }

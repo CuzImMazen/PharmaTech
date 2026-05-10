@@ -1,25 +1,36 @@
 import 'package:flutter/material.dart';
-
 import 'package:pharmacy_app/core/extensions/app_design_system_ext.dart';
 import 'package:pharmacy_app/core/extensions/text_theme_ext.dart';
-
 import 'package:pharmacy_app/core/extensions/theme_colors_ext.dart';
 
 class CustomButton extends StatelessWidget {
-  const CustomButton({super.key, required this.onTap, required this.text});
+  const CustomButton({
+    super.key,
+    required this.onTap,
+    this.text,
+    this.child,
+    this.height,
+  }) : assert(
+         text != null || child != null,
+         'Either text or child must be provided.',
+       ),
+       assert(
+         !(text != null && child != null),
+         'Provide either text or child, not both.',
+       );
 
   final VoidCallback? onTap;
-  final String text;
+  final String? text;
+  final Widget? child;
+  final double? height;
 
   @override
   Widget build(BuildContext context) {
     final isDisabled = onTap == null;
-    // final theme = Theme.of(context);
 
     return SizedBox(
       width: double.infinity,
-
-      height: context.btnLg,
+      height: height ?? context.btnLg,
       child: ElevatedButton(
         onPressed: onTap,
         style:
@@ -32,7 +43,6 @@ class CustomButton extends StatelessWidget {
                 if (states.contains(WidgetState.disabled)) {
                   return context.colors.primary.withValues(alpha: 0.4);
                 }
-
                 return Colors.transparent;
               }),
               shadowColor: WidgetStateProperty.resolveWith((states) {
@@ -57,13 +67,14 @@ class CustomButton extends StatelessWidget {
                   ),
           ),
           child: Center(
-            child: Text(
-              text,
-
-              style: context.text.labelLarge?.copyWith(
-                color: context.colors.onPrimary,
-              ),
-            ),
+            child:
+                child ??
+                Text(
+                  text!,
+                  style: context.text.labelLarge?.copyWith(
+                    color: context.colors.onPrimary,
+                  ),
+                ),
           ),
         ),
       ),

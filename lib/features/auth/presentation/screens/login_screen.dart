@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:pharmacy_app/core/extensions/failure_message_localization_ext.dart';
 
 import 'package:pharmacy_app/core/extensions/input_validator_error_ext.dart';
 import 'package:pharmacy_app/core/extensions/localization_ext.dart';
 import 'package:pharmacy_app/core/extensions/app_design_system_ext.dart';
+import 'package:pharmacy_app/core/router/app_routes_keys.dart';
 import 'package:pharmacy_app/core/utils/messages/snackbar.dart';
 
 import 'package:pharmacy_app/core/utils/validator/validators_manager.dart';
@@ -13,21 +15,18 @@ import 'package:pharmacy_app/core/widgets/custom_button.dart';
 import 'package:pharmacy_app/core/widgets/custom_text_field.dart';
 import 'package:pharmacy_app/features/auth/cubit/login_cubit.dart';
 import 'package:pharmacy_app/features/auth/cubit/login_state.dart';
-import 'package:pharmacy_app/features/auth/presentation/widgets/create_account_row.dart';
-import 'package:pharmacy_app/features/auth/presentation/widgets/remember_me_row.dart';
-import 'package:pharmacy_app/features/auth/presentation/widgets/top_login_section.dart';
+import 'package:pharmacy_app/features/auth/presentation/widgets/login/continue_withgoogle_btn.dart';
+import 'package:pharmacy_app/features/auth/presentation/widgets/auth_prompt_row.dart';
+import 'package:pharmacy_app/features/auth/presentation/widgets/login/or_divider.dart';
+import 'package:pharmacy_app/features/auth/presentation/widgets/login/remember_me_row.dart';
+import 'package:pharmacy_app/features/auth/presentation/widgets/top_section.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: BlocProvider(
-        create: (context) => LoginCubit(),
-        child: LoginScreenBody(),
-      ),
-    );
+    return Scaffold(body: LoginScreenBody());
   }
 }
 
@@ -70,6 +69,7 @@ class _LoginScreenState extends State<LoginScreenBody> {
     emailController.dispose();
     passwordController.dispose();
     _passwordFocusNode.dispose();
+    _rememberMe.dispose();
     super.dispose();
   }
 
@@ -105,9 +105,12 @@ class _LoginScreenState extends State<LoginScreenBody> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  context.vXxl,
-                  const TopLoginSection(),
-                  context.vXxl,
+                  context.vLg,
+                  TopSection(
+                    title: context.tr.auth_login_title,
+                    subTitle: context.tr.auth_login_subtitle,
+                  ),
+                  context.vLg,
                   // Email Field
                   CustomTextField(
                     keyboardType: TextInputType.emailAddress,
@@ -183,9 +186,24 @@ class _LoginScreenState extends State<LoginScreenBody> {
                     },
                   ),
                   context.vMd,
-                  CreateAccountRow(),
-
+                  OrDivider(),
                   context.vMd,
+
+                  ContinueWithGoogleButton(
+                    onPressed: () {
+                      // TODO: Handle Google Sign-In logic here
+                    },
+                  ),
+                  context.vMd,
+                  AuthPromptRow(
+                    promptText: context.tr.auth_no_account,
+                    actionText: context.tr.auth_create_account,
+                    onPressed: () {
+                      context.push(AppRoutesKeys.registerCredentials);
+                      FocusManager.instance.primaryFocus?.unfocus();
+                      formKey.currentState?.reset();
+                    },
+                  ),
                 ],
               ),
             ),
