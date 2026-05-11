@@ -81,4 +81,18 @@ class ValidatorsManager {
     }
     return null; // Valid pharmacy license
   }
+
+  static GovernorateInputError? governorateValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      return GovernorateInputError.empty; // Governorate is required
+    }
+    return null; // Valid governorate
+  }
+
+  static CityInputError? cityValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      return CityInputError.empty; // City is required
+    }
+    return null; // Valid city
+  }
 }

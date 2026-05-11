@@ -348,6 +348,12 @@ class AppLocalizationsAr extends AppLocalizations {
   String get city_malikiya => 'المالكية';
 
   @override
+  String get governorate_required => 'المحافظة مطلوبة';
+
+  @override
+  String get city_required => 'المدينة مطلوبة';
+
+  @override
   String get detailed_address_label => 'العنوان التفصيلي (اختياري)';
 
   @override
@@ -363,5 +369,17 @@ class AppLocalizationsAr extends AppLocalizations {
   String get create_account => 'إنشاء الحساب';
 
   @override
-  String get back => 'السابق';
+  String get emailVerificationTitle => 'تحقق من بريدك الإلكتروني';
+
+  @override
+  String get emailSentTo => 'تم إرسال رابط التفعيل إلى';
+
+  @override
+  String get emailInstruction => 'افتح بريدك الإلكتروني وانقر على رابط التفعيل لإكمال التسجيل';
+
+  @override
+  String get resendLink => 'إعادة إرسال الرابط';
+
+  @override
+  String get emailNotFound => 'لم تجد الرسالة؟ تحقق من مجلد الرسائل الغير مرغوبة';
 }

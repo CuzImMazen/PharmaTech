@@ -4,6 +4,7 @@ import 'package:pharmacy_app/core/router/app_routes_keys.dart';
 import 'package:pharmacy_app/features/auth/cubit/login_cubit.dart';
 import 'package:pharmacy_app/features/auth/data/models/register_credentials_model.dart';
 import 'package:pharmacy_app/features/auth/presentation/screens/login_screen.dart';
+import 'package:pharmacy_app/features/auth/presentation/screens/email_verify_screen.dart';
 import 'package:pharmacy_app/features/auth/presentation/screens/register_credentials_screen.dart';
 import 'package:pharmacy_app/features/auth/presentation/screens/register_details_screen.dart';
 
@@ -40,6 +41,12 @@ class AppRoutes {
       builder: (context, state) => RegisterDetailsScreen(
         registerCredentialsModel: state.extra as RegisterCredentialsModel,
       ),
+    ),
+
+    GoRoute(
+      path: AppRoutesKeys.emailVerification,
+      builder: (context, state) =>
+          EmailVerificationScreen(email: state.extra as String),
     ),
   ];
 }

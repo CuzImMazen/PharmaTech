@@ -43,7 +43,8 @@ class AppRouter {
 
         final isRegister =
             isOn(AppRoutesKeys.registerCredentials) ||
-            isOn(AppRoutesKeys.registerDetails);
+            isOn(AppRoutesKeys.registerDetails) ||
+            isOn(AppRoutesKeys.emailVerification);
 
         final isAuthRoute = isLogin || isRegister;
 

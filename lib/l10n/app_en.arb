@@ -138,14 +138,22 @@
   "city_hasakah_city": "Al-Hasakah City",
   "city_qamishli": "Qamishli",
   "city_malikiya": "Al-Malikiyah"
+  ,"governorate_required": "governorate  required"
+  , "city_required": "city  required"
 
   ,"detailed_address_label": "Detailed Address (Optional)"
 
   , "detailed_address_hint": "Downtown, near the main square...",
    "pharmacy_license_label": "Pharmacy License Number"
    ,"pharmacy_license_required": "Pharmacy license number is required"
-   ,"create_account": "Create Account"
-   , "back": "Back"
+   ,"create_account": "Create Account",
+    "emailVerificationTitle": "Verify your email",
+  "emailSentTo": "A verification link was sent to",
+  "emailInstruction": "Open your email and tap the verification link to complete registration",
+  "resendLink": "Resend link",
+  "emailNotFound": "Didn’t find the email? Check your spam folder"
+  
+
 
 
     

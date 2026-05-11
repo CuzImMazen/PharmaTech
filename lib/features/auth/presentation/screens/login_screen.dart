@@ -107,6 +107,7 @@ class _LoginScreenState extends State<LoginScreenBody> {
                 children: [
                   context.vLg,
                   TopSection(
+                    icon: LucideIcons.pill,
                     title: context.tr.auth_login_title,
                     subTitle: context.tr.auth_login_subtitle,
                   ),

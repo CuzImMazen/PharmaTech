@@ -5,6 +5,7 @@ import 'package:pharmacy_app/core/consts/location_data.dart';
 import 'package:pharmacy_app/core/extensions/app_design_system_ext.dart';
 import 'package:pharmacy_app/core/extensions/input_validator_error_ext.dart';
 import 'package:pharmacy_app/core/extensions/localization_ext.dart';
+import 'package:pharmacy_app/core/router/app_routes_keys.dart';
 import 'package:pharmacy_app/core/utils/validator/validators_manager.dart';
 import 'package:pharmacy_app/core/widgets/custom_text_field.dart';
 import 'package:pharmacy_app/features/auth/data/models/register_credentials_model.dart';
@@ -24,18 +25,26 @@ class RegisterDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(body: RegisterDetailsBody());
+    return Scaffold(
+      body: RegisterDetailsBody(
+        registerCredentialsModel: registerCredentialsModel,
+      ),
+    );
   }
 }
 
 class RegisterDetailsBody extends StatefulWidget {
-  const RegisterDetailsBody({super.key});
-
+  const RegisterDetailsBody({
+    super.key,
+    required this.registerCredentialsModel,
+  });
+  final RegisterCredentialsModel registerCredentialsModel;
   @override
   State<RegisterDetailsBody> createState() => _RegisterDetailsBodyState();
 }
 
 class _RegisterDetailsBodyState extends State<RegisterDetailsBody> {
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
   late final TextEditingController firstNameController;
   late final TextEditingController lastNameController;
   late final TextEditingController phoneController;
@@ -72,11 +81,22 @@ class _RegisterDetailsBodyState extends State<RegisterDetailsBody> {
     super.dispose();
   }
 
-  void _createAccount() {}
+  void _createAccount() {
+    if (formKey.currentState?.validate() ?? false) {
+      FocusManager.instance.primaryFocus?.unfocus();
+      context.push(
+        AppRoutesKeys.emailVerification,
+        extra: widget.registerCredentialsModel.email,
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Form(
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        key: formKey,
         child: Padding(
           padding: context.pHorizontal,
           child: SingleChildScrollView(
@@ -85,6 +105,7 @@ class _RegisterDetailsBodyState extends State<RegisterDetailsBody> {
                 context.vLg,
 
                 TopSection(
+                  icon: LucideIcons.pill,
                   title: context.tr.auth_signup_account_title,
                   subTitle: context.tr.auth_signup_subtitle2,
                 ),
@@ -187,6 +208,11 @@ class _RegisterDetailsBodyState extends State<RegisterDetailsBody> {
                               selectedGovernorate.value = value;
                               selectedCity.value = null;
                             },
+                            validator: (value) {
+                              return ValidatorsManager.governorateValidator(
+                                value,
+                              )?.localizedMessage(context);
+                            },
                           );
                         },
                       ),
@@ -213,6 +239,11 @@ class _RegisterDetailsBodyState extends State<RegisterDetailsBody> {
                                 onChanged: (value) {
                                   selectedCity.value = value;
                                 },
+                                validator: (value) {
+                                  return ValidatorsManager.cityValidator(
+                                    value,
+                                  )?.localizedMessage(context);
+                                },
                               );
                             },
                           );
@@ -235,6 +266,8 @@ class _RegisterDetailsBodyState extends State<RegisterDetailsBody> {
                 // Pharmacy License
                 // =========================
                 CustomTextField(
+                  keyboardType: TextInputType.number,
+                  onlyDigits: true,
                   prefixIcon: LucideIcons.fileText,
                   hintText: "123456789",
                   labelText: context.tr.pharmacy_license_label,

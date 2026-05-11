@@ -83,6 +83,7 @@ class _RegisterCredentialsBodyState extends State<RegisterCredentialsBody> {
               children: [
                 context.vLg,
                 TopSection(
+                  icon: LucideIcons.pill,
                   title: context.tr.auth_signup_account_title,
                   subTitle: context.tr.auth_signup_account_subtitle,
                 ),

@@ -13,6 +13,7 @@ class LocationDropDown extends StatelessWidget {
     required this.enabled,
     this.onChanged,
     this.isGovernorate = false,
+    this.validator,
   });
 
   final String label;
@@ -22,6 +23,7 @@ class LocationDropDown extends StatelessWidget {
   final bool enabled;
   final bool isGovernorate;
   final void Function(String?)? onChanged;
+  final String? Function(String?)? validator;
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +48,7 @@ class LocationDropDown extends StatelessWidget {
             ),
           ),
           child: DropdownButtonFormField<String>(
+            validator: validator,
             initialValue: (initialValue != null && initialValue!.isNotEmpty)
                 ? initialValue
                 : null,

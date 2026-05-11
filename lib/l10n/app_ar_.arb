@@ -137,11 +137,20 @@
   "city_qamishli": "القامشلي",
   "city_malikiya": "المالكية"
 
+  ,"governorate_required": "المحافظة مطلوبة"
+  , "city_required": "المدينة مطلوبة"
+
   ,"detailed_address_label": "العنوان التفصيلي (اختياري)"
   ,"detailed_address_hint":  "شارع العابد مقابل مسجد النور..."
   ,"pharmacy_license_label": "رقم ترخيص الصيدلية"
   ,"pharmacy_license_required": "رقم ترخيص الصيدلية مطلوب"
 ,"create_account": "إنشاء الحساب"
-,"back": "السابق"
+,"back": "السابق",
+"emailVerificationTitle": "تحقق من بريدك الإلكتروني",
+  "emailSentTo": "تم إرسال رابط التفعيل إلى",
+  "emailInstruction": "افتح بريدك الإلكتروني وانقر على رابط التفعيل لإكمال التسجيل",
+  "resendLink": "إعادة إرسال الرابط",
+  "emailNotFound": "لم تجد الرسالة؟ تحقق من مجلد الرسائل الغير مرغوبة"
+
 
 }

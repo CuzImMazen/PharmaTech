@@ -773,6 +773,18 @@ abstract class AppLocalizations {
   /// **'Al-Malikiyah'**
   String get city_malikiya;
 
+  /// No description provided for @governorate_required.
+  ///
+  /// In en, this message translates to:
+  /// **'governorate  required'**
+  String get governorate_required;
+
+  /// No description provided for @city_required.
+  ///
+  /// In en, this message translates to:
+  /// **'city  required'**
+  String get city_required;
+
   /// No description provided for @detailed_address_label.
   ///
   /// In en, this message translates to:
@@ -803,11 +815,35 @@ abstract class AppLocalizations {
   /// **'Create Account'**
   String get create_account;
 
-  /// No description provided for @back.
+  /// No description provided for @emailVerificationTitle.
   ///
   /// In en, this message translates to:
-  /// **'Back'**
-  String get back;
+  /// **'Verify your email'**
+  String get emailVerificationTitle;
+
+  /// No description provided for @emailSentTo.
+  ///
+  /// In en, this message translates to:
+  /// **'A verification link was sent to'**
+  String get emailSentTo;
+
+  /// No description provided for @emailInstruction.
+  ///
+  /// In en, this message translates to:
+  /// **'Open your email and tap the verification link to complete registration'**
+  String get emailInstruction;
+
+  /// No description provided for @resendLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Resend link'**
+  String get resendLink;
+
+  /// No description provided for @emailNotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'Didn’t find the email? Check your spam folder'**
+  String get emailNotFound;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

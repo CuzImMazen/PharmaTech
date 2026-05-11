@@ -13,3 +13,7 @@ enum PhoneInputError { empty, invalidFormat }
 enum PharmacyNameInputError { empty }
 
 enum PharmacyLicenseInputError { empty }
+
+enum GovernorateInputError { empty }
+
+enum CityInputError { empty }

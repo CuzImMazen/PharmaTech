@@ -81,3 +81,21 @@ extension PharmacyLicenseInputErrorExt on PharmacyLicenseInputError {
     }
   }
 }
+
+extension GovernorateInputErrorExt on GovernorateInputError {
+  String localizedMessage(BuildContext context) {
+    switch (this) {
+      case GovernorateInputError.empty:
+        return context.tr.governorate_required;
+    }
+  }
+}
+
+extension CityInputErrorExt on CityInputError {
+  String localizedMessage(BuildContext context) {
+    switch (this) {
+      case CityInputError.empty:
+        return context.tr.city_required;
+    }
+  }
+}
