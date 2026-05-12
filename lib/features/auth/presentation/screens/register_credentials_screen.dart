@@ -4,28 +4,35 @@ import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:pharmacy_app/core/extensions/app_design_system_ext.dart';
 import 'package:pharmacy_app/core/extensions/input_validator_error_ext.dart';
 import 'package:pharmacy_app/core/extensions/localization_ext.dart';
-import 'package:pharmacy_app/core/extensions/text_theme_ext.dart';
-import 'package:pharmacy_app/core/extensions/theme_colors_ext.dart';
 import 'package:pharmacy_app/core/router/app_routes_keys.dart';
 import 'package:pharmacy_app/core/utils/validator/validators_manager.dart';
-import 'package:pharmacy_app/core/widgets/custom_button.dart';
 import 'package:pharmacy_app/core/widgets/custom_text_field.dart';
-import 'package:pharmacy_app/features/auth/data/models/register_credentials_model.dart';
-import 'package:pharmacy_app/features/auth/presentation/widgets/auth_prompt_row.dart';
+import 'package:pharmacy_app/features/auth/data/models/register_details_model.dart';
+
+import 'package:pharmacy_app/features/auth/presentation/widgets/register/buttons_footer.dart';
 import 'package:pharmacy_app/features/auth/presentation/widgets/register/progress_bar.dart';
 import 'package:pharmacy_app/features/auth/presentation/widgets/top_section.dart';
 
 class RegisterCredentialsScreen extends StatelessWidget {
-  const RegisterCredentialsScreen({super.key});
-
+  const RegisterCredentialsScreen({
+    super.key,
+    required this.registerDetailsModel,
+  });
+  final RegisterDetailsModel registerDetailsModel;
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(body: RegisterCredentialsBody());
+    return Scaffold(
+      body: RegisterCredentialsBody(registerDetailsModel: registerDetailsModel),
+    );
   }
 }
 
 class RegisterCredentialsBody extends StatefulWidget {
-  const RegisterCredentialsBody({super.key});
+  const RegisterCredentialsBody({
+    super.key,
+    required this.registerDetailsModel,
+  });
+  final RegisterDetailsModel registerDetailsModel;
 
   @override
   State<RegisterCredentialsBody> createState() =>
@@ -58,15 +65,12 @@ class _RegisterCredentialsBodyState extends State<RegisterCredentialsBody> {
     super.dispose();
   }
 
-  void _next() {
+  void _createAccount() {
     if (formKey.currentState?.validate() ?? false) {
       FocusManager.instance.primaryFocus?.unfocus();
       context.push(
-        AppRoutesKeys.registerDetails,
-        extra: RegisterCredentialsModel(
-          email: emailController.text.trim(),
-          password: passwordController.text.trim(),
-        ),
+        AppRoutesKeys.emailVerification,
+        extra: emailController.text.trim(),
       );
     }
   }
@@ -88,7 +92,7 @@ class _RegisterCredentialsBodyState extends State<RegisterCredentialsBody> {
                   subTitle: context.tr.auth_signup_account_subtitle,
                 ),
                 context.vLg,
-                ProgressBar(currentStep: 1, totalSteps: 2),
+                ProgressBar(currentStep: 2, totalSteps: 2),
                 context.vLg,
                 // Email Field
                 CustomTextField(
@@ -145,31 +149,15 @@ class _RegisterCredentialsBodyState extends State<RegisterCredentialsBody> {
                   },
                 ),
                 context.vLg,
-                CustomButton(
-                  onTap: _next,
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        context.tr.auth_next,
-                        style: context.text.labelLarge?.copyWith(
-                          color: context.colors.onPrimary,
-                        ),
-                      ),
-                      context.hSm,
-                      Icon(
-                        size: 20,
-                        Icons.arrow_forward,
-                        color: context.colors.onPrimary,
-                      ),
-                    ],
-                  ),
-                ),
+
                 context.vMd,
-                AuthPromptRow(
-                  promptText: context.tr.already_have_account,
-                  actionText: context.tr.auth_signin,
-                  onPressed: () => context.pop(),
+                CreateAccountFooter(
+                  onBack: () {
+                    context.pop();
+                  },
+                  onTap: () {
+                    _createAccount();
+                  },
                 ),
                 context.vLg,
               ],

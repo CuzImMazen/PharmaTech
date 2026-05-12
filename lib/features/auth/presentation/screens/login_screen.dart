@@ -102,6 +102,7 @@ class _LoginScreenState extends State<LoginScreenBody> {
           child: Padding(
             padding: context.pHorizontal,
             child: SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -200,11 +201,12 @@ class _LoginScreenState extends State<LoginScreenBody> {
                     promptText: context.tr.auth_no_account,
                     actionText: context.tr.auth_create_account,
                     onPressed: () {
-                      context.push(AppRoutesKeys.registerCredentials);
+                      context.push(AppRoutesKeys.registerDetails);
                       FocusManager.instance.primaryFocus?.unfocus();
                       formKey.currentState?.reset();
                     },
                   ),
+                  context.vLg,
                 ],
               ),
             ),

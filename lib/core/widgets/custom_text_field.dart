@@ -22,6 +22,7 @@ class CustomTextField extends StatefulWidget {
     this.onEditingComplete,
     this.onFieldSubmitted,
     this.height,
+    this.onlyLetters = false,
   });
 
   final String hintText;
@@ -34,6 +35,7 @@ class CustomTextField extends StatefulWidget {
   final bool readOnly;
   final void Function()? onTap;
   final bool blockArabic;
+  final bool onlyLetters;
   final bool onlyDigits;
   final TextInputAction? textInputAction;
   final FocusNode? focusNode;
@@ -84,6 +86,10 @@ class _CustomTextFieldState extends State<CustomTextField> {
               if (widget.keyboardType == TextInputType.phone ||
                   widget.onlyDigits)
                 FilteringTextInputFormatter.digitsOnly,
+              if (widget.onlyLetters)
+                FilteringTextInputFormatter.allow(
+                  RegExp(r'[a-zA-Z\u0600-\u06FF\s]'),
+                ),
             ],
 
             style: theme.textTheme.bodyLarge,

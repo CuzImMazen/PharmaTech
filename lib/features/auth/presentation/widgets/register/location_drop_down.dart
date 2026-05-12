@@ -13,6 +13,7 @@ class LocationDropDown extends StatelessWidget {
     required this.enabled,
     this.onChanged,
     this.isGovernorate = false,
+    this.governorateKey,
     this.validator,
   });
 
@@ -22,6 +23,7 @@ class LocationDropDown extends StatelessWidget {
   final List<String> items;
   final bool enabled;
   final bool isGovernorate;
+  final String? governorateKey;
   final void Function(String?)? onChanged;
   final String? Function(String?)? validator;
 
@@ -80,7 +82,7 @@ class LocationDropDown extends StatelessWidget {
                 child: Text(
                   isGovernorate
                       ? context.govLabel(item)
-                      : context.cityLabel(item),
+                      : context.cityLabel(item, governorateKey: governorateKey),
                 ),
               );
             }).toList(),

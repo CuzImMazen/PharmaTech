@@ -5,40 +5,32 @@ import 'package:pharmacy_app/core/consts/location_data.dart';
 import 'package:pharmacy_app/core/extensions/app_design_system_ext.dart';
 import 'package:pharmacy_app/core/extensions/input_validator_error_ext.dart';
 import 'package:pharmacy_app/core/extensions/localization_ext.dart';
+import 'package:pharmacy_app/core/extensions/text_theme_ext.dart';
+import 'package:pharmacy_app/core/extensions/theme_colors_ext.dart';
 import 'package:pharmacy_app/core/router/app_routes_keys.dart';
 import 'package:pharmacy_app/core/utils/validator/validators_manager.dart';
+import 'package:pharmacy_app/core/widgets/custom_button.dart';
 import 'package:pharmacy_app/core/widgets/custom_text_field.dart';
-import 'package:pharmacy_app/features/auth/data/models/register_credentials_model.dart';
+import 'package:pharmacy_app/features/auth/data/models/register_details_model.dart';
+
+import 'package:pharmacy_app/features/auth/presentation/widgets/auth_prompt_row.dart';
 import 'package:pharmacy_app/features/auth/presentation/widgets/register/terms_and_conditions_row.dart';
 import 'package:pharmacy_app/features/auth/presentation/widgets/register/location_drop_down.dart';
 import 'package:pharmacy_app/features/auth/presentation/widgets/register/progress_bar.dart';
-import 'package:pharmacy_app/features/auth/presentation/widgets/register/create_account_button_row.dart';
 import 'package:pharmacy_app/features/auth/presentation/widgets/top_section.dart';
 
 class RegisterDetailsScreen extends StatelessWidget {
-  const RegisterDetailsScreen({
-    super.key,
-    required this.registerCredentialsModel,
-  });
-
-  final RegisterCredentialsModel registerCredentialsModel;
+  const RegisterDetailsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: RegisterDetailsBody(
-        registerCredentialsModel: registerCredentialsModel,
-      ),
-    );
+    return Scaffold(body: RegisterDetailsBody());
   }
 }
 
 class RegisterDetailsBody extends StatefulWidget {
-  const RegisterDetailsBody({
-    super.key,
-    required this.registerCredentialsModel,
-  });
-  final RegisterCredentialsModel registerCredentialsModel;
+  const RegisterDetailsBody({super.key});
+
   @override
   State<RegisterDetailsBody> createState() => _RegisterDetailsBodyState();
 }
@@ -81,12 +73,21 @@ class _RegisterDetailsBodyState extends State<RegisterDetailsBody> {
     super.dispose();
   }
 
-  void _createAccount() {
+  void _onContinue() {
     if (formKey.currentState?.validate() ?? false) {
       FocusManager.instance.primaryFocus?.unfocus();
       context.push(
-        AppRoutesKeys.emailVerification,
-        extra: widget.registerCredentialsModel.email,
+        AppRoutesKeys.registerCredentials,
+        extra: RegisterDetailsModel(
+          firstName: firstNameController.text.trim(),
+          lastName: lastNameController.text.trim(),
+          phoneNumber: phoneController.text.trim(),
+          pharmacyName: pharmacyNameController.text.trim(),
+          governorate: selectedGovernorate.value!,
+          city: selectedCity.value!,
+          detailedAddress: detailedAddressController.text.trim(),
+          pharmacyLicense: pharmacyLicenseController.text.trim(),
+        ),
       );
     }
   }
@@ -95,7 +96,7 @@ class _RegisterDetailsBodyState extends State<RegisterDetailsBody> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Form(
-        autovalidateMode: AutovalidateMode.onUserInteraction,
+        // autovalidateMode: AutoValidateMode.,
         key: formKey,
         child: Padding(
           padding: context.pHorizontal,
@@ -111,7 +112,7 @@ class _RegisterDetailsBodyState extends State<RegisterDetailsBody> {
                 ),
 
                 context.vLg,
-                ProgressBar(currentStep: 2, totalSteps: 2),
+                ProgressBar(currentStep: 1, totalSteps: 2),
                 context.vLg,
 
                 // =========================
@@ -121,6 +122,7 @@ class _RegisterDetailsBodyState extends State<RegisterDetailsBody> {
                   children: [
                     Expanded(
                       child: CustomTextField(
+                        onlyLetters: true,
                         prefixIcon: LucideIcons.user,
                         hintText: context.tr.first_name_hint,
                         labelText: context.tr.first_name_label,
@@ -135,6 +137,7 @@ class _RegisterDetailsBodyState extends State<RegisterDetailsBody> {
                     context.hLg,
                     Expanded(
                       child: CustomTextField(
+                        onlyLetters: true,
                         prefixIcon: LucideIcons.user,
                         hintText: context.tr.last_name_hint,
                         labelText: context.tr.last_name_label,
@@ -235,6 +238,7 @@ class _RegisterDetailsBodyState extends State<RegisterDetailsBody> {
                                     ? []
                                     : LocationData.getCities(governorate),
                                 isGovernorate: false,
+                                governorateKey: governorate,
                                 enabled: governorate != null,
                                 onChanged: (value) {
                                   selectedCity.value = value;
@@ -298,11 +302,37 @@ class _RegisterDetailsBodyState extends State<RegisterDetailsBody> {
                           },
                         ),
                         context.vSm,
-                        CreateAccountButtonRow(
-                          onBack: () {
-                            context.pop();
-                          },
-                          onCreateAccount: value ? _createAccount : null,
+                        // ButtonsFooter(
+                        //   onBack: () {
+                        //     context.pop();
+                        //   },
+                        //   onContinue: value ? _onContinue : null,
+                        // ),
+                        CustomButton(
+                          onTap: value ? _onContinue : null,
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                context.tr.continue_btn,
+                                style: context.text.labelLarge?.copyWith(
+                                  color: context.colors.onPrimary,
+                                ),
+                              ),
+                              context.hSm,
+                              Icon(
+                                size: 20,
+                                Icons.arrow_forward,
+                                color: context.colors.onPrimary,
+                              ),
+                            ],
+                          ),
+                        ),
+                        context.vMd,
+                        AuthPromptRow(
+                          promptText: context.tr.already_have_account,
+                          actionText: context.tr.auth_signin,
+                          onPressed: () => context.pop(),
                         ),
                       ],
                     );
