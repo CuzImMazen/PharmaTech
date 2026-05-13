@@ -7,6 +7,7 @@ import 'package:pharmacy_app/core/extensions/localization_ext.dart';
 import 'package:pharmacy_app/core/router/app_routes_keys.dart';
 import 'package:pharmacy_app/core/utils/validator/validators_manager.dart';
 import 'package:pharmacy_app/core/widgets/custom_text_field.dart';
+import 'package:pharmacy_app/features/auth/data/models/email_sent_screen_data.dart';
 import 'package:pharmacy_app/features/auth/data/models/register_details_model.dart';
 
 import 'package:pharmacy_app/features/auth/presentation/widgets/register/buttons_footer.dart';
@@ -69,8 +70,15 @@ class _RegisterCredentialsBodyState extends State<RegisterCredentialsBody> {
     if (formKey.currentState?.validate() ?? false) {
       FocusManager.instance.primaryFocus?.unfocus();
       context.push(
-        AppRoutesKeys.emailVerification,
-        extra: emailController.text.trim(),
+        AppRoutesKeys.emailSent,
+        extra: EmailSentScreenData(
+          email: emailController.text.trim(),
+          title: context.tr.emailSentTitle,
+          subtitle: context.tr.emailSentTo,
+          instruction: context.tr.emailInstruction,
+          buttonText: context.tr.resendLink,
+          footerText: context.tr.didnt_find_email,
+        ),
       );
     }
   }

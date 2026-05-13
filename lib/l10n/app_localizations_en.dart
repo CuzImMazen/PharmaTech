@@ -990,7 +990,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get create_account => 'Create Account';
 
   @override
-  String get emailVerificationTitle => 'Verify your email';
+  String get emailSentTitle => 'Verify your email';
 
   @override
   String get emailSentTo => 'A verification link was sent to';
@@ -1002,8 +1002,32 @@ class AppLocalizationsEn extends AppLocalizations {
   String get resendLink => 'Resend link';
 
   @override
-  String get emailNotFound => 'Didn’t find the email? Check your spam folder';
+  String get didnt_find_email => 'Didn’t find the email? Check your spam folder';
 
   @override
   String get continue_btn => 'Continue';
+
+  @override
+  String get go_back => 'do you want to go back to the';
+
+  @override
+  String get login_screen => 'Login Screen';
+
+  @override
+  String get forgot_password_title => 'Forgot your password?';
+
+  @override
+  String get forgot_password_subtitle => 'Enter your email to receive a password reset link';
+
+  @override
+  String get send_reset_password_link => 'Send Reset Password Link';
+
+  @override
+  String get remembered_password => 'Remembered your password? ';
+
+  @override
+  String get reset_password_subtitle => 'we have sent reset password link to';
+
+  @override
+  String get reset_password_instruction => 'Open your email and click the reset password link to continue';
 }

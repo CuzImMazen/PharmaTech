@@ -2,8 +2,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pharmacy_app/core/router/app_routes_keys.dart';
 import 'package:pharmacy_app/features/auth/cubit/login_cubit.dart';
+import 'package:pharmacy_app/features/auth/data/models/email_sent_screen_data.dart';
 import 'package:pharmacy_app/features/auth/data/models/register_details_model.dart';
-import 'package:pharmacy_app/features/auth/presentation/screens/email_verification_screen.dart';
+import 'package:pharmacy_app/features/auth/presentation/screens/email_sent_screen.dart';
+import 'package:pharmacy_app/features/auth/presentation/screens/forget_password_screen.dart';
 import 'package:pharmacy_app/features/auth/presentation/screens/login_screen.dart';
 import 'package:pharmacy_app/features/auth/presentation/screens/register_credentials_screen.dart';
 import 'package:pharmacy_app/features/auth/presentation/screens/register_details_screen.dart';
@@ -44,9 +46,14 @@ class AppRoutes {
     ),
 
     GoRoute(
-      path: AppRoutesKeys.emailVerification,
+      path: AppRoutesKeys.emailSent,
       builder: (context, state) =>
-          EmailVerificationScreen(email: state.extra as String),
+          EmailSentScreen(data: state.extra as EmailSentScreenData),
+    ),
+
+    GoRoute(
+      path: AppRoutesKeys.forgetPassword,
+      builder: (context, state) => ForgetPasswordScreen(),
     ),
   ];
 }

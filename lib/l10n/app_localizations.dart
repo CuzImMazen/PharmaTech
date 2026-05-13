@@ -2057,11 +2057,11 @@ abstract class AppLocalizations {
   /// **'Create Account'**
   String get create_account;
 
-  /// No description provided for @emailVerificationTitle.
+  /// No description provided for @emailSentTitle.
   ///
   /// In en, this message translates to:
   /// **'Verify your email'**
-  String get emailVerificationTitle;
+  String get emailSentTitle;
 
   /// No description provided for @emailSentTo.
   ///
@@ -2081,17 +2081,65 @@ abstract class AppLocalizations {
   /// **'Resend link'**
   String get resendLink;
 
-  /// No description provided for @emailNotFound.
+  /// No description provided for @didnt_find_email.
   ///
   /// In en, this message translates to:
   /// **'Didn’t find the email? Check your spam folder'**
-  String get emailNotFound;
+  String get didnt_find_email;
 
   /// No description provided for @continue_btn.
   ///
   /// In en, this message translates to:
   /// **'Continue'**
   String get continue_btn;
+
+  /// No description provided for @go_back.
+  ///
+  /// In en, this message translates to:
+  /// **'do you want to go back to the'**
+  String get go_back;
+
+  /// No description provided for @login_screen.
+  ///
+  /// In en, this message translates to:
+  /// **'Login Screen'**
+  String get login_screen;
+
+  /// No description provided for @forgot_password_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Forgot your password?'**
+  String get forgot_password_title;
+
+  /// No description provided for @forgot_password_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your email to receive a password reset link'**
+  String get forgot_password_subtitle;
+
+  /// No description provided for @send_reset_password_link.
+  ///
+  /// In en, this message translates to:
+  /// **'Send Reset Password Link'**
+  String get send_reset_password_link;
+
+  /// No description provided for @remembered_password.
+  ///
+  /// In en, this message translates to:
+  /// **'Remembered your password? '**
+  String get remembered_password;
+
+  /// No description provided for @reset_password_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'we have sent reset password link to'**
+  String get reset_password_subtitle;
+
+  /// No description provided for @reset_password_instruction.
+  ///
+  /// In en, this message translates to:
+  /// **'Open your email and click the reset password link to continue'**
+  String get reset_password_instruction;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

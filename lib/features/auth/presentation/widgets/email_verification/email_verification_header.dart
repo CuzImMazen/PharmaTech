@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:pharmacy_app/core/extensions/app_design_system_ext.dart';
-import 'package:pharmacy_app/core/extensions/localization_ext.dart';
+import 'package:pharmacy_app/features/auth/presentation/widgets/icon_container.dart';
 
 class EmailVerificationHeader extends StatelessWidget {
-  const EmailVerificationHeader({super.key, required this.email});
+  const EmailVerificationHeader({
+    super.key,
+    required this.email,
+    required this.title,
+    required this.subtitle,
+  });
 
   final String email;
-
+  final String title;
+  final String subtitle;
   @override
   Widget build(BuildContext context) {
     final mutedStyle = context.text.bodyLarge!.copyWith(color: context.muted);
@@ -19,34 +25,19 @@ class EmailVerificationHeader extends StatelessWidget {
 
     return Column(
       children: [
-        Container(
-          padding: EdgeInsets.all(context.sXxl),
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: context.colors.primary.withAlpha(30),
-          ),
-          child: Icon(
-            LucideIcons.mail,
-            size: 100,
-            color: context.colors.primary.withAlpha(150),
-          ),
-        ),
+        IconContainer(icon: LucideIcons.mail),
 
         context.vXxl,
 
         Text(
-          context.tr.emailVerificationTitle,
+          title,
           style: context.text.headlineLarge,
           textAlign: TextAlign.center,
         ),
 
         context.vXl,
 
-        Text(
-          context.tr.emailSentTo,
-          style: mutedStyle,
-          textAlign: TextAlign.center,
-        ),
+        Text(subtitle, style: mutedStyle, textAlign: TextAlign.center),
 
         context.vMd,
 

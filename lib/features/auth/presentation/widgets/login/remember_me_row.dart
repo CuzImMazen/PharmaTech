@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:pharmacy_app/core/extensions/app_design_system_ext.dart';
 import 'package:pharmacy_app/core/extensions/localization_ext.dart';
+import 'package:pharmacy_app/core/router/app_routes_keys.dart';
 
 import 'package:pharmacy_app/features/auth/cubit/login_cubit.dart';
 import 'package:pharmacy_app/features/auth/cubit/login_state.dart';
@@ -46,7 +48,7 @@ class RememberMeRow extends StatelessWidget {
               onPressed: isLoading
                   ? null
                   : () {
-                      //TODO Navigate to forgot password page
+                      context.push((AppRoutesKeys.forgetPassword));
                     },
               child: Text(
                 context.tr.auth_forgot_password,

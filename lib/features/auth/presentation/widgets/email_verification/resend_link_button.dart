@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/core/extensions/app_design_system_ext.dart';
-import 'package:pharmacy_app/core/extensions/localization_ext.dart';
 
 class ResendLinkButton extends StatelessWidget {
-  const ResendLinkButton({super.key, this.onTap});
+  const ResendLinkButton({super.key, this.onTap, required this.buttonText});
 
   final VoidCallback? onTap;
-
+  final String buttonText;
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -21,7 +20,7 @@ class ResendLinkButton extends StatelessWidget {
         ),
         child: Center(
           child: Text(
-            context.tr.resendLink,
+            buttonText,
             style: context.text.bodyLarge!.copyWith(
               color: context.colors.primary,
               fontWeight: FontWeight.bold,

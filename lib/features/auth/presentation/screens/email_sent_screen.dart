@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:pharmacy_app/core/extensions/app_design_system_ext.dart';
 import 'package:pharmacy_app/core/extensions/localization_ext.dart';
+import 'package:pharmacy_app/core/router/app_routes_keys.dart';
+import 'package:pharmacy_app/features/auth/data/models/email_sent_screen_data.dart';
+import 'package:pharmacy_app/features/auth/presentation/widgets/auth_prompt_row.dart';
 import 'package:pharmacy_app/features/auth/presentation/widgets/email_verification/email_verification_header.dart';
 import 'package:pharmacy_app/features/auth/presentation/widgets/email_verification/resend_link_button.dart';
 
-class EmailVerificationScreen extends StatelessWidget {
-  const EmailVerificationScreen({super.key, required this.email});
+class EmailSentScreen extends StatelessWidget {
+  const EmailSentScreen({super.key, required this.data});
 
-  final String email;
-
+  final EmailSentScreenData data;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,16 +20,15 @@ class EmailVerificationScreen extends StatelessWidget {
         elevation: 0,
         surfaceTintColor: Colors.transparent,
       ),
-      body: SafeArea(child: EmailVerificationBody(email: email)),
+      body: SafeArea(child: EmailSentScreenBody(data: data)),
     );
   }
 }
 
-class EmailVerificationBody extends StatelessWidget {
-  const EmailVerificationBody({super.key, required this.email, this.onResend});
+class EmailSentScreenBody extends StatelessWidget {
+  const EmailSentScreenBody({super.key, required this.data});
 
-  final String email;
-  final VoidCallback? onResend;
+  final EmailSentScreenData data;
 
   @override
   Widget build(BuildContext context) {
@@ -38,13 +40,17 @@ class EmailVerificationBody extends StatelessWidget {
             context.vXxl,
 
             // Header
-            EmailVerificationHeader(email: email),
+            EmailVerificationHeader(
+              email: data.email,
+              title: data.title,
+              subtitle: data.subtitle,
+            ),
 
             context.vXl,
 
             // Instruction texts
             Text(
-              context.tr.emailInstruction,
+              data.instruction,
               textAlign: TextAlign.center,
               style: context.text.bodyLarge!.copyWith(color: context.muted),
             ),
@@ -52,17 +58,24 @@ class EmailVerificationBody extends StatelessWidget {
             context.vMd,
 
             // Resend button
-            ResendLinkButton(onTap: onResend),
+            ResendLinkButton(onTap: () {}, buttonText: data.buttonText),
 
             context.vMd,
 
             // Footer
             Text(
-              context.tr.emailNotFound,
+              data.footerText,
               textAlign: TextAlign.center,
               style: context.text.bodyMedium!.copyWith(color: context.muted),
             ),
-
+            context.vMd,
+            AuthPromptRow(
+              promptText: context.tr.go_back,
+              actionText: context.tr.login_screen,
+              onPressed: () {
+                context.go(AppRoutesKeys.login);
+              },
+            ),
             context.vMd,
           ],
         ),

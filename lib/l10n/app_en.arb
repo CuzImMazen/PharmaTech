@@ -357,12 +357,20 @@
    "pharmacy_license_label": "Pharmacy License Number"
    ,"pharmacy_license_required": "Pharmacy license number is required"
    ,"create_account": "Create Account",
-    "emailVerificationTitle": "Verify your email",
+    "emailSentTitle": "Verify your email",
   "emailSentTo": "A verification link was sent to",
   "emailInstruction": "Open your email and tap the verification link to complete registration",
   "resendLink": "Resend link",
-  "emailNotFound": "Didn’t find the email? Check your spam folder",
+  "didnt_find_email": "Didn’t find the email? Check your spam folder",
   "continue_btn": "Continue"
+  ,"go_back": "do you want to go back to the"
+  ,"login_screen": "Login Screen"
+  ,"forgot_password_title": "Forgot your password?",
+  "forgot_password_subtitle": "Enter your email to receive a password reset link"
+  ,"send_reset_password_link": "Send Reset Password Link"
+  ,"remembered_password": "Remembered your password? "
+  ,"reset_password_subtitle": "we have sent reset password link to"
+  ,"reset_password_instruction": "Open your email and click the reset password link to continue"
   
   
 

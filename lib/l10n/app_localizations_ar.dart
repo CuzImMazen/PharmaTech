@@ -990,7 +990,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get create_account => 'إنشاء الحساب';
 
   @override
-  String get emailVerificationTitle => 'تحقق من بريدك الإلكتروني';
+  String get emailSentTitle => 'تحقق من بريدك الإلكتروني';
 
   @override
   String get emailSentTo => 'تم إرسال رابط التفعيل إلى';
@@ -1002,8 +1002,32 @@ class AppLocalizationsAr extends AppLocalizations {
   String get resendLink => 'إعادة إرسال الرابط';
 
   @override
-  String get emailNotFound => 'لم تجد الرسالة؟ تحقق من مجلد الرسائل الغير مرغوبة';
+  String get didnt_find_email => 'لم تجد الرسالة؟ تحقق من مجلد الرسائل الغير مرغوبة';
 
   @override
   String get continue_btn => 'متابعة';
+
+  @override
+  String get go_back => 'هل تريد العودة إلى';
+
+  @override
+  String get login_screen => 'شاشة تسجيل الدخول';
+
+  @override
+  String get forgot_password_title => 'هل نسيت كلمة المرور؟';
+
+  @override
+  String get forgot_password_subtitle => 'أدخل بريدك الإلكتروني لتلقي رابط إعادة تعيين كلمة المرور';
+
+  @override
+  String get send_reset_password_link => 'إرسال رابط إعادة تعيين كلمة المرور';
+
+  @override
+  String get remembered_password => 'هل تذكرت كلمة المرور؟ ';
+
+  @override
+  String get reset_password_subtitle => 'لقد أرسلنا رابط إعادة تعيين كلمة المرور إلى';
+
+  @override
+  String get reset_password_instruction => 'افتح بريدك الإلكتروني وانقر على رابط إعادة تعيين كلمة المرور للمتابعة';
 }
