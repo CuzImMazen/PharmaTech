@@ -1,1 +1,1 @@
-
+enum EmailSentScreenType { verification, resetPassword }

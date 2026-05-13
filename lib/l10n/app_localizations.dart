@@ -2084,7 +2084,7 @@ abstract class AppLocalizations {
   /// No description provided for @didnt_find_email.
   ///
   /// In en, this message translates to:
-  /// **'Didn’t find the email? Check your spam folder'**
+  /// **'Didn’t find the email? Check your spam folder or try again later'**
   String get didnt_find_email;
 
   /// No description provided for @continue_btn.
@@ -2129,17 +2129,47 @@ abstract class AppLocalizations {
   /// **'Remembered your password? '**
   String get remembered_password;
 
-  /// No description provided for @reset_password_subtitle.
+  /// No description provided for @reset_password_sent_subtitle.
   ///
   /// In en, this message translates to:
   /// **'we have sent reset password link to'**
-  String get reset_password_subtitle;
+  String get reset_password_sent_subtitle;
 
-  /// No description provided for @reset_password_instruction.
+  /// No description provided for @reset_password_sent_instruction.
   ///
   /// In en, this message translates to:
   /// **'Open your email and click the reset password link to continue'**
-  String get reset_password_instruction;
+  String get reset_password_sent_instruction;
+
+  /// No description provided for @reset_password_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset your password'**
+  String get reset_password_title;
+
+  /// No description provided for @reset_password_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'enter your new password and make sure to choose a strong one to keep your account secure'**
+  String get reset_password_subtitle;
+
+  /// No description provided for @new_password_label.
+  ///
+  /// In en, this message translates to:
+  /// **'New Password'**
+  String get new_password_label;
+
+  /// No description provided for @reset_password_btn.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset Password'**
+  String get reset_password_btn;
+
+  /// No description provided for @changed_your_mind.
+  ///
+  /// In en, this message translates to:
+  /// **'Changed your mind? go back to '**
+  String get changed_your_mind;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

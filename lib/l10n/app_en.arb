@@ -361,7 +361,7 @@
   "emailSentTo": "A verification link was sent to",
   "emailInstruction": "Open your email and tap the verification link to complete registration",
   "resendLink": "Resend link",
-  "didnt_find_email": "Didn’t find the email? Check your spam folder",
+  "didnt_find_email": "Didn’t find the email? Check your spam folder or try again later",
   "continue_btn": "Continue"
   ,"go_back": "do you want to go back to the"
   ,"login_screen": "Login Screen"
@@ -369,8 +369,13 @@
   "forgot_password_subtitle": "Enter your email to receive a password reset link"
   ,"send_reset_password_link": "Send Reset Password Link"
   ,"remembered_password": "Remembered your password? "
-  ,"reset_password_subtitle": "we have sent reset password link to"
-  ,"reset_password_instruction": "Open your email and click the reset password link to continue"
+  ,"reset_password_sent_subtitle": "we have sent reset password link to"
+  ,"reset_password_sent_instruction": "Open your email and click the reset password link to continue"
+  ,"reset_password_title": "Reset your password"
+  ,"reset_password_subtitle": "enter your new password and make sure to choose a strong one to keep your account secure"
+  ,"new_password_label": "New Password"
+  ,"reset_password_btn": "Reset Password"
+  ,"changed_your_mind": "Changed your mind? go back to "
   
   
 

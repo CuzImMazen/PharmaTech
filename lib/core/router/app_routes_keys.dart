@@ -7,6 +7,7 @@ class AppRoutesKeys {
   static const String registerDetails = '/register_details';
   static const String emailSent = '/email_sent';
   static const String forgetPassword = '/forget_password';
+  static const String resetPassword = '/reset_password';
   static const String profile = '/profile';
   static const String settings = '/settings';
 }

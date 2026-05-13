@@ -9,6 +9,7 @@ import 'package:pharmacy_app/features/auth/presentation/screens/forget_password_
 import 'package:pharmacy_app/features/auth/presentation/screens/login_screen.dart';
 import 'package:pharmacy_app/features/auth/presentation/screens/register_credentials_screen.dart';
 import 'package:pharmacy_app/features/auth/presentation/screens/register_details_screen.dart';
+import 'package:pharmacy_app/features/auth/presentation/screens/reset_password_screen.dart';
 
 import 'package:pharmacy_app/features/onboarding/presentation/screens/onboarding_screen.dart';
 import 'package:pharmacy_app/features/splash/presentation/screens/splash_screen.dart';
@@ -54,6 +55,11 @@ class AppRoutes {
     GoRoute(
       path: AppRoutesKeys.forgetPassword,
       builder: (context, state) => ForgetPasswordScreen(),
+    ),
+
+    GoRoute(
+      path: AppRoutesKeys.resetPassword,
+      builder: (context, state) => ResetPasswordScreen(),
     ),
   ];
 }

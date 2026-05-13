@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:pharmacy_app/core/enums/enums.dart';
 import 'package:pharmacy_app/core/extensions/app_design_system_ext.dart';
 import 'package:pharmacy_app/core/extensions/localization_ext.dart';
 import 'package:pharmacy_app/core/router/app_routes_keys.dart';
@@ -32,25 +33,52 @@ class EmailSentScreenBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String getTitle(BuildContext context) {
+      switch (data.type) {
+        case EmailSentScreenType.verification:
+          return context.tr.emailSentTitle;
+        case EmailSentScreenType.resetPassword:
+          return context.tr.reset_password_title;
+      }
+    }
+
+    String getSubtitle(BuildContext context) {
+      switch (data.type) {
+        case EmailSentScreenType.verification:
+          return context.tr.emailSentTo;
+        case EmailSentScreenType.resetPassword:
+          return context.tr.reset_password_sent_subtitle;
+      }
+    }
+
+    String getInstruction(BuildContext context) {
+      switch (data.type) {
+        case EmailSentScreenType.verification:
+          return context.tr.emailInstruction;
+        case EmailSentScreenType.resetPassword:
+          return context.tr.reset_password_sent_instruction;
+      }
+    }
+
     return Padding(
       padding: context.pHorizontal,
       child: SingleChildScrollView(
         child: Column(
           children: [
-            context.vXxl,
+            context.vMd,
 
             // Header
             EmailVerificationHeader(
               email: data.email,
-              title: data.title,
-              subtitle: data.subtitle,
+              title: getTitle(context),
+              subtitle: getSubtitle(context),
             ),
 
             context.vXl,
 
             // Instruction texts
             Text(
-              data.instruction,
+              getInstruction(context),
               textAlign: TextAlign.center,
               style: context.text.bodyLarge!.copyWith(color: context.muted),
             ),
@@ -58,23 +86,48 @@ class EmailSentScreenBody extends StatelessWidget {
             context.vMd,
 
             // Resend button
-            ResendLinkButton(onTap: () {}, buttonText: data.buttonText),
+            ResendLinkButton(onTap: () {}, buttonText: context.tr.resendLink),
 
-            context.vMd,
-
-            // Footer
-            Text(
-              data.footerText,
-              textAlign: TextAlign.center,
-              style: context.text.bodyMedium!.copyWith(color: context.muted),
-            ),
             context.vMd,
             AuthPromptRow(
-              promptText: context.tr.go_back,
-              actionText: context.tr.login_screen,
+              promptText: context.tr.changed_your_mind,
+              actionText: context.tr.auth_signin,
               onPressed: () {
                 context.go(AppRoutesKeys.login);
               },
+            ),
+            context.vLg,
+            Container(
+              padding: context.pAllMd,
+              decoration: BoxDecoration(
+                color: context.isDark
+                    ? const Color(0xFFB8860B).withAlpha(50)
+                    : const Color(0xFFFFFBEB),
+                borderRadius: context.rLg,
+                border: Border.all(color: const Color(0xFFFFD666), width: 1.5),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Icon(
+                    Icons.lightbulb_outline,
+                    color: Color(0xFFFFC107),
+                    size: 24,
+                  ),
+                  context.hMd,
+                  // The Arabic text
+                  Expanded(
+                    child: Text(
+                      context.tr.didnt_find_email,
+
+                      style: context.text.bodyMedium!.copyWith(
+                        color: context.colors.onSurface,
+                        // const Color(0xFFB8860B)
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
             context.vMd,
           ],

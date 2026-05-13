@@ -20,7 +20,7 @@ class AppRouter {
 
   static void init(AppStateNotifier appStateNotifier) {
     _router = GoRouter(
-      initialLocation: AppRoutesKeys.splash,
+      initialLocation: AppRoutesKeys.resetPassword,
       refreshListenable: appStateNotifier,
 
       redirect: (context, state) {
@@ -45,7 +45,8 @@ class AppRouter {
             isOn(AppRoutesKeys.registerCredentials) ||
             isOn(AppRoutesKeys.registerDetails) ||
             isOn(AppRoutesKeys.emailSent) ||
-            isOn(AppRoutesKeys.forgetPassword);
+            isOn(AppRoutesKeys.forgetPassword) ||
+            isOn(AppRoutesKeys.resetPassword);
 
         final isAuthRoute = isLogin || isRegister;
 

@@ -1002,7 +1002,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get resendLink => 'إعادة إرسال الرابط';
 
   @override
-  String get didnt_find_email => 'لم تجد الرسالة؟ تحقق من مجلد الرسائل الغير مرغوبة';
+  String get didnt_find_email => 'لم تجد الرسالة؟ تحقق من مجلد الرسائل الغير مرغوبة أو حاول مرة أخرى لاحقاً';
 
   @override
   String get continue_btn => 'متابعة';
@@ -1026,8 +1026,23 @@ class AppLocalizationsAr extends AppLocalizations {
   String get remembered_password => 'هل تذكرت كلمة المرور؟ ';
 
   @override
-  String get reset_password_subtitle => 'لقد أرسلنا رابط إعادة تعيين كلمة المرور إلى';
+  String get reset_password_sent_subtitle => 'لقد أرسلنا رابط إعادة تعيين كلمة المرور إلى';
 
   @override
-  String get reset_password_instruction => 'افتح بريدك الإلكتروني وانقر على رابط إعادة تعيين كلمة المرور للمتابعة';
+  String get reset_password_sent_instruction => 'افتح بريدك الإلكتروني وانقر على رابط إعادة تعيين كلمة المرور للمتابعة';
+
+  @override
+  String get reset_password_title => 'إعادة تعيين كلمة المرور ';
+
+  @override
+  String get reset_password_subtitle => 'أدخل كلمة المرور الجديدة وتأكد من اختيار كلمة قوية للحفاظ على أمان حسابك';
+
+  @override
+  String get new_password_label => 'كلمة المرور الجديدة';
+
+  @override
+  String get reset_password_btn => 'إعادة تعيين كلمة المرور';
+
+  @override
+  String get changed_your_mind => 'غيرت رأيك؟ اذهب إلى ';
 }

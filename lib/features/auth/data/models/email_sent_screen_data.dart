@@ -1,16 +1,8 @@
+import 'package:pharmacy_app/core/enums/enums.dart';
+
 class EmailSentScreenData {
-  EmailSentScreenData({
-    required this.email,
-    required this.title,
-    required this.subtitle,
-    required this.instruction,
-    required this.buttonText,
-    required this.footerText,
-  });
-  String email;
-  String title;
-  String subtitle;
-  String instruction;
-  String buttonText;
-  String footerText;
+  final String email;
+  final EmailSentScreenType type;
+
+  const EmailSentScreenData({required this.email, required this.type});
 }

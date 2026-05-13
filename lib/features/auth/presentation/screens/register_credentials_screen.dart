@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:pharmacy_app/core/enums/enums.dart';
 import 'package:pharmacy_app/core/extensions/app_design_system_ext.dart';
 import 'package:pharmacy_app/core/extensions/input_validator_error_ext.dart';
 import 'package:pharmacy_app/core/extensions/localization_ext.dart';
@@ -73,11 +74,7 @@ class _RegisterCredentialsBodyState extends State<RegisterCredentialsBody> {
         AppRoutesKeys.emailSent,
         extra: EmailSentScreenData(
           email: emailController.text.trim(),
-          title: context.tr.emailSentTitle,
-          subtitle: context.tr.emailSentTo,
-          instruction: context.tr.emailInstruction,
-          buttonText: context.tr.resendLink,
-          footerText: context.tr.didnt_find_email,
+          type: EmailSentScreenType.verification,
         ),
       );
     }
