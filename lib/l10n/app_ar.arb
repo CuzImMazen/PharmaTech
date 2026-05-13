@@ -357,12 +357,20 @@
   ,"pharmacy_license_required": "رقم ترخيص الصيدلية مطلوب"
 ,"create_account": "إنشاء الحساب"
 ,"back": "السابق",
-"emailVerificationTitle": "تحقق من بريدك الإلكتروني",
+"emailSentTitle": "تحقق من بريدك الإلكتروني",
   "emailSentTo": "تم إرسال رابط التفعيل إلى",
   "emailInstruction": "افتح بريدك الإلكتروني وانقر على رابط التفعيل لإكمال التسجيل",
   "resendLink": "إعادة إرسال الرابط",
-  "emailNotFound": "لم تجد الرسالة؟ تحقق من مجلد الرسائل الغير مرغوبة"
+  "didnt_find_email": "لم تجد الرسالة؟ تحقق من مجلد الرسائل الغير مرغوبة"
   ,"continue_btn": "متابعة"
+  ,"go_back": "هل تريد العودة إلى"
+  ,"login_screen": "شاشة تسجيل الدخول"
+  ,"forgot_password_title": "هل نسيت كلمة المرور؟"
+  ,"forgot_password_subtitle": "أدخل بريدك الإلكتروني لتلقي رابط إعادة تعيين كلمة المرور"
+  ,"send_reset_password_link": "إرسال رابط إعادة تعيين كلمة المرور"
+  ,"remembered_password": "هل تذكرت كلمة المرور؟ "
+  ,"reset_password_subtitle": "لقد أرسلنا رابط إعادة تعيين كلمة المرور إلى"
+  ,"reset_password_instruction": "افتح بريدك الإلكتروني وانقر على رابط إعادة تعيين كلمة المرور للمتابعة"
 
 
 }
