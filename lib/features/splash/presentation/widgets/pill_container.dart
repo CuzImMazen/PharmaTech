@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import 'package:pharmacy_app/core/extensions/app_design_system_ext.dart';
-import 'package:pharmacy_app/core/extensions/theme_colors_ext.dart';
 
 class PillContainer extends StatelessWidget {
   const PillContainer({super.key});

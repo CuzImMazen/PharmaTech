@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pharmacy_app/core/theme/appcolors.dart';
 
 // ==========================================================================
 // API: BuildContext Extension
@@ -92,6 +93,34 @@ extension AppDesignSystem on BuildContext {
 
   // Helpers
   SizedBox get shrink => const SizedBox.shrink();
+}
+
+// ==========================================================================
+// API: Theme & Color Extensions
+// This allows you to access colors and text styles via 'context' for cleaner code
+// ==========================================================================
+
+extension ThemeColors on BuildContext {
+  ColorScheme get colors => Theme.of(this).colorScheme;
+
+  Brightness get brightness => Theme.of(this).brightness;
+
+  bool get isDark => brightness == Brightness.dark;
+
+  Color get primary => colors.primary;
+  Color get surface => colors.surface;
+  Color get onSurface => colors.onSurface;
+
+  Color get muted => isDark ? AppColors.mutedDark : AppColors.mutedLight;
+}
+
+// ==========================================================================
+// API: TextTheme Extension
+// This allows you to access text styles via 'context.text' for cleaner code
+// ==========================================================================
+
+extension TextThemeExt on BuildContext {
+  TextTheme get text => Theme.of(this).textTheme;
 }
 
 // ==========================================================================

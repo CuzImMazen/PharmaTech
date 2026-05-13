@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:pharmacy_app/core/extensions/app_design_system_ext.dart';
 import 'package:pharmacy_app/core/extensions/localization_ext.dart';
-import 'package:pharmacy_app/core/extensions/theme_colors_ext.dart';
 
 class OrDivider extends StatelessWidget {
   const OrDivider({super.key});

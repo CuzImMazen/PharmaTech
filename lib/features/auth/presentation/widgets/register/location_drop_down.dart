@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/core/extensions/app_design_system_ext.dart';
-import 'package:pharmacy_app/core/extensions/theme_colors_ext.dart';
+
 import 'package:pharmacy_app/core/extensions/location_localization_ext.dart';
 
 class LocationDropDown extends StatelessWidget {

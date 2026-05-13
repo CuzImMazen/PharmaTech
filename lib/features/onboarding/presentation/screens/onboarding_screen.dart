@@ -3,8 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pharmacy_app/core/consts/assets.dart';
 import 'package:pharmacy_app/core/extensions/app_design_system_ext.dart';
 import 'package:pharmacy_app/core/extensions/localization_ext.dart';
-import 'package:pharmacy_app/core/extensions/text_theme_ext.dart';
-import 'package:pharmacy_app/core/extensions/theme_colors_ext.dart';
 import 'package:pharmacy_app/core/app/app_state_notifier.dart';
 import 'package:pharmacy_app/features/onboarding/presentation/widgets/onboarding_footer.dart';
 import 'package:pharmacy_app/features/onboarding/presentation/widgets/onboarding_page.dart';
