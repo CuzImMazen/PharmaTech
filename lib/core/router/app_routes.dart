@@ -1,15 +1,16 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:pharmacy_app/core/di/service_locator.dart';
 import 'package:pharmacy_app/core/router/app_routes_keys.dart';
 import 'package:pharmacy_app/features/auth/cubit/login_cubit.dart';
-import 'package:pharmacy_app/features/auth/data/models/email_sent_screen_data.dart';
 import 'package:pharmacy_app/features/auth/data/models/register_details_model.dart';
-import 'package:pharmacy_app/features/auth/presentation/screens/email_sent_screen.dart';
 import 'package:pharmacy_app/features/auth/presentation/screens/forget_password_screen.dart';
 import 'package:pharmacy_app/features/auth/presentation/screens/login_screen.dart';
+import 'package:pharmacy_app/features/auth/presentation/screens/password_reset_sent_screen.dart';
 import 'package:pharmacy_app/features/auth/presentation/screens/register_credentials_screen.dart';
 import 'package:pharmacy_app/features/auth/presentation/screens/register_details_screen.dart';
 import 'package:pharmacy_app/features/auth/presentation/screens/reset_password_screen.dart';
+import 'package:pharmacy_app/features/auth/presentation/screens/verification_sent_screen.dart';
 
 import 'package:pharmacy_app/features/onboarding/presentation/screens/onboarding_screen.dart';
 import 'package:pharmacy_app/features/splash/presentation/screens/splash_screen.dart';
@@ -28,7 +29,7 @@ class AppRoutes {
     GoRoute(
       path: AppRoutesKeys.login,
       builder: (context, state) => BlocProvider<LoginCubit>(
-        create: (context) => LoginCubit(),
+        create: (context) => LoginCubit(authRepository: sl(), tokenStore: sl()),
         child: const LoginScreen(),
       ),
     ),
@@ -47,12 +48,6 @@ class AppRoutes {
     ),
 
     GoRoute(
-      path: AppRoutesKeys.emailSent,
-      builder: (context, state) =>
-          EmailSentScreen(data: state.extra as EmailSentScreenData),
-    ),
-
-    GoRoute(
       path: AppRoutesKeys.forgetPassword,
       builder: (context, state) => ForgetPasswordScreen(),
     ),
@@ -60,6 +55,21 @@ class AppRoutes {
     GoRoute(
       path: AppRoutesKeys.resetPassword,
       builder: (context, state) => ResetPasswordScreen(),
+    ),
+
+    GoRoute(
+      path: AppRoutesKeys.verificationSent,
+      builder: (context, state) {
+        final email = state.extra as String;
+        return VerificationSentScreen(email: email);
+      },
+    ),
+    GoRoute(
+      path: AppRoutesKeys.resetPasswordSent,
+      builder: (context, state) {
+        final email = state.extra as String;
+        return PasswordResetSentScreen(email: email);
+      },
     ),
   ];
 }

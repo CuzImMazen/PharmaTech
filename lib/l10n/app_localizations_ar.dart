@@ -12,10 +12,42 @@ class AppLocalizationsAr extends AppLocalizations {
   String get error_network => 'لا يوجد اتصال بالإنترنت';
 
   @override
-  String get error_timeout => 'انتهت مهلة الطلب';
+  String get error_timeout => 'انتهت مهلة الطلب، يرجى المحاولة لاحقاً';
 
   @override
   String get error_unknown => 'حدث خطأ ما، يرجى المحاولة مرة أخرى';
+
+  @override
+  String get session_expired => 'انتهت صلاحية الجلسة. يرجى تسجيل الدخول مجدداً.';
+
+  @override
+  String get auth_invalid_credentials => 'البريد الإلكتروني أو كلمة المرور غير صحيحة.';
+
+  @override
+  String get auth_email_not_registered => 'البريد الإلكتروني غير مسجل';
+
+  @override
+  String get auth_wrong_password => 'كلمة المرور غير صحيحة';
+
+  @override
+  String get auth_email_already_exists => 'البريد الإلكتروني مستخدم بالفعل.';
+
+  @override
+  String get auth_phone_already_exists => 'رقم الهاتف مستخدم بالفعل.';
+
+  @override
+  String get auth_email_not_verified => 'يرجى تأكيد بريدك الإلكتروني أولاً. تم إرسال رابط تفعيل جديد إلى صندوق الوارد الخاص بك.';
+
+  @override
+  String get auth_invalid_reset_token => 'رابط إعادة تعيين كلمة المرور هذا غير صالح أو انتهت صلاحيته.';
+
+  @override
+  String get auth_action_denied => 'رابط التحقق هذا غير صالح أو انتهت صلاحيته.';
+
+  @override
+  String error_too_many_attempts(String seconds) {
+    return 'عدد محاولات كثيرة. يرجى المحاولة مرة أخرى بعد $seconds ثانية.';
+  }
 
   @override
   String get splash_title => 'صيدليتي';
@@ -103,12 +135,6 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get privacy_policy => 'سياسة الخصوصية';
-
-  @override
-  String get auth_email_not_registered => 'البريد الإلكتروني غير مسجل';
-
-  @override
-  String get auth_wrong_password => 'كلمة المرور غير صحيحة';
 
   @override
   String get auth_login_success => 'تم تسجيل الدخول بنجاح';

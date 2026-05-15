@@ -4,6 +4,7 @@ import 'package:device_preview/device_preview.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:pharmacy_app/core/app/app_state_notifier.dart';
 import 'package:pharmacy_app/core/di/service_locator.dart';
@@ -18,21 +19,27 @@ import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
+  await dotenv.load(fileName: ".env");
   await setupLocator();
 
   final authRepository = sl<AuthRepository>();
   final tokenStore = sl<TokenStore>();
   final sessionCubit = SessionCubit(authRepository: authRepository);
 
-  ///  1: restore token from storage ( if user choosed remmeber me)
-  final savedToken = await authRepository.getToken();
+  /// 1: Restore BOTH tokens from storage (if user checked remember me)
+  final accessToken = await authRepository.getAccessToken();
+  final refreshToken = await authRepository.getRefreshToken();
 
-  if (savedToken != null) {
-    tokenStore.set(savedToken); // for interceptor
-    sessionCubit.setAuthenticated(savedToken); // for app state
+  if (accessToken != null && refreshToken != null) {
+    // put in-memory TokenStore for the interceptor
+    tokenStore.set(accessToken: accessToken, refreshToken: refreshToken);
+
+    // Pass the access token to your session cubit for initial validation/app state
+    sessionCubit.setAuthenticated(accessToken, refreshToken);
   } else {
-    sessionCubit.setUnauthenticated(); // they need to login
+    // If either token is missing, force a clean state
+    tokenStore.clear();
+    sessionCubit.setUnauthenticated();
   }
 
   final appState = AppStateNotifier(

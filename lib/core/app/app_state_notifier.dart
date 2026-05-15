@@ -49,7 +49,7 @@ class AppStateNotifier extends ChangeNotifier {
   bool get onboardingSeen => _onboardingSeen;
 
   bool get isAuthenticated => _sessionCubit.state.maybeWhen(
-    authenticated: (_) => true,
+    authenticated: (_, _) => true,
     orElse: () => false,
   );
 

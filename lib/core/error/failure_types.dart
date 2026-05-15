@@ -1,1 +1,8 @@
-enum AuthFailureType { emailNotRegistered, wrongPassword }
+enum AuthFailureType {
+  invalidCredentials,
+  invalidResetToken,
+  actionDenied,
+  emailAlreadyExists,
+  phoneNumberAlreadyExists,
+  emailNotVerified,
+}

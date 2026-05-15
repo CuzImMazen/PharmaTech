@@ -1,3 +1,4 @@
 class SecureStorageKeys {
-  static const String token = 'token';
+  static const String accessToken = 'access_token';
+  static const String refreshToken = 'refresh_token';
 }

@@ -3,9 +3,28 @@
 
   "@@section_errors": "================ ERRORS ================",
 
-"error_network": "No internet connection",
+ "error_network": "No internet connection",
   "error_timeout": "Request timed out",
-  "error_unknown": "Something went wrong, please try again"
+  "error_unknown": "Something went wrong, please try again",
+  "session_expired": "Your session has expired. Please sign in again.",
+  "auth_invalid_credentials": "The email or password you entered is incorrect.",
+  "auth_email_not_registered": "This email address is not registered.",
+  "auth_wrong_password": "Incorrect password. Please try again.",
+  "auth_email_already_exists": "This email address is already in use.",
+  "auth_phone_already_exists": "This phone number is already in use.",
+  "auth_email_not_verified": "Please verify your email first. A new activation link has been sent to your inbox.",
+  "auth_invalid_reset_token": "This password reset token is invalid or has expired.",
+  "auth_action_denied": "This verification link is invalid or has expired."
+  ,"error_too_many_attempts": "Too many attempts. Please try again in {seconds} seconds.",
+  "@error_too_many_attempts": {
+    "description": "Error message when the user hits the rate limiter.",
+    "placeholders": {
+      "seconds": {
+        "type": "String",
+        "example": "48"
+      }
+    }
+  }
  
 ,
   "@@section_splash": "================ SPLASH SCREEN ================",

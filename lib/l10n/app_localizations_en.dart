@@ -18,6 +18,38 @@ class AppLocalizationsEn extends AppLocalizations {
   String get error_unknown => 'Something went wrong, please try again';
 
   @override
+  String get session_expired => 'Your session has expired. Please sign in again.';
+
+  @override
+  String get auth_invalid_credentials => 'The email or password you entered is incorrect.';
+
+  @override
+  String get auth_email_not_registered => 'Email is not registered';
+
+  @override
+  String get auth_wrong_password => 'Incorrect password';
+
+  @override
+  String get auth_email_already_exists => 'This email address is already in use.';
+
+  @override
+  String get auth_phone_already_exists => 'This phone number is already in use.';
+
+  @override
+  String get auth_email_not_verified => 'Please verify your email first. A new activation link has been sent to your inbox.';
+
+  @override
+  String get auth_invalid_reset_token => 'This password reset token is invalid or has expired.';
+
+  @override
+  String get auth_action_denied => 'This verification link is invalid or has expired.';
+
+  @override
+  String error_too_many_attempts(String seconds) {
+    return 'Too many attempts. Please try again in $seconds seconds.';
+  }
+
+  @override
   String get splash_title => 'Pharmacy App';
 
   @override
@@ -103,12 +135,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get privacy_policy => 'Privacy Policy';
-
-  @override
-  String get auth_email_not_registered => 'Email is not registered';
-
-  @override
-  String get auth_wrong_password => 'Incorrect password';
 
   @override
   String get auth_login_success => 'Logged in successfully';

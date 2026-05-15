@@ -1,19 +1,24 @@
 class TokenStore {
-  String? _token;
+  String? _accessToken;
+  String? _refreshToken;
 
-  /// Get current in-memory token (fast access for interceptor)
-  String? get token => _token;
+  /// Fast access for regular request headers
+  String? get accessToken => _accessToken;
 
-  /// Set token after login / app restore
-  void set(String token) {
-    _token = token;
+  /// Fast access for the Interceptor error block when refreshing sessions
+  String? get refreshToken => _refreshToken;
+
+  /// Set both tokens after login, app startup restore, or silent refresh rotation
+  void set({required String accessToken, required String refreshToken}) {
+    _accessToken = accessToken;
+    _refreshToken = refreshToken;
   }
 
-  /// Clear token on logout
+  /// Clear everything clean on logout
   void clear() {
-    _token = null;
+    _accessToken = null;
+    _refreshToken = null;
   }
 
-  /// Optional helper
-  bool get hasToken => _token != null && _token!.isNotEmpty;
+  bool get hasToken => _accessToken != null && _accessToken!.isNotEmpty;
 }

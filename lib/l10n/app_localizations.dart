@@ -113,6 +113,66 @@ abstract class AppLocalizations {
   /// **'Something went wrong, please try again'**
   String get error_unknown;
 
+  /// No description provided for @session_expired.
+  ///
+  /// In en, this message translates to:
+  /// **'Your session has expired. Please sign in again.'**
+  String get session_expired;
+
+  /// No description provided for @auth_invalid_credentials.
+  ///
+  /// In en, this message translates to:
+  /// **'The email or password you entered is incorrect.'**
+  String get auth_invalid_credentials;
+
+  /// No description provided for @auth_email_not_registered.
+  ///
+  /// In en, this message translates to:
+  /// **'Email is not registered'**
+  String get auth_email_not_registered;
+
+  /// No description provided for @auth_wrong_password.
+  ///
+  /// In en, this message translates to:
+  /// **'Incorrect password'**
+  String get auth_wrong_password;
+
+  /// No description provided for @auth_email_already_exists.
+  ///
+  /// In en, this message translates to:
+  /// **'This email address is already in use.'**
+  String get auth_email_already_exists;
+
+  /// No description provided for @auth_phone_already_exists.
+  ///
+  /// In en, this message translates to:
+  /// **'This phone number is already in use.'**
+  String get auth_phone_already_exists;
+
+  /// No description provided for @auth_email_not_verified.
+  ///
+  /// In en, this message translates to:
+  /// **'Please verify your email first. A new activation link has been sent to your inbox.'**
+  String get auth_email_not_verified;
+
+  /// No description provided for @auth_invalid_reset_token.
+  ///
+  /// In en, this message translates to:
+  /// **'This password reset token is invalid or has expired.'**
+  String get auth_invalid_reset_token;
+
+  /// No description provided for @auth_action_denied.
+  ///
+  /// In en, this message translates to:
+  /// **'This verification link is invalid or has expired.'**
+  String get auth_action_denied;
+
+  /// Error message when the user hits the rate limiter.
+  ///
+  /// In en, this message translates to:
+  /// **'Too many attempts. Please try again in {seconds} seconds.'**
+  String error_too_many_attempts(String seconds);
+
   /// No description provided for @splash_title.
   ///
   /// In en, this message translates to:
@@ -286,18 +346,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Privacy Policy'**
   String get privacy_policy;
-
-  /// No description provided for @auth_email_not_registered.
-  ///
-  /// In en, this message translates to:
-  /// **'Email is not registered'**
-  String get auth_email_not_registered;
-
-  /// No description provided for @auth_wrong_password.
-  ///
-  /// In en, this message translates to:
-  /// **'Incorrect password'**
-  String get auth_wrong_password;
 
   /// No description provided for @auth_login_success.
   ///

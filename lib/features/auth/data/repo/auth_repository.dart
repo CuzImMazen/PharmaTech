@@ -1,11 +1,59 @@
+import 'package:dartz/dartz.dart';
+import 'package:pharmacy_app/core/error/failure.dart';
+import 'package:pharmacy_app/features/auth/data/models/login_response_model.dart';
+import 'package:pharmacy_app/features/auth/data/models/register_request_model.dart';
+
 abstract class AuthRepository {
-  // *************** Authentication Actions **************** //
+  // ================= AUTH ================= //
 
-  //***************** Token Management ****************//
+  Future<Either<Failure, LoginResponseModel>> login({
+    required String email,
+    required String password,
+    String? deviceName,
+  });
 
-  Future<String?> getToken();
+  Future<Either<Failure, void>> register(RegisterRequestModel model);
 
-  Future<void> saveToken(String token);
+  Future<Either<Failure, void>> refresh({
+    required String refreshToken,
+    String? deviceName,
+  });
 
-  Future<void> clearToken();
+  Future<Either<Failure, void>> logout({String? refreshToken});
+
+  Future<Either<Failure, void>> logoutAll();
+
+  // ================= EMAIL ================= //
+
+  Future<Either<Failure, void>> verifyEmail({
+    required int id,
+    required String hash,
+  });
+
+  Future<Either<Failure, void>> resendVerificationEmail({
+    required String email,
+  });
+
+  // ================= PASSWORD ================= //
+
+  Future<Either<Failure, void>> forgotPassword({required String email});
+
+  Future<Either<Failure, void>> resetPassword({
+    required String email,
+    required String password,
+    required String passwordConfirmation,
+    required String token,
+  });
+
+  // ================= TOKEN MANAGEMENT ================= //
+
+  Future<String?> getAccessToken();
+  Future<void> saveAccessToken(String token);
+  Future<void> clearAccessToken();
+
+  Future<String?> getRefreshToken();
+  Future<void> saveRefreshToken(String token);
+  Future<void> clearRefreshToken();
+
+  Future<void> clearAllTokens();
 }

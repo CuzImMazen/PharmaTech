@@ -8,8 +8,13 @@ class SessionCubit extends Cubit<SessionState> {
   SessionCubit({required this.authRepository})
     : super(const SessionState.initial());
 
-  void setAuthenticated(String token) {
-    emit(SessionState.authenticated(token: token));
+  void setAuthenticated(String accessToken, String refreshToken) {
+    emit(
+      SessionState.authenticated(
+        accessToken: accessToken,
+        refreshToken: refreshToken,
+      ),
+    );
   }
 
   void setUnauthenticated() {

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:pharmacy_app/core/app/session/session_cubit.dart';
 import 'package:pharmacy_app/core/extensions/failure_message_localization_ext.dart';
 
 import 'package:pharmacy_app/core/extensions/input_validator_error_ext.dart';
@@ -53,7 +54,11 @@ class _LoginScreenState extends State<LoginScreenBody> {
     FocusScope.of(context).unfocus();
 
     if (formKey.currentState?.validate() ?? false) {
-      context.read<LoginCubit>().test();
+      context.read<LoginCubit>().login(
+        email: emailController.text,
+        password: passwordController.text,
+        rememberMe: _rememberMe.value,
+      );
     }
   }
 
@@ -78,11 +83,16 @@ class _LoginScreenState extends State<LoginScreenBody> {
     return BlocListener<LoginCubit, LoginState>(
       listener: (context, state) {
         state.maybeWhen(
-          success: (token) {
+          success: (response) {
             Snackbar.show(
               context: context,
               message: context.tr.auth_login_success,
               color: Colors.green,
+              icon: LucideIcons.check,
+            );
+            context.read<SessionCubit>().setAuthenticated(
+              response.accessToken,
+              response.refreshToken,
             );
           },
           failure: (failure) {
@@ -90,6 +100,7 @@ class _LoginScreenState extends State<LoginScreenBody> {
               context: context,
               message: failure.localizedMessage(context),
               color: Colors.red,
+              icon: LucideIcons.x,
             );
           },
           orElse: () {},
