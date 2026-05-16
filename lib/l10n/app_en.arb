@@ -2,21 +2,11 @@
   "@@locale": "en",
 
   "@@section_errors": "================ ERRORS ================",
-
- "error_network": "No internet connection",
+  "error_network": "No internet connection",
   "error_timeout": "Request timed out",
   "error_unknown": "Something went wrong, please try again",
   "error_parsing": "An error occurred while parsing data.",
-  "session_expired": "Your session has expired. Please sign in again.",
-  "auth_invalid_credentials": "The email or password you entered is incorrect.",
-  "auth_email_not_registered": "This email address is not registered.",
-  "auth_wrong_password": "Incorrect password. Please try again.",
-  "auth_email_already_exists": "This email address is already in use.",
-  "auth_phone_already_exists": "This phone number is already in use.",
-  "auth_email_not_verified": "Please verify your email first. A new activation link has been sent to your inbox.",
-  "auth_invalid_reset_token": "This password reset token is invalid or has expired.",
-  "auth_action_denied": "This verification link is invalid or has expired."
-  ,"error_too_many_attempts": "Too many attempts. Please try again in {seconds} seconds.",
+  "error_too_many_attempts": "Too many attempts. Please try again in {seconds} seconds.",
   "@error_too_many_attempts": {
     "description": "Error message when the user hits the rate limiter.",
     "placeholders": {
@@ -25,94 +15,86 @@
         "example": "48"
       }
     }
-  }
- 
-,
-  "@@section_splash": "================ SPLASH SCREEN ================",
+  },
+  "session_expired": "Your session has expired. Please sign in again.",
+  "auth_invalid_credentials": "The email or password you entered is incorrect.",
+  "auth_email_not_registered": "Email is not registered",
+  "auth_wrong_password": "Incorrect password",
+  "auth_email_already_exists": "This email address is already in use.",
+  "auth_phone_already_exists": "This phone number is already in use.",
+  "auth_email_not_verified": "Please verify your email first. A new activation link has been sent to your inbox.",
+  "auth_invalid_reset_token": "This password reset token is invalid or has expired.",
+  "auth_action_denied": "This verification link is invalid or has expired.",
 
+  "@@section_splash": "================ SPLASH SCREEN ================",
   "splash_title": "Pharmacy App",
   "splash_subtitle": "Pharmacy management system",
 
-   "@@section_onboarding": "================ OBOARDING SCREEN ================",
-
-  "onboarding_skip": "Skip"
-  ,"onboarding_page1_title": "Your Smart Pharmacy Partner",
+  "@@section_onboarding": "================ OBOARDING SCREEN ================",
+  "onboarding_skip": "Skip",
+  "onboarding_page1_title": "Your Smart Pharmacy Partner",
   "onboarding_page1_desc": "Focus more on your patients while we handle the paperwork. Automate prescription logging and simplify your daily routine.",
   "onboarding_page2_title": "Real-Time Inventory Insights",
   "onboarding_page2_desc": "Never run out of essentials. Monitor stock levels and track sales performance with live analytics and automated alerts.",
   "onboarding_page3_title": "Secure & Organized Workflow",
-  "onboarding_page3_desc": "Keep patient data protected with high-level encryption while managing your team’s schedule and appointments in one place."
-  ,"onboarding_next": "Next"
-  , "onboarding_back": "Back"
-  ,"onboarding_start": "Start Now",
+  "onboarding_page3_desc": "Keep patient data protected with high-level encryption while managing your team’s schedule and appointments in one place.",
+  "onboarding_next": "Next",
+  "onboarding_back": "Back",
+  "onboarding_start": "Start Now",
 
-    "@@section_auth": "================ AUTH SCREEN ================",
-    
+  "@@section_auth": "================ AUTH SCREEN ================",
   "auth_login_title": "Welcome back",
-  "auth_login_subtitle": "Log in to continue working"
-  ,"auth_email_label": "Email"
-  ,"auth_password_label": "Password",
-    "auth_remember_me": "Remember me",
-    "auth_forgot_password": "Forgot password?"
-    ,"auth_login_button": "SignIn"
-    ,"auth_no_account": "Don't have an account? "
-    ,"auth_create_account": "Create a new account"
-    ,"auth_email_is_required": "Email is required"
-    ,"auth_password_is_required": "Password is required"  ,
-    "auth_invalid_email": "Invalid email format",
-    "auth_password_min_length": "Password must be at least 8 characters",
-    "agree_to": "I agree to ",
-    "terms_and_conditions": "Terms and Conditions",
-    "and": " and ",
-    "privacy_policy": "Privacy Policy"
-    ,"auth_email_not_registered": "Email is not registered"
-    ,"auth_wrong_password": "Incorrect password"
-    , "auth_login_success": "Logged in successfully"
-    , "auth_or": "OR"
-    , "auth_signin_with_google": "Sign in with Google"
-    ,"auth_signup_account_title":"Create a new account" ,
-    "auth_signup_account_subtitle": "Begin your experience with us now."
-    ,"auth_confirm_password_label": "Confirm Password"
-    ,"auth_passwords_do_not_match": "Passwords do not match"
-    ,"auth_confirm_password_is_required": "Confirm Password is required"
-    ,"auth_next": "Next"
-    ,"already_have_account": "Already have an account? ",
-    "auth_signin": "Sign In"
-    ,"auth_signup_subtitle2": "Personal Information & Licensing"
-    ,"first_name_label": "First Name"
-    ,"last_name_label": "Last Name"
-    ,"phone_number_label": "Phone Number"
-    ,"first_name_hint": "John"
-    ,"last_name_hint": "Smith"
-    ,"auth_first_name_is_required": "First name required"
-    ,"auth_last_name_is_required": "Last name required"
-      ,"auth_phone_is_required": "Phone number is required"
-      ,"auth_invalid_phone": "Invalid phone number format"
-      ,"phone_label": "Phone Number"
-      ,"pharmacy_name_label": "Pharmacy Name"
-      ,"pharmacy_name_hint": "John's Pharmacy"
-      ,"auth_pharmacy_name_is_required": "Pharmacy name is required"
-      ,"auth_governorate_is_required": "Governorate is required"
-      , "auth_city_is_required": "City is required"
-      ,"auth_governorate_label": "Governorate"
-      ,"auth_city_label": "City"
-      ,"reset_password_success": "Password reset successfully. Please SignIn with your new password."
-      , "password_atleast_one_letter": "Password must contain at least one letter",
-      "email_verification_success": "Email verified successfully. You can now log in.",
-      "you_can_resend_after": "you resend after {seconds} seconds",
-  "@you_can_resend_after": {
-    "description": "Message shown when the user tries to resend the verification email before the cooldown period is over.",
-    "placeholders": {
-      "seconds": {
-        "type": "String",
-        "example": "60"
-      }
-    }
-  },
+  "auth_login_subtitle": "Log in to continue working",
+  "auth_email_label": "Email",
+  "auth_password_label": "Password",
+  "auth_remember_me": "Remember me",
+  "auth_forgot_password": "Forgot password?",
+  "auth_login_button": "SignIn",
+  "auth_no_account": "Don't have an account? ",
+  "auth_create_account": "Create a new account",
+  "auth_email_is_required": "Email is required",
+  "auth_password_is_required": "Password is required",
+  "auth_invalid_email": "Invalid email format",
+  "auth_password_min_length": "Password must be at least 8 characters",
+  "password_atleast_one_letter": "Password must contain at least one letter",
+  "agree_to": "I agree to ",
+  "terms_and_conditions": "Terms and Conditions",
+  "and": " and ",
+  "privacy_policy": "Privacy Policy",
+  "auth_login_success": "Logged in successfully",
+  "auth_or": "OR",
+  "auth_signin_with_google": "Sign in with Google",
+  "auth_signup_account_title": "Create a new account",
+  "auth_signup_account_subtitle": "Begin your experience with us now.",
+  "auth_confirm_password_label": "Confirm Password",
+  "auth_confirm_password_is_required": "Confirm Password is required",
+  "auth_passwords_do_not_match": "Passwords do not match",
+  "auth_next": "Next",
+  "already_have_account": "Already have an account? ",
+  "auth_signin": "Sign In",
+  "auth_signup_subtitle2": "Personal Information & Licensing",
+  "first_name_label": "First Name",
+  "last_name_label": "Last Name",
+  "phone_number_label": "Phone Number",
+  "first_name_hint": "John",
+  "last_name_hint": "Smith",
+  "auth_first_name_is_required": "First name required",
+  "auth_last_name_is_required": "Last name required",
+  "auth_phone_is_required": "Phone number is required",
+  "auth_invalid_phone": "Invalid phone number format",
+  "phone_label": "Phone Number",
+  "pharmacy_name_label": "Pharmacy Name",
+  "pharmacy_name_hint": "John's Pharmacy",
+  "auth_pharmacy_name_is_required": "Pharmacy name is required",
+  "auth_governorate_is_required": "Governorate is required",
+  "auth_city_is_required": "City is required",
+  "auth_governorate_label": "Governorate",
+  "auth_city_label": "City",
+  "create_account": "Create Account",
+  "go_back": "do you want to go back to the",
+  "login_screen": "Login Screen",
 
-  "couldnt_resend_link": "Couldn't resend the  link. Please try again later.",
-  "resend_link_success": "Link resent successfully. Please check your email.",
-  
+  "@@section_locations": "================ LOCATIONS ================",
   "gov_damascus": "Damascus",
   "gov_rural_damascus": "Rural Damascus",
   "gov_aleppo": "Aleppo",
@@ -381,41 +363,52 @@
   "city_hasakah_al_sweidiya": "Al-Sweidiya",
   "city_hasakah_al_khaldiya": "Al-Khaldiya",
   "city_hasakah_al_jawadiyah": "Al-Jawadiyah",
-  "city_hasakah_al_talaq": "Al-Talaq"
-,
-  "governorate_required": "governorate  required"
-  , "city_required": "city  required"
+  "city_hasakah_al_talaq": "Al-Talaq",
 
-  ,"detailed_address_label": "Detailed Address (Optional)"
+  "@@section_address": "================ ADDRESS ================",
+  
+  "governorate_required": "governorate  required",
+  "city_required": "city  required",
+  "detailed_address_label": "Detailed Address (Optional)",
+  "detailed_address_hint": "Downtown, near the main square...",
+  "pharmacy_license_label": "Pharmacy License Number",
+  "pharmacy_license_required": "Pharmacy license number is required",
 
-  , "detailed_address_hint": "Downtown, near the main square...",
-   "pharmacy_license_label": "Pharmacy License Number"
-   ,"pharmacy_license_required": "Pharmacy license number is required"
-   ,"create_account": "Create Account",
-    "emailSentTitle": "Verify your email",
+  "@@section_email_verification": "================ EMAIL VERIFICATION ================",
+
+  "emailSentTitle": "Verify your email",
   "emailSentTo": "A verification link was sent to",
   "emailInstruction": "Open your email and tap the verification link to complete registration",
   "resendLink": "Resend link",
   "didnt_find_email": "Didn’t find the email? Check your spam folder or try again later",
-  "continue_btn": "Continue"
-  ,"go_back": "do you want to go back to the"
-  ,"login_screen": "Login Screen"
-  ,"forgot_password_title": "Forgot your password?",
-  "forgot_password_subtitle": "Enter your email to receive a password reset link"
-  ,"send_reset_password_link": "Send Reset Password Link"
-  ,"remembered_password": "Remembered your password? "
-  ,"reset_password_sent_subtitle": "we have sent reset password link to"
-  ,"reset_password_sent_instruction": "Open your email and click the reset password link to continue"
-  ,"reset_password_title": "Reset your password"
-  ,"reset_password_subtitle": "enter your new password and make sure to choose a strong one to keep your account secure"
-  ,"new_password_label": "New Password"
-  ,"reset_password_btn": "Reset Password"
-  ,"changed_your_mind": "Changed your mind? go back to "
+  "continue_btn": "Continue",
+  "email_verification_success": "Email verified successfully. You can now log in.",
+  "you_can_resend_after": "you resend after {seconds} seconds",
+  "@you_can_resend_after": {
+    "description": "Message shown when the user tries to resend the verification email before the cooldown period is over.",
+    "placeholders": {
+      "seconds": {
+        "type": "String",
+        "example": "60"
+      }
+    }
+  },
+  "couldnt_resend_link": "Couldn't resend the  link. Please try again later.",
+  "resend_link_success": "Link resent successfully. Please check your email.",
+
   
-  
+  "@@section_password_reset": "================ PASSWORD RESET ================",
 
-
-
-    
-    
+  "forgot_password_title": "Forgot your password?",
+  "forgot_password_subtitle": "Enter your email to receive a password reset link",
+  "send_reset_password_link": "Send Reset Password Link",
+  "remembered_password": "Remembered your password? ",
+  "reset_password_sent_subtitle": "we have sent reset password link to",
+  "reset_password_sent_instruction": "Open your email and click the reset password link to continue",
+  "reset_password_title": "Reset your password",
+  "reset_password_subtitle": "enter your new password and make sure to choose a strong one to keep your account secure",
+  "new_password_label": "New Password",
+  "reset_password_btn": "Reset Password",
+  "reset_password_success": "Password reset successfully. Please SignIn with your new password.",
+  "changed_your_mind": "Changed your mind? go back to "
 }

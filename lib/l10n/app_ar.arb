@@ -1,106 +1,92 @@
 {
   "@@locale": "ar",
- "@@section_errors": "================ ERRORS ================",
 
- "error_network": "لا يوجد اتصال بالإنترنت",
+  "@@section_errors": "================ ERRORS ================",
+  "error_network": "لا يوجد اتصال بالإنترنت",
   "error_timeout": "انتهت مهلة الطلب، يرجى المحاولة لاحقاً",
   "error_unknown": "حدث خطأ ما، يرجى المحاولة مرة أخرى",
+  "error_parsing": "حدث خطأ أثناء تحليل البيانات.",
+  "error_too_many_attempts": "عدد محاولات كثيرة. يرجى المحاولة مرة أخرى بعد {seconds} ثانية.",
   "session_expired": "انتهت صلاحية الجلسة. يرجى تسجيل الدخول مجدداً.",
   "auth_invalid_credentials": "البريد الإلكتروني أو كلمة المرور غير صحيحة.",
-  "auth_email_not_registered": "حساب البريد الإلكتروني هذا غير مسجل لدينا.",
-  "auth_wrong_password": "كلمة المرور غير صحيحة. يرجى المحاولة مجدداً.",
+  "auth_email_not_registered": "البريد الإلكتروني غير مسجل",
+  "auth_wrong_password": "كلمة المرور غير صحيحة",
   "auth_email_already_exists": "البريد الإلكتروني مستخدم بالفعل.",
   "auth_phone_already_exists": "رقم الهاتف مستخدم بالفعل.",
   "auth_email_not_verified": "يرجى تأكيد بريدك الإلكتروني أولاً. تم إرسال رابط تفعيل جديد إلى صندوق الوارد الخاص بك.",
   "auth_invalid_reset_token": "رابط إعادة تعيين كلمة المرور هذا غير صالح أو انتهت صلاحيته.",
   "auth_action_denied": "رابط التحقق هذا غير صالح أو انتهت صلاحيته.",
-  "error_too_many_attempts": "عدد محاولات كثيرة. يرجى المحاولة مرة أخرى بعد {seconds} ثانية.",
-  "error_parsing": "حدث خطأ أثناء تحليل البيانات.",
-  "@@section_splash": "================ SPLASH SCREEN ================",
 
+  "@@section_splash": "================ SPLASH SCREEN ================",
   "splash_title": "صيدليتي",
   "splash_subtitle": "نظام لإدارة الصيدليات",
 
   "@@section_onboarding": "================ OBOARDING SCREEN ================",
-  
-  "onboarding_skip": "تخطي"
-  ,"onboarding_page1_title": "شريكك الذكي في الصيدلية",
+  "onboarding_skip": "تخطي",
+  "onboarding_page1_title": "شريكك الذكي في الصيدلية",
   "onboarding_page1_desc": "ركّز أكتر على مرضاتك وترك المهام الورقية علينا. أتمتة تسجيل الوصفات وتسهيل روتينك اليومي صار بلمسة وحدة.",
   "onboarding_page2_title": "رؤية شاملة للمخزون",
   "onboarding_page2_desc": "لا تقلق من نقص الأدوية بعد اليوم. تابع مستويات المخزون وحلل أداء المبيعات بتقارير مباشرة وتنبيهات تلقائية.",
   "onboarding_page3_title": "بيئة عمل آمنة ومنظمة",
-  "onboarding_page3_desc": "بيانات مرضاتك محمية بأعلى مستويات التشفير، مع إمكانية تنظيم جداول الموظفين والمواعيد بمكان واحد وبكل بساطة."
-  ,"onboarding_next": "التالي"
-  , "onboarding_back": "السابق"
-  ,"onboarding_start": "ابدأ الآن",
+  "onboarding_page3_desc": "بيانات مرضاتك محمية بأعلى مستويات التشفير، مع إمكانية تنظيم جداول الموظفين والمواعيد بمكان واحد وبكل بساطة.",
+  "onboarding_next": "التالي",
+  "onboarding_back": "السابق",
+  "onboarding_start": "ابدأ الآن",
 
-   "@@section_auth": "================ AUTH SCREEN ================",
-
+  "@@section_auth": "================ AUTH SCREEN ================",
   "auth_login_title": "مرحباً بعودتك",
-  "auth_login_subtitle": "سجّل الدخول لمتابعة العمل"
-  ,"auth_email_label": "البريد الإلكتروني"
-  ,"auth_password_label": "كلمة المرور"
-  ,"auth_remember_me": "تذكرني"
-  ,"auth_forgot_password": "نسيت كلمة المرور؟"
-  ,"auth_login_button": "تسجيل الدخول"
-  ,"auth_no_account": "ليس لديك حساب؟ "
-  ,"auth_create_account": "إنشاء حساب جديد"
-  ,"auth_email_is_required": "البريد الإلكتروني مطلوب"
-  ,"auth_password_is_required": "كلمة المرور مطلوبة"
-  ,"auth_invalid_email": "صيغة البريد الإلكتروني غير صحيحة"
-  ,"auth_password_min_length": "كلمة المرور يجب أن تكون 8 أحرف على الأقل",
-   "agree_to": "أوافق على ",
-   "terms_and_conditions": "الشروط والأحكام",
-   "and": " و ",
-   "privacy_policy": "سياسة الخصوصية"
-    ,"auth_email_not_registered": "البريد الإلكتروني غير مسجل"
-    ,"auth_wrong_password": "كلمة المرور غير صحيحة"
-    , "auth_login_success": "تم تسجيل الدخول بنجاح"
-    , "auth_or": "أو"
-    , "auth_signin_with_google": "تسجيل الدخول باستخدام Google"
-    ,"auth_signup_account_title":"إنشاء حساب جديد" ,
-    "auth_signup_account_subtitle": " ابدأ تجربتك معنا الآن."
-    ,"auth_confirm_password_label": "تأكيد كلمة المرور"
-    ,"auth_confirm_password_is_required": "تأكيد كلمة المرور مطلوب"
-    ,"auth_passwords_do_not_match": "كلمات المرور غير متطابقة"
-    ,"auth_next": "التالي"
-    ,"already_have_account": "هل لديك حساب بالفعل？ ",
-    "auth_signin": "تسجيل الدخول"
-    ,"auth_signup_subtitle2": "المعلومات الشخصية والترخيص"
-    ,"first_name_label": "الاسم الأول"
-    ,"last_name_label": "الاسم الأخير"
-    ,"phone_number_label": "رقم الهاتف"
-    ,"first_name_hint": "نور"
-    ,"last_name_hint": "المصري"
-    ,"auth_first_name_is_required": "الاسم الأول مطلوب"
-    ,"auth_last_name_is_required": "الاسم الأخير مطلوب",
-     "auth_phone_is_required": "رقم الهاتف مطلوب",
-     "auth_invalid_phone": "صيغة رقم الهاتف غير صحيحة",
-    "phone_label": "رقم الهاتف"
-    ,"pharmacy_name_label": "اسم الصيدلية"
-    ,"pharmacy_name_hint": "صيدلية نور"
-    ,"auth_pharmacy_name_is_required": "اسم الصيدلية مطلوب"
-    ,"auth_governorate_is_required": "المحافظة مطلوبة"
-    , "auth_city_is_required": "المدينة مطلوبة"
-    ,"auth_governorate_label": "المحافظة"
-    ,"auth_city_label": "المدينة",
-    "reset_password_success": "تم إعادة تعيين كلمة المرور بنجاح. يرجى تسجيل الدخول باستخدام كلمة المرور الجديدة."
-    , "password_atleast_one_letter": "يجب أن تحتوي كلمة المرور على حرف واحد على الأقل",
-    "email_verification_success": "تم تأكيد البريد الإلكتروني بنجاح. يمكنك الآن تسجيل الدخول.",
-"you_can_resend_after": "يمكنك إعادة الإرسال بعد {seconds} ثانية",
-  "@you_can_resend_after": {
-    "description": "الرسالة المعروضة عندما يحاول المستخدم إعادة إرسال بريد التحقق قبل انتهاء فترة الانتظار.",
-    "placeholders": {
-      "seconds": {
-        "type": "String",
-        "example": "60"
-      }
-    }
-  },
-  
-  "couldnt_resend_link": "تعذر إعادة إرسال الرابط. يرجى المحاولة مرة أخرى لاحقاً.",
-  "resend_link_success": "تم إعادة إرسال الرابط بنجاح. يرجى التحقق من بريدك الإلكتروني.",
+  "auth_login_subtitle": "سجّل الدخول لمتابعة العمل",
+  "auth_email_label": "البريد الإلكتروني",
+  "auth_password_label": "كلمة المرور",
+  "auth_remember_me": "تذكرني",
+  "auth_forgot_password": "نسيت كلمة المرور؟",
+  "auth_login_button": "تسجيل الدخول",
+  "auth_no_account": "ليس لديك حساب؟ ",
+  "auth_create_account": "إنشاء حساب جديد",
+  "auth_email_is_required": "البريد الإلكتروني مطلوب",
+  "auth_password_is_required": "كلمة المرور مطلوبة",
+  "auth_invalid_email": "صيغة البريد الإلكتروني غير صحيحة",
+  "auth_password_min_length": "كلمة المرور يجب أن تكون 8 أحرف على الأقل",
+  "password_atleast_one_letter": "يجب أن تحتوي كلمة المرور على حرف واحد على الأقل",
+  "agree_to": "أوافق على ",
+  "terms_and_conditions": "الشروط والأحكام",
+  "and": " و ",
+  "privacy_policy": "سياسة الخصوصية",
+  "auth_login_success": "تم تسجيل الدخول بنجاح",
+  "auth_or": "أو",
+  "auth_signin_with_google": "تسجيل الدخول باستخدام Google",
+  "auth_signup_account_title": "إنشاء حساب جديد",
+  "auth_signup_account_subtitle": " ابدأ تجربتك معنا الآن.",
+  "auth_confirm_password_label": "تأكيد كلمة المرور",
+  "auth_confirm_password_is_required": "تأكيد كلمة المرور مطلوب",
+  "auth_passwords_do_not_match": "كلمات المرور غير متطابقة",
+  "auth_next": "التالي",
+  "already_have_account": "هل لديك حساب بالفعل？ ",
+  "auth_signin": "تسجيل الدخول",
+  "auth_signup_subtitle2": "المعلومات الشخصية والترخيص",
+  "first_name_label": "الاسم الأول",
+  "last_name_label": "الاسم الأخير",
+  "phone_number_label": "رقم الهاتف",
+  "first_name_hint": "نور",
+  "last_name_hint": "المصري",
+  "auth_first_name_is_required": "الاسم الأول مطلوب",
+  "auth_last_name_is_required": "الاسم الأخير مطلوب",
+  "auth_phone_is_required": "رقم الهاتف مطلوب",
+  "auth_invalid_phone": "صيغة رقم الهاتف غير صحيحة",
+  "phone_label": "رقم الهاتف",
+  "pharmacy_name_label": "اسم الصيدلية",
+  "pharmacy_name_hint": "صيدلية نور",
+  "auth_pharmacy_name_is_required": "اسم الصيدلية مطلوب",
+  "auth_governorate_is_required": "المحافظة مطلوبة",
+  "auth_city_is_required": "المدينة مطلوبة",
+  "auth_governorate_label": "المحافظة",
+  "auth_city_label": "المدينة",
+  "create_account": "إنشاء الحساب",
+  "back": "السابق",
+  "go_back": "هل تريد العودة إلى",
+  "login_screen": "شاشة تسجيل الدخول",
 
+  "@@section_locations": "================ LOCATIONS ================",
   "gov_damascus": "دمشق",
   "gov_rural_damascus": "ريف دمشق",
   "gov_aleppo": "حلب",
@@ -369,36 +355,48 @@
   "city_hasakah_al_sweidiya": "السويدية",
   "city_hasakah_al_khaldiya": "الخالدية",
   "city_hasakah_al_jawadiyah": "الجوادية",
-  "city_hasakah_al_talaq": "الطلاق"
+  "city_hasakah_al_talaq": "الطلاق",
 
+  "@@section_address": "================ ADDRESS ================",
+  "governorate_required": "المحافظة مطلوبة",
+  "city_required": "المدينة مطلوبة",
+  "detailed_address_label": "العنوان التفصيلي (اختياري)",
+  "detailed_address_hint": "شارع العابد مقابل مسجد النور...",
+  "pharmacy_license_label": "رقم ترخيص الصيدلية",
+  "pharmacy_license_required": "رقم ترخيص الصيدلية مطلوب",
 
-  ,"governorate_required": "المحافظة مطلوبة"
-  , "city_required": "المدينة مطلوبة"
-
-  ,"detailed_address_label": "العنوان التفصيلي (اختياري)"
-  ,"detailed_address_hint":  "شارع العابد مقابل مسجد النور..."
-  ,"pharmacy_license_label": "رقم ترخيص الصيدلية"
-  ,"pharmacy_license_required": "رقم ترخيص الصيدلية مطلوب"
-,"create_account": "إنشاء الحساب"
-,"back": "السابق",
-"emailSentTitle": "تحقق من بريدك الإلكتروني",
+  "@@section_email_verification": "================ EMAIL VERIFICATION ================",
+  "emailSentTitle": "تحقق من بريدك الإلكتروني",
   "emailSentTo": "تم إرسال رابط التفعيل إلى",
   "emailInstruction": "افتح بريدك الإلكتروني وانقر على رابط التفعيل لإكمال التسجيل",
   "resendLink": "إعادة إرسال الرابط",
-  "didnt_find_email": "لم تجد الرسالة؟ تحقق من مجلد الرسائل الغير مرغوبة أو حاول مرة أخرى لاحقاً"
-  ,"continue_btn": "متابعة"
-  ,"go_back": "هل تريد العودة إلى"
-  ,"login_screen": "شاشة تسجيل الدخول"
-  ,"forgot_password_title": "هل نسيت كلمة المرور؟"
-  ,"forgot_password_subtitle": "أدخل بريدك الإلكتروني لتلقي رابط إعادة تعيين كلمة المرور"
-  ,"send_reset_password_link": "إرسال رابط إعادة تعيين كلمة المرور"
-  ,"remembered_password": "هل تذكرت كلمة المرور؟ "
-  ,"reset_password_sent_subtitle": "لقد أرسلنا رابط إعادة تعيين كلمة المرور إلى"
-  ,"reset_password_sent_instruction": "افتح بريدك الإلكتروني وانقر على رابط إعادة تعيين كلمة المرور للمتابعة"
-  ,"reset_password_title": "إعادة تعيين كلمة المرور "
-  ,"reset_password_subtitle": "أدخل كلمة المرور الجديدة وتأكد من اختيار كلمة قوية للحفاظ على أمان حسابك"
-,"new_password_label": "كلمة المرور الجديدة"
-,"reset_password_btn": "إعادة تعيين كلمة المرور"
-,"changed_your_mind": "غيرت رأيك؟ اذهب إلى "
+  "didnt_find_email": "لم تجد الرسالة؟ تحقق من مجلد الرسائل الغير مرغوبة أو حاول مرة أخرى لاحقاً",
+  "continue_btn": "متابعة",
+  "email_verification_success": "تم تأكيد البريد الإلكتروني بنجاح. يمكنك الآن تسجيل الدخول.",
+  "you_can_resend_after": "يمكنك إعادة الإرسال بعد {seconds} ثانية",
+  "@you_can_resend_after": {
+    "description": "الرسالة المعروضة عندما يحاول المستخدم إعادة إرسال بريد التحقق قبل انتهاء فترة الانتظار.",
+    "placeholders": {
+      "seconds": {
+        "type": "String",
+        "example": "60"
+      }
+    }
+  },
+  "couldnt_resend_link": "تعذر إعادة إرسال الرابط. يرجى المحاولة مرة أخرى لاحقاً.",
+  "resend_link_success": "تم إعادة إرسال الرابط بنجاح. يرجى التحقق من بريدك الإلكتروني.",
 
+  "@@section_password_reset": "================ PASSWORD RESET ================",
+  "forgot_password_title": "هل نسيت كلمة المرور؟",
+  "forgot_password_subtitle": "أدخل بريدك الإلكتروني لتلقي رابط إعادة تعيين كلمة المرور",
+  "send_reset_password_link": "إرسال رابط إعادة تعيين كلمة المرور",
+  "remembered_password": "هل تذكرت كلمة المرور؟ ",
+  "reset_password_sent_subtitle": "لقد أرسلنا رابط إعادة تعيين كلمة المرور إلى",
+  "reset_password_sent_instruction": "افتح بريدك الإلكتروني وانقر على رابط إعادة تعيين كلمة المرور للمتابعة",
+  "reset_password_title": "إعادة تعيين كلمة المرور ",
+  "reset_password_subtitle": "أدخل كلمة المرور الجديدة وتأكد من اختيار كلمة قوية للحفاظ على أمان حسابك",
+  "new_password_label": "كلمة المرور الجديدة",
+  "reset_password_btn": "إعادة تعيين كلمة المرور",
+  "reset_password_success": "تم إعادة تعيين كلمة المرور بنجاح. يرجى تسجيل الدخول باستخدام كلمة المرور الجديدة.",
+  "changed_your_mind": "غيرت رأيك؟ اذهب إلى "
 }
