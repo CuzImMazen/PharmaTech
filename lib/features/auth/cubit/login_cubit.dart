@@ -30,14 +30,14 @@ class LoginCubit extends Cubit<LoginState> {
       (response) async {
         // Always keep tokens in memory so AuthInterceptor can use them
         tokenStore.set(
-          accessToken: response.accessToken,
-          refreshToken: response.refreshToken,
+          accessToken: response.user.accessToken,
+          refreshToken: response.user.refreshToken,
         );
 
         // Persist tokens only when "Remember Me" is enabled
         if (rememberMe) {
-          await authRepository.saveAccessToken(response.accessToken);
-          await authRepository.saveRefreshToken(response.refreshToken);
+          await authRepository.saveAccessToken(response.user.accessToken);
+          await authRepository.saveRefreshToken(response.user.refreshToken);
         } else {
           // Remove any previously persisted tokens
           await authRepository.clearAllTokens();

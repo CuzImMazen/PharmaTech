@@ -41,6 +41,33 @@ class AppStateNotifier extends ChangeNotifier {
       notifyListeners();
     }
   }
+  // Future<void> _init() async {
+  //   debugPrint("INIT STARTED");
+
+  //   try {
+  //     final seen = await _onboardingRepository.hasSeenOnboarding();
+
+  //     debugPrint("ONBOARDING RESULT: $seen");
+
+  //     _onboardingSeen = seen;
+
+  //     _authSubscription = _sessionCubit.stream.listen((_) {
+  //       debugPrint("SESSION CHANGED");
+  //       notifyListeners();
+  //     });
+
+  //     _isInitialized = true;
+
+  //     debugPrint("INIT DONE = TRUE");
+
+  //     notifyListeners();
+  //   } catch (e) {
+  //     debugPrint("INIT ERROR: $e");
+
+  //     _isInitialized = true;
+  //     notifyListeners();
+  //   }
+  // }
 
   // ---------------- GETTERS ---------------- //
 

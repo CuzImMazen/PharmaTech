@@ -12,11 +12,7 @@ class IconContainer extends StatelessWidget {
         shape: BoxShape.circle,
         color: context.colors.primary.withAlpha(30),
       ),
-      child: Icon(
-        icon,
-        size: 100,
-        color: context.colors.primary.withAlpha(150),
-      ),
+      child: Icon(icon, size: 90, color: context.colors.primary.withAlpha(150)),
     );
   }
 }

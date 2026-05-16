@@ -20,26 +20,46 @@ class AppRouter {
 
   static void init(AppStateNotifier appStateNotifier) {
     _router = GoRouter(
-      initialLocation: AppRoutesKeys.resetPassword,
+      initialLocation: AppRoutesKeys.splash,
       refreshListenable: appStateNotifier,
 
       redirect: (context, state) {
+        final String rawUriStr = state.uri.toString();
+
+        // Extract the path segment safely without query parameters
+        String currentPath = state.uri.path;
+
+        // Remove trailing slashes if present
+        if (currentPath.endsWith('/') && currentPath.length > 1) {
+          currentPath = currentPath.substring(0, currentPath.length - 1);
+        }
+
+        debugPrint("----------------------------------------");
+        debugPrint("INCOMING URI PATH: $currentPath");
+        debugPrint("FULL URI RECORDED: $rawUriStr");
+        debugPrint("MATCHED LOCATION: ${state.matchedLocation}");
+        debugPrint("----------------------------------------");
+
         final isInitialized = appStateNotifier.isInitialized;
         final isAuthenticated = appStateNotifier.isAuthenticated;
         final onboardingSeen = appStateNotifier.onboardingSeen;
 
-        final location = state.matchedLocation;
+        // Helper to match nested/sub-routes safely
+        bool isOn(String route) =>
+            currentPath == route || currentPath.startsWith('$route/');
 
-        debugPrint("LOCATION: $location");
+        // -------------------------------------------------------------
+        // ROUTES GROUPING
+        // -------------------------------------------------------------
+        final isSplash = currentPath == AppRoutesKeys.splash;
+        final isLogin = currentPath == AppRoutesKeys.login;
+        final isOnboarding = currentPath == AppRoutesKeys.onboarding;
 
-        bool isOn(String route) => location.startsWith(route);
-
-        // -----------------------------
-        // ROUTES GROUPING (IMPORTANT FIX)
-        // -----------------------------
-        final isSplash = isOn(AppRoutesKeys.splash);
-        final isLogin = isOn(AppRoutesKeys.login);
-        final isOnboarding = isOn(AppRoutesKeys.onboarding);
+        // CRITICAL FIX: If the raw text contains 'reset-password', it IS the reset route,
+        // no matter how badly Dart's URI parser gets confused by host vs path slashes.
+        final isResetPassword =
+            currentPath == AppRoutesKeys.resetPassword ||
+            rawUriStr.contains('reset-password');
 
         final isRegister =
             isOn(AppRoutesKeys.registerCredentials) ||
@@ -47,36 +67,48 @@ class AppRouter {
             isOn(AppRoutesKeys.verificationSent) ||
             isOn(AppRoutesKeys.resetPasswordSent) ||
             isOn(AppRoutesKeys.forgetPassword) ||
-            isOn(AppRoutesKeys.resetPassword);
+            isResetPassword;
 
         final isAuthRoute = isLogin || isRegister;
 
-        // -----------------------------
+        // -------------------------------------------------------------
+        // NAVIGATION GATES
+        // -------------------------------------------------------------
+
         // GATE 1: INITIALIZATION
-        // -----------------------------
         if (!isInitialized) {
+          // If we are on a reset link, force GoRouter to stick to the clean path
+          // version with parameters, passing it safely through the initialization phase.
+          if (isResetPassword) {
+            return Uri(
+              path: AppRoutesKeys.resetPassword,
+              queryParameters: state.uri.queryParameters,
+            ).toString();
+          }
           return isSplash ? null : AppRoutesKeys.splash;
         }
 
-        // -----------------------------
         // GATE 2: ONBOARDING
-        // -----------------------------
         if (!onboardingSeen) {
           return isOnboarding ? null : AppRoutesKeys.onboarding;
         }
 
-        // -----------------------------
         // GATE 3: NOT AUTHENTICATED
-        // -----------------------------
         if (!isAuthenticated) {
+          // If the parser misread the link as '/' on the second pass, but we know it's a
+          // reset link via the raw string, explicitly redirect them to the proper path.
+          if (isResetPassword && currentPath != AppRoutesKeys.resetPassword) {
+            return Uri(
+              path: AppRoutesKeys.resetPassword,
+              queryParameters: state.uri.queryParameters,
+            ).toString();
+          }
           return isAuthRoute ? null : AppRoutesKeys.login;
         }
 
-        // -----------------------------
         // GATE 4: AUTHENTICATED USERS
-        // -----------------------------
         if (isAuthenticated) {
-          if (isLogin || isOnboarding || isSplash) {
+          if (isLogin || isOnboarding || isSplash || isRegister) {
             return AppRoutesKeys.home;
           }
         }

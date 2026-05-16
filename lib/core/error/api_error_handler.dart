@@ -21,6 +21,7 @@ class ApiErrorHandler {
           return const UnknownFailure();
       }
     }
+
     return const UnknownFailure();
   }
 

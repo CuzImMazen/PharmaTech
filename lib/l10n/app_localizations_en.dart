@@ -18,6 +18,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get error_unknown => 'Something went wrong, please try again';
 
   @override
+  String get error_parsing => 'An error occurred while parsing data.';
+
+  @override
   String get session_expired => 'Your session has expired. Please sign in again.';
 
   @override
@@ -222,6 +225,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get auth_city_label => 'City';
+
+  @override
+  String get reset_password_success => 'Password reset successfully. Please SignIn with your new password.';
+
+  @override
+  String get password_atleast_one_letter => 'Password must contain at least one letter';
 
   @override
   String get gov_damascus => 'Damascus';

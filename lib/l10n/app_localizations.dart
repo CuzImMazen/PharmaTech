@@ -113,6 +113,12 @@ abstract class AppLocalizations {
   /// **'Something went wrong, please try again'**
   String get error_unknown;
 
+  /// No description provided for @error_parsing.
+  ///
+  /// In en, this message translates to:
+  /// **'An error occurred while parsing data.'**
+  String get error_parsing;
+
   /// No description provided for @session_expired.
   ///
   /// In en, this message translates to:
@@ -520,6 +526,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'City'**
   String get auth_city_label;
+
+  /// No description provided for @reset_password_success.
+  ///
+  /// In en, this message translates to:
+  /// **'Password reset successfully. Please SignIn with your new password.'**
+  String get reset_password_success;
+
+  /// No description provided for @password_atleast_one_letter.
+  ///
+  /// In en, this message translates to:
+  /// **'Password must contain at least one letter'**
+  String get password_atleast_one_letter;
 
   /// No description provided for @gov_damascus.
   ///

@@ -1,6 +1,6 @@
 enum EmailInputError { empty, invalidFormat }
 
-enum PasswordInputError { empty, tooShort }
+enum PasswordInputError { empty, tooShort, atleastOneLetter }
 
 enum ConfirmPasswordInputError { empty, mismatch }
 

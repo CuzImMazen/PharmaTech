@@ -10,6 +10,7 @@ import 'package:pharmacy_app/core/app/app_state_notifier.dart';
 import 'package:pharmacy_app/core/di/service_locator.dart';
 import 'package:pharmacy_app/core/router/app_router.dart';
 import 'package:pharmacy_app/core/app/session/session_cubit.dart';
+import 'package:pharmacy_app/core/services/deep_link_service.dart';
 import 'package:pharmacy_app/core/storage/prefs/shared_prefs_service.dart';
 import 'package:pharmacy_app/core/token/token_store.dart';
 import 'package:pharmacy_app/core/theme/app_theme.dart';
@@ -48,6 +49,8 @@ void main() async {
   );
 
   AppRouter.init(appState);
+  final deepLinkService = DeepLinkService(AppRouter.router);
+  await deepLinkService.init();
 
   runApp(
     MultiProvider(

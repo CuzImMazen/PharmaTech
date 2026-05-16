@@ -18,6 +18,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get error_unknown => 'حدث خطأ ما، يرجى المحاولة مرة أخرى';
 
   @override
+  String get error_parsing => 'حدث خطأ أثناء تحليل البيانات.';
+
+  @override
   String get session_expired => 'انتهت صلاحية الجلسة. يرجى تسجيل الدخول مجدداً.';
 
   @override
@@ -222,6 +225,12 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get auth_city_label => 'المدينة';
+
+  @override
+  String get reset_password_success => 'تم إعادة تعيين كلمة المرور بنجاح. يرجى تسجيل الدخول باستخدام كلمة المرور الجديدة.';
+
+  @override
+  String get password_atleast_one_letter => 'يجب أن تحتوي كلمة المرور على حرف واحد على الأقل';
 
   @override
   String get gov_damascus => 'دمشق';

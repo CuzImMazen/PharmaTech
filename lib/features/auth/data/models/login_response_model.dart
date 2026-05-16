@@ -1,26 +1,30 @@
-import 'package:json_annotation/json_annotation.dart';
+import 'package:pharmacy_app/features/auth/data/models/pharmacy_model.dart';
 import 'package:pharmacy_app/features/auth/data/models/user_model.dart';
 
-part 'login_response_model.g.dart';
-
-@JsonSerializable()
 class LoginResponseModel {
+  final String message;
   final UserModel user;
-
-  @JsonKey(name: 'access_token')
-  final String accessToken;
-
-  @JsonKey(name: 'refresh_token')
-  final String refreshToken;
+  final PharmacyModel? pharmacy;
 
   LoginResponseModel({
+    required this.message,
     required this.user,
-    required this.accessToken,
-    required this.refreshToken,
+    this.pharmacy,
   });
 
-  factory LoginResponseModel.fromJson(Map<String, dynamic> json) =>
-      _$LoginResponseModelFromJson(json);
+  factory LoginResponseModel.fromJson(Map<String, dynamic> json) {
+    return LoginResponseModel(
+      message: json['message'],
+      user: UserModel.fromJson(json['user']),
+      pharmacy: json['pharmacy'] != null
+          ? PharmacyModel.fromJson(json['pharmacy'])
+          : null,
+    );
+  }
 
-  Map<String, dynamic> toJson() => _$LoginResponseModelToJson(this);
+  Map<String, dynamic> toJson() => {
+    'message': message,
+    'user': user.toJson(),
+    'pharmacy': pharmacy?.toJson(),
+  };
 }

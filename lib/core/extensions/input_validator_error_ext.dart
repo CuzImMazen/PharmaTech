@@ -20,6 +20,8 @@ extension PasswordInputErrorExt on PasswordInputError {
         return context.tr.auth_password_is_required;
       case PasswordInputError.tooShort:
         return context.tr.auth_password_min_length;
+      case PasswordInputError.atleastOneLetter:
+        return context.tr.password_atleast_one_letter;
     }
   }
 }

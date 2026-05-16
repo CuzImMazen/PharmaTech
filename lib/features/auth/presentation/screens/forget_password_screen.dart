@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:pharmacy_app/core/extensions/app_design_system_ext.dart';
+import 'package:pharmacy_app/core/extensions/failure_message_localization_ext.dart';
 import 'package:pharmacy_app/core/extensions/input_validator_error_ext.dart';
 import 'package:pharmacy_app/core/extensions/localization_ext.dart';
 import 'package:pharmacy_app/core/router/app_routes_keys.dart';
+import 'package:pharmacy_app/core/utils/messages/snackbar.dart';
 import 'package:pharmacy_app/core/utils/validator/validators_manager.dart';
 import 'package:pharmacy_app/core/widgets/custom_button.dart';
 import 'package:pharmacy_app/core/widgets/custom_text_field.dart';
+import 'package:pharmacy_app/features/auth/cubit/forget_password_cubit.dart';
+import 'package:pharmacy_app/features/auth/cubit/forget_password_state.dart';
 import 'package:pharmacy_app/features/auth/presentation/widgets/auth_prompt_row.dart';
 import 'package:pharmacy_app/features/auth/presentation/widgets/icon_container.dart';
 
@@ -52,65 +57,109 @@ class _ForgetPasswordBodyState extends State<ForgetPasswordBody> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: context.pHorizontal,
-      child: SingleChildScrollView(
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: [
-              context.vXxl,
+    return BlocListener<ForgetPasswordCubit, ForgetPasswordState>(
+      listener: (context, state) {
+        state.maybeWhen(
+          orElse: () {},
+          failure: (failure) {
+            Snackbar.show(
+              context: context,
+              message: failure.localizedMessage(context),
+              color: Colors.red,
+              icon: LucideIcons.x,
+            );
+          },
+          success: () {
+            context.push(
+              AppRoutesKeys.resetPasswordSent,
+              extra: emailController.text.trim(),
+            );
+          },
+        );
+      },
+      child: Padding(
+        padding: context.pHorizontal,
+        child: SingleChildScrollView(
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                context.vXxl,
 
-              // Header
-              IconContainer(icon: LucideIcons.keyRound400),
-              context.vXl,
+                // Header
+                IconContainer(icon: LucideIcons.keyRound400),
+                context.vXl,
 
-              // Instruction texts
-              Text(
-                context.tr.forgot_password_title,
-                textAlign: TextAlign.center,
-                style: context.text.headlineLarge,
-              ),
-              context.vMd,
-              Text(
-                context.tr.forgot_password_subtitle,
-                textAlign: TextAlign.center,
-                style: context.text.bodyLarge!.copyWith(color: context.muted),
-              ),
-              context.vXl,
-              CustomTextField(
-                prefixIcon: LucideIcons.mail,
-                hintText: 'example@example.com',
-                labelText: context.tr.auth_email_label,
-                controller: emailController,
-                validator: (value) {
-                  return ValidatorsManager.emailValidator(
-                    value,
-                  )?.localizedMessage(context);
-                },
-              ),
-              context.vLg,
-              CustomButton(
-                onTap: () {
-                  if (_formKey.currentState?.validate() ?? false) {
-                    context.push(
-                      AppRoutesKeys.resetPasswordSent,
-                      extra: emailController.text.trim(),
+                // Instruction texts
+                Text(
+                  context.tr.forgot_password_title,
+                  textAlign: TextAlign.center,
+                  style: context.text.headlineLarge,
+                ),
+                context.vMd,
+                Text(
+                  context.tr.forgot_password_subtitle,
+                  textAlign: TextAlign.center,
+                  style: context.text.bodyLarge!.copyWith(color: context.muted),
+                ),
+                context.vXl,
+                CustomTextField(
+                  prefixIcon: LucideIcons.mail,
+                  hintText: 'example@example.com',
+                  labelText: context.tr.auth_email_label,
+                  controller: emailController,
+                  validator: (value) {
+                    return ValidatorsManager.emailValidator(
+                      value,
+                    )?.localizedMessage(context);
+                  },
+                ),
+                context.vLg,
+                BlocBuilder<ForgetPasswordCubit, ForgetPasswordState>(
+                  buildWhen: (prev, curr) =>
+                      prev.runtimeType != curr.runtimeType,
+                  builder: (context, state) {
+                    final isLoading = state.maybeWhen(
+                      loading: () => true,
+                      orElse: () => false,
                     );
-                  }
-                },
-                text: context.tr.send_reset_password_link,
-              ),
-              context.vMd,
-              AuthPromptRow(
-                promptText: context.tr.remembered_password,
-                actionText: context.tr.auth_signin,
-                onPressed: () {
-                  context.pop();
-                },
-              ),
-              context.vMd,
-            ],
+
+                    return AnimatedSwitcher(
+                      duration: const Duration(milliseconds: 300),
+                      child: isLoading
+                          ? SizedBox(
+                              height: context.btnLg,
+                              child: const Center(
+                                child: CircularProgressIndicator(),
+                              ),
+                            )
+                          : CustomButton(
+                              onTap: () {
+                                if (_formKey.currentState?.validate() ??
+                                    false) {
+                                  context
+                                      .read<ForgetPasswordCubit>()
+                                      .forgetPassword(
+                                        email: emailController.text.trim(),
+                                      );
+                                }
+                              },
+                              text: context.tr.auth_login_button,
+                            ),
+                    );
+                  },
+                ),
+                context.vMd,
+                AuthPromptRow(
+                  promptText: context.tr.remembered_password,
+                  actionText: context.tr.auth_signin,
+                  onPressed: () {
+                    context.pop();
+                  },
+                ),
+                context.vMd,
+              ],
+            ),
           ),
         ),
       ),

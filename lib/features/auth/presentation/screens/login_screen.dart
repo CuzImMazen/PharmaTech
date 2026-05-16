@@ -91,8 +91,8 @@ class _LoginScreenState extends State<LoginScreenBody> {
               icon: LucideIcons.check,
             );
             context.read<SessionCubit>().setAuthenticated(
-              response.accessToken,
-              response.refreshToken,
+              response.user.accessToken,
+              response.user.refreshToken,
             );
           },
           failure: (failure) {

@@ -6,6 +6,7 @@
  "error_network": "No internet connection",
   "error_timeout": "Request timed out",
   "error_unknown": "Something went wrong, please try again",
+  "error_parsing": "An error occurred while parsing data.",
   "session_expired": "Your session has expired. Please sign in again.",
   "auth_invalid_credentials": "The email or password you entered is incorrect.",
   "auth_email_not_registered": "This email address is not registered.",
@@ -95,7 +96,8 @@
       , "auth_city_is_required": "City is required"
       ,"auth_governorate_label": "Governorate"
       ,"auth_city_label": "City"
-      ,
+      ,"reset_password_success": "Password reset successfully. Please SignIn with your new password."
+      , "password_atleast_one_letter": "Password must contain at least one letter",
   
   "gov_damascus": "Damascus",
   "gov_rural_damascus": "Rural Damascus",

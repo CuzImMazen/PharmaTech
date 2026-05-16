@@ -1,8 +1,11 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pharmacy_app/core/di/service_locator.dart';
 import 'package:pharmacy_app/core/router/app_routes_keys.dart';
+import 'package:pharmacy_app/features/auth/cubit/forget_password_cubit.dart';
 import 'package:pharmacy_app/features/auth/cubit/login_cubit.dart';
+import 'package:pharmacy_app/features/auth/cubit/reset_password_cubit.dart';
 import 'package:pharmacy_app/features/auth/data/models/register_details_model.dart';
 import 'package:pharmacy_app/features/auth/presentation/screens/forget_password_screen.dart';
 import 'package:pharmacy_app/features/auth/presentation/screens/login_screen.dart';
@@ -49,12 +52,65 @@ class AppRoutes {
 
     GoRoute(
       path: AppRoutesKeys.forgetPassword,
-      builder: (context, state) => ForgetPasswordScreen(),
+      builder: (context, state) => BlocProvider(
+        create: (context) => ForgetPasswordCubit(authRepository: sl()),
+        child: ForgetPasswordScreen(),
+      ),
     ),
 
     GoRoute(
       path: AppRoutesKeys.resetPassword,
-      builder: (context, state) => ResetPasswordScreen(),
+      // -------------------------------------------------------------
+      // ROUTE GATING: Block entry if token or email are missing
+      // -------------------------------------------------------------
+      redirect: (context, state) {
+        String? token;
+        String? email;
+
+        if (state.extra != null && state.extra is Map<String, String>) {
+          final data = state.extra as Map<String, String>;
+          token = data['token'];
+          email = data['email'];
+        } else {
+          token = state.uri.queryParameters['token'];
+          email = state.uri.queryParameters['email'];
+        }
+
+        // If either the token or email is null, completely empty, or whitespace, bounce them to login
+        if (token == null ||
+            token.trim().isEmpty ||
+            email == null ||
+            email.trim().isEmpty) {
+          debugPrint(
+            "⛔ ACCESS DENIED: Missing token or email. Redirecting to login.",
+          );
+          return AppRoutesKeys.login;
+        }
+
+        return null; // Token and email are valid, proceed to the page
+      },
+
+      // -------------------------------------------------------------
+      // BUILDER: Safe to assume tokens exist because of the redirect above
+      // -------------------------------------------------------------
+      builder: (context, state) {
+        String? token;
+        String? email;
+
+        if (state.extra != null && state.extra is Map<String, String>) {
+          final data = state.extra as Map<String, String>;
+          token = data['token'];
+          email = data['email'];
+        } else {
+          token = state.uri.queryParameters['token'];
+          email = state.uri.queryParameters['email'];
+        }
+
+        return BlocProvider(
+          create: (context) => ResetPasswordCubit(authRepository: sl()),
+          child: ResetPasswordScreen(token: token!, email: email!),
+        );
+      },
     ),
 
     GoRoute(

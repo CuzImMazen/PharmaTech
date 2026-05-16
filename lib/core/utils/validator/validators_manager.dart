@@ -21,6 +21,10 @@ class ValidatorsManager {
       return PasswordInputError
           .tooShort; // Password must be at least 8 characters
     }
+    if (!RegExp(r'[a-zA-Z]').hasMatch(value)) {
+      return PasswordInputError
+          .atleastOneLetter; // Password must contain at least one letter
+    }
     // if (!RegExp(r'[A-Z]').hasMatch(value)) {
     //   return 'كلمة المرور يجب أن تحتوي على حرف كبير واحد على الأقل';
     // }

@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 
 import 'package:pharmacy_app/core/error/failure.dart';
 import 'package:pharmacy_app/core/error/api_error_handler.dart';
+import 'package:pharmacy_app/core/network/api_parser.dart';
 import 'package:pharmacy_app/core/network/api_routes.dart';
 import 'package:pharmacy_app/core/network/dio_helper.dart';
 import 'package:pharmacy_app/core/storage/secure/secure_storage_service.dart';
@@ -31,19 +32,20 @@ class AuthRepositoryImpl implements AuthRepository {
     try {
       final response = await api.post(
         ApiRoutes.login,
-        data: {
-          'email': email,
-          'password': password,
-          'device_name': deviceName ?? 'auth_token',
-        },
-        skipAuth: true,
+        data: {'email': email, 'password': password, 'device_name': deviceName},
       );
 
-      return Right(LoginResponseModel.fromJson(response.data));
-    } on DioException catch (e) {
+      final model = ApiParser.parseWrapped(
+        response.data,
+        'data',
+        LoginResponseModel.fromJson,
+      );
+
+      return Right(model);
+    } on ParsingFailure catch (e) {
+      return Left(e);
+    } catch (e) {
       return Left(ApiErrorHandler.handle(e));
-    } catch (_) {
-      return const Left(UnknownFailure());
     }
   }
 

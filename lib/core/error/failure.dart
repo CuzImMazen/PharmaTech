@@ -37,6 +37,10 @@ class ValidationFailure extends Failure {
   const ValidationFailure({required this.message, required this.errors});
 }
 
+class ParsingFailure extends Failure {
+  const ParsingFailure();
+}
+
 class AuthFailure extends Failure {
   final AuthFailureType type;
   final String message;

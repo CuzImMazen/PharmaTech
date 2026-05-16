@@ -14,6 +14,8 @@ extension FailureLocalization on Failure {
 
       SessionExpiredFailure() => context.tr.session_expired,
 
+      ParsingFailure() => context.tr.error_parsing,
+
       RateLimitFailure(:final retryAfterSeconds) =>
         context.tr.error_too_many_attempts(retryAfterSeconds.toString()),
 
