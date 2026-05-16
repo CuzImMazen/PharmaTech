@@ -25,8 +25,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
-            <!-- Deep link for:
-                 pharmacyapp://reset-password?token=...&email=... -->
+            <!-- RESET PASSWORD -->
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -38,15 +37,25 @@
                     android:host="reset-password" />
             </intent-filter>
 
+            <!-- EMAIL VERIFICATION (ADD THIS) -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:scheme="pharmacyapp"
+                    android:host="email-verified" />
+            </intent-filter>
+
         </activity>
 
-        <!-- Required by Flutter -->
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
     </application>
 
-    <!-- Required for text processing plugins -->
     <queries>
         <intent>
             <action android:name="android.intent.action.PROCESS_TEXT" />

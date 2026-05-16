@@ -24,12 +24,11 @@ class AppRouter {
       refreshListenable: appStateNotifier,
 
       redirect: (context, state) {
-        final String rawUriStr = state.uri.toString();
+        final uri = state.uri;
+        final rawUriStr = uri.toString();
 
-        // Extract the path segment safely without query parameters
-        String currentPath = state.uri.path;
+        String currentPath = uri.path;
 
-        // Remove trailing slashes if present
         if (currentPath.endsWith('/') && currentPath.length > 1) {
           currentPath = currentPath.substring(0, currentPath.length - 1);
         }
@@ -44,19 +43,35 @@ class AppRouter {
         final isAuthenticated = appStateNotifier.isAuthenticated;
         final onboardingSeen = appStateNotifier.onboardingSeen;
 
-        // Helper to match nested/sub-routes safely
+        final isCustomScheme = uri.scheme == 'pharmacyapp';
+
+        if (isCustomScheme && uri.host == 'email-verified') {
+          return AppRoutesKeys.login;
+        }
+
+        if (isCustomScheme && uri.host == 'reset-password') {
+          final token = uri.queryParameters['token'];
+          final email = uri.queryParameters['email'];
+
+          if (token == null || email == null) {
+            return AppRoutesKeys.login;
+          }
+
+          final encodedToken = Uri.encodeComponent(token);
+          final encodedEmail = Uri.encodeComponent(email);
+          return '${AppRoutesKeys.resetPassword}?token=$encodedToken&email=$encodedEmail';
+        }
+
         bool isOn(String route) =>
             currentPath == route || currentPath.startsWith('$route/');
 
         // -------------------------------------------------------------
-        // ROUTES GROUPING
+        // ROUTES
         // -------------------------------------------------------------
         final isSplash = currentPath == AppRoutesKeys.splash;
         final isLogin = currentPath == AppRoutesKeys.login;
         final isOnboarding = currentPath == AppRoutesKeys.onboarding;
 
-        // CRITICAL FIX: If the raw text contains 'reset-password', it IS the reset route,
-        // no matter how badly Dart's URI parser gets confused by host vs path slashes.
         final isResetPassword =
             currentPath == AppRoutesKeys.resetPassword ||
             rawUriStr.contains('reset-password');
@@ -72,41 +87,36 @@ class AppRouter {
         final isAuthRoute = isLogin || isRegister;
 
         // -------------------------------------------------------------
-        // NAVIGATION GATES
+        // GATE 1: INIT
         // -------------------------------------------------------------
-
-        // GATE 1: INITIALIZATION
         if (!isInitialized) {
-          // If we are on a reset link, force GoRouter to stick to the clean path
-          // version with parameters, passing it safely through the initialization phase.
-          if (isResetPassword) {
-            return Uri(
-              path: AppRoutesKeys.resetPassword,
-              queryParameters: state.uri.queryParameters,
-            ).toString();
-          }
           return isSplash ? null : AppRoutesKeys.splash;
         }
 
+        // -------------------------------------------------------------
         // GATE 2: ONBOARDING
+        // -------------------------------------------------------------
         if (!onboardingSeen) {
           return isOnboarding ? null : AppRoutesKeys.onboarding;
         }
 
+        // -------------------------------------------------------------
         // GATE 3: NOT AUTHENTICATED
+        // -------------------------------------------------------------
         if (!isAuthenticated) {
-          // If the parser misread the link as '/' on the second pass, but we know it's a
-          // reset link via the raw string, explicitly redirect them to the proper path.
-          if (isResetPassword && currentPath != AppRoutesKeys.resetPassword) {
-            return Uri(
-              path: AppRoutesKeys.resetPassword,
-              queryParameters: state.uri.queryParameters,
-            ).toString();
+          // Allow login to receive deep link navigation (via extra)
+          if (state.extra is Map && (state.extra as Map).containsKey('type')) {
+            return null;
           }
-          return isAuthRoute ? null : AppRoutesKeys.login;
+
+          if (isAuthRoute) return null;
+
+          return AppRoutesKeys.login;
         }
 
+        // -------------------------------------------------------------
         // GATE 4: AUTHENTICATED USERS
+        // -------------------------------------------------------------
         if (isAuthenticated) {
           if (isLogin || isOnboarding || isSplash || isRegister) {
             return AppRoutesKeys.home;
@@ -115,6 +125,7 @@ class AppRouter {
 
         return null;
       },
+
       routes: AppRoutes.routes,
     );
   }

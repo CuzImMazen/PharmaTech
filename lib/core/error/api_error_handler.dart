@@ -101,7 +101,7 @@ class ApiErrorHandler {
       if (statusCode == 403) {
         if (serverMessage.contains('verification link')) {
           return AuthFailure(
-            AuthFailureType.actionDenied,
+            AuthFailureType.emailNotVerified,
             message: serverMessage,
           );
         }

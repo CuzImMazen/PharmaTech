@@ -49,8 +49,6 @@ void main() async {
   );
 
   AppRouter.init(appState);
-  final deepLinkService = DeepLinkService(AppRouter.router);
-  await deepLinkService.init();
 
   runApp(
     MultiProvider(
@@ -64,6 +62,8 @@ void main() async {
       ),
     ),
   );
+  final deepLinkService = DeepLinkService(AppRouter.router);
+  await deepLinkService.init();
 }
 
 class PharmacyApp extends StatelessWidget {
