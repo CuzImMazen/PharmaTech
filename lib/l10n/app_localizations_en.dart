@@ -233,6 +233,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get password_atleast_one_letter => 'Password must contain at least one letter';
 
   @override
+  String get email_verification_success => 'Email verified successfully. You can now log in.';
+
+  @override
   String get gov_damascus => 'Damascus';
 
   @override

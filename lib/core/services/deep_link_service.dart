@@ -1,12 +1,18 @@
 import 'dart:async';
+import 'package:flutter/material.dart'; // Needed for GlobalKey and SnackBar
 import 'package:app_links/app_links.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:pharmacy_app/core/extensions/localization_ext.dart';
 import 'package:pharmacy_app/core/router/app_routes_keys.dart';
+import 'package:pharmacy_app/core/utils/messages/snackbar.dart';
 
 class DeepLinkService {
+  // Pass the ScaffoldMessenger key into the constructor
   DeepLinkService(this._router);
 
   final GoRouter _router;
+
   final AppLinks _appLinks = AppLinks();
 
   StreamSubscription<Uri>? _subscription;
@@ -41,7 +47,17 @@ class DeepLinkService {
     }
 
     if (uri.host == 'email-verified') {
+      // 1. Route the user to the login screen
       _router.go(AppRoutesKeys.login);
+
+      final context = _router.routerDelegate.navigatorKey.currentContext;
+
+      Snackbar.show(
+        context: context!,
+        message: context.tr.email_verification_success,
+        color: Colors.green,
+        icon: LucideIcons.check,
+      );
 
       return;
     }

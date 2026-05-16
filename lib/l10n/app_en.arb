@@ -98,6 +98,7 @@
       ,"auth_city_label": "City"
       ,"reset_password_success": "Password reset successfully. Please SignIn with your new password."
       , "password_atleast_one_letter": "Password must contain at least one letter",
+      "email_verification_success": "Email verified successfully. You can now log in.",
   
   "gov_damascus": "Damascus",
   "gov_rural_damascus": "Rural Damascus",

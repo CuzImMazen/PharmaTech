@@ -539,6 +539,12 @@ abstract class AppLocalizations {
   /// **'Password must contain at least one letter'**
   String get password_atleast_one_letter;
 
+  /// No description provided for @email_verification_success.
+  ///
+  /// In en, this message translates to:
+  /// **'Email verified successfully. You can now log in.'**
+  String get email_verification_success;
+
   /// No description provided for @gov_damascus.
   ///
   /// In en, this message translates to:

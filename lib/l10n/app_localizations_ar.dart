@@ -233,6 +233,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get password_atleast_one_letter => 'يجب أن تحتوي كلمة المرور على حرف واحد على الأقل';
 
   @override
+  String get email_verification_success => 'تم تأكيد البريد الإلكتروني بنجاح. يمكنك الآن تسجيل الدخول.';
+
+  @override
   String get gov_damascus => 'دمشق';
 
   @override
