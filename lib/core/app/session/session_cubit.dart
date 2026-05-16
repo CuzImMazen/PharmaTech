@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pharmacy_app/features/auth/data/repo/auth_repository.dart';
+import 'package:pharmacy_app/features/authentication/data/repo/auth_repository.dart';
 import 'package:pharmacy_app/core/app/session/session_state.dart';
 
 class SessionCubit extends Cubit<SessionState> {

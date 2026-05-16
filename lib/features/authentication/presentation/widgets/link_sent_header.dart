@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:pharmacy_app/core/extensions/app_design_system_ext.dart';
-import 'package:pharmacy_app/features/auth/presentation/widgets/icon_container.dart';
+import 'package:pharmacy_app/features/authentication/presentation/widgets/icon_container.dart';
 
 class EmailVerificationHeader extends StatelessWidget {
   const EmailVerificationHeader({

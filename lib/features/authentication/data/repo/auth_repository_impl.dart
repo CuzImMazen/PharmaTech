@@ -7,9 +7,9 @@ import 'package:pharmacy_app/core/network/api_parser.dart';
 import 'package:pharmacy_app/core/network/api_routes.dart';
 import 'package:pharmacy_app/core/network/dio_helper.dart';
 import 'package:pharmacy_app/core/storage/secure/secure_storage_service.dart';
-import 'package:pharmacy_app/features/auth/data/models/login_response_model.dart';
+import 'package:pharmacy_app/features/authentication/data/models/login_response_model.dart';
 
-import 'package:pharmacy_app/features/auth/data/models/register_request_model.dart';
+import 'package:pharmacy_app/features/authentication/data/models/register_request_model.dart';
 
 import 'auth_repository.dart';
 

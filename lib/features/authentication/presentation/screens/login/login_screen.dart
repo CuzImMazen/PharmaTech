@@ -14,13 +14,13 @@ import 'package:pharmacy_app/core/utils/messages/snackbar.dart';
 import 'package:pharmacy_app/core/utils/validator/validators_manager.dart';
 import 'package:pharmacy_app/core/widgets/custom_button.dart';
 import 'package:pharmacy_app/core/widgets/custom_text_field.dart';
-import 'package:pharmacy_app/features/auth/cubit/login_cubit.dart';
-import 'package:pharmacy_app/features/auth/cubit/login_state.dart';
-import 'package:pharmacy_app/features/auth/presentation/widgets/login/continue_withgoogle_btn.dart';
-import 'package:pharmacy_app/features/auth/presentation/widgets/auth_prompt_row.dart';
-import 'package:pharmacy_app/features/auth/presentation/widgets/login/or_divider.dart';
-import 'package:pharmacy_app/features/auth/presentation/widgets/login/remember_me_row.dart';
-import 'package:pharmacy_app/features/auth/presentation/widgets/top_section.dart';
+import 'package:pharmacy_app/features/authentication/cubit/login/login_cubit.dart';
+import 'package:pharmacy_app/features/authentication/cubit/login/login_state.dart';
+import 'package:pharmacy_app/features/authentication/presentation/widgets/login/continue_withgoogle_btn.dart';
+import 'package:pharmacy_app/features/authentication/presentation/widgets/auth_prompt_row.dart';
+import 'package:pharmacy_app/features/authentication/presentation/widgets/login/or_divider.dart';
+import 'package:pharmacy_app/features/authentication/presentation/widgets/login/remember_me_row.dart';
+import 'package:pharmacy_app/features/authentication/presentation/widgets/top_section.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});

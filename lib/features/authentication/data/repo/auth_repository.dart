@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:pharmacy_app/core/error/failure.dart';
-import 'package:pharmacy_app/features/auth/data/models/login_response_model.dart';
-import 'package:pharmacy_app/features/auth/data/models/register_request_model.dart';
+import 'package:pharmacy_app/features/authentication/data/models/login_response_model.dart';
+import 'package:pharmacy_app/features/authentication/data/models/register_request_model.dart';
 
 abstract class AuthRepository {
   // ================= AUTH ================= //

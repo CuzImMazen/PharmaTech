@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pharmacy_app/features/auth/cubit/forget_password_state.dart';
-import 'package:pharmacy_app/features/auth/data/repo/auth_repository.dart';
+import 'package:pharmacy_app/features/authentication/cubit/password_recovery/forget_password_state.dart';
+import 'package:pharmacy_app/features/authentication/data/repo/auth_repository.dart';
 
 class ForgetPasswordCubit extends Cubit<ForgetPasswordState> {
   ForgetPasswordCubit({required AuthRepository authRepository})

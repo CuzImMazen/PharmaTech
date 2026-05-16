@@ -6,11 +6,11 @@ import 'package:pharmacy_app/core/extensions/localization_ext.dart';
 import 'package:pharmacy_app/core/router/app_routes_keys.dart';
 import 'package:pharmacy_app/core/state/screen_state.dart';
 import 'package:pharmacy_app/core/utils/messages/snackbar.dart';
-import 'package:pharmacy_app/features/auth/cubit/resend_reset_password_cubit.dart';
-import 'package:pharmacy_app/features/auth/cubit/resend_reset_password_state.dart';
-import 'package:pharmacy_app/features/auth/presentation/widgets/auth_prompt_row.dart';
-import 'package:pharmacy_app/features/auth/presentation/widgets/email_verification/email_verification_header.dart';
-import 'package:pharmacy_app/features/auth/presentation/widgets/email_verification/resend_link_button.dart';
+import 'package:pharmacy_app/features/authentication/cubit/password_recovery/resend_reset_password_cubit.dart';
+import 'package:pharmacy_app/features/authentication/cubit/password_recovery/resend_reset_password_state.dart';
+import 'package:pharmacy_app/features/authentication/presentation/widgets/auth_prompt_row.dart';
+import 'package:pharmacy_app/features/authentication/presentation/widgets/link_sent_header.dart';
+import 'package:pharmacy_app/features/authentication/presentation/widgets/resend_link_button.dart';
 
 class PasswordResetSentScreen extends StatelessWidget {
   const PasswordResetSentScreen({super.key, required this.email});

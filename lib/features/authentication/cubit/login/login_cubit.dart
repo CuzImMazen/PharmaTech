@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pharmacy_app/core/token/token_store.dart';
-import 'package:pharmacy_app/features/auth/cubit/login_state.dart';
-import 'package:pharmacy_app/features/auth/data/repo/auth_repository.dart';
+import 'package:pharmacy_app/features/authentication/cubit/login/login_state.dart';
+import 'package:pharmacy_app/features/authentication/data/repo/auth_repository.dart';
 
 class LoginCubit extends Cubit<LoginState> {
   LoginCubit({required this.authRepository, required this.tokenStore})

@@ -5,8 +5,8 @@ import 'package:pharmacy_app/core/extensions/app_design_system_ext.dart';
 import 'package:pharmacy_app/core/extensions/localization_ext.dart';
 import 'package:pharmacy_app/core/router/app_routes_keys.dart';
 
-import 'package:pharmacy_app/features/auth/cubit/login_cubit.dart';
-import 'package:pharmacy_app/features/auth/cubit/login_state.dart';
+import 'package:pharmacy_app/features/authentication/cubit/login/login_cubit.dart';
+import 'package:pharmacy_app/features/authentication/cubit/login/login_state.dart';
 
 class RememberMeRow extends StatelessWidget {
   const RememberMeRow({

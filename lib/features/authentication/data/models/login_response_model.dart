@@ -1,5 +1,5 @@
-import 'package:pharmacy_app/features/auth/data/models/pharmacy_model.dart';
-import 'package:pharmacy_app/features/auth/data/models/user_model.dart';
+import 'package:pharmacy_app/features/authentication/data/models/pharmacy_model.dart';
+import 'package:pharmacy_app/features/authentication/data/models/user_model.dart';
 
 class LoginResponseModel {
   final String message;

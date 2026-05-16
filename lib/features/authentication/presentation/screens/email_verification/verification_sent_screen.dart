@@ -3,9 +3,9 @@ import 'package:go_router/go_router.dart';
 import 'package:pharmacy_app/core/extensions/app_design_system_ext.dart';
 import 'package:pharmacy_app/core/extensions/localization_ext.dart';
 import 'package:pharmacy_app/core/router/app_routes_keys.dart';
-import 'package:pharmacy_app/features/auth/presentation/widgets/auth_prompt_row.dart';
-import 'package:pharmacy_app/features/auth/presentation/widgets/email_verification/email_verification_header.dart';
-import 'package:pharmacy_app/features/auth/presentation/widgets/email_verification/resend_link_button.dart';
+import 'package:pharmacy_app/features/authentication/presentation/widgets/auth_prompt_row.dart';
+import 'package:pharmacy_app/features/authentication/presentation/widgets/link_sent_header.dart';
+import 'package:pharmacy_app/features/authentication/presentation/widgets/resend_link_button.dart';
 
 class VerificationSentScreen extends StatelessWidget {
   const VerificationSentScreen({super.key, required this.email});

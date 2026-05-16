@@ -11,10 +11,10 @@ import 'package:pharmacy_app/core/utils/messages/snackbar.dart';
 import 'package:pharmacy_app/core/utils/validator/validators_manager.dart';
 import 'package:pharmacy_app/core/widgets/custom_button.dart';
 import 'package:pharmacy_app/core/widgets/custom_text_field.dart';
-import 'package:pharmacy_app/features/auth/cubit/forget_password_cubit.dart';
-import 'package:pharmacy_app/features/auth/cubit/forget_password_state.dart';
-import 'package:pharmacy_app/features/auth/presentation/widgets/auth_prompt_row.dart';
-import 'package:pharmacy_app/features/auth/presentation/widgets/icon_container.dart';
+import 'package:pharmacy_app/features/authentication/cubit/password_recovery/forget_password_cubit.dart';
+import 'package:pharmacy_app/features/authentication/cubit/password_recovery/forget_password_state.dart';
+import 'package:pharmacy_app/features/authentication/presentation/widgets/auth_prompt_row.dart';
+import 'package:pharmacy_app/features/authentication/presentation/widgets/icon_container.dart';
 
 class ForgetPasswordScreen extends StatelessWidget {
   const ForgetPasswordScreen({super.key});

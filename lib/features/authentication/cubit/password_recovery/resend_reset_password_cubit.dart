@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pharmacy_app/core/state/screen_state.dart';
-import 'package:pharmacy_app/features/auth/cubit/resend_reset_password_state.dart';
-import 'package:pharmacy_app/features/auth/data/repo/auth_repository.dart';
+import 'package:pharmacy_app/features/authentication/cubit/password_recovery/resend_reset_password_state.dart';
+import 'package:pharmacy_app/features/authentication/data/repo/auth_repository.dart';
 
 class ResendResetPasswordCubit extends Cubit<ResendResetPasswordState> {
   ResendResetPasswordCubit({required AuthRepository authRepository})

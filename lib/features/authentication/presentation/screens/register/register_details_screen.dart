@@ -9,13 +9,13 @@ import 'package:pharmacy_app/core/router/app_routes_keys.dart';
 import 'package:pharmacy_app/core/utils/validator/validators_manager.dart';
 import 'package:pharmacy_app/core/widgets/custom_button.dart';
 import 'package:pharmacy_app/core/widgets/custom_text_field.dart';
-import 'package:pharmacy_app/features/auth/data/models/register_details_model.dart';
+import 'package:pharmacy_app/features/authentication/data/models/register_details_model.dart';
 
-import 'package:pharmacy_app/features/auth/presentation/widgets/auth_prompt_row.dart';
-import 'package:pharmacy_app/features/auth/presentation/widgets/register/terms_and_conditions_row.dart';
-import 'package:pharmacy_app/features/auth/presentation/widgets/register/location_drop_down.dart';
-import 'package:pharmacy_app/features/auth/presentation/widgets/register/progress_bar.dart';
-import 'package:pharmacy_app/features/auth/presentation/widgets/top_section.dart';
+import 'package:pharmacy_app/features/authentication/presentation/widgets/auth_prompt_row.dart';
+import 'package:pharmacy_app/features/authentication/presentation/widgets/register/terms_and_conditions_row.dart';
+import 'package:pharmacy_app/features/authentication/presentation/widgets/register/location_drop_down.dart';
+import 'package:pharmacy_app/features/authentication/presentation/widgets/register/progress_bar.dart';
+import 'package:pharmacy_app/features/authentication/presentation/widgets/top_section.dart';
 
 class RegisterDetailsScreen extends StatelessWidget {
   const RegisterDetailsScreen({super.key});
