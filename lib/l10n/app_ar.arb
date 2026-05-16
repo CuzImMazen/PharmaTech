@@ -87,8 +87,20 @@
     "reset_password_success": "تم إعادة تعيين كلمة المرور بنجاح. يرجى تسجيل الدخول باستخدام كلمة المرور الجديدة."
     , "password_atleast_one_letter": "يجب أن تحتوي كلمة المرور على حرف واحد على الأقل",
     "email_verification_success": "تم تأكيد البريد الإلكتروني بنجاح. يمكنك الآن تسجيل الدخول.",
+"you_can_resend_after": "يمكنك إعادة الإرسال بعد {seconds} ثانية",
+  "@you_can_resend_after": {
+    "description": "الرسالة المعروضة عندما يحاول المستخدم إعادة إرسال بريد التحقق قبل انتهاء فترة الانتظار.",
+    "placeholders": {
+      "seconds": {
+        "type": "String",
+        "example": "60"
+      }
+    }
+  },
   
- 
+  "couldnt_resend_link": "تعذر إعادة إرسال الرابط. يرجى المحاولة مرة أخرى لاحقاً.",
+  "resend_link_success": "تم إعادة إرسال الرابط بنجاح. يرجى التحقق من بريدك الإلكتروني.",
+
   "gov_damascus": "دمشق",
   "gov_rural_damascus": "ريف دمشق",
   "gov_aleppo": "حلب",

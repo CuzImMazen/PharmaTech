@@ -236,6 +236,17 @@ class AppLocalizationsEn extends AppLocalizations {
   String get email_verification_success => 'Email verified successfully. You can now log in.';
 
   @override
+  String you_can_resend_after(String seconds) {
+    return 'you resend after $seconds seconds';
+  }
+
+  @override
+  String get couldnt_resend_link => 'Couldn\'t resend the  link. Please try again later.';
+
+  @override
+  String get resend_link_success => 'Link resent successfully. Please check your email.';
+
+  @override
   String get gov_damascus => 'Damascus';
 
   @override

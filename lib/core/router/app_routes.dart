@@ -5,6 +5,7 @@ import 'package:pharmacy_app/core/di/service_locator.dart';
 import 'package:pharmacy_app/core/router/app_routes_keys.dart';
 import 'package:pharmacy_app/features/auth/cubit/forget_password_cubit.dart';
 import 'package:pharmacy_app/features/auth/cubit/login_cubit.dart';
+import 'package:pharmacy_app/features/auth/cubit/resend_reset_password_cubit.dart';
 import 'package:pharmacy_app/features/auth/cubit/reset_password_cubit.dart';
 import 'package:pharmacy_app/features/auth/data/models/register_details_model.dart';
 import 'package:pharmacy_app/features/auth/presentation/screens/forget_password_screen.dart';
@@ -124,7 +125,10 @@ class AppRoutes {
       path: AppRoutesKeys.resetPasswordSent,
       builder: (context, state) {
         final email = state.extra as String;
-        return PasswordResetSentScreen(email: email);
+        return BlocProvider(
+          create: (context) => ResendResetPasswordCubit(authRepository: sl()),
+          child: PasswordResetSentScreen(email: email),
+        );
       },
     ),
   ];

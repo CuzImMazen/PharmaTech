@@ -545,6 +545,24 @@ abstract class AppLocalizations {
   /// **'Email verified successfully. You can now log in.'**
   String get email_verification_success;
 
+  /// Message shown when the user tries to resend the verification email before the cooldown period is over.
+  ///
+  /// In en, this message translates to:
+  /// **'you resend after {seconds} seconds'**
+  String you_can_resend_after(String seconds);
+
+  /// No description provided for @couldnt_resend_link.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t resend the  link. Please try again later.'**
+  String get couldnt_resend_link;
+
+  /// No description provided for @resend_link_success.
+  ///
+  /// In en, this message translates to:
+  /// **'Link resent successfully. Please check your email.'**
+  String get resend_link_success;
+
   /// No description provided for @gov_damascus.
   ///
   /// In en, this message translates to:

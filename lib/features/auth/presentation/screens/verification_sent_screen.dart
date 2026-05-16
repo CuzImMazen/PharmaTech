@@ -21,7 +21,7 @@ class VerificationSentScreen extends StatelessWidget {
         surfaceTintColor: Colors.transparent,
       ),
       body: SafeArea(
-        child: EmailSentBody(
+        child: VerificationEmailSentBody(
           email: email,
           title: context.tr.emailSentTitle,
           subtitle: context.tr.emailSentTo,
@@ -32,8 +32,8 @@ class VerificationSentScreen extends StatelessWidget {
   }
 }
 
-class EmailSentBody extends StatelessWidget {
-  const EmailSentBody({
+class VerificationEmailSentBody extends StatelessWidget {
+  const VerificationEmailSentBody({
     super.key,
     required this.email,
     required this.title,

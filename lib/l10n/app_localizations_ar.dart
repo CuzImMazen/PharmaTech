@@ -236,6 +236,17 @@ class AppLocalizationsAr extends AppLocalizations {
   String get email_verification_success => 'تم تأكيد البريد الإلكتروني بنجاح. يمكنك الآن تسجيل الدخول.';
 
   @override
+  String you_can_resend_after(String seconds) {
+    return 'يمكنك إعادة الإرسال بعد $seconds ثانية';
+  }
+
+  @override
+  String get couldnt_resend_link => 'تعذر إعادة إرسال الرابط. يرجى المحاولة مرة أخرى لاحقاً.';
+
+  @override
+  String get resend_link_success => 'تم إعادة إرسال الرابط بنجاح. يرجى التحقق من بريدك الإلكتروني.';
+
+  @override
   String get gov_damascus => 'دمشق';
 
   @override
