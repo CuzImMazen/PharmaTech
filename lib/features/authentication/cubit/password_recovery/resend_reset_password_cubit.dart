@@ -18,6 +18,10 @@ class ResendResetPasswordCubit extends Cubit<ResendResetPasswordState> {
     emit(state.copyWith(remainingSeconds: 60));
 
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (isClosed) {
+        timer.cancel();
+        return;
+      }
       if (state.remainingSeconds > 1) {
         emit(state.copyWith(remainingSeconds: state.remainingSeconds - 1));
       } else {
@@ -32,6 +36,7 @@ class ResendResetPasswordCubit extends Cubit<ResendResetPasswordState> {
 
     emit(state.copyWith(screenState: const LoadingState()));
     final result = await _authRepository.forgotPassword(email: email);
+    if (isClosed) return;
     result.fold(
       (failure) => emit(state.copyWith(screenState: FailureState(failure))),
       (_) {

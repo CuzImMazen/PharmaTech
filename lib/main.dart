@@ -36,7 +36,7 @@ void main() async {
     // put in-memory TokenStore for the interceptor
     tokenStore.set(accessToken: accessToken, refreshToken: refreshToken);
 
-    // Pass the access token to your session cubit for initial validation/app state
+    // Pass the  tokens to  session cubit for initial validation/app state
     sessionCubit.setAuthenticated(accessToken, refreshToken);
   } else {
     // If either token is missing, force a clean state

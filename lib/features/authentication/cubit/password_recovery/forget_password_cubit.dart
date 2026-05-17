@@ -12,6 +12,7 @@ class ForgetPasswordCubit extends Cubit<ForgetPasswordState> {
     emit(const ForgetPasswordState.loading());
 
     final result = await _authRepository.forgotPassword(email: email);
+    if (isClosed) return;
 
     result.fold(
       (failure) => emit(ForgetPasswordState.failure(failure)),

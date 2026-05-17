@@ -22,7 +22,7 @@ class ResetPasswordCubit extends Cubit<ResetPasswordState> {
       passwordConfirmation: passwordConfirmation,
       token: token,
     );
-
+    if (isClosed) return;
     result.fold(
       (failure) => emit(ResetPasswordState.failure(failure)),
       (_) => emit(const ResetPasswordState.success()),

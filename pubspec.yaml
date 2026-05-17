@@ -45,7 +45,6 @@ dependencies:
   go_router: ^17.2.1
   intl: ^0.20.2
   lucide_icons_flutter: ^3.1.12
-  pinput: ^6.0.2
   provider: ^6.1.5+1
   shared_preferences: ^2.5.5
   smooth_page_indicator: ^2.0.1

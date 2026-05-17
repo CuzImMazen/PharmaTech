@@ -23,26 +23,26 @@ class LoginCubit extends Cubit<LoginState> {
       deviceName: 'mobile_app',
     );
 
-    await result.fold(
-      (failure) async {
+    if (isClosed) return;
+
+    result.fold(
+      (failure) {
         emit(LoginState.failure(failure));
       },
       (response) async {
-        // Always keep tokens in memory so AuthInterceptor can use them
-        tokenStore.set(
-          accessToken: response.user.accessToken,
-          refreshToken: response.user.refreshToken,
-        );
+        final accessToken = response.user.accessToken;
+        final refreshToken = response.user.refreshToken;
 
-        // Persist tokens only when "Remember Me" is enabled
+        tokenStore.set(accessToken: accessToken, refreshToken: refreshToken);
+
         if (rememberMe) {
-          await authRepository.saveAccessToken(response.user.accessToken);
-          await authRepository.saveRefreshToken(response.user.refreshToken);
+          await authRepository.saveAccessToken(accessToken);
+          await authRepository.saveRefreshToken(refreshToken);
         } else {
-          // Remove any previously persisted tokens
           await authRepository.clearAllTokens();
         }
 
+        if (isClosed) return;
         emit(LoginState.success(response));
       },
     );
