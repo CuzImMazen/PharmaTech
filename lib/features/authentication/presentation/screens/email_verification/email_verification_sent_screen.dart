@@ -6,14 +6,14 @@ import 'package:pharmacy_app/core/extensions/localization_ext.dart';
 import 'package:pharmacy_app/core/router/app_routes_keys.dart';
 import 'package:pharmacy_app/core/state/screen_state.dart';
 import 'package:pharmacy_app/core/utils/messages/snackbar.dart';
-import 'package:pharmacy_app/features/authentication/cubit/password_recovery/resend_reset_password_cubit.dart';
-import 'package:pharmacy_app/features/authentication/cubit/password_recovery/resend_reset_password_state.dart';
+import 'package:pharmacy_app/features/authentication/cubit/email_verification/resend_email_verification_cubit.dart';
+import 'package:pharmacy_app/features/authentication/cubit/email_verification/resend_email_verification_state.dart';
 import 'package:pharmacy_app/features/authentication/presentation/widgets/auth_prompt_row.dart';
 import 'package:pharmacy_app/features/authentication/presentation/widgets/link_sent_header.dart';
 import 'package:pharmacy_app/features/authentication/presentation/widgets/resend_link_button.dart';
 
-class PasswordResetSentScreen extends StatelessWidget {
-  const PasswordResetSentScreen({super.key, required this.email});
+class VerificationSentScreen extends StatelessWidget {
+  const VerificationSentScreen({super.key, required this.email});
 
   final String email;
 
@@ -26,19 +26,19 @@ class PasswordResetSentScreen extends StatelessWidget {
         surfaceTintColor: Colors.transparent,
       ),
       body: SafeArea(
-        child: PasswordResetSentBody(
+        child: VerificationEmailSentBody(
           email: email,
-          title: context.tr.reset_password_title,
-          subtitle: context.tr.reset_password_sent_subtitle,
-          instruction: context.tr.reset_password_sent_instruction,
+          title: context.tr.emailSentTitle,
+          subtitle: context.tr.emailSentTo,
+          instruction: context.tr.emailInstruction,
         ),
       ),
     );
   }
 }
 
-class PasswordResetSentBody extends StatelessWidget {
-  const PasswordResetSentBody({
+class VerificationEmailSentBody extends StatelessWidget {
+  const VerificationEmailSentBody({
     super.key,
     required this.email,
     required this.title,
@@ -53,7 +53,10 @@ class PasswordResetSentBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<ResendResetPasswordCubit, ResendResetPasswordState>(
+    return BlocListener<
+      ResendEmailVerificationCubit,
+      ResendEmailVerificationState
+    >(
       listenWhen: (previous, current) =>
           previous.screenState != current.screenState,
       listener: (context, state) {
@@ -91,7 +94,10 @@ class PasswordResetSentBody extends StatelessWidget {
 
               context.vMd,
 
-              BlocBuilder<ResendResetPasswordCubit, ResendResetPasswordState>(
+              BlocBuilder<
+                ResendEmailVerificationCubit,
+                ResendEmailVerificationState
+              >(
                 builder: (context, state) {
                   if (state.screenState is LoadingState) {
                     return SizedBox(
@@ -106,8 +112,8 @@ class PasswordResetSentBody extends StatelessWidget {
                     onTap: canClick
                         ? () {
                             context
-                                .read<ResendResetPasswordCubit>()
-                                .resendPasswordLink(email);
+                                .read<ResendEmailVerificationCubit>()
+                                .resendEmailVerificationLink(email);
                           }
                         : null,
 
@@ -136,11 +142,11 @@ class PasswordResetSentBody extends StatelessWidget {
                 padding: context.pAllMd,
                 decoration: BoxDecoration(
                   color: context.isDark
-                      ? const Color(0xFFB8860B).withAlpha(40)
+                      ? const Color(0xFFB8860B).withAlpha(50)
                       : const Color(0xFFFFFBEB),
                   borderRadius: context.rLg,
                   border: Border.all(
-                    color: const Color(0xFFFFD666).withAlpha(150),
+                    color: const Color(0xFFFFD666),
                     width: 1.5,
                   ),
                 ),

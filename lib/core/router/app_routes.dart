@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pharmacy_app/core/di/service_locator.dart';
 import 'package:pharmacy_app/core/router/app_routes_keys.dart';
+import 'package:pharmacy_app/features/authentication/cubit/email_verification/resend_email_verification_cubit.dart';
 import 'package:pharmacy_app/features/authentication/cubit/password_recovery/forget_password_cubit.dart';
 import 'package:pharmacy_app/features/authentication/cubit/login/login_cubit.dart';
 import 'package:pharmacy_app/features/authentication/cubit/password_recovery/resend_reset_password_cubit.dart';
@@ -14,7 +15,7 @@ import 'package:pharmacy_app/features/authentication/presentation/screens/passwo
 import 'package:pharmacy_app/features/authentication/presentation/screens/register/register_credentials_screen.dart';
 import 'package:pharmacy_app/features/authentication/presentation/screens/register/register_details_screen.dart';
 import 'package:pharmacy_app/features/authentication/presentation/screens/password_recovery/reset_password_screen.dart';
-import 'package:pharmacy_app/features/authentication/presentation/screens/email_verification/verification_sent_screen.dart';
+import 'package:pharmacy_app/features/authentication/presentation/screens/email_verification/email_verification_sent_screen.dart';
 
 import 'package:pharmacy_app/features/onboarding/presentation/screens/onboarding_screen.dart';
 import 'package:pharmacy_app/features/splash/presentation/screens/splash_screen.dart';
@@ -118,7 +119,11 @@ class AppRoutes {
       path: AppRoutesKeys.verificationSent,
       builder: (context, state) {
         final email = state.extra as String;
-        return VerificationSentScreen(email: email);
+        return BlocProvider(
+          create: (context) =>
+              ResendEmailVerificationCubit(authRepository: sl()),
+          child: VerificationSentScreen(email: email),
+        );
       },
     ),
     GoRoute(

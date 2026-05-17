@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:pharmacy_app/core/app/session/session_cubit.dart';
+import 'package:pharmacy_app/core/error/failure.dart';
+import 'package:pharmacy_app/core/error/failure_types.dart';
 import 'package:pharmacy_app/core/extensions/failure_message_localization_ext.dart';
 
 import 'package:pharmacy_app/core/extensions/input_validator_error_ext.dart';
@@ -96,6 +98,16 @@ class _LoginScreenState extends State<LoginScreenBody> {
             );
           },
           failure: (failure) {
+            if (failure case AuthFailure(
+              type: AuthFailureType.emailNotVerified,
+              message: _,
+            )) {
+              context.push(
+                AppRoutesKeys.verificationSent,
+                extra: emailController.text.trim(),
+              );
+              return;
+            }
             Snackbar.show(
               context: context,
               message: failure.localizedMessage(context),

@@ -3,8 +3,8 @@ import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:pharmacy_app/core/extensions/app_design_system_ext.dart';
 import 'package:pharmacy_app/features/authentication/presentation/widgets/icon_container.dart';
 
-class EmailVerificationHeader extends StatelessWidget {
-  const EmailVerificationHeader({
+class LinkSentHeader extends StatelessWidget {
+  const LinkSentHeader({
     super.key,
     required this.email,
     required this.title,
