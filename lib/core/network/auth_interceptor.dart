@@ -15,8 +15,6 @@ class AuthInterceptor extends Interceptor {
   Future<bool>? _ongoingRefreshFuture;
 
   static const String _refreshPath = ApiRoutes.refresh;
-
-  // Assuming keys are defined as constants inside your SecureStorageService or similar
   static const String _accessTokenKey = SecureStorageKeys.accessToken;
   static const String _refreshTokenKey = SecureStorageKeys.refreshToken;
 
@@ -36,14 +34,12 @@ class AuthInterceptor extends Interceptor {
 
     if (!skipAuth) {
       final accessToken = _tokenStore.accessToken;
-
       if (accessToken != null && accessToken.isNotEmpty) {
         options.headers['Authorization'] = 'Bearer $accessToken';
       }
     }
 
     options.headers['Accept-Language'] = 'en';
-
     handler.next(options);
   }
 
@@ -67,7 +63,6 @@ class AuthInterceptor extends Interceptor {
       }
 
       final refreshToken = _tokenStore.refreshToken;
-
       if (refreshToken == null || refreshToken.isEmpty) {
         await _handleLogout();
         return handler.next(_toException(err, failure));
@@ -102,31 +97,22 @@ class AuthInterceptor extends Interceptor {
       }
 
       final newAccess = _tokenStore.accessToken;
-
       if (newAccess == null || newAccess.isEmpty) {
         await _handleLogout();
         return handler.next(_toException(err, failure));
       }
 
-      // Mark request as retried
-      final request = err.requestOptions;
-      request.extra['__retried'] = true;
-
-      final options = Options(
-        method: request.method,
-        headers: {...request.headers, 'Authorization': 'Bearer $newAccess'},
-      );
+      final requestOptions = err.requestOptions;
+      requestOptions.extra['__retried'] = true;
+      requestOptions.headers['Authorization'] = 'Bearer $newAccess';
 
       try {
-        final response = await _refreshDio.request(
-          request.path,
-          data: request.data,
-          queryParameters: request.queryParameters,
-          options: options,
-        );
-
+        final response = await _refreshDio.fetch(requestOptions);
         return handler.resolve(response);
-      } catch (_) {
+      } catch (e) {
+        if (e is DioException) {
+          return handler.next(e);
+        }
         return handler.next(_toException(err, failure));
       }
     }
@@ -138,8 +124,12 @@ class AuthInterceptor extends Interceptor {
 
   Future<bool> _executeRefresh(String refreshToken, String baseUrl) async {
     try {
+      final url = baseUrl.endsWith('/')
+          ? '$baseUrl${_refreshPath.replaceFirst('/', '')}'
+          : '$baseUrl/$_refreshPath';
+
       final response = await _refreshDio.post(
-        '$baseUrl/refresh',
+        url,
         data: {'refresh_token': refreshToken, 'device_name': 'mobile_app'},
         options: Options(headers: {'Accept': 'application/json'}),
       );
@@ -148,11 +138,8 @@ class AuthInterceptor extends Interceptor {
         final newAccess = response.data['access_token'];
         final newRefresh = response.data['refresh_token'];
 
-        // Write directly to secure storage
         await _secureStorage.setString(_accessTokenKey, newAccess);
         await _secureStorage.setString(_refreshTokenKey, newRefresh);
-
-        // Update core in-memory runtime store
         _tokenStore.set(accessToken: newAccess, refreshToken: newRefresh);
 
         return true;
@@ -168,8 +155,6 @@ class AuthInterceptor extends Interceptor {
 
   Future<void> _handleLogout() async {
     _tokenStore.clear();
-
-    // Clear tokens directly from secure storage
     await _secureStorage.remove(_accessTokenKey);
     await _secureStorage.remove(_refreshTokenKey);
 
