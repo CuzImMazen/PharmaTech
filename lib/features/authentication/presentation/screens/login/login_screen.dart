@@ -86,12 +86,7 @@ class _LoginScreenState extends State<LoginScreenBody> {
       listener: (context, state) {
         state.maybeWhen(
           success: (response) {
-            Snackbar.show(
-              context: context,
-              message: context.tr.auth_login_success,
-              color: Colors.green,
-              icon: LucideIcons.check,
-            );
+            AppSnackbar.success(message: context.tr.auth_login_success);
             context.read<SessionCubit>().setAuthenticated(
               response.user.accessToken,
               response.user.refreshToken,
@@ -108,12 +103,7 @@ class _LoginScreenState extends State<LoginScreenBody> {
               );
               return;
             }
-            Snackbar.show(
-              context: context,
-              message: failure.localizedMessage(context),
-              color: Colors.red,
-              icon: LucideIcons.x,
-            );
+            AppSnackbar.failure(message: failure.localizedMessage(context));
           },
           orElse: () {},
         );

@@ -119,6 +119,12 @@ abstract class AppLocalizations {
   /// **'An error occurred while parsing data.'**
   String get error_parsing;
 
+  /// Error message when the user hits the rate limiter.
+  ///
+  /// In en, this message translates to:
+  /// **'Too many attempts. Please try again in {seconds} seconds.'**
+  String error_too_many_attempts(String seconds);
+
   /// No description provided for @session_expired.
   ///
   /// In en, this message translates to:
@@ -172,12 +178,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'This verification link is invalid or has expired.'**
   String get auth_action_denied;
-
-  /// Error message when the user hits the rate limiter.
-  ///
-  /// In en, this message translates to:
-  /// **'Too many attempts. Please try again in {seconds} seconds.'**
-  String error_too_many_attempts(String seconds);
 
   /// No description provided for @splash_title.
   ///
@@ -329,6 +329,12 @@ abstract class AppLocalizations {
   /// **'Password must be at least 8 characters'**
   String get auth_password_min_length;
 
+  /// No description provided for @password_atleast_one_letter.
+  ///
+  /// In en, this message translates to:
+  /// **'Password must contain at least one letter'**
+  String get password_atleast_one_letter;
+
   /// No description provided for @agree_to.
   ///
   /// In en, this message translates to:
@@ -389,17 +395,17 @@ abstract class AppLocalizations {
   /// **'Confirm Password'**
   String get auth_confirm_password_label;
 
-  /// No description provided for @auth_passwords_do_not_match.
-  ///
-  /// In en, this message translates to:
-  /// **'Passwords do not match'**
-  String get auth_passwords_do_not_match;
-
   /// No description provided for @auth_confirm_password_is_required.
   ///
   /// In en, this message translates to:
   /// **'Confirm Password is required'**
   String get auth_confirm_password_is_required;
+
+  /// No description provided for @auth_passwords_do_not_match.
+  ///
+  /// In en, this message translates to:
+  /// **'Passwords do not match'**
+  String get auth_passwords_do_not_match;
 
   /// No description provided for @auth_next.
   ///
@@ -527,41 +533,23 @@ abstract class AppLocalizations {
   /// **'City'**
   String get auth_city_label;
 
-  /// No description provided for @reset_password_success.
+  /// No description provided for @create_account.
   ///
   /// In en, this message translates to:
-  /// **'Password reset successfully. Please SignIn with your new password.'**
-  String get reset_password_success;
+  /// **'Create Account'**
+  String get create_account;
 
-  /// No description provided for @password_atleast_one_letter.
+  /// No description provided for @go_back.
   ///
   /// In en, this message translates to:
-  /// **'Password must contain at least one letter'**
-  String get password_atleast_one_letter;
+  /// **'do you want to go back to the'**
+  String get go_back;
 
-  /// No description provided for @email_verification_success.
+  /// No description provided for @login_screen.
   ///
   /// In en, this message translates to:
-  /// **'Email verified successfully. You can now log in.'**
-  String get email_verification_success;
-
-  /// Message shown when the user tries to resend the verification email before the cooldown period is over.
-  ///
-  /// In en, this message translates to:
-  /// **'you resend after {seconds} seconds'**
-  String you_can_resend_after(String seconds);
-
-  /// No description provided for @couldnt_resend_link.
-  ///
-  /// In en, this message translates to:
-  /// **'Couldn\'t resend the  link. Please try again later.'**
-  String get couldnt_resend_link;
-
-  /// No description provided for @resend_link_success.
-  ///
-  /// In en, this message translates to:
-  /// **'Link resent successfully. Please check your email.'**
-  String get resend_link_success;
+  /// **'Login Screen'**
+  String get login_screen;
 
   /// No description provided for @gov_damascus.
   ///
@@ -2141,12 +2129,6 @@ abstract class AppLocalizations {
   /// **'Pharmacy license number is required'**
   String get pharmacy_license_required;
 
-  /// No description provided for @create_account.
-  ///
-  /// In en, this message translates to:
-  /// **'Create Account'**
-  String get create_account;
-
   /// No description provided for @emailSentTitle.
   ///
   /// In en, this message translates to:
@@ -2183,17 +2165,29 @@ abstract class AppLocalizations {
   /// **'Continue'**
   String get continue_btn;
 
-  /// No description provided for @go_back.
+  /// No description provided for @email_verification_success.
   ///
   /// In en, this message translates to:
-  /// **'do you want to go back to the'**
-  String get go_back;
+  /// **'Email verified successfully. You can now log in.'**
+  String get email_verification_success;
 
-  /// No description provided for @login_screen.
+  /// Message shown when the user tries to resend the verification email before the cooldown period is over.
   ///
   /// In en, this message translates to:
-  /// **'Login Screen'**
-  String get login_screen;
+  /// **'you can resend after {seconds} seconds'**
+  String you_can_resend_after(String seconds);
+
+  /// No description provided for @couldnt_resend_link.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t resend the  link. Please try again later.'**
+  String get couldnt_resend_link;
+
+  /// No description provided for @resend_link_success.
+  ///
+  /// In en, this message translates to:
+  /// **'Link resent successfully. Please check your email.'**
+  String get resend_link_success;
 
   /// No description provided for @forgot_password_title.
   ///
@@ -2254,6 +2248,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Reset Password'**
   String get reset_password_btn;
+
+  /// No description provided for @reset_password_success.
+  ///
+  /// In en, this message translates to:
+  /// **'Password reset successfully. Please SignIn with your new password.'**
+  String get reset_password_success;
 
   /// No description provided for @changed_your_mind.
   ///

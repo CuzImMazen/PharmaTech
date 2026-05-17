@@ -79,20 +79,10 @@ class _ResetPasswordBodyState extends State<ResetPasswordBody> {
           orElse: () => null,
           failure: (failure) {
             final errorMessage = failure.localizedMessage(context);
-            Snackbar.show(
-              context: context,
-              message: errorMessage,
-              color: Colors.red,
-              icon: LucideIcons.x,
-            );
+            AppSnackbar.failure(message: errorMessage);
           },
           success: () {
-            Snackbar.show(
-              context: context,
-              message: context.tr.reset_password_success,
-              color: Colors.green,
-              icon: LucideIcons.check,
-            );
+            AppSnackbar.success(message: context.tr.reset_password_success);
             context.go(AppRoutesKeys.login);
           },
         );

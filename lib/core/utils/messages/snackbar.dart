@@ -1,9 +1,15 @@
 import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
-class Snackbar {
+import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:pharmacy_app/core/app/app_keys.dart';
+
+class AppSnackbar {
+  const AppSnackbar._();
+
+  /// Generic snackbar.
   static void show({
-    required BuildContext context,
     required String message,
     required Color color,
     Color backgroundColor = Colors.transparent,
@@ -11,8 +17,15 @@ class Snackbar {
     String? title,
     Duration duration = const Duration(seconds: 3),
   }) {
-    final messenger = ScaffoldMessenger.of(context);
-    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final messenger = rootScaffoldMessengerKey.currentState;
+    final context = rootScaffoldMessengerKey.currentContext;
+
+    if (messenger == null || context == null) {
+      return;
+    }
+
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
 
     messenger.hideCurrentSnackBar();
 
@@ -49,6 +62,7 @@ class Snackbar {
               child: IntrinsicHeight(
                 child: Row(
                   children: [
+                    // Colored accent bar
                     Container(
                       width: 6,
                       decoration: BoxDecoration(
@@ -59,11 +73,16 @@ class Snackbar {
                         ),
                       ),
                     ),
+
                     const SizedBox(width: 16),
+
+                    // Optional icon
                     if (icon != null) ...[
                       Icon(icon, color: color, size: 24),
                       const SizedBox(width: 12),
                     ],
+
+                    // Title + message
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
@@ -74,26 +93,33 @@ class Snackbar {
                           mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            if (title != null)
+                            if (title != null) ...[
                               Text(
                                 title,
-                                style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                                style: theme.textTheme.labelMedium?.copyWith(
                                   color: isDark ? Colors.white : Colors.black87,
+                                  fontWeight: FontWeight.w600,
                                 ),
                               ),
+                              const SizedBox(height: 2),
+                            ],
                             Text(
                               message,
-                              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                              style: theme.textTheme.bodyMedium?.copyWith(
                                 color: isDark ? Colors.white70 : Colors.black54,
-                                fontWeight: title == null ? FontWeight.w500 : null,
+                                fontWeight: title == null
+                                    ? FontWeight.w500
+                                    : FontWeight.normal,
                               ),
                             ),
                           ],
                         ),
                       ),
                     ),
+
+                    // Close button
                     IconButton(
-                      onPressed: () => messenger.hideCurrentSnackBar(),
+                      onPressed: messenger.hideCurrentSnackBar,
                       icon: Icon(
                         Icons.close,
                         size: 18,
@@ -107,6 +133,36 @@ class Snackbar {
           ),
         ),
       ),
+    );
+  }
+
+  /// Preconfigured success snackbar.
+  static void success({
+    required String message,
+    String? title,
+    Duration duration = const Duration(seconds: 3),
+  }) {
+    show(
+      message: message,
+      // title: title ?? 'Success',
+      color: Colors.green,
+      icon: LucideIcons.check,
+      duration: duration,
+    );
+  }
+
+  /// Preconfigured failure/error snackbar.
+  static void failure({
+    required String message,
+    String? title,
+    Duration duration = const Duration(seconds: 3),
+  }) {
+    show(
+      message: message,
+      //  title: title ?? 'Error',
+      color: Colors.red,
+      icon: LucideIcons.x,
+      duration: duration,
     );
   }
 }

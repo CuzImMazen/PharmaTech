@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:pharmacy_app/core/app/app_keys.dart';
 import 'package:pharmacy_app/core/app/app_state_notifier.dart';
 import 'package:pharmacy_app/core/di/service_locator.dart';
 import 'package:pharmacy_app/core/router/app_router.dart';
@@ -72,6 +73,7 @@ class PharmacyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
+      scaffoldMessengerKey: rootScaffoldMessengerKey,
       showPerformanceOverlay: false,
       debugShowCheckedModeBanner: false,
       title: 'Pharmacy App',

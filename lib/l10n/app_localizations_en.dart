@@ -21,6 +21,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get error_parsing => 'An error occurred while parsing data.';
 
   @override
+  String error_too_many_attempts(String seconds) {
+    return 'Too many attempts. Please try again in $seconds seconds.';
+  }
+
+  @override
   String get session_expired => 'Your session has expired. Please sign in again.';
 
   @override
@@ -46,11 +51,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get auth_action_denied => 'This verification link is invalid or has expired.';
-
-  @override
-  String error_too_many_attempts(String seconds) {
-    return 'Too many attempts. Please try again in $seconds seconds.';
-  }
 
   @override
   String get splash_title => 'Pharmacy App';
@@ -128,6 +128,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get auth_password_min_length => 'Password must be at least 8 characters';
 
   @override
+  String get password_atleast_one_letter => 'Password must contain at least one letter';
+
+  @override
   String get agree_to => 'I agree to ';
 
   @override
@@ -158,10 +161,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get auth_confirm_password_label => 'Confirm Password';
 
   @override
-  String get auth_passwords_do_not_match => 'Passwords do not match';
+  String get auth_confirm_password_is_required => 'Confirm Password is required';
 
   @override
-  String get auth_confirm_password_is_required => 'Confirm Password is required';
+  String get auth_passwords_do_not_match => 'Passwords do not match';
 
   @override
   String get auth_next => 'Next';
@@ -227,24 +230,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get auth_city_label => 'City';
 
   @override
-  String get reset_password_success => 'Password reset successfully. Please SignIn with your new password.';
+  String get create_account => 'Create Account';
 
   @override
-  String get password_atleast_one_letter => 'Password must contain at least one letter';
+  String get go_back => 'do you want to go back to the';
 
   @override
-  String get email_verification_success => 'Email verified successfully. You can now log in.';
-
-  @override
-  String you_can_resend_after(String seconds) {
-    return 'you resend after $seconds seconds';
-  }
-
-  @override
-  String get couldnt_resend_link => 'Couldn\'t resend the  link. Please try again later.';
-
-  @override
-  String get resend_link_success => 'Link resent successfully. Please check your email.';
+  String get login_screen => 'Login Screen';
 
   @override
   String get gov_damascus => 'Damascus';
@@ -1036,9 +1028,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get pharmacy_license_required => 'Pharmacy license number is required';
 
   @override
-  String get create_account => 'Create Account';
-
-  @override
   String get emailSentTitle => 'Verify your email';
 
   @override
@@ -1057,10 +1046,18 @@ class AppLocalizationsEn extends AppLocalizations {
   String get continue_btn => 'Continue';
 
   @override
-  String get go_back => 'do you want to go back to the';
+  String get email_verification_success => 'Email verified successfully. You can now log in.';
 
   @override
-  String get login_screen => 'Login Screen';
+  String you_can_resend_after(String seconds) {
+    return 'you can resend after $seconds seconds';
+  }
+
+  @override
+  String get couldnt_resend_link => 'Couldn\'t resend the  link. Please try again later.';
+
+  @override
+  String get resend_link_success => 'Link resent successfully. Please check your email.';
 
   @override
   String get forgot_password_title => 'Forgot your password?';
@@ -1091,6 +1088,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get reset_password_btn => 'Reset Password';
+
+  @override
+  String get reset_password_success => 'Password reset successfully. Please SignIn with your new password.';
 
   @override
   String get changed_your_mind => 'Changed your mind? go back to ';

@@ -21,6 +21,11 @@ class AppLocalizationsAr extends AppLocalizations {
   String get error_parsing => 'حدث خطأ أثناء تحليل البيانات.';
 
   @override
+  String error_too_many_attempts(String seconds) {
+    return 'عدد محاولات كثيرة. يرجى المحاولة مرة أخرى بعد $seconds ثانية.';
+  }
+
+  @override
   String get session_expired => 'انتهت صلاحية الجلسة. يرجى تسجيل الدخول مجدداً.';
 
   @override
@@ -46,11 +51,6 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get auth_action_denied => 'رابط التحقق هذا غير صالح أو انتهت صلاحيته.';
-
-  @override
-  String error_too_many_attempts(String seconds) {
-    return 'عدد محاولات كثيرة. يرجى المحاولة مرة أخرى بعد $seconds ثانية.';
-  }
 
   @override
   String get splash_title => 'صيدليتي';
@@ -128,6 +128,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get auth_password_min_length => 'كلمة المرور يجب أن تكون 8 أحرف على الأقل';
 
   @override
+  String get password_atleast_one_letter => 'يجب أن تحتوي كلمة المرور على حرف واحد على الأقل';
+
+  @override
   String get agree_to => 'أوافق على ';
 
   @override
@@ -158,10 +161,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String get auth_confirm_password_label => 'تأكيد كلمة المرور';
 
   @override
-  String get auth_passwords_do_not_match => 'كلمات المرور غير متطابقة';
+  String get auth_confirm_password_is_required => 'تأكيد كلمة المرور مطلوب';
 
   @override
-  String get auth_confirm_password_is_required => 'تأكيد كلمة المرور مطلوب';
+  String get auth_passwords_do_not_match => 'كلمات المرور غير متطابقة';
 
   @override
   String get auth_next => 'التالي';
@@ -227,24 +230,13 @@ class AppLocalizationsAr extends AppLocalizations {
   String get auth_city_label => 'المدينة';
 
   @override
-  String get reset_password_success => 'تم إعادة تعيين كلمة المرور بنجاح. يرجى تسجيل الدخول باستخدام كلمة المرور الجديدة.';
+  String get create_account => 'إنشاء الحساب';
 
   @override
-  String get password_atleast_one_letter => 'يجب أن تحتوي كلمة المرور على حرف واحد على الأقل';
+  String get go_back => 'هل تريد العودة إلى';
 
   @override
-  String get email_verification_success => 'تم تأكيد البريد الإلكتروني بنجاح. يمكنك الآن تسجيل الدخول.';
-
-  @override
-  String you_can_resend_after(String seconds) {
-    return 'يمكنك إعادة الإرسال بعد $seconds ثانية';
-  }
-
-  @override
-  String get couldnt_resend_link => 'تعذر إعادة إرسال الرابط. يرجى المحاولة مرة أخرى لاحقاً.';
-
-  @override
-  String get resend_link_success => 'تم إعادة إرسال الرابط بنجاح. يرجى التحقق من بريدك الإلكتروني.';
+  String get login_screen => 'شاشة تسجيل الدخول';
 
   @override
   String get gov_damascus => 'دمشق';
@@ -1036,9 +1028,6 @@ class AppLocalizationsAr extends AppLocalizations {
   String get pharmacy_license_required => 'رقم ترخيص الصيدلية مطلوب';
 
   @override
-  String get create_account => 'إنشاء الحساب';
-
-  @override
   String get emailSentTitle => 'تحقق من بريدك الإلكتروني';
 
   @override
@@ -1057,10 +1046,18 @@ class AppLocalizationsAr extends AppLocalizations {
   String get continue_btn => 'متابعة';
 
   @override
-  String get go_back => 'هل تريد العودة إلى';
+  String get email_verification_success => 'تم تأكيد البريد الإلكتروني بنجاح. يمكنك الآن تسجيل الدخول.';
 
   @override
-  String get login_screen => 'شاشة تسجيل الدخول';
+  String you_can_resend_after(String seconds) {
+    return 'يمكنك إعادة الإرسال بعد $seconds ثانية';
+  }
+
+  @override
+  String get couldnt_resend_link => 'تعذر إعادة إرسال الرابط. يرجى المحاولة مرة أخرى لاحقاً.';
+
+  @override
+  String get resend_link_success => 'تم إعادة إرسال الرابط بنجاح. يرجى التحقق من بريدك الإلكتروني.';
 
   @override
   String get forgot_password_title => 'هل نسيت كلمة المرور؟';
@@ -1091,6 +1088,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get reset_password_btn => 'إعادة تعيين كلمة المرور';
+
+  @override
+  String get reset_password_success => 'تم إعادة تعيين كلمة المرور بنجاح. يرجى تسجيل الدخول باستخدام كلمة المرور الجديدة.';
 
   @override
   String get changed_your_mind => 'غيرت رأيك؟ اذهب إلى ';

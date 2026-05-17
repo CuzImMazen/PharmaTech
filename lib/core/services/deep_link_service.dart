@@ -1,8 +1,8 @@
 import 'dart:async';
-import 'package:flutter/material.dart'; // Needed for GlobalKey and SnackBar
+// Needed for GlobalKey and SnackBar
 import 'package:app_links/app_links.dart';
 import 'package:go_router/go_router.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:pharmacy_app/core/app/app_keys.dart';
 import 'package:pharmacy_app/core/extensions/localization_ext.dart';
 import 'package:pharmacy_app/core/router/app_routes_keys.dart';
 import 'package:pharmacy_app/core/utils/messages/snackbar.dart';
@@ -18,7 +18,6 @@ class DeepLinkService {
   StreamSubscription<Uri>? _subscription;
 
   Future<void> init() async {
-    // 🔥 IMPORTANT: delay handling initial link to avoid router crash
     final initialUri = await _appLinks.getInitialLink();
 
     if (initialUri != null) {
@@ -36,11 +35,12 @@ class DeepLinkService {
     if (uri.scheme != 'pharmacyapp') return;
 
     if (uri.host == 'reset-password') {
+      // 1. Extract the token and email from the query parameters
       final token = uri.queryParameters['token'];
       final email = uri.queryParameters['email'];
 
       if (token == null || email == null) return;
-
+      // 2. Route the user to the reset password screen with the token and email as parameters
       _router.go('/reset-password', extra: {'token': token, 'email': email});
 
       return;
@@ -48,15 +48,15 @@ class DeepLinkService {
 
     if (uri.host == 'email-verified') {
       // 1. Route the user to the login screen
+
       _router.go(AppRoutesKeys.login);
 
-      final context = _router.routerDelegate.navigatorKey.currentContext;
-
-      Snackbar.show(
-        context: context!,
-        message: context.tr.email_verification_success,
-        color: Colors.green,
-        icon: LucideIcons.check,
+      // 2. Show snackbar
+      AppSnackbar.success(
+        message: rootScaffoldMessengerKey
+            .currentContext!
+            .tr
+            .email_verification_success,
       );
 
       return;

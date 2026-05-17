@@ -62,12 +62,7 @@ class _ForgetPasswordBodyState extends State<ForgetPasswordBody> {
         state.maybeWhen(
           orElse: () {},
           failure: (failure) {
-            Snackbar.show(
-              context: context,
-              message: failure.localizedMessage(context),
-              color: Colors.red,
-              icon: LucideIcons.x,
-            );
+            AppSnackbar.failure(message: failure.localizedMessage(context));
           },
           success: () {
             context.push(

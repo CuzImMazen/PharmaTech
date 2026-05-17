@@ -61,18 +61,10 @@ class VerificationEmailSentBody extends StatelessWidget {
           previous.screenState != current.screenState,
       listener: (context, state) {
         if (state.screenState is SuccessState) {
-          Snackbar.show(
-            context: context,
-            message: context.tr.resend_link_success,
-            color: Colors.green,
-          );
+          AppSnackbar.success(message: context.tr.resend_link_success);
         }
         if (state.screenState is FailureState) {
-          Snackbar.show(
-            context: context,
-            message: context.tr.couldnt_resend_link,
-            color: Colors.red,
-          );
+          AppSnackbar.failure(message: context.tr.couldnt_resend_link);
         }
       },
       child: Padding(
