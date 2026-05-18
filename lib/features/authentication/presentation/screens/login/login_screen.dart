@@ -82,6 +82,11 @@ class _LoginScreenState extends State<LoginScreenBody> {
 
   @override
   Widget build(BuildContext context) {
+    final isLoading = context.select<LoginCubit, bool>(
+      (cubit) =>
+          cubit.state.maybeWhen(loading: () => true, orElse: () => false),
+    );
+
     return BlocListener<LoginCubit, LoginState>(
       listener: (context, state) {
         state.maybeWhen(
@@ -103,124 +108,134 @@ class _LoginScreenState extends State<LoginScreenBody> {
               );
               return;
             }
+
             AppSnackbar.failure(message: failure.localizedMessage(context));
           },
           orElse: () {},
         );
       },
-      child: SafeArea(
-        child: Form(
-          autovalidateMode: AutovalidateMode.disabled,
-          key: formKey,
-          child: Padding(
-            padding: context.pHorizontal,
-            child: SingleChildScrollView(
-              physics: const BouncingScrollPhysics(),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  context.vLg,
-                  TopSection(
-                    icon: LucideIcons.pill,
-                    title: context.tr.auth_login_title,
-                    subTitle: context.tr.auth_login_subtitle,
-                  ),
-                  context.vLg,
-                  // Email Field
-                  CustomTextField(
-                    keyboardType: TextInputType.emailAddress,
-                    textInputAction: TextInputAction.next,
-                    blockArabic: true,
-                    labelText: context.tr.auth_email_label,
-                    hintText: "example@example.com",
-                    prefixIcon: LucideIcons.mail,
-                    controller: emailController,
-                    validator: (value) {
-                      return ValidatorsManager.emailValidator(
-                        value,
-                      )?.localizedMessage(context);
-                    },
-                    onEditingComplete: () {
-                      _passwordFocusNode.requestFocus();
-                    },
-                  ),
-                  context.vLg,
-                  // Password Field
-                  CustomTextField(
-                    textInputAction: TextInputAction.done,
-                    blockArabic: true,
-                    labelText: context.tr.auth_password_label,
-                    hintText: "••••••••",
-                    isPassword: true,
-                    prefixIcon: LucideIcons.lock,
-                    focusNode: _passwordFocusNode,
-                    controller: passwordController,
-                    validator: (value) {
-                      return ValidatorsManager.passwordValidator(
-                        value,
-                      )?.localizedMessage(context);
-                    },
-                    onFieldSubmitted: (_) => _handleLogin(),
-                  ),
-                  context.vMd,
-                  ValueListenableBuilder<bool>(
-                    valueListenable: _rememberMe,
-                    builder: (_, rememberMe, _) {
-                      return RememberMeRow(
-                        value: rememberMe,
-                        onChanged: (value) {
-                          _rememberMe.value = value ?? false;
-                        },
-                      );
-                    },
-                  ),
-                  context.vMd,
-                  BlocBuilder<LoginCubit, LoginState>(
-                    buildWhen: (prev, curr) =>
-                        prev.runtimeType != curr.runtimeType,
-                    builder: (context, state) {
-                      final isLoading = state.maybeWhen(
-                        loading: () => true,
-                        orElse: () => false,
-                      );
+      child: PopScope(
+        canPop: !isLoading,
+        child: SafeArea(
+          child: Form(
+            autovalidateMode: AutovalidateMode.disabled,
+            key: formKey,
+            child: Padding(
+              padding: context.pHorizontal,
+              child: SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    context.vLg,
+                    TopSection(
+                      icon: LucideIcons.pill,
+                      title: context.tr.auth_login_title,
+                      subTitle: context.tr.auth_login_subtitle,
+                    ),
+                    context.vLg,
 
-                      return AnimatedSwitcher(
-                        duration: const Duration(milliseconds: 300),
-                        child: isLoading
-                            ? SizedBox(
-                                height: context.btnLg,
-                                child: const Center(
-                                  child: CircularProgressIndicator(),
-                                ),
-                              )
-                            : CustomButton(
-                                onTap: _handleLogin,
-                                text: context.tr.auth_login_button,
+                    // Email Field
+                    CustomTextField(
+                      keyboardType: TextInputType.emailAddress,
+                      textInputAction: TextInputAction.next,
+                      blockArabic: true,
+                      labelText: context.tr.auth_email_label,
+                      hintText: "example@example.com",
+                      prefixIcon: LucideIcons.mail,
+                      controller: emailController,
+                      validator: (value) {
+                        return ValidatorsManager.emailValidator(
+                          value,
+                        )?.localizedMessage(context);
+                      },
+                      onEditingComplete: () {
+                        _passwordFocusNode.requestFocus();
+                      },
+                    ),
+                    context.vLg,
+
+                    // Password Field
+                    CustomTextField(
+                      textInputAction: TextInputAction.done,
+                      blockArabic: true,
+                      labelText: context.tr.auth_password_label,
+                      hintText: "••••••••",
+                      isPassword: true,
+                      prefixIcon: LucideIcons.lock,
+                      focusNode: _passwordFocusNode,
+                      controller: passwordController,
+                      validator: (value) {
+                        return ValidatorsManager.passwordValidator(
+                          value,
+                        )?.localizedMessage(context);
+                      },
+                      onFieldSubmitted: (_) => _handleLogin(),
+                    ),
+                    context.vMd,
+
+                    // Remember Me
+                    ValueListenableBuilder<bool>(
+                      valueListenable: _rememberMe,
+                      builder: (_, rememberMe, _) {
+                        return RememberMeRow(
+                          value: rememberMe,
+                          onChanged: isLoading
+                              ? null
+                              : (value) {
+                                  _rememberMe.value = value ?? false;
+                                },
+                        );
+                      },
+                    ),
+                    context.vMd,
+
+                    // Login Button
+                    AnimatedSwitcher(
+                      duration: const Duration(milliseconds: 300),
+                      child: isLoading
+                          ? SizedBox(
+                              height: context.btnLg,
+                              child: const Center(
+                                child: CircularProgressIndicator(),
                               ),
-                      );
-                    },
-                  ),
-                  context.vMd,
-                  OrDivider(),
-                  context.vMd,
+                            )
+                          : CustomButton(
+                              onTap: _handleLogin,
+                              text: context.tr.auth_login_button,
+                            ),
+                    ),
+                    context.vMd,
 
-                  ContinueWithGoogleButton(
-                    onPressed: () {
-                      // TODO: Handle Google Sign-In logic here
-                    },
-                  ),
-                  context.vMd,
-                  AuthPromptRow(
-                    promptText: context.tr.auth_no_account,
-                    actionText: context.tr.auth_create_account,
-                    onPressed: () {
-                      context.push(AppRoutesKeys.registerDetails);
-                      FocusManager.instance.primaryFocus?.unfocus();
-                      formKey.currentState?.reset();
-                    },
-                  ),
-                  context.vLg,
-                ],
+                    OrDivider(),
+                    context.vMd,
+
+                    // Google Sign In
+                    ContinueWithGoogleButton(
+                      onPressed: isLoading
+                          ? null
+                          : () {
+                              // TODO: Handle Google Sign-In logic here
+                            },
+                    ),
+                    context.vMd,
+
+                    // Create Account Prompt
+                    AuthPromptRow(
+                      promptText: context.tr.auth_no_account,
+                      actionText: context.tr.auth_create_account,
+                      onPressed: isLoading
+                          ? null
+                          : () {
+                              context.push(AppRoutesKeys.registerDetails);
+                              FocusManager.instance.primaryFocus?.unfocus();
+                              formKey.currentState?.reset();
+                            },
+                    ),
+
+                    context.vLg,
+                  ],
+                ),
               ),
             ),
           ),

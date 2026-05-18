@@ -119,37 +119,43 @@ class _ForgetPasswordBodyState extends State<ForgetPasswordBody> {
                       orElse: () => false,
                     );
 
-                    return AnimatedSwitcher(
-                      duration: const Duration(milliseconds: 300),
-                      child: isLoading
-                          ? SizedBox(
-                              height: context.btnLg,
-                              child: const Center(
-                                child: CircularProgressIndicator(),
-                              ),
-                            )
-                          : CustomButton(
-                              onTap: () {
-                                if (_formKey.currentState?.validate() ??
-                                    false) {
-                                  context
-                                      .read<ForgetPasswordCubit>()
-                                      .forgetPassword(
-                                        email: emailController.text.trim(),
-                                      );
-                                }
-                              },
-                              text: context.tr.auth_login_button,
-                            ),
+                    return Column(
+                      children: [
+                        AnimatedSwitcher(
+                          duration: const Duration(milliseconds: 300),
+                          child: isLoading
+                              ? SizedBox(
+                                  height: context.btnLg,
+                                  child: const Center(
+                                    child: CircularProgressIndicator(),
+                                  ),
+                                )
+                              : CustomButton(
+                                  onTap: () {
+                                    if (_formKey.currentState?.validate() ??
+                                        false) {
+                                      context
+                                          .read<ForgetPasswordCubit>()
+                                          .forgetPassword(
+                                            email: emailController.text.trim(),
+                                          );
+                                    }
+                                  },
+                                  text: context.tr.auth_login_button,
+                                ),
+                        ),
+                        context.vMd,
+                        AuthPromptRow(
+                          promptText: context.tr.remembered_password,
+                          actionText: context.tr.auth_signin,
+                          onPressed: isLoading
+                              ? null
+                              : () {
+                                  context.pop();
+                                },
+                        ),
+                      ],
                     );
-                  },
-                ),
-                context.vMd,
-                AuthPromptRow(
-                  promptText: context.tr.remembered_password,
-                  actionText: context.tr.auth_signin,
-                  onPressed: () {
-                    context.pop();
                   },
                 ),
                 context.vMd,

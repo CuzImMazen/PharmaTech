@@ -20,7 +20,7 @@ class AuthPromptRow extends StatelessWidget {
   final String actionText;
 
   /// Callback executed when the action text is tapped.
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
 
   @override
   Widget build(BuildContext context) {

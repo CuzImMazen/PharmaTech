@@ -138,39 +138,60 @@ class _ResetPasswordBodyState extends State<ResetPasswordBody> {
                 ),
                 context.vLg,
                 BlocBuilder<ResetPasswordCubit, ResetPasswordState>(
+                  buildWhen: (prev, curr) =>
+                      prev.runtimeType != curr.runtimeType,
                   builder: (context, state) {
                     final isLoading = state.maybeWhen(
-                      orElse: () => false,
                       loading: () => true,
+                      orElse: () => false,
                     );
-                    if (isLoading) {
-                      return const CircularProgressIndicator();
-                    }
-                    return CustomButton(
-                      onTap: () {
-                        if (_formKey.currentState?.validate() ?? false) {
-                          context.read<ResetPasswordCubit>().resetPassword(
-                            email: widget.email.trim(),
-                            password: newPasswordController.text.trim(),
-                            passwordConfirmation:
-                                confirmPasswordController.text,
-                            token: widget.token,
-                          );
-                        }
-                      },
-                      text: context.tr.reset_password_btn,
+
+                    return Column(
+                      children: [
+                        AnimatedSwitcher(
+                          duration: const Duration(milliseconds: 300),
+                          child: isLoading
+                              ? SizedBox(
+                                  height: context.btnLg,
+                                  child: const Center(
+                                    child: CircularProgressIndicator(),
+                                  ),
+                                )
+                              : CustomButton(
+                                  onTap: () {
+                                    if (_formKey.currentState?.validate() ??
+                                        false) {
+                                      context
+                                          .read<ResetPasswordCubit>()
+                                          .resetPassword(
+                                            email: widget.email.trim(),
+                                            password: newPasswordController.text
+                                                .trim(),
+                                            passwordConfirmation:
+                                                confirmPasswordController.text
+                                                    .trim(),
+                                            token: widget.token,
+                                          );
+                                    }
+                                  },
+                                  text: context.tr.reset_password_btn,
+                                ),
+                        ),
+                        context.vMd,
+                        AuthPromptRow(
+                          promptText: context.tr.changed_your_mind,
+                          actionText: context.tr.auth_signin,
+                          onPressed: isLoading
+                              ? null
+                              : () {
+                                  context.go(AppRoutesKeys.login);
+                                },
+                        ),
+                      ],
                     );
                   },
                 ),
                 context.vMd,
-                AuthPromptRow(
-                  promptText: context.tr.changed_your_mind,
-                  actionText: context.tr.auth_signin,
-                  onPressed: () {
-                    context.go(AppRoutesKeys.login);
-                  },
-                ),
-                // context.vMd,
               ],
             ),
           ),
