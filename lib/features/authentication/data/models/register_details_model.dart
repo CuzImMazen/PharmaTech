@@ -5,8 +5,8 @@ class RegisterDetailsModel {
   final String pharmacyName;
   final int governorateID;
   final int cityID;
-  final String detailedAddress;
-  final String pharmacyLicense;
+  final String address;
+  final String licenseNumber;
 
   RegisterDetailsModel({
     required this.firstName,
@@ -15,7 +15,7 @@ class RegisterDetailsModel {
     required this.pharmacyName,
     required this.governorateID,
     required this.cityID,
-    required this.detailedAddress,
-    required this.pharmacyLicense,
+    required this.address,
+    required this.licenseNumber,
   });
 }

@@ -8,6 +8,7 @@ import 'package:pharmacy_app/features/authentication/cubit/password_recovery/for
 import 'package:pharmacy_app/features/authentication/cubit/login/login_cubit.dart';
 import 'package:pharmacy_app/features/authentication/cubit/password_recovery/resend_reset_password_cubit.dart';
 import 'package:pharmacy_app/features/authentication/cubit/password_recovery/reset_password_cubit.dart';
+import 'package:pharmacy_app/features/authentication/cubit/register/register_cubit.dart';
 import 'package:pharmacy_app/features/authentication/data/models/register_details_model.dart';
 import 'package:pharmacy_app/features/authentication/presentation/screens/password_recovery/forget_password_screen.dart';
 import 'package:pharmacy_app/features/authentication/presentation/screens/login/login_screen.dart';
@@ -42,8 +43,11 @@ class AppRoutes {
       path: AppRoutesKeys.registerCredentials,
       builder: (context, state) {
         state.extra;
-        return RegisterCredentialsScreen(
-          registerDetailsModel: state.extra as RegisterDetailsModel,
+        return BlocProvider(
+          create: (context) => RegisterCubit(authRepository: sl()),
+          child: RegisterCredentialsScreen(
+            registerDetailsModel: state.extra as RegisterDetailsModel,
+          ),
         );
       },
     ),

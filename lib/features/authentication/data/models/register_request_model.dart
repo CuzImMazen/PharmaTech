@@ -2,15 +2,15 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'register_request_model.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(fieldRename: FieldRename.snake)
 class RegisterRequestModel {
   final String firstName;
   final String lastName;
   final String phoneNumber;
   final String pharmacyName;
-  final String cityId;
-  final String detailedAddress;
-  final String pharmacyLicense;
+  final int cityId;
+  final String address;
+  final String licenceNumber;
   final String email;
   final String password;
   final String passwordConfirmation;
@@ -21,8 +21,8 @@ class RegisterRequestModel {
     required this.phoneNumber,
     required this.pharmacyName,
     required this.cityId,
-    required this.detailedAddress,
-    required this.pharmacyLicense,
+    required this.address,
+    required this.licenceNumber,
     required this.email,
     required this.password,
     required this.passwordConfirmation,

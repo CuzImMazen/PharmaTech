@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'location_state.dart';
+part of 'register_state.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -16,26 +16,26 @@ final _privateConstructorUsedError = UnsupportedError(
 );
 
 /// @nodoc
-mixin _$LocationState {
+mixin _$RegisterState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<GovernorateModel> governorates) loaded,
+    required TResult Function() success,
     required TResult Function(Failure failure) failure,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<GovernorateModel> governorates)? loaded,
+    TResult? Function()? success,
     TResult? Function(Failure failure)? failure,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<GovernorateModel> governorates)? loaded,
+    TResult Function()? success,
     TResult Function(Failure failure)? failure,
     required TResult orElse(),
   }) => throw _privateConstructorUsedError;
@@ -43,45 +43,45 @@ mixin _$LocationState {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
-    required TResult Function(_Loaded value) loaded,
+    required TResult Function(_Success value) success,
     required TResult Function(_Failure value) failure,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
-    TResult? Function(_Loaded value)? loaded,
+    TResult? Function(_Success value)? success,
     TResult? Function(_Failure value)? failure,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
-    TResult Function(_Loaded value)? loaded,
+    TResult Function(_Success value)? success,
     TResult Function(_Failure value)? failure,
     required TResult orElse(),
   }) => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $LocationStateCopyWith<$Res> {
-  factory $LocationStateCopyWith(
-    LocationState value,
-    $Res Function(LocationState) then,
-  ) = _$LocationStateCopyWithImpl<$Res, LocationState>;
+abstract class $RegisterStateCopyWith<$Res> {
+  factory $RegisterStateCopyWith(
+    RegisterState value,
+    $Res Function(RegisterState) then,
+  ) = _$RegisterStateCopyWithImpl<$Res, RegisterState>;
 }
 
 /// @nodoc
-class _$LocationStateCopyWithImpl<$Res, $Val extends LocationState>
-    implements $LocationStateCopyWith<$Res> {
-  _$LocationStateCopyWithImpl(this._value, this._then);
+class _$RegisterStateCopyWithImpl<$Res, $Val extends RegisterState>
+    implements $RegisterStateCopyWith<$Res> {
+  _$RegisterStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of LocationState
+  /// Create a copy of RegisterState
   /// with the given fields replaced by the non-null parameter values.
 }
 
@@ -95,14 +95,14 @@ abstract class _$$InitialImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$InitialImplCopyWithImpl<$Res>
-    extends _$LocationStateCopyWithImpl<$Res, _$InitialImpl>
+    extends _$RegisterStateCopyWithImpl<$Res, _$InitialImpl>
     implements _$$InitialImplCopyWith<$Res> {
   __$$InitialImplCopyWithImpl(
     _$InitialImpl _value,
     $Res Function(_$InitialImpl) _then,
   ) : super(_value, _then);
 
-  /// Create a copy of LocationState
+  /// Create a copy of RegisterState
   /// with the given fields replaced by the non-null parameter values.
 }
 
@@ -113,7 +113,7 @@ class _$InitialImpl implements _Initial {
 
   @override
   String toString() {
-    return 'LocationState.initial()';
+    return 'RegisterState.initial()';
   }
 
   @override
@@ -130,7 +130,7 @@ class _$InitialImpl implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<GovernorateModel> governorates) loaded,
+    required TResult Function() success,
     required TResult Function(Failure failure) failure,
   }) {
     return initial();
@@ -141,7 +141,7 @@ class _$InitialImpl implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<GovernorateModel> governorates)? loaded,
+    TResult? Function()? success,
     TResult? Function(Failure failure)? failure,
   }) {
     return initial?.call();
@@ -152,7 +152,7 @@ class _$InitialImpl implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<GovernorateModel> governorates)? loaded,
+    TResult Function()? success,
     TResult Function(Failure failure)? failure,
     required TResult orElse(),
   }) {
@@ -167,7 +167,7 @@ class _$InitialImpl implements _Initial {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
-    required TResult Function(_Loaded value) loaded,
+    required TResult Function(_Success value) success,
     required TResult Function(_Failure value) failure,
   }) {
     return initial(this);
@@ -178,7 +178,7 @@ class _$InitialImpl implements _Initial {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
-    TResult? Function(_Loaded value)? loaded,
+    TResult? Function(_Success value)? success,
     TResult? Function(_Failure value)? failure,
   }) {
     return initial?.call(this);
@@ -189,7 +189,7 @@ class _$InitialImpl implements _Initial {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
-    TResult Function(_Loaded value)? loaded,
+    TResult Function(_Success value)? success,
     TResult Function(_Failure value)? failure,
     required TResult orElse(),
   }) {
@@ -200,7 +200,7 @@ class _$InitialImpl implements _Initial {
   }
 }
 
-abstract class _Initial implements LocationState {
+abstract class _Initial implements RegisterState {
   const factory _Initial() = _$InitialImpl;
 }
 
@@ -214,14 +214,14 @@ abstract class _$$LoadingImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$LoadingImplCopyWithImpl<$Res>
-    extends _$LocationStateCopyWithImpl<$Res, _$LoadingImpl>
+    extends _$RegisterStateCopyWithImpl<$Res, _$LoadingImpl>
     implements _$$LoadingImplCopyWith<$Res> {
   __$$LoadingImplCopyWithImpl(
     _$LoadingImpl _value,
     $Res Function(_$LoadingImpl) _then,
   ) : super(_value, _then);
 
-  /// Create a copy of LocationState
+  /// Create a copy of RegisterState
   /// with the given fields replaced by the non-null parameter values.
 }
 
@@ -232,7 +232,7 @@ class _$LoadingImpl implements _Loading {
 
   @override
   String toString() {
-    return 'LocationState.loading()';
+    return 'RegisterState.loading()';
   }
 
   @override
@@ -249,7 +249,7 @@ class _$LoadingImpl implements _Loading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<GovernorateModel> governorates) loaded,
+    required TResult Function() success,
     required TResult Function(Failure failure) failure,
   }) {
     return loading();
@@ -260,7 +260,7 @@ class _$LoadingImpl implements _Loading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<GovernorateModel> governorates)? loaded,
+    TResult? Function()? success,
     TResult? Function(Failure failure)? failure,
   }) {
     return loading?.call();
@@ -271,7 +271,7 @@ class _$LoadingImpl implements _Loading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<GovernorateModel> governorates)? loaded,
+    TResult Function()? success,
     TResult Function(Failure failure)? failure,
     required TResult orElse(),
   }) {
@@ -286,7 +286,7 @@ class _$LoadingImpl implements _Loading {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
-    required TResult Function(_Loaded value) loaded,
+    required TResult Function(_Success value) success,
     required TResult Function(_Failure value) failure,
   }) {
     return loading(this);
@@ -297,7 +297,7 @@ class _$LoadingImpl implements _Loading {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
-    TResult? Function(_Loaded value)? loaded,
+    TResult? Function(_Success value)? success,
     TResult? Function(_Failure value)? failure,
   }) {
     return loading?.call(this);
@@ -308,7 +308,7 @@ class _$LoadingImpl implements _Loading {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
-    TResult Function(_Loaded value)? loaded,
+    TResult Function(_Success value)? success,
     TResult Function(_Failure value)? failure,
     required TResult orElse(),
   }) {
@@ -319,98 +319,59 @@ class _$LoadingImpl implements _Loading {
   }
 }
 
-abstract class _Loading implements LocationState {
+abstract class _Loading implements RegisterState {
   const factory _Loading() = _$LoadingImpl;
 }
 
 /// @nodoc
-abstract class _$$LoadedImplCopyWith<$Res> {
-  factory _$$LoadedImplCopyWith(
-    _$LoadedImpl value,
-    $Res Function(_$LoadedImpl) then,
-  ) = __$$LoadedImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({List<GovernorateModel> governorates});
+abstract class _$$SuccessImplCopyWith<$Res> {
+  factory _$$SuccessImplCopyWith(
+    _$SuccessImpl value,
+    $Res Function(_$SuccessImpl) then,
+  ) = __$$SuccessImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$LoadedImplCopyWithImpl<$Res>
-    extends _$LocationStateCopyWithImpl<$Res, _$LoadedImpl>
-    implements _$$LoadedImplCopyWith<$Res> {
-  __$$LoadedImplCopyWithImpl(
-    _$LoadedImpl _value,
-    $Res Function(_$LoadedImpl) _then,
+class __$$SuccessImplCopyWithImpl<$Res>
+    extends _$RegisterStateCopyWithImpl<$Res, _$SuccessImpl>
+    implements _$$SuccessImplCopyWith<$Res> {
+  __$$SuccessImplCopyWithImpl(
+    _$SuccessImpl _value,
+    $Res Function(_$SuccessImpl) _then,
   ) : super(_value, _then);
 
-  /// Create a copy of LocationState
+  /// Create a copy of RegisterState
   /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({Object? governorates = null}) {
-    return _then(
-      _$LoadedImpl(
-        governorates: null == governorates
-            ? _value._governorates
-            : governorates // ignore: cast_nullable_to_non_nullable
-                  as List<GovernorateModel>,
-      ),
-    );
-  }
 }
 
 /// @nodoc
 
-class _$LoadedImpl implements _Loaded {
-  const _$LoadedImpl({required final List<GovernorateModel> governorates})
-    : _governorates = governorates;
-
-  final List<GovernorateModel> _governorates;
-  @override
-  List<GovernorateModel> get governorates {
-    if (_governorates is EqualUnmodifiableListView) return _governorates;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_governorates);
-  }
+class _$SuccessImpl implements _Success {
+  const _$SuccessImpl();
 
   @override
   String toString() {
-    return 'LocationState.loaded(governorates: $governorates)';
+    return 'RegisterState.success()';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$LoadedImpl &&
-            const DeepCollectionEquality().equals(
-              other._governorates,
-              _governorates,
-            ));
+        (other.runtimeType == runtimeType && other is _$SuccessImpl);
   }
 
   @override
-  int get hashCode => Object.hash(
-    runtimeType,
-    const DeepCollectionEquality().hash(_governorates),
-  );
-
-  /// Create a copy of LocationState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$LoadedImplCopyWith<_$LoadedImpl> get copyWith =>
-      __$$LoadedImplCopyWithImpl<_$LoadedImpl>(this, _$identity);
+  int get hashCode => runtimeType.hashCode;
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<GovernorateModel> governorates) loaded,
+    required TResult Function() success,
     required TResult Function(Failure failure) failure,
   }) {
-    return loaded(governorates);
+    return success();
   }
 
   @override
@@ -418,10 +379,10 @@ class _$LoadedImpl implements _Loaded {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<GovernorateModel> governorates)? loaded,
+    TResult? Function()? success,
     TResult? Function(Failure failure)? failure,
   }) {
-    return loaded?.call(governorates);
+    return success?.call();
   }
 
   @override
@@ -429,12 +390,12 @@ class _$LoadedImpl implements _Loaded {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<GovernorateModel> governorates)? loaded,
+    TResult Function()? success,
     TResult Function(Failure failure)? failure,
     required TResult orElse(),
   }) {
-    if (loaded != null) {
-      return loaded(governorates);
+    if (success != null) {
+      return success();
     }
     return orElse();
   }
@@ -444,10 +405,10 @@ class _$LoadedImpl implements _Loaded {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
-    required TResult Function(_Loaded value) loaded,
+    required TResult Function(_Success value) success,
     required TResult Function(_Failure value) failure,
   }) {
-    return loaded(this);
+    return success(this);
   }
 
   @override
@@ -455,10 +416,10 @@ class _$LoadedImpl implements _Loaded {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
-    TResult? Function(_Loaded value)? loaded,
+    TResult? Function(_Success value)? success,
     TResult? Function(_Failure value)? failure,
   }) {
-    return loaded?.call(this);
+    return success?.call(this);
   }
 
   @override
@@ -466,28 +427,19 @@ class _$LoadedImpl implements _Loaded {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
-    TResult Function(_Loaded value)? loaded,
+    TResult Function(_Success value)? success,
     TResult Function(_Failure value)? failure,
     required TResult orElse(),
   }) {
-    if (loaded != null) {
-      return loaded(this);
+    if (success != null) {
+      return success(this);
     }
     return orElse();
   }
 }
 
-abstract class _Loaded implements LocationState {
-  const factory _Loaded({required final List<GovernorateModel> governorates}) =
-      _$LoadedImpl;
-
-  List<GovernorateModel> get governorates;
-
-  /// Create a copy of LocationState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$LoadedImplCopyWith<_$LoadedImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+abstract class _Success implements RegisterState {
+  const factory _Success() = _$SuccessImpl;
 }
 
 /// @nodoc
@@ -502,21 +454,21 @@ abstract class _$$FailureImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$FailureImplCopyWithImpl<$Res>
-    extends _$LocationStateCopyWithImpl<$Res, _$FailureImpl>
+    extends _$RegisterStateCopyWithImpl<$Res, _$FailureImpl>
     implements _$$FailureImplCopyWith<$Res> {
   __$$FailureImplCopyWithImpl(
     _$FailureImpl _value,
     $Res Function(_$FailureImpl) _then,
   ) : super(_value, _then);
 
-  /// Create a copy of LocationState
+  /// Create a copy of RegisterState
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({Object? failure = null}) {
     return _then(
       _$FailureImpl(
-        failure: null == failure
+        null == failure
             ? _value.failure
             : failure // ignore: cast_nullable_to_non_nullable
                   as Failure,
@@ -528,14 +480,14 @@ class __$$FailureImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$FailureImpl implements _Failure {
-  const _$FailureImpl({required this.failure});
+  const _$FailureImpl(this.failure);
 
   @override
   final Failure failure;
 
   @override
   String toString() {
-    return 'LocationState.failure(failure: $failure)';
+    return 'RegisterState.failure(failure: $failure)';
   }
 
   @override
@@ -549,7 +501,7 @@ class _$FailureImpl implements _Failure {
   @override
   int get hashCode => Object.hash(runtimeType, failure);
 
-  /// Create a copy of LocationState
+  /// Create a copy of RegisterState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
@@ -562,7 +514,7 @@ class _$FailureImpl implements _Failure {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<GovernorateModel> governorates) loaded,
+    required TResult Function() success,
     required TResult Function(Failure failure) failure,
   }) {
     return failure(this.failure);
@@ -573,7 +525,7 @@ class _$FailureImpl implements _Failure {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<GovernorateModel> governorates)? loaded,
+    TResult? Function()? success,
     TResult? Function(Failure failure)? failure,
   }) {
     return failure?.call(this.failure);
@@ -584,7 +536,7 @@ class _$FailureImpl implements _Failure {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<GovernorateModel> governorates)? loaded,
+    TResult Function()? success,
     TResult Function(Failure failure)? failure,
     required TResult orElse(),
   }) {
@@ -599,7 +551,7 @@ class _$FailureImpl implements _Failure {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
-    required TResult Function(_Loaded value) loaded,
+    required TResult Function(_Success value) success,
     required TResult Function(_Failure value) failure,
   }) {
     return failure(this);
@@ -610,7 +562,7 @@ class _$FailureImpl implements _Failure {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
-    TResult? Function(_Loaded value)? loaded,
+    TResult? Function(_Success value)? success,
     TResult? Function(_Failure value)? failure,
   }) {
     return failure?.call(this);
@@ -621,7 +573,7 @@ class _$FailureImpl implements _Failure {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
-    TResult Function(_Loaded value)? loaded,
+    TResult Function(_Success value)? success,
     TResult Function(_Failure value)? failure,
     required TResult orElse(),
   }) {
@@ -632,12 +584,12 @@ class _$FailureImpl implements _Failure {
   }
 }
 
-abstract class _Failure implements LocationState {
-  const factory _Failure({required final Failure failure}) = _$FailureImpl;
+abstract class _Failure implements RegisterState {
+  const factory _Failure(final Failure failure) = _$FailureImpl;
 
   Failure get failure;
 
-  /// Create a copy of LocationState
+  /// Create a copy of RegisterState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$FailureImplCopyWith<_$FailureImpl> get copyWith =>

@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:pharmacy_app/core/extensions/app_design_system_ext.dart';
+import 'package:pharmacy_app/core/extensions/failure_message_localization_ext.dart';
 import 'package:pharmacy_app/core/extensions/input_validator_error_ext.dart';
 import 'package:pharmacy_app/core/extensions/localization_ext.dart';
 import 'package:pharmacy_app/core/router/app_routes_keys.dart';
+import 'package:pharmacy_app/core/utils/messages/snackbar.dart';
 import 'package:pharmacy_app/core/utils/validator/validators_manager.dart';
 import 'package:pharmacy_app/core/widgets/custom_text_field.dart';
+import 'package:pharmacy_app/features/authentication/cubit/register/register_cubit.dart';
+import 'package:pharmacy_app/features/authentication/cubit/register/register_state.dart';
 import 'package:pharmacy_app/features/authentication/data/models/register_details_model.dart';
+import 'package:pharmacy_app/features/authentication/data/models/register_request_model.dart';
 
 import 'package:pharmacy_app/features/authentication/presentation/widgets/register/buttons_footer.dart';
 import 'package:pharmacy_app/features/authentication/presentation/widgets/register/progress_bar.dart';
@@ -68,99 +74,143 @@ class _RegisterCredentialsBodyState extends State<RegisterCredentialsBody> {
   void _createAccount() {
     if (formKey.currentState?.validate() ?? false) {
       FocusManager.instance.primaryFocus?.unfocus();
-      context.push(
-        AppRoutesKeys.verificationSent,
-        extra: emailController.text.trim(),
+
+      RegisterRequestModel registerRequestModel = RegisterRequestModel(
+        email: emailController.text.trim(),
+        password: passwordController.text.trim(),
+        firstName: widget.registerDetailsModel.firstName,
+        lastName: widget.registerDetailsModel.lastName,
+        phoneNumber: widget.registerDetailsModel.phoneNumber,
+        pharmacyName: widget.registerDetailsModel.pharmacyName,
+        cityId: widget.registerDetailsModel.cityID,
+        address: widget.registerDetailsModel.address,
+        licenceNumber: widget.registerDetailsModel.licenseNumber,
+        passwordConfirmation: confirmPasswordController.text.trim(),
       );
+
+      context.read<RegisterCubit>().register(model: registerRequestModel);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Form(
-        key: formKey,
-        child: Padding(
-          padding: context.pHorizontal,
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                context.vLg,
-                TopSection(
-                  icon: LucideIcons.pill,
-                  title: context.tr.auth_signup_account_title,
-                  subTitle: context.tr.auth_signup_account_subtitle,
-                ),
-                context.vLg,
-                ProgressBar(currentStep: 2, totalSteps: 2),
-                context.vLg,
-                // Email Field
-                CustomTextField(
-                  keyboardType: TextInputType.emailAddress,
-                  textInputAction: TextInputAction.next,
-                  blockArabic: true,
-                  labelText: context.tr.auth_email_label,
-                  hintText: "example@example.com",
-                  prefixIcon: LucideIcons.mail,
-                  controller: emailController,
-                  validator: (value) {
-                    return ValidatorsManager.emailValidator(
-                      value,
-                    )?.localizedMessage(context);
-                  },
-                  onEditingComplete: () {
-                    _passwordFocusNode.requestFocus();
-                  },
-                ),
-                context.vLg,
-                CustomTextField(
-                  textInputAction: TextInputAction.next,
-                  blockArabic: true,
-                  labelText: context.tr.auth_password_label,
-                  hintText: "••••••••",
-                  isPassword: true,
-                  prefixIcon: LucideIcons.lock,
-                  focusNode: _passwordFocusNode,
-                  controller: passwordController,
-                  onEditingComplete: () {
-                    _confirmPasswordFocusNode.requestFocus();
-                  },
-                  validator: (value) {
-                    return ValidatorsManager.passwordValidator(
-                      value,
-                    )?.localizedMessage(context);
-                  },
-                ),
-                context.vLg,
-                CustomTextField(
-                  textInputAction: TextInputAction.done,
-                  blockArabic: true,
-                  labelText: context.tr.auth_confirm_password_label,
-                  hintText: "••••••••",
-                  isPassword: true,
-                  prefixIcon: LucideIcons.lock,
-                  focusNode: _confirmPasswordFocusNode,
-                  controller: confirmPasswordController,
-                  validator: (value) {
-                    return ValidatorsManager.confirmPasswordValidator(
-                      passwordController.text,
-                      value,
-                    )?.localizedMessage(context);
-                  },
-                ),
-                context.vLg,
+    return BlocListener<RegisterCubit, RegisterState>(
+      listener: (context, state) {
+        state.maybeWhen(
+          orElse: () {},
+          failure: (failure) {
+            AppSnackbar.failure(message: failure.localizedMessage(context));
+          },
+          success: () {
+            context.push(
+              AppRoutesKeys.verificationSent,
+              extra: emailController.text.trim(),
+            );
+          },
+        );
+      },
+      child: SafeArea(
+        child: Form(
+          key: formKey,
+          child: Padding(
+            padding: context.pHorizontal,
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  context.vLg,
+                  TopSection(
+                    icon: LucideIcons.pill,
+                    title: context.tr.auth_signup_account_title,
+                    subTitle: context.tr.auth_signup_account_subtitle,
+                  ),
+                  context.vLg,
+                  ProgressBar(currentStep: 2, totalSteps: 2),
+                  context.vLg,
+                  // Email Field
+                  CustomTextField(
+                    keyboardType: TextInputType.emailAddress,
+                    textInputAction: TextInputAction.next,
+                    blockArabic: true,
+                    labelText: context.tr.auth_email_label,
+                    hintText: "example@example.com",
+                    prefixIcon: LucideIcons.mail,
+                    controller: emailController,
+                    validator: (value) {
+                      return ValidatorsManager.emailValidator(
+                        value,
+                      )?.localizedMessage(context);
+                    },
+                    onEditingComplete: () {
+                      _passwordFocusNode.requestFocus();
+                    },
+                  ),
+                  context.vLg,
+                  CustomTextField(
+                    textInputAction: TextInputAction.next,
+                    blockArabic: true,
+                    labelText: context.tr.auth_password_label,
+                    hintText: "••••••••",
+                    isPassword: true,
+                    prefixIcon: LucideIcons.lock,
+                    focusNode: _passwordFocusNode,
+                    controller: passwordController,
+                    onEditingComplete: () {
+                      _confirmPasswordFocusNode.requestFocus();
+                    },
+                    validator: (value) {
+                      return ValidatorsManager.passwordValidator(
+                        value,
+                      )?.localizedMessage(context);
+                    },
+                  ),
+                  context.vLg,
+                  CustomTextField(
+                    textInputAction: TextInputAction.done,
+                    blockArabic: true,
+                    labelText: context.tr.auth_confirm_password_label,
+                    hintText: "••••••••",
+                    isPassword: true,
+                    prefixIcon: LucideIcons.lock,
+                    focusNode: _confirmPasswordFocusNode,
+                    controller: confirmPasswordController,
+                    validator: (value) {
+                      return ValidatorsManager.confirmPasswordValidator(
+                        passwordController.text,
+                        value,
+                      )?.localizedMessage(context);
+                    },
+                  ),
+                  context.vLg,
 
-                context.vMd,
-                CreateAccountFooter(
-                  onBack: () {
-                    context.pop();
-                  },
-                  onTap: () {
-                    _createAccount();
-                  },
-                ),
-                context.vLg,
-              ],
+                  context.vMd,
+                  BlocBuilder<RegisterCubit, RegisterState>(
+                    builder: (context, state) {
+                      bool isLoading = state.maybeWhen(
+                        loading: () => true,
+                        orElse: () => false,
+                      );
+
+                      if (isLoading) {
+                        return Center(
+                          child: SizedBox(
+                            height: context.btnLg,
+                            child: Center(child: CircularProgressIndicator()),
+                          ),
+                        );
+                      }
+                      return CreateAccountFooter(
+                        onBack: () {
+                          context.pop();
+                        },
+                        onTap: () {
+                          _createAccount();
+                        },
+                      );
+                    },
+                  ),
+                  context.vLg,
+                ],
+              ),
             ),
           ),
         ),

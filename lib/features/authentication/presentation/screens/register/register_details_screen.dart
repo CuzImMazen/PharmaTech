@@ -5,9 +5,11 @@ import 'package:pharmacy_app/core/consts/location_data.dart';
 import 'package:pharmacy_app/core/extensions/app_design_system_ext.dart';
 import 'package:pharmacy_app/core/extensions/input_validator_error_ext.dart';
 import 'package:pharmacy_app/core/extensions/localization_ext.dart';
+import 'package:pharmacy_app/core/router/app_routes_keys.dart';
 import 'package:pharmacy_app/core/utils/validator/validators_manager.dart';
 import 'package:pharmacy_app/core/widgets/custom_button.dart';
 import 'package:pharmacy_app/core/widgets/custom_text_field.dart';
+import 'package:pharmacy_app/features/authentication/data/models/register_details_model.dart';
 
 import 'package:pharmacy_app/features/authentication/presentation/widgets/auth_prompt_row.dart';
 import 'package:pharmacy_app/features/authentication/presentation/widgets/register/terms_and_conditions_row.dart';
@@ -37,7 +39,7 @@ class _RegisterDetailsBodyState extends State<RegisterDetailsBody> {
   late final TextEditingController lastNameController;
   late final TextEditingController phoneController;
   late final TextEditingController pharmacyNameController;
-  late final TextEditingController detailedAddressController;
+  late final TextEditingController addressController;
   late final TextEditingController pharmacyLicenseController;
 
   ValueNotifier<String?> selectedGovernorate = ValueNotifier(null);
@@ -51,7 +53,7 @@ class _RegisterDetailsBodyState extends State<RegisterDetailsBody> {
     lastNameController = TextEditingController();
     phoneController = TextEditingController();
     pharmacyNameController = TextEditingController();
-    detailedAddressController = TextEditingController();
+    addressController = TextEditingController();
     pharmacyLicenseController = TextEditingController();
   }
 
@@ -61,7 +63,7 @@ class _RegisterDetailsBodyState extends State<RegisterDetailsBody> {
     lastNameController.dispose();
     phoneController.dispose();
     pharmacyNameController.dispose();
-    detailedAddressController.dispose();
+    addressController.dispose();
     pharmacyLicenseController.dispose();
     selectedGovernorate.dispose();
     selectedCity.dispose();
@@ -87,21 +89,21 @@ class _RegisterDetailsBodyState extends State<RegisterDetailsBody> {
         return;
       }
       debugPrint(
-        "Governorate ID: $govId, City ID: $cityId ,firstName: ${firstNameController.text.trim()}, lastName: ${lastNameController.text.trim()}, phone: ${phoneController.text.trim()}, pharmacyName: ${pharmacyNameController.text.trim()}, detailedAddress: ${detailedAddressController.text.trim()}, pharmacyLicense: ${pharmacyLicenseController.text.trim()}",
+        "Governorate ID: $govId, City ID: $cityId ,firstName: ${firstNameController.text.trim()}, lastName: ${lastNameController.text.trim()}, phone: ${phoneController.text.trim()}, pharmacyName: ${pharmacyNameController.text.trim()}, address: ${addressController.text.trim()}, pharmacyLicense: ${pharmacyLicenseController.text.trim()}",
       );
-      // context.push(
-      //   AppRoutesKeys.registerCredentials,
-      //   extra: RegisterDetailsModel(
-      //     firstName: firstNameController.text.trim(),
-      //     lastName: lastNameController.text.trim(),
-      //     phoneNumber: phoneController.text.trim(),
-      //     pharmacyName: pharmacyNameController.text.trim(),
-      //     governorateID: govId,
-      //     cityID: cityId,
-      //     detailedAddress: detailedAddressController.text.trim(),
-      //     pharmacyLicense: pharmacyLicenseController.text.trim(),
-      //   ),
-      // );
+      context.push(
+        AppRoutesKeys.registerCredentials,
+        extra: RegisterDetailsModel(
+          firstName: firstNameController.text.trim(),
+          lastName: lastNameController.text.trim(),
+          phoneNumber: phoneController.text.trim(),
+          pharmacyName: pharmacyNameController.text.trim(),
+          governorateID: govId,
+          cityID: cityId,
+          address: addressController.text.trim(),
+          licenseNumber: pharmacyLicenseController.text.trim(),
+        ),
+      );
     }
   }
 
@@ -273,7 +275,7 @@ class _RegisterDetailsBodyState extends State<RegisterDetailsBody> {
                   height: 80,
                   hintText: context.tr.detailed_address_hint,
                   labelText: context.tr.detailed_address_label,
-                  controller: detailedAddressController,
+                  controller: addressController,
                 ),
 
                 context.vLg,
