@@ -1,12 +1,11 @@
+// location_localization_ext.dart
 import 'package:flutter/widgets.dart';
-import 'package:pharmacy_app/core/extensions/localization_ext.dart';
+import 'package:pharmacy_app/l10n/locations/location_localizations.dart';
 
 extension LocationLocalizationExt on BuildContext {
-  /// =====================
   /// GOVERNORATES
-  /// =====================
-
   String govLabel(String key) {
+    final tr = LocationLocalizations.of(this)!;
     switch (key) {
       case "damascus":
         return tr.gov_damascus;
@@ -32,16 +31,18 @@ extension LocationLocalizationExt on BuildContext {
         return tr.gov_raqqa;
       case "hasakah":
         return tr.gov_hasakah;
+      case "quneitra":
+        return tr.gov_quneitra;
+      case "as_suwayda":
+        return tr.gov_as_suwayda;
       default:
         return key;
     }
   }
 
-  /// =====================
   /// CITIES (All Cities)
-  /// =====================
-
   String cityLabel(String key, {String? governorateKey}) {
+    final tr = LocationLocalizations.of(this)!;
     final resolvedKey = _resolveCityKey(key, governorateKey);
     switch (resolvedKey) {
       // Damascus
@@ -557,6 +558,48 @@ extension LocationLocalizationExt on BuildContext {
         return tr.city_hasakah_al_jawadiyah;
       case "city_hasakah_al_talaq":
         return tr.city_hasakah_al_talaq;
+
+      // Quneitra
+      case "city_quneitra_quneitra":
+        return tr.city_quneitra_quneitra;
+      case "city_quneitra_khan_arnabah":
+        return tr.city_quneitra_khan_arnabah;
+      case "city_quneitra_baath_city":
+        return tr.city_quneitra_baath_city;
+      case "city_quneitra_al_rafid":
+        return tr.city_quneitra_al_rafid;
+      case "city_quneitra_jubata_al_khashab":
+        return tr.city_quneitra_jubata_al_khashab;
+      case "city_quneitra_hadar":
+        return tr.city_quneitra_hadar;
+      case "city_quneitra_al_qahtaniyah":
+        return tr.city_quneitra_al_qahtaniyah;
+      case "city_quneitra_bir_ajam":
+        return tr.city_quneitra_bir_ajam;
+      case "city_quneitra_masharah":
+        return tr.city_quneitra_masharah;
+
+      // As-Suwayda
+      case "city_as_suwayda_as_suwayda":
+        return tr.city_as_suwayda_as_suwayda;
+      case "city_as_suwayda_salkhad":
+        return tr.city_as_suwayda_salkhad;
+      case "city_as_suwayda_shahba":
+        return tr.city_as_suwayda_shahba;
+      case "city_as_suwayda_qanawat":
+        return tr.city_as_suwayda_qanawat;
+      case "city_as_suwayda_al_qurayya":
+        return tr.city_as_suwayda_al_qurayya;
+      case "city_as_suwayda_ariqah":
+        return tr.city_as_suwayda_ariqah;
+      case "city_as_suwayda_al_mazraa":
+        return tr.city_as_suwayda_al_mazraa;
+      case "city_as_suwayda_thaala":
+        return tr.city_as_suwayda_thaala;
+      case "city_as_suwayda_shaqqa":
+        return tr.city_as_suwayda_shaqqa;
+      case "city_as_suwayda_al_ruha":
+        return tr.city_as_suwayda_al_ruha;
 
       default:
         return resolvedKey;

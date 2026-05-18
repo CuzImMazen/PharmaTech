@@ -3,8 +3,8 @@ class RegisterDetailsModel {
   final String lastName;
   final String phoneNumber;
   final String pharmacyName;
-  final String governorate;
-  final String city;
+  final int governorateID;
+  final int cityID;
   final String detailedAddress;
   final String pharmacyLicense;
 
@@ -13,8 +13,8 @@ class RegisterDetailsModel {
     required this.lastName,
     required this.phoneNumber,
     required this.pharmacyName,
-    required this.governorate,
-    required this.city,
+    required this.governorateID,
+    required this.cityID,
     required this.detailedAddress,
     required this.pharmacyLicense,
   });

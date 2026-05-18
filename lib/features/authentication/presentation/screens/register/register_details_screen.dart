@@ -5,11 +5,9 @@ import 'package:pharmacy_app/core/consts/location_data.dart';
 import 'package:pharmacy_app/core/extensions/app_design_system_ext.dart';
 import 'package:pharmacy_app/core/extensions/input_validator_error_ext.dart';
 import 'package:pharmacy_app/core/extensions/localization_ext.dart';
-import 'package:pharmacy_app/core/router/app_routes_keys.dart';
 import 'package:pharmacy_app/core/utils/validator/validators_manager.dart';
 import 'package:pharmacy_app/core/widgets/custom_button.dart';
 import 'package:pharmacy_app/core/widgets/custom_text_field.dart';
-import 'package:pharmacy_app/features/authentication/data/models/register_details_model.dart';
 
 import 'package:pharmacy_app/features/authentication/presentation/widgets/auth_prompt_row.dart';
 import 'package:pharmacy_app/features/authentication/presentation/widgets/register/terms_and_conditions_row.dart';
@@ -74,19 +72,36 @@ class _RegisterDetailsBodyState extends State<RegisterDetailsBody> {
   void _onContinue() {
     if (formKey.currentState?.validate() ?? false) {
       FocusManager.instance.primaryFocus?.unfocus();
-      context.push(
-        AppRoutesKeys.registerCredentials,
-        extra: RegisterDetailsModel(
-          firstName: firstNameController.text.trim(),
-          lastName: lastNameController.text.trim(),
-          phoneNumber: phoneController.text.trim(),
-          pharmacyName: pharmacyNameController.text.trim(),
-          governorate: selectedGovernorate.value!,
-          city: selectedCity.value!,
-          detailedAddress: detailedAddressController.text.trim(),
-          pharmacyLicense: pharmacyLicenseController.text.trim(),
-        ),
+
+      final govKey = selectedGovernorate.value;
+      final cityKey = selectedCity.value;
+
+      final govId = govKey == null
+          ? null
+          : LocationData.getGovernorateId(govKey);
+      final cityId = (govKey == null || cityKey == null)
+          ? null
+          : LocationData.getCityId(govKey, cityKey);
+
+      if (govId == null || cityId == null) {
+        return;
+      }
+      debugPrint(
+        "Governorate ID: $govId, City ID: $cityId ,firstName: ${firstNameController.text.trim()}, lastName: ${lastNameController.text.trim()}, phone: ${phoneController.text.trim()}, pharmacyName: ${pharmacyNameController.text.trim()}, detailedAddress: ${detailedAddressController.text.trim()}, pharmacyLicense: ${pharmacyLicenseController.text.trim()}",
       );
+      // context.push(
+      //   AppRoutesKeys.registerCredentials,
+      //   extra: RegisterDetailsModel(
+      //     firstName: firstNameController.text.trim(),
+      //     lastName: lastNameController.text.trim(),
+      //     phoneNumber: phoneController.text.trim(),
+      //     pharmacyName: pharmacyNameController.text.trim(),
+      //     governorateID: govId,
+      //     cityID: cityId,
+      //     detailedAddress: detailedAddressController.text.trim(),
+      //     pharmacyLicense: pharmacyLicenseController.text.trim(),
+      //   ),
+      // );
     }
   }
 
@@ -94,7 +109,6 @@ class _RegisterDetailsBodyState extends State<RegisterDetailsBody> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Form(
-        // autovalidateMode: AutoValidateMode.,
         key: formKey,
         child: Padding(
           padding: context.pHorizontal,
@@ -202,7 +216,7 @@ class _RegisterDetailsBodyState extends State<RegisterDetailsBody> {
                             label: context.tr.auth_governorate_label,
                             initialValue: governorate,
                             hint: context.tr.auth_governorate_label,
-                            items: LocationData.governorates,
+                            items: LocationData.getGovernorateKeys(),
                             isGovernorate: true,
                             enabled: true,
                             onChanged: (value) {
@@ -234,7 +248,7 @@ class _RegisterDetailsBodyState extends State<RegisterDetailsBody> {
                                 hint: context.tr.auth_city_label,
                                 items: governorate == null
                                     ? []
-                                    : LocationData.getCities(governorate),
+                                    : LocationData.getCitiesKeys(governorate),
                                 isGovernorate: false,
                                 governorateKey: governorate,
                                 enabled: governorate != null,

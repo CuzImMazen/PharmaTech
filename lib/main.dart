@@ -17,6 +17,7 @@ import 'package:pharmacy_app/core/token/token_store.dart';
 import 'package:pharmacy_app/core/theme/app_theme.dart';
 import 'package:pharmacy_app/features/authentication/data/repo/auth_repository.dart';
 import 'package:pharmacy_app/l10n/app_localizations.dart';
+import 'package:pharmacy_app/l10n/locations/location_localizations.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -96,6 +97,7 @@ class PharmacyApp extends StatelessWidget {
       supportedLocales: const [Locale('ar'), Locale('en')],
       localizationsDelegates: const [
         AppLocalizations.delegate,
+        LocationLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,

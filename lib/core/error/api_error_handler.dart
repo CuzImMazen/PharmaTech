@@ -4,6 +4,9 @@ import 'package:pharmacy_app/core/error/failure_types.dart';
 
 class ApiErrorHandler {
   static Failure handle(dynamic error) {
+    if (error is Failure) {
+      return error;
+    }
     if (error is DioException) {
       switch (error.type) {
         case DioExceptionType.connectionTimeout:

@@ -1,14 +1,12 @@
 import 'package:dartz/dartz.dart';
-import 'package:dio/dio.dart';
 
-import 'package:pharmacy_app/core/error/failure.dart';
 import 'package:pharmacy_app/core/error/api_error_handler.dart';
+import 'package:pharmacy_app/core/error/failure.dart';
 import 'package:pharmacy_app/core/network/api_parser.dart';
 import 'package:pharmacy_app/core/network/api_routes.dart';
 import 'package:pharmacy_app/core/network/dio_helper.dart';
 import 'package:pharmacy_app/core/storage/secure/secure_storage_service.dart';
 import 'package:pharmacy_app/features/authentication/data/models/login_response_model.dart';
-
 import 'package:pharmacy_app/features/authentication/data/models/register_request_model.dart';
 
 import 'auth_repository.dart';
@@ -33,6 +31,7 @@ class AuthRepositoryImpl implements AuthRepository {
       final response = await api.post(
         ApiRoutes.login,
         data: {'email': email, 'password': password, 'device_name': deviceName},
+        skipAuth: true,
       );
 
       final model = ApiParser.parseWrapped(
@@ -42,8 +41,6 @@ class AuthRepositoryImpl implements AuthRepository {
       );
 
       return Right(model);
-    } on ParsingFailure catch (e) {
-      return Left(e);
     } catch (e) {
       return Left(ApiErrorHandler.handle(e));
     }
@@ -52,13 +49,21 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<Either<Failure, void>> register(RegisterRequestModel model) async {
     try {
-      await api.post(ApiRoutes.register, data: model.toJson(), skipAuth: true);
+      final response = await api.post(
+        ApiRoutes.register,
+        data: model.toJson(),
+        skipAuth: true,
+      );
+
+      // Expected response shape:
+      // {
+      //   "message": "Registration successful"
+      // }
+      ApiParser.parse<Map<String, dynamic>>(response.data, (json) => json);
 
       return const Right(null);
-    } on DioException catch (e) {
+    } catch (e) {
       return Left(ApiErrorHandler.handle(e));
-    } catch (_) {
-      return const Left(UnknownFailure());
     }
   }
 
@@ -68,7 +73,7 @@ class AuthRepositoryImpl implements AuthRepository {
     String? deviceName,
   }) async {
     try {
-      await api.post(
+      final response = await api.post(
         ApiRoutes.refresh,
         data: {
           'refresh_token': refreshToken,
@@ -77,36 +82,44 @@ class AuthRepositoryImpl implements AuthRepository {
         skipAuth: true,
       );
 
+      // Expected response shape:
+      // {
+      //   "message": "Token refreshed"
+      // }
+      ApiParser.parse<Map<String, dynamic>>(response.data, (json) => json);
+
       return const Right(null);
-    } on DioException catch (e) {
+    } catch (e) {
       return Left(ApiErrorHandler.handle(e));
-    } catch (_) {
-      return const Left(UnknownFailure());
     }
   }
 
   @override
   Future<Either<Failure, void>> logout({String? refreshToken}) async {
     try {
-      await api.post(ApiRoutes.logout, data: {'refresh_token': refreshToken});
+      final response = await api.post(
+        ApiRoutes.logout,
+        data: {'refresh_token': refreshToken},
+      );
+
+      ApiParser.parse<Map<String, dynamic>>(response.data, (json) => json);
 
       return const Right(null);
-    } on DioException catch (e) {
+    } catch (e) {
       return Left(ApiErrorHandler.handle(e));
-    } catch (_) {
-      return const Left(UnknownFailure());
     }
   }
 
   @override
   Future<Either<Failure, void>> logoutAll() async {
     try {
-      await api.post(ApiRoutes.logoutAll);
+      final response = await api.post(ApiRoutes.logoutAll);
+
+      ApiParser.parse<Map<String, dynamic>>(response.data, (json) => json);
+
       return const Right(null);
-    } on DioException catch (e) {
+    } catch (e) {
       return Left(ApiErrorHandler.handle(e));
-    } catch (_) {
-      return const Left(UnknownFailure());
     }
   }
 
@@ -120,12 +133,13 @@ class AuthRepositoryImpl implements AuthRepository {
     required String hash,
   }) async {
     try {
-      await api.get('/verify-email/$id/$hash', skipAuth: true);
+      final response = await api.get('/verify-email/$id/$hash', skipAuth: true);
+
+      ApiParser.parse<Map<String, dynamic>>(response.data, (json) => json);
+
       return const Right(null);
-    } on DioException catch (e) {
+    } catch (e) {
       return Left(ApiErrorHandler.handle(e));
-    } catch (_) {
-      return const Left(UnknownFailure());
     }
   }
 
@@ -134,17 +148,17 @@ class AuthRepositoryImpl implements AuthRepository {
     required String email,
   }) async {
     try {
-      await api.post(
+      final response = await api.post(
         ApiRoutes.emailResend,
         data: {'email': email},
         skipAuth: true,
       );
 
+      ApiParser.parse<Map<String, dynamic>>(response.data, (json) => json);
+
       return const Right(null);
-    } on DioException catch (e) {
+    } catch (e) {
       return Left(ApiErrorHandler.handle(e));
-    } catch (_) {
-      return const Left(UnknownFailure());
     }
   }
 
@@ -155,17 +169,17 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<Either<Failure, void>> forgotPassword({required String email}) async {
     try {
-      await api.post(
+      final response = await api.post(
         ApiRoutes.forgotPassword,
         data: {'email': email},
         skipAuth: true,
       );
 
+      ApiParser.parse<Map<String, dynamic>>(response.data, (json) => json);
+
       return const Right(null);
-    } on DioException catch (e) {
+    } catch (e) {
       return Left(ApiErrorHandler.handle(e));
-    } catch (_) {
-      return const Left(UnknownFailure());
     }
   }
 
@@ -177,7 +191,7 @@ class AuthRepositoryImpl implements AuthRepository {
     required String token,
   }) async {
     try {
-      await api.post(
+      final response = await api.post(
         ApiRoutes.resetPassword,
         data: {
           'email': email,
@@ -188,16 +202,16 @@ class AuthRepositoryImpl implements AuthRepository {
         skipAuth: true,
       );
 
+      ApiParser.parse<Map<String, dynamic>>(response.data, (json) => json);
+
       return const Right(null);
-    } on DioException catch (e) {
+    } catch (e) {
       return Left(ApiErrorHandler.handle(e));
-    } catch (_) {
-      return const Left(UnknownFailure());
     }
   }
 
   // =====================================================
-  // 🧠 TOKEN STORAGE (implement later with SecureStorage)
+  // 🧠 TOKEN STORAGE
   // =====================================================
 
   @override

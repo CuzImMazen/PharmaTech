@@ -16,6 +16,7 @@ class ApiRoutes {
 
   static const String governorates = '/governorates';
   static const String cities = '/cities';
+  static const String governorateWithCities = '/governorates-cities';
 
   // ================= EMAIL ================= //
 
