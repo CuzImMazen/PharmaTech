@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter/foundation.dart';
 import 'package:pharmacy_app/core/error/failure.dart';
 import 'package:pharmacy_app/core/token/token_store.dart';
 import 'package:pharmacy_app/features/authentication/cubit/login/login_state.dart';
@@ -97,7 +98,9 @@ class LoginCubit extends Cubit<LoginState> {
           emit(LoginState.success(response));
         },
       );
-    } catch (_) {
+    } catch (e, stackTrace) {
+      debugPrint('Google sign-in failed: $e');
+      debugPrintStack(stackTrace: stackTrace);
       if (isClosed) return;
       emit(LoginState.failure(const UnknownFailure()));
     }

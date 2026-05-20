@@ -23,6 +23,7 @@ Future<void> setupLocator() async {
   // ==========================================================
 
   final sharedPrefsService = await SharedPrefsService().init();
+  final googleWebClientId = dotenv.env['GOOGLE_WEB_CLIENT_ID']?.trim();
 
   sl.registerSingleton<SharedPrefsService>(sharedPrefsService);
   sl.registerSingleton<SecureStorageService>(SecureStorageService());
@@ -30,7 +31,9 @@ Future<void> setupLocator() async {
   sl.registerLazySingleton<GoogleSignIn>(
     () => GoogleSignIn(
       scopes: const ['email', 'profile'],
-      serverClientId: dotenv.env['GOOGLE_WEB_CLIENT_ID'],
+      serverClientId: (googleWebClientId == null || googleWebClientId.isEmpty)
+          ? null
+          : googleWebClientId,
     ),
   );
   sl.registerLazySingleton<GoogleSignInService>(
