@@ -31,9 +31,9 @@ Future<void> setupLocator() async {
   sl.registerLazySingleton<GoogleSignIn>(
     () => GoogleSignIn(
       scopes: const ['email', 'profile'],
-      serverClientId: (googleWebClientId == null || googleWebClientId.isEmpty)
-          ? null
-          : googleWebClientId,
+      serverClientId: googleWebClientId?.isNotEmpty == true
+          ? googleWebClientId
+          : null,
     ),
   );
   sl.registerLazySingleton<GoogleSignInService>(
