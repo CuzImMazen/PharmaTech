@@ -18,7 +18,7 @@ class AuthRepositoryImpl implements AuthRepository {
   final SecureStorageService secureStorageService;
 
   // =====================================================
-  // 🔐 AUTH
+  //  AUTH
   // =====================================================
 
   @override
@@ -124,7 +124,7 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   // =====================================================
-  // 📧 EMAIL
+  //  EMAIL
   // =====================================================
 
   @override
@@ -163,7 +163,7 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   // =====================================================
-  // 🔑 PASSWORD
+  //  PASSWORD
   // =====================================================
 
   @override
@@ -211,7 +211,7 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   // =====================================================
-  // 🧠 TOKEN STORAGE
+  //  TOKEN STORAGE
   // =====================================================
 
   @override

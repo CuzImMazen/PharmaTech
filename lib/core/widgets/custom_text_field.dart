@@ -23,6 +23,7 @@ class CustomTextField extends StatefulWidget {
     this.onFieldSubmitted,
     this.height,
     this.onlyLetters = false,
+    this.enabled = true, // Added
   });
 
   final String hintText;
@@ -42,6 +43,7 @@ class CustomTextField extends StatefulWidget {
   final void Function()? onEditingComplete;
   final void Function(String)? onFieldSubmitted;
   final double? height;
+  final bool enabled; // Added
 
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
@@ -58,13 +60,18 @@ class _CustomTextFieldState extends State<CustomTextField> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(widget.labelText, style: theme.textTheme.titleSmall),
+        Text(
+          widget.labelText,
+          style: theme.textTheme.titleSmall?.copyWith(
+            color: widget.enabled ? null : context.muted,
+          ),
+        ),
         const SizedBox(height: 8),
         SizedBox(
           height: widget.height,
           child: TextFormField(
+            enabled: widget.enabled, // Added
             textAlignVertical: TextAlignVertical.top,
-
             expands: widget.height != null,
             maxLines: widget.height != null ? null : 1,
             minLines: widget.height != null ? null : 1,
@@ -82,7 +89,6 @@ class _CustomTextFieldState extends State<CustomTextField> {
             inputFormatters: [
               if (widget.blockArabic)
                 FilteringTextInputFormatter.deny(RegExp(r'[\u0600-\u06FF]')),
-
               if (widget.keyboardType == TextInputType.phone ||
                   widget.onlyDigits)
                 FilteringTextInputFormatter.digitsOnly,
@@ -91,17 +97,16 @@ class _CustomTextFieldState extends State<CustomTextField> {
                   RegExp(r'[a-zA-Z\u0600-\u06FF\s]'),
                 ),
             ],
-
             style: theme.textTheme.bodyLarge,
-
             decoration: InputDecoration(
               hintText: widget.hintText,
-
               hintStyle: theme.textTheme.bodyLarge?.copyWith(
                 color: context.muted.withValues(alpha: 0.5),
               ),
               filled: true,
-              fillColor: colorScheme.surface,
+              fillColor: widget.enabled
+                  ? colorScheme.surface
+                  : colorScheme.surface.withValues(alpha: 0.6),
               prefixIcon: widget.prefixIcon != null
                   ? Icon(widget.prefixIcon, color: context.muted, size: 22)
                   : null,
@@ -114,8 +119,9 @@ class _CustomTextFieldState extends State<CustomTextField> {
                         color: context.muted,
                         size: 20,
                       ),
-                      onPressed: () =>
-                          setState(() => _obscureText = !_obscureText),
+                      onPressed: widget.enabled
+                          ? () => setState(() => _obscureText = !_obscureText)
+                          : null,
                     )
                   : null,
               contentPadding: const EdgeInsets.symmetric(
@@ -126,6 +132,13 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 borderRadius: BorderRadius.circular(16),
                 borderSide: BorderSide(
                   color: context.muted.withValues(alpha: 0.2),
+                  width: 1.5,
+                ),
+              ),
+              disabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(16),
+                borderSide: BorderSide(
+                  color: context.muted.withValues(alpha: 0.15),
                   width: 1.5,
                 ),
               ),

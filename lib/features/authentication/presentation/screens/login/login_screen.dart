@@ -29,7 +29,7 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: LoginScreenBody());
+    return Scaffold(body: const LoginScreenBody());
   }
 }
 
@@ -152,6 +152,7 @@ class _LoginScreenState extends State<LoginScreenBody> {
                       onEditingComplete: () {
                         _passwordFocusNode.requestFocus();
                       },
+                      enabled: !isLoading,
                     ),
                     context.vLg,
 
@@ -171,6 +172,7 @@ class _LoginScreenState extends State<LoginScreenBody> {
                         )?.localizedMessage(context);
                       },
                       onFieldSubmitted: (_) => _handleLogin(),
+                      enabled: !isLoading,
                     ),
                     context.vMd,
 

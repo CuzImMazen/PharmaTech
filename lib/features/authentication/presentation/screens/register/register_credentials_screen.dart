@@ -151,6 +151,7 @@ class _RegisterCredentialsBodyState extends State<RegisterCredentialsBody> {
                       onEditingComplete: () {
                         _passwordFocusNode.requestFocus();
                       },
+                      enabled: !isLoading,
                     ),
                     context.vLg,
 
@@ -172,6 +173,7 @@ class _RegisterCredentialsBodyState extends State<RegisterCredentialsBody> {
                           value,
                         )?.localizedMessage(context);
                       },
+                      enabled: !isLoading,
                     ),
                     context.vLg,
 
@@ -191,6 +193,7 @@ class _RegisterCredentialsBodyState extends State<RegisterCredentialsBody> {
                           value,
                         )?.localizedMessage(context);
                       },
+                      enabled: !isLoading,
                     ),
                     context.vLg,
                     context.vMd,
