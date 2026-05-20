@@ -12,6 +12,13 @@ abstract class AuthRepository {
     String? deviceName,
   });
 
+  Future<Either<Failure, LoginResponseModel>> loginWithGoogle({
+    required String accessToken,
+    String? idToken,
+    String? serverAuthCode,
+    String? deviceName,
+  });
+
   Future<Either<Failure, void>> register(RegisterRequestModel model);
 
   Future<Either<Failure, void>> refresh({

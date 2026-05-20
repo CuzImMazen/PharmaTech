@@ -217,7 +217,9 @@ class _LoginScreenState extends State<LoginScreenBody> {
                       onPressed: isLoading
                           ? null
                           : () {
-                              // TODO: Handle Google Sign-In logic here
+                              context.read<LoginCubit>().loginWithGoogle(
+                                rememberMe: _rememberMe.value,
+                              );
                             },
                     ),
                     context.vMd,

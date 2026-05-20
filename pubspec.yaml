@@ -53,6 +53,7 @@ dependencies:
   pretty_dio_logger: ^1.4.0
   dartz: ^0.10.1
   app_links: ^7.0.0
+  google_sign_in: ^6.2.1
   
 
 dev_dependencies:

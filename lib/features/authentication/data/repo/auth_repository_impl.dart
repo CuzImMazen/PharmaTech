@@ -47,6 +47,45 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
+  Future<Either<Failure, LoginResponseModel>> loginWithGoogle({
+    required String accessToken,
+    String? idToken,
+    String? serverAuthCode,
+    String? deviceName,
+  }) async {
+    try {
+      final payload = <String, dynamic>{
+        'access_token': accessToken,
+        'device_name': deviceName,
+      };
+
+      if (idToken != null && idToken.isNotEmpty) {
+        payload['id_token'] = idToken;
+      }
+
+      if (serverAuthCode != null && serverAuthCode.isNotEmpty) {
+        payload['server_auth_code'] = serverAuthCode;
+      }
+
+      final response = await api.post(
+        ApiRoutes.googleLogin,
+        data: payload,
+        skipAuth: true,
+      );
+
+      final model = ApiParser.parseWrapped(
+        response.data,
+        'data',
+        LoginResponseModel.fromJson,
+      );
+
+      return Right(model);
+    } catch (e) {
+      return Left(ApiErrorHandler.handle(e));
+    }
+  }
+
+  @override
   Future<Either<Failure, void>> register(RegisterRequestModel model) async {
     try {
       final response = await api.post(

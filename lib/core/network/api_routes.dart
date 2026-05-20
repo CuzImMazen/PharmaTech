@@ -3,6 +3,7 @@ class ApiRoutes {
 
   static const String register = '/register';
   static const String login = '/login';
+  static const String googleLogin = '/login/google';
   static const String refresh = '/refresh';
 
   static const String logout = '/logout';

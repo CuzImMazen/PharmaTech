@@ -1,5 +1,6 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_it/get_it.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 import 'package:pharmacy_app/core/network/auth_interceptor.dart';
 import 'package:pharmacy_app/core/network/dio_helper.dart';
@@ -9,6 +10,7 @@ import 'package:pharmacy_app/core/token/token_store.dart';
 
 import 'package:pharmacy_app/features/authentication/data/repo/auth_repository.dart';
 import 'package:pharmacy_app/features/authentication/data/repo/auth_repository_impl.dart';
+import 'package:pharmacy_app/features/authentication/data/services/google_sign_in_service.dart';
 
 import 'package:pharmacy_app/features/onboarding/data/repo/onboarding_repository.dart';
 import 'package:pharmacy_app/features/onboarding/data/repo/onboarding_repository_impl.dart';
@@ -25,6 +27,15 @@ Future<void> setupLocator() async {
   sl.registerSingleton<SharedPrefsService>(sharedPrefsService);
   sl.registerSingleton<SecureStorageService>(SecureStorageService());
   sl.registerSingleton<TokenStore>(TokenStore());
+  sl.registerLazySingleton<GoogleSignIn>(
+    () => GoogleSignIn(
+      scopes: const ['email', 'profile'],
+      serverClientId: dotenv.env['GOOGLE_WEB_CLIENT_ID'],
+    ),
+  );
+  sl.registerLazySingleton<GoogleSignInService>(
+    () => GoogleSignInService(googleSignIn: sl<GoogleSignIn>()),
+  );
 
   // ==========================================================
   // 2. NETWORK CORE COMPONENTS
