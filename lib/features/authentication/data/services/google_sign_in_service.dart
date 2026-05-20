@@ -8,15 +8,15 @@ class GoogleSignInService {
 
   Future<({String accessToken, String? idToken, String? serverAuthCode})?>
   signIn() async {
-    await _googleSignIn.signOut();
-
     final account = await _googleSignIn.signIn();
     if (account == null) return null;
 
     final auth = await account.authentication;
+    final accessToken = auth.accessToken;
+    if (accessToken == null || accessToken.isEmpty) return null;
 
     return (
-      accessToken: auth.accessToken ?? '',
+      accessToken: accessToken,
       idToken: auth.idToken,
       serverAuthCode: account.serverAuthCode,
     );

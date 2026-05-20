@@ -16,6 +16,7 @@ class LoginCubit extends Cubit<LoginState> {
   final AuthRepository authRepository;
   final TokenStore tokenStore;
   final GoogleSignInService googleSignInService;
+  static const String _deviceName = 'mobile_app';
 
   Future<void> login({
     required String email,
@@ -27,7 +28,7 @@ class LoginCubit extends Cubit<LoginState> {
     final result = await authRepository.login(
       email: email,
       password: password,
-      deviceName: 'mobile_app',
+      deviceName: _deviceName,
     );
 
     if (isClosed) return;
@@ -66,16 +67,11 @@ class LoginCubit extends Cubit<LoginState> {
         return;
       }
 
-      if (googleAuth.accessToken.isEmpty) {
-        emit(LoginState.failure(const UnknownFailure()));
-        return;
-      }
-
       final result = await authRepository.loginWithGoogle(
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
         serverAuthCode: googleAuth.serverAuthCode,
-        deviceName: 'mobile_app',
+        deviceName: _deviceName,
       );
 
       if (isClosed) return;
