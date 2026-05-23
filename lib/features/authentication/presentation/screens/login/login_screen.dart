@@ -93,11 +93,19 @@ class _LoginScreenState extends State<LoginScreenBody> {
       listener: (context, state) {
         state.maybeWhen(
           success: (response) {
-            AppSnackbar.success(message: context.tr.auth_login_success);
-            context.read<SessionCubit>().setAuthenticated(
-              response.accessToken,
-              response.refreshToken,
-            );
+            final bool isExistingUser =
+                response.pharmacy != null || response.isNewUser == false;
+
+            if (isExistingUser) {
+              AppSnackbar.success(message: context.tr.auth_login_success);
+              context.read<SessionCubit>().setAuthenticated(
+                response.accessToken,
+                response.refreshToken,
+              );
+            } else {
+              AppSnackbar.success(message: "workiiiiiiing");
+              // navigate to complete profile
+            }
           },
           failure: (failure) {
             if (failure case AuthFailure(
