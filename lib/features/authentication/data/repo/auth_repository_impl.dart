@@ -54,7 +54,7 @@ class AuthRepositoryImpl implements AuthRepository {
     try {
       final response = await api.post(
         ApiRoutes.googleLogin,
-        data: {'token': idToken, 'device_name': deviceName},
+        data: {'id_token': idToken, 'device_name': deviceName},
         skipAuth: true,
       );
 

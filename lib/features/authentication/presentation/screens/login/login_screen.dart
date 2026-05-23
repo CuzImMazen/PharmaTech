@@ -6,13 +6,11 @@ import 'package:pharmacy_app/core/app/session/session_cubit.dart';
 import 'package:pharmacy_app/core/error/failure.dart';
 import 'package:pharmacy_app/core/error/failure_types.dart';
 import 'package:pharmacy_app/core/extensions/failure_message_localization_ext.dart';
-
 import 'package:pharmacy_app/core/extensions/input_validator_error_ext.dart';
 import 'package:pharmacy_app/core/extensions/localization_ext.dart';
 import 'package:pharmacy_app/core/extensions/app_design_system_ext.dart';
 import 'package:pharmacy_app/core/router/app_routes_keys.dart';
 import 'package:pharmacy_app/core/utils/messages/snackbar.dart';
-
 import 'package:pharmacy_app/core/utils/validator/validators_manager.dart';
 import 'package:pharmacy_app/core/widgets/custom_button.dart';
 import 'package:pharmacy_app/core/widgets/custom_text_field.dart';
@@ -47,14 +45,11 @@ class _LoginScreenState extends State<LoginScreenBody> {
   late final TextEditingController passwordController;
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
   final FocusNode _passwordFocusNode = FocusNode();
-
   final ValueNotifier<bool> _rememberMe = ValueNotifier<bool>(false);
 
   void _handleLogin() {
     FocusScope.of(context).unfocus();
-
     if (formKey.currentState?.validate() ?? false) {
       context.read<LoginCubit>().login(
         email: emailController.text,
@@ -65,7 +60,7 @@ class _LoginScreenState extends State<LoginScreenBody> {
   }
 
   @override
-  initState() {
+  void initState() {
     super.initState();
     emailController = TextEditingController();
     passwordController = TextEditingController();
@@ -82,10 +77,17 @@ class _LoginScreenState extends State<LoginScreenBody> {
 
   @override
   Widget build(BuildContext context) {
-    final isLoading = context.select<LoginCubit, bool>(
+    final isEmailLoading = context.select<LoginCubit, bool>(
       (cubit) =>
           cubit.state.maybeWhen(loading: () => true, orElse: () => false),
     );
+
+    final isGoogleLoading = context.select<LoginCubit, bool>(
+      (cubit) =>
+          cubit.state.maybeWhen(googleLoading: () => true, orElse: () => false),
+    );
+
+    final isAnyLoading = isEmailLoading || isGoogleLoading;
 
     return BlocListener<LoginCubit, LoginState>(
       listener: (context, state) {
@@ -100,7 +102,6 @@ class _LoginScreenState extends State<LoginScreenBody> {
           failure: (failure) {
             if (failure case AuthFailure(
               type: AuthFailureType.emailNotVerified,
-              message: _,
             )) {
               context.push(
                 AppRoutesKeys.verificationSent,
@@ -108,17 +109,15 @@ class _LoginScreenState extends State<LoginScreenBody> {
               );
               return;
             }
-
             AppSnackbar.failure(message: failure.localizedMessage(context));
           },
           orElse: () {},
         );
       },
       child: PopScope(
-        canPop: !isLoading,
+        canPop: !isAnyLoading,
         child: SafeArea(
           child: Form(
-            autovalidateMode: AutovalidateMode.disabled,
             key: formKey,
             child: Padding(
               padding: context.pHorizontal,
@@ -144,15 +143,12 @@ class _LoginScreenState extends State<LoginScreenBody> {
                       hintText: "example@example.com",
                       prefixIcon: LucideIcons.mail,
                       controller: emailController,
-                      validator: (value) {
-                        return ValidatorsManager.emailValidator(
-                          value,
-                        )?.localizedMessage(context);
-                      },
-                      onEditingComplete: () {
-                        _passwordFocusNode.requestFocus();
-                      },
-                      enabled: !isLoading,
+                      validator: (value) => ValidatorsManager.emailValidator(
+                        value,
+                      )?.localizedMessage(context),
+                      onEditingComplete: () =>
+                          _passwordFocusNode.requestFocus(),
+                      enabled: !isAnyLoading,
                     ),
                     context.vLg,
 
@@ -166,36 +162,30 @@ class _LoginScreenState extends State<LoginScreenBody> {
                       prefixIcon: LucideIcons.lock,
                       focusNode: _passwordFocusNode,
                       controller: passwordController,
-                      validator: (value) {
-                        return ValidatorsManager.passwordValidator(
-                          value,
-                        )?.localizedMessage(context);
-                      },
+                      validator: (value) => ValidatorsManager.passwordValidator(
+                        value,
+                      )?.localizedMessage(context),
                       onFieldSubmitted: (_) => _handleLogin(),
-                      enabled: !isLoading,
+                      enabled: !isAnyLoading,
                     ),
                     context.vMd,
 
                     // Remember Me
                     ValueListenableBuilder<bool>(
                       valueListenable: _rememberMe,
-                      builder: (_, rememberMe, _) {
-                        return RememberMeRow(
-                          value: rememberMe,
-                          onChanged: isLoading
-                              ? null
-                              : (value) {
-                                  _rememberMe.value = value ?? false;
-                                },
-                        );
-                      },
+                      builder: (_, rememberMe, _) => RememberMeRow(
+                        value: rememberMe,
+                        onChanged: isAnyLoading
+                            ? null
+                            : (value) => _rememberMe.value = value ?? false,
+                      ),
                     ),
                     context.vMd,
 
                     // Login Button
                     AnimatedSwitcher(
                       duration: const Duration(milliseconds: 300),
-                      child: isLoading
+                      child: isEmailLoading
                           ? SizedBox(
                               height: context.btnLg,
                               child: const Center(
@@ -203,7 +193,7 @@ class _LoginScreenState extends State<LoginScreenBody> {
                               ),
                             )
                           : CustomButton(
-                              onTap: _handleLogin,
+                              onTap: isAnyLoading ? null : _handleLogin,
                               text: context.tr.auth_login_button,
                             ),
                     ),
@@ -214,11 +204,10 @@ class _LoginScreenState extends State<LoginScreenBody> {
 
                     // Google Sign In
                     ContinueWithGoogleButton(
-                      onPressed: isLoading
+                      isLoading: isGoogleLoading,
+                      onPressed: isAnyLoading
                           ? null
-                          : () {
-                              // TODO: Handle Google Sign-In logic here
-                            },
+                          : () => context.read<LoginCubit>().loginWithGoogle(),
                     ),
                     context.vMd,
 
@@ -226,7 +215,7 @@ class _LoginScreenState extends State<LoginScreenBody> {
                     AuthPromptRow(
                       promptText: context.tr.auth_no_account,
                       actionText: context.tr.auth_create_account,
-                      onPressed: isLoading
+                      onPressed: isAnyLoading
                           ? null
                           : () {
                               context.push(AppRoutesKeys.registerDetails);
@@ -234,7 +223,6 @@ class _LoginScreenState extends State<LoginScreenBody> {
                               formKey.currentState?.reset();
                             },
                     ),
-
                     context.vLg,
                   ],
                 ),
