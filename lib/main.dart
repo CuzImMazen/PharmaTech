@@ -45,12 +45,17 @@ void main() async {
     sessionCubit.setUnauthenticated();
   }
 
+  // Inilize App state notifier with session cubit and onboarding repository
   final appState = AppStateNotifier(
     sessionCubit: sessionCubit,
     onboardingRepository: sl(),
   );
 
+  // Initialize the router with the app state notifier
   AppRouter.init(appState);
+  // Initialize deep link service with the router
+  final deepLinkService = DeepLinkService(AppRouter.router);
+  await deepLinkService.init();
 
   runApp(
     MultiProvider(
@@ -64,8 +69,6 @@ void main() async {
       ),
     ),
   );
-  final deepLinkService = DeepLinkService(AppRouter.router);
-  await deepLinkService.init();
 }
 
 class PharmacyApp extends StatelessWidget {

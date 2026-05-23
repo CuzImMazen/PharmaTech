@@ -93,8 +93,8 @@ class _LoginScreenState extends State<LoginScreenBody> {
           success: (response) {
             AppSnackbar.success(message: context.tr.auth_login_success);
             context.read<SessionCubit>().setAuthenticated(
-              response.user.accessToken,
-              response.user.refreshToken,
+              response.accessToken,
+              response.refreshToken,
             );
           },
           failure: (failure) {

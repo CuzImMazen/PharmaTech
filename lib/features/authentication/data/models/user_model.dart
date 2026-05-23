@@ -16,30 +16,20 @@ class UserModel {
   final String lastName;
 
   @JsonKey(name: 'phone_number')
-  final String phoneNumber;
+  final String? phoneNumber;
 
-  @JsonKey(name: 'access_token')
-  final String accessToken;
-
-  @JsonKey(name: 'refresh_token')
-  final String refreshToken;
-
-  @JsonKey(name: 'token_type')
-  final String tokenType;
+  final String? avatar;
 
   UserModel({
     required this.email,
     required this.firstName,
     this.fatherName,
     required this.lastName,
-    required this.phoneNumber,
-    required this.accessToken,
-    required this.refreshToken,
-    required this.tokenType,
+    this.phoneNumber,
+    this.avatar,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) =>
       _$UserModelFromJson(json);
-
   Map<String, dynamic> toJson() => _$UserModelToJson(this);
 }

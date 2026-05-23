@@ -97,6 +97,13 @@ class ApiErrorHandler {
             message: serverMessage,
           );
         }
+        if (serverMessage.contains("Google")) {
+          return AuthFailure(
+            AuthFailureType.googleSignInFailed,
+            message: serverMessage,
+          );
+        }
+
         return const SessionExpiredFailure();
       }
 

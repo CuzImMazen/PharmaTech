@@ -12,6 +12,11 @@ abstract class AuthRepository {
     String? deviceName,
   });
 
+  Future<Either<Failure, LoginResponseModel>> loginWithGoogle({
+    required String idToken,
+    String? deviceName,
+  });
+
   Future<Either<Failure, void>> register(RegisterRequestModel model);
 
   Future<Either<Failure, void>> refresh({
@@ -23,12 +28,7 @@ abstract class AuthRepository {
 
   Future<Either<Failure, void>> logoutAll();
 
-  // ================= EMAIL ================= //
-
-  Future<Either<Failure, void>> verifyEmail({
-    required int id,
-    required String hash,
-  });
+  // ================= EMAIL Verification ================= //
 
   Future<Either<Failure, void>> resendVerificationEmail({
     required String email,

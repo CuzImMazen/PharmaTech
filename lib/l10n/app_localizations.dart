@@ -179,6 +179,12 @@ abstract class AppLocalizations {
   /// **'This verification link is invalid or has expired.'**
   String get auth_action_denied;
 
+  /// No description provided for @auth_google_sign_in_failed.
+  ///
+  /// In en, this message translates to:
+  /// **'Google sign-in failed. Please try again.'**
+  String get auth_google_sign_in_failed;
+
   /// No description provided for @splash_title.
   ///
   /// In en, this message translates to:

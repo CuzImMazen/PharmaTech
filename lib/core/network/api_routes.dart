@@ -3,6 +3,7 @@ class ApiRoutes {
 
   static const String register = '/register';
   static const String login = '/login';
+  static const String googleLogin = '/auth/google';
   static const String refresh = '/refresh';
 
   static const String logout = '/logout';
@@ -18,14 +19,11 @@ class ApiRoutes {
   static const String cities = '/cities';
   static const String governorateWithCities = '/governorates-cities';
 
-  // ================= EMAIL ================= //
-
-  static const String emailVerify = '/email/verify';
-  // usage: /email/verify/{id}/{hash}
+  // ================= EMAIL Veriication ================= //
 
   static const String emailResend = '/email/resend';
 
-  // ================= PASSWORD ================= //
+  // ================= PASSWORD  Recovery ================= //
 
   static const String forgotPassword = '/password/forgot';
 

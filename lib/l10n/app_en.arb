@@ -24,6 +24,7 @@
   "auth_email_not_verified": "Please verify your email first. A new activation link has been sent to your inbox.",
   "auth_invalid_reset_token": "This password reset token is invalid or has expired.",
   "auth_action_denied": "This verification link is invalid or has expired.",
+  "auth_google_sign_in_failed": "Google sign-in failed. Please try again.",
 
   "splash_title": "Pharmacy App",
   "splash_subtitle": "Pharmacy management system",

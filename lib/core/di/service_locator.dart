@@ -3,6 +3,7 @@ import 'package:get_it/get_it.dart';
 
 import 'package:pharmacy_app/core/network/auth_interceptor.dart';
 import 'package:pharmacy_app/core/network/dio_helper.dart';
+import 'package:pharmacy_app/core/services/google_auth_service.dart';
 import 'package:pharmacy_app/core/storage/prefs/shared_prefs_service.dart';
 import 'package:pharmacy_app/core/storage/secure/secure_storage_service.dart';
 import 'package:pharmacy_app/core/token/token_store.dart';
@@ -20,9 +21,16 @@ Future<void> setupLocator() async {
   // 1. SERVICES & STORAGE
   // ==========================================================
 
+  // Initialize and register Shared Preferences
   final sharedPrefsService = await SharedPrefsService().init();
-
   sl.registerSingleton<SharedPrefsService>(sharedPrefsService);
+
+  // Initialize and register  Google Auth Service
+  final googleAuthService = GoogleAuthService();
+  await googleAuthService.init();
+  sl.registerSingleton<GoogleAuthService>(googleAuthService);
+
+  // Register secure storage and token store
   sl.registerSingleton<SecureStorageService>(SecureStorageService());
   sl.registerSingleton<TokenStore>(TokenStore());
 

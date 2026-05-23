@@ -35,7 +35,11 @@ class AppRoutes {
     GoRoute(
       path: AppRoutesKeys.login,
       builder: (context, state) => BlocProvider<LoginCubit>(
-        create: (context) => LoginCubit(authRepository: sl(), tokenStore: sl()),
+        create: (context) => LoginCubit(
+          authRepository: sl(),
+          tokenStore: sl(),
+          googleAuthService: sl(),
+        ),
         child: const LoginScreen(),
       ),
     ),

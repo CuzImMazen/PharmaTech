@@ -83,8 +83,10 @@ class _ForgetPasswordBodyState extends State<ForgetPasswordBody> {
             child: Form(
               key: _formKey,
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.max,
                 children: [
-                  context.vXxl,
+                  context.vHuge,
 
                   // Header
                   IconContainer(icon: LucideIcons.keyRound400),

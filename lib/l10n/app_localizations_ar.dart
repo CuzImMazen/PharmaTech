@@ -53,6 +53,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get auth_action_denied => 'رابط التحقق هذا غير صالح أو انتهت صلاحيته.';
 
   @override
+  String get auth_google_sign_in_failed => 'فشل تسجيل الدخول باستخدام Google. يرجى المحاولة مرة أخرى.';
+
+  @override
   String get splash_title => 'صيدليتي';
 
   @override

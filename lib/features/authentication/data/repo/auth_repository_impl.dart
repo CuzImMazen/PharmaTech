@@ -47,6 +47,30 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
+  Future<Either<Failure, LoginResponseModel>> loginWithGoogle({
+    required String idToken,
+    String? deviceName,
+  }) async {
+    try {
+      final response = await api.post(
+        ApiRoutes.googleLogin,
+        data: {'token': idToken, 'device_name': deviceName},
+        skipAuth: true,
+      );
+
+      final model = ApiParser.parseWrapped(
+        response.data,
+        'data',
+        LoginResponseModel.fromJson,
+      );
+
+      return Right(model);
+    } catch (e) {
+      return Left(ApiErrorHandler.handle(e));
+    }
+  }
+
+  @override
   Future<Either<Failure, void>> register(RegisterRequestModel model) async {
     try {
       final response = await api.post(
@@ -126,22 +150,6 @@ class AuthRepositoryImpl implements AuthRepository {
   // =====================================================
   //  EMAIL
   // =====================================================
-
-  @override
-  Future<Either<Failure, void>> verifyEmail({
-    required int id,
-    required String hash,
-  }) async {
-    try {
-      final response = await api.get('/verify-email/$id/$hash', skipAuth: true);
-
-      ApiParser.parse<Map<String, dynamic>>(response.data, (json) => json);
-
-      return const Right(null);
-    } catch (e) {
-      return Left(ApiErrorHandler.handle(e));
-    }
-  }
 
   @override
   Future<Either<Failure, void>> resendVerificationEmail({

@@ -53,6 +53,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get auth_action_denied => 'This verification link is invalid or has expired.';
 
   @override
+  String get auth_google_sign_in_failed => 'Google sign-in failed. Please try again.';
+
+  @override
   String get splash_title => 'Pharmacy App';
 
   @override

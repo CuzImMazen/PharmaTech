@@ -37,7 +37,7 @@
                     android:host="reset-password" />
             </intent-filter>
 
-            <!-- EMAIL VERIFICATION (ADD THIS) -->
+            <!-- EMAIL VERIFICATION  -->
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
