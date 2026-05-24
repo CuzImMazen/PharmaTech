@@ -21,17 +21,21 @@ import 'package:pharmacy_app/features/authentication/presentation/widgets/regist
 import 'package:pharmacy_app/features/authentication/presentation/widgets/top_section.dart';
 
 class CompleteProfileScreen extends StatelessWidget {
-  const CompleteProfileScreen({super.key});
-
+  const CompleteProfileScreen({super.key, this.firstName, this.lastName});
+  final String? firstName;
+  final String? lastName;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: CompleteProfileBody());
+    return Scaffold(
+      body: CompleteProfileBody(firstName: firstName, lastName: lastName),
+    );
   }
 }
 
 class CompleteProfileBody extends StatefulWidget {
-  const CompleteProfileBody({super.key});
-
+  const CompleteProfileBody({super.key, this.firstName, this.lastName});
+  final String? firstName;
+  final String? lastName;
   @override
   State<CompleteProfileBody> createState() => _CompleteProfileBodyState();
 }
@@ -52,8 +56,8 @@ class _CompleteProfileBodyState extends State<CompleteProfileBody> {
   @override
   void initState() {
     super.initState();
-    firstNameController = TextEditingController();
-    lastNameController = TextEditingController();
+    firstNameController = TextEditingController(text: widget.firstName);
+    lastNameController = TextEditingController(text: widget.lastName);
     phoneController = TextEditingController();
     pharmacyNameController = TextEditingController();
     addressController = TextEditingController();
@@ -347,7 +351,9 @@ class _CompleteProfileBodyState extends State<CompleteProfileBody> {
                                     ),
                                   )
                                 : CustomButton(
-                                    onTap: isLoading ? null : _onContinue,
+                                    onTap: isLoading || !value
+                                        ? null
+                                        : _onContinue,
                                     text: context.tr.auth_login_button,
                                   ),
                           ),

@@ -316,12 +316,6 @@ class _RegisterDetailsBodyState extends State<RegisterDetailsBody> {
                           },
                         ),
                         context.vSm,
-                        // ButtonsFooter(
-                        //   onBack: () {
-                        //     context.pop();
-                        //   },
-                        //   onContinue: value ? _onContinue : null,
-                        // ),
                         CustomButton(
                           onTap: value ? _onContinue : null,
                           child: Row(

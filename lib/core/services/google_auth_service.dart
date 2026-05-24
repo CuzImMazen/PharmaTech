@@ -1,5 +1,6 @@
 // core/services/google_auth_service.dart
 import 'package:dartz/dartz.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:pharmacy_app/core/error/failure.dart';
@@ -14,7 +15,6 @@ class GoogleAuthService {
     );
   }
 
-  // core/services/google_auth_service.dart
   Future<Either<Failure, String?>> getGoogleIdToken() async {
     try {
       final googleUser = await _googleSignIn.authenticate();
@@ -31,6 +31,36 @@ class GoogleAuthService {
       }
 
       return Right(idToken);
+    } on GoogleSignInException catch (e) {
+      if (e.code == GoogleSignInExceptionCode.canceled) {
+        return Left(
+          AuthFailure(
+            AuthFailureType.googleSignInCanceled,
+            message: 'Google sign-in was canceled by the user.',
+          ),
+        );
+      }
+      return Left(
+        AuthFailure(
+          AuthFailureType.googleSignInFailed,
+          message: 'Google sign-in failed',
+        ),
+      );
+    } on PlatformException catch (e) {
+      if (e.code == 'sign_in_canceled') {
+        return Left(
+          AuthFailure(
+            AuthFailureType.googleSignInCanceled,
+            message: 'Google sign-in was canceled by the user.',
+          ),
+        );
+      }
+      return Left(
+        AuthFailure(
+          AuthFailureType.googleSignInFailed,
+          message: 'Google sign-in failed: ${e.message}',
+        ),
+      );
     } catch (e) {
       return Left(
         AuthFailure(

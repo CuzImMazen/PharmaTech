@@ -133,7 +133,8 @@
   "changed_your_mind": "غيرت رأيك؟ اذهب إلى "
   ,"complete_profile_title": "أكمل تفاصيل حسابك"
   ,"complete_profile_btn": "أكمل الملف الشخصي"
-  ,"sign_in_with_google_success": "تم تسجيل الدخول باستخدام Google بنجاح، يرجى إكمال تفاصيل حسابك للمتابعة"
+  ,"signin_success_no_details": "تم تسجيل الدخول بنجاح يرجى إكمال تفاصيل حسابك للمتابعة"
   , "complete_profile_success": "تم إكمال الملف الشخصي بنجاح. يمكنك الآن الوصول إلى التطبيق.",
   "coomplete_profile_error": "حدث خطأ أثناء إكمال ملفك الشخصي. يرجى المحاولة مرة أخرى."
+  ,"auth_google_sign_in_canceled": "تم إلغاء تسجيل الدخول باستخدام Google. يمكنك المحاولة مرة أخرى إذا كنت ترغب في ذلك."
 }

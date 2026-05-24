@@ -334,11 +334,14 @@ class AppLocalizationsEn extends AppLocalizations {
   String get complete_profile_btn => 'Complete Profile';
 
   @override
-  String get sign_in_with_google_success => 'Signed in with Google successfully please complete your profile details to continue';
+  String get signin_success_no_details => 'Signed in with  successfully please complete your profile details to continue';
 
   @override
   String get complete_profile_success => 'Profile completed successfully. You can now access the app.';
 
   @override
   String get coomplete_profile_error => 'An error occurred while completing your profile. Please try again.';
+
+  @override
+  String get auth_google_sign_in_canceled => 'Google sign-in was canceled. You can try again if you wish.';
 }

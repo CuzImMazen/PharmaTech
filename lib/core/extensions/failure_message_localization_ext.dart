@@ -41,6 +41,8 @@ extension FailureLocalization on Failure {
         AuthFailureType.actionDenied => context.tr.auth_action_denied,
         AuthFailureType.googleSignInFailed =>
           context.tr.auth_google_sign_in_failed,
+        AuthFailureType.googleSignInCanceled =>
+          context.tr.auth_google_sign_in_canceled,
       },
     };
   }

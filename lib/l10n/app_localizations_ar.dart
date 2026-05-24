@@ -334,11 +334,14 @@ class AppLocalizationsAr extends AppLocalizations {
   String get complete_profile_btn => 'أكمل الملف الشخصي';
 
   @override
-  String get sign_in_with_google_success => 'تم تسجيل الدخول باستخدام Google بنجاح، يرجى إكمال تفاصيل حسابك للمتابعة';
+  String get signin_success_no_details => 'تم تسجيل الدخول بنجاح يرجى إكمال تفاصيل حسابك للمتابعة';
 
   @override
   String get complete_profile_success => 'تم إكمال الملف الشخصي بنجاح. يمكنك الآن الوصول إلى التطبيق.';
 
   @override
   String get coomplete_profile_error => 'حدث خطأ أثناء إكمال ملفك الشخصي. يرجى المحاولة مرة أخرى.';
+
+  @override
+  String get auth_google_sign_in_canceled => 'تم إلغاء تسجيل الدخول باستخدام Google. يمكنك المحاولة مرة أخرى إذا كنت ترغب في ذلك.';
 }

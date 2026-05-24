@@ -148,10 +148,18 @@ class AppRoutes {
     ),
     GoRoute(
       path: AppRoutesKeys.completeProfile,
-      builder: (context, state) => BlocProvider(
-        create: (context) => CompleteProfileCubit(authRepository: sl()),
-        child: const CompleteProfileScreen(),
-      ),
+      builder: (context, state) {
+        final args = state.extra as Map<String?, String?>?;
+        final firstName = args?['firstName'];
+        final lastName = args?['lastName'];
+        return BlocProvider(
+          create: (context) => CompleteProfileCubit(authRepository: sl()),
+          child: CompleteProfileScreen(
+            firstName: firstName,
+            lastName: lastName,
+          ),
+        );
+      },
     ),
   ];
 }

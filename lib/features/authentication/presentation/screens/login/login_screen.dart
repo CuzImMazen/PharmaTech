@@ -101,9 +101,19 @@ class _LoginScreenState extends State<LoginScreenBody> {
               context.read<SessionCubit>().setAuthenticated(model.user);
             } else {
               AppSnackbar.success(
-                message: context.tr.sign_in_with_google_success,
+                message: context.tr.signin_success_no_details,
               );
-              context.go(AppRoutesKeys.completeProfile);
+              context.go(
+                AppRoutesKeys.completeProfile,
+                extra: {
+                  "firstName": (model.user.firstName == "Google")
+                      ? null
+                      : model.user.firstName,
+                  "lastName": (model.user.lastName == "User")
+                      ? null
+                      : model.user.lastName,
+                },
+              );
             }
           },
           failure: (failure) {
@@ -114,6 +124,11 @@ class _LoginScreenState extends State<LoginScreenBody> {
                 AppRoutesKeys.verificationSent,
                 extra: emailController.text.trim(),
               );
+              return;
+            }
+            if (failure case AuthFailure(
+              type: AuthFailureType.googleSignInCanceled,
+            )) {
               return;
             }
             AppSnackbar.failure(message: failure.localizedMessage(context));

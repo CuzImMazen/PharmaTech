@@ -6,4 +6,5 @@ enum AuthFailureType {
   phoneNumberAlreadyExists,
   emailNotVerified,
   googleSignInFailed,
+  googleSignInCanceled,
 }

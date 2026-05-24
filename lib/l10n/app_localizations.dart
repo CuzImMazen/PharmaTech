@@ -737,11 +737,11 @@ abstract class AppLocalizations {
   /// **'Complete Profile'**
   String get complete_profile_btn;
 
-  /// No description provided for @sign_in_with_google_success.
+  /// No description provided for @signin_success_no_details.
   ///
   /// In en, this message translates to:
-  /// **'Signed in with Google successfully please complete your profile details to continue'**
-  String get sign_in_with_google_success;
+  /// **'Signed in with  successfully please complete your profile details to continue'**
+  String get signin_success_no_details;
 
   /// No description provided for @complete_profile_success.
   ///
@@ -754,6 +754,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'An error occurred while completing your profile. Please try again.'**
   String get coomplete_profile_error;
+
+  /// No description provided for @auth_google_sign_in_canceled.
+  ///
+  /// In en, this message translates to:
+  /// **'Google sign-in was canceled. You can try again if you wish.'**
+  String get auth_google_sign_in_canceled;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
