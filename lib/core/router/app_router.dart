@@ -21,8 +21,8 @@ class AppRouter {
   static void init(AppStateNotifier appStateNotifier) {
     _router = GoRouter(
       initialLocation: AppRoutesKeys.splash,
-      refreshListenable: appStateNotifier,
 
+      refreshListenable: appStateNotifier,
       redirect: (context, state) {
         final uri = state.uri;
         final rawUriStr = uri.toString();
@@ -72,7 +72,7 @@ class AppRouter {
         final isLogin = currentPath == AppRoutesKeys.login;
         final isOnboarding = currentPath == AppRoutesKeys.onboarding;
 
-        final isResetPassword =
+        final isOnResetPassword =
             currentPath == AppRoutesKeys.resetPassword ||
             rawUriStr.contains('reset-password');
 
@@ -82,7 +82,8 @@ class AppRouter {
             isOn(AppRoutesKeys.verificationSent) ||
             isOn(AppRoutesKeys.resetPasswordSent) ||
             isOn(AppRoutesKeys.forgetPassword) ||
-            isResetPassword;
+            isOn(AppRoutesKeys.completeProfile) ||
+            isOnResetPassword;
 
         final isAuthRoute = isLogin || isRegister;
 

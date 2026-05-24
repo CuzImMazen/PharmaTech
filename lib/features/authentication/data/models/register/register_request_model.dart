@@ -1,28 +1,24 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import 'register_details_model.dart';
+
 part 'register_request_model.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
-class RegisterRequestModel {
-  final String firstName;
-  final String lastName;
-  final String phoneNumber;
-  final String pharmacyName;
-  final int cityId;
-  final String address;
-  final String licenceNumber;
+class RegisterRequestModel extends RegisterDetailsModel {
   final String email;
   final String password;
   final String passwordConfirmation;
 
   RegisterRequestModel({
-    required this.firstName,
-    required this.lastName,
-    required this.phoneNumber,
-    required this.pharmacyName,
-    required this.cityId,
-    required this.address,
-    required this.licenceNumber,
+    required super.firstName,
+    required super.lastName,
+    required super.phoneNumber,
+    required super.pharmacyName,
+    required super.cityId,
+    required super.governorateId,
+    required super.address,
+    required super.licenceNumber,
     required this.email,
     required this.password,
     required this.passwordConfirmation,
@@ -31,5 +27,6 @@ class RegisterRequestModel {
   factory RegisterRequestModel.fromJson(Map<String, dynamic> json) =>
       _$RegisterRequestModelFromJson(json);
 
+  @override
   Map<String, dynamic> toJson() => _$RegisterRequestModelToJson(this);
 }

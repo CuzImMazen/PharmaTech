@@ -9,7 +9,7 @@ import 'package:pharmacy_app/core/router/app_routes_keys.dart';
 import 'package:pharmacy_app/core/utils/validator/validators_manager.dart';
 import 'package:pharmacy_app/core/widgets/custom_button.dart';
 import 'package:pharmacy_app/core/widgets/custom_text_field.dart';
-import 'package:pharmacy_app/features/authentication/data/models/register_details_model.dart';
+import 'package:pharmacy_app/features/authentication/data/models/register/register_details_model.dart';
 
 import 'package:pharmacy_app/features/authentication/presentation/widgets/auth_prompt_row.dart';
 import 'package:pharmacy_app/features/authentication/presentation/widgets/register/terms_and_conditions_row.dart';
@@ -98,10 +98,10 @@ class _RegisterDetailsBodyState extends State<RegisterDetailsBody> {
           lastName: lastNameController.text.trim(),
           phoneNumber: phoneController.text.trim(),
           pharmacyName: pharmacyNameController.text.trim(),
-          governorateID: govId,
-          cityID: cityId,
+          governorateId: govId,
+          cityId: cityId,
           address: addressController.text.trim(),
-          licenseNumber: pharmacyLicenseController.text.trim(),
+          licenceNumber: pharmacyLicenseController.text.trim(),
         ),
       );
     }

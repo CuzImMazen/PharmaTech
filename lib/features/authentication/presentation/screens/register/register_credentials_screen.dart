@@ -12,8 +12,8 @@ import 'package:pharmacy_app/core/utils/validator/validators_manager.dart';
 import 'package:pharmacy_app/core/widgets/custom_text_field.dart';
 import 'package:pharmacy_app/features/authentication/cubit/register/register_cubit.dart';
 import 'package:pharmacy_app/features/authentication/cubit/register/register_state.dart';
-import 'package:pharmacy_app/features/authentication/data/models/register_details_model.dart';
-import 'package:pharmacy_app/features/authentication/data/models/register_request_model.dart';
+import 'package:pharmacy_app/features/authentication/data/models/register/register_details_model.dart';
+import 'package:pharmacy_app/features/authentication/data/models/register/register_request_model.dart';
 
 import 'package:pharmacy_app/features/authentication/presentation/widgets/register/buttons_footer.dart';
 import 'package:pharmacy_app/features/authentication/presentation/widgets/register/progress_bar.dart';
@@ -82,9 +82,10 @@ class _RegisterCredentialsBodyState extends State<RegisterCredentialsBody> {
         lastName: widget.registerDetailsModel.lastName,
         phoneNumber: widget.registerDetailsModel.phoneNumber,
         pharmacyName: widget.registerDetailsModel.pharmacyName,
-        cityId: widget.registerDetailsModel.cityID,
+        governorateId: widget.registerDetailsModel.governorateId,
+        cityId: widget.registerDetailsModel.cityId,
         address: widget.registerDetailsModel.address,
-        licenceNumber: widget.registerDetailsModel.licenseNumber,
+        licenceNumber: widget.registerDetailsModel.licenceNumber,
         passwordConfirmation: confirmPasswordController.text.trim(),
       );
 

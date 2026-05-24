@@ -326,4 +326,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get changed_your_mind => 'Changed your mind? go back to ';
+
+  @override
+  String get complete_profile_title => 'Complete Profile Details';
+
+  @override
+  String get complete_profile_btn => 'Complete Profile';
+
+  @override
+  String get sign_in_with_google_success => 'Signed in with Google successfully please complete your profile details to continue';
+
+  @override
+  String get complete_profile_success => 'Profile completed successfully. You can now access the app.';
+
+  @override
+  String get coomplete_profile_error => 'An error occurred while completing your profile. Please try again.';
 }

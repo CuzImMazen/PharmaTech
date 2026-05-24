@@ -134,4 +134,9 @@
   "reset_password_btn": "Reset Password",
   "reset_password_success": "Password reset successfully. Please SignIn with your new password.",
   "changed_your_mind": "Changed your mind? go back to "
+  ,"complete_profile_title": "Complete Profile Details"
+  ,"complete_profile_btn": "Complete Profile"
+  ,"sign_in_with_google_success": "Signed in with Google successfully please complete your profile details to continue",
+  "complete_profile_success": "Profile completed successfully. You can now access the app.",
+  "coomplete_profile_error": "An error occurred while completing your profile. Please try again."
 }

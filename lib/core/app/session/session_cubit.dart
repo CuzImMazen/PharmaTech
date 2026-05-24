@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pharmacy_app/features/authentication/data/models/user_model.dart';
 import 'package:pharmacy_app/features/authentication/data/repo/auth_repository.dart';
 import 'package:pharmacy_app/core/app/session/session_state.dart';
 
@@ -8,16 +9,14 @@ class SessionCubit extends Cubit<SessionState> {
   SessionCubit({required this.authRepository})
     : super(const SessionState.initial());
 
-  void setAuthenticated(String accessToken, String refreshToken) {
-    emit(
-      SessionState.authenticated(
-        accessToken: accessToken,
-        refreshToken: refreshToken,
-      ),
-    );
+  // 1. Accepts a User profile object instead of raw crypto strings
+  void setAuthenticated(UserModel user) {
+    emit(SessionState.authenticated(user: user));
   }
 
-  void setUnauthenticated() {
+  // 2. Clear tokens out of local storage on logout
+  void setUnauthenticated() async {
+    await authRepository.clearAllTokens();
     emit(const SessionState.unauthenticated());
   }
 }

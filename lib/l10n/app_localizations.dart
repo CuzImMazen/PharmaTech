@@ -724,6 +724,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Changed your mind? go back to '**
   String get changed_your_mind;
+
+  /// No description provided for @complete_profile_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete Profile Details'**
+  String get complete_profile_title;
+
+  /// No description provided for @complete_profile_btn.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete Profile'**
+  String get complete_profile_btn;
+
+  /// No description provided for @sign_in_with_google_success.
+  ///
+  /// In en, this message translates to:
+  /// **'Signed in with Google successfully please complete your profile details to continue'**
+  String get sign_in_with_google_success;
+
+  /// No description provided for @complete_profile_success.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile completed successfully. You can now access the app.'**
+  String get complete_profile_success;
+
+  /// No description provided for @coomplete_profile_error.
+  ///
+  /// In en, this message translates to:
+  /// **'An error occurred while completing your profile. Please try again.'**
+  String get coomplete_profile_error;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

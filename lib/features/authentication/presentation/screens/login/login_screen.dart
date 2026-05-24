@@ -92,19 +92,18 @@ class _LoginScreenState extends State<LoginScreenBody> {
     return BlocListener<LoginCubit, LoginState>(
       listener: (context, state) {
         state.maybeWhen(
-          success: (response) {
+          success: (model) {
             final bool isExistingUser =
-                response.pharmacy != null || response.isNewUser == false;
+                model.pharmacy != null || model.isNewUser == false;
 
             if (isExistingUser) {
               AppSnackbar.success(message: context.tr.auth_login_success);
-              context.read<SessionCubit>().setAuthenticated(
-                response.accessToken,
-                response.refreshToken,
-              );
+              context.read<SessionCubit>().setAuthenticated(model.user);
             } else {
-              AppSnackbar.success(message: "workiiiiiiing");
-              // navigate to complete profile
+              AppSnackbar.success(
+                message: context.tr.sign_in_with_google_success,
+              );
+              context.go(AppRoutesKeys.completeProfile);
             }
           },
           failure: (failure) {

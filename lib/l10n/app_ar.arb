@@ -131,4 +131,9 @@
   "reset_password_btn": "إعادة تعيين كلمة المرور",
   "reset_password_success": "تم إعادة تعيين كلمة المرور بنجاح. يرجى تسجيل الدخول باستخدام كلمة المرور الجديدة.",
   "changed_your_mind": "غيرت رأيك؟ اذهب إلى "
+  ,"complete_profile_title": "أكمل تفاصيل حسابك"
+  ,"complete_profile_btn": "أكمل الملف الشخصي"
+  ,"sign_in_with_google_success": "تم تسجيل الدخول باستخدام Google بنجاح، يرجى إكمال تفاصيل حسابك للمتابعة"
+  , "complete_profile_success": "تم إكمال الملف الشخصي بنجاح. يمكنك الآن الوصول إلى التطبيق.",
+  "coomplete_profile_error": "حدث خطأ أثناء إكمال ملفك الشخصي. يرجى المحاولة مرة أخرى."
 }

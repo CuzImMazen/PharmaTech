@@ -1,7 +1,10 @@
 import 'package:dartz/dartz.dart';
 import 'package:pharmacy_app/core/error/failure.dart';
-import 'package:pharmacy_app/features/authentication/data/models/login_response_model.dart';
-import 'package:pharmacy_app/features/authentication/data/models/register_request_model.dart';
+import 'package:pharmacy_app/features/authentication/data/models/complete_profile/complete_profile_response_model.dart';
+import 'package:pharmacy_app/features/authentication/data/models/login/login_response_model.dart';
+import 'package:pharmacy_app/features/authentication/data/models/register/register_details_model.dart';
+import 'package:pharmacy_app/features/authentication/data/models/register/register_request_model.dart';
+import 'package:pharmacy_app/features/authentication/data/models/user_model.dart';
 
 abstract class AuthRepository {
   // ================= AUTH ================= //
@@ -16,6 +19,9 @@ abstract class AuthRepository {
     required String idToken,
     String? deviceName,
   });
+  Future<Either<Failure, CompleteProfileResponseModel>> completeProfile(
+    RegisterDetailsModel model,
+  );
 
   Future<Either<Failure, void>> register(RegisterRequestModel model);
 
@@ -44,6 +50,18 @@ abstract class AuthRepository {
     required String passwordConfirmation,
     required String token,
   });
+
+  // ================= USER PROFILE MANAGEMENT ================= //
+
+  /// Reads the fast local JSON string and returns the deserialized User object.
+  Future<UserModel?> getCachedUser();
+
+  /// Overwrites the local profile cache .
+
+  Future<void> saveUserCache(UserModel user);
+
+  /// Clears specifically the profile cache data.
+  Future<void> clearUserCache();
 
   // ================= TOKEN MANAGEMENT ================= //
 

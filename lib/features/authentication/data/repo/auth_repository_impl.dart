@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dartz/dartz.dart';
 
 import 'package:pharmacy_app/core/error/api_error_handler.dart';
@@ -5,17 +7,27 @@ import 'package:pharmacy_app/core/error/failure.dart';
 import 'package:pharmacy_app/core/network/api_parser.dart';
 import 'package:pharmacy_app/core/network/api_routes.dart';
 import 'package:pharmacy_app/core/network/dio_helper.dart';
+import 'package:pharmacy_app/core/storage/prefs/shared_prefs_keys.dart';
+import 'package:pharmacy_app/core/storage/prefs/shared_prefs_service.dart';
 import 'package:pharmacy_app/core/storage/secure/secure_storage_service.dart';
-import 'package:pharmacy_app/features/authentication/data/models/login_response_model.dart';
-import 'package:pharmacy_app/features/authentication/data/models/register_request_model.dart';
+import 'package:pharmacy_app/features/authentication/data/models/complete_profile/complete_profile_response_model.dart';
+import 'package:pharmacy_app/features/authentication/data/models/login/login_response_model.dart';
+import 'package:pharmacy_app/features/authentication/data/models/register/register_details_model.dart';
+import 'package:pharmacy_app/features/authentication/data/models/register/register_request_model.dart';
+import 'package:pharmacy_app/features/authentication/data/models/user_model.dart';
 
 import 'auth_repository.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
-  AuthRepositoryImpl({required this.api, required this.secureStorageService});
+  AuthRepositoryImpl({
+    required this.api,
+    required this.secureStorageService,
+    required this.sharedPrefsService,
+  });
 
   final DioApiHelper api;
   final SecureStorageService secureStorageService;
+  final SharedPrefsService sharedPrefsService;
 
   // =====================================================
   //  AUTH
@@ -39,7 +51,7 @@ class AuthRepositoryImpl implements AuthRepository {
         'data',
         LoginResponseModel.fromJson,
       );
-
+      await saveUserCache(model.user);
       return Right(model);
     } catch (e) {
       return Left(ApiErrorHandler.handle(e));
@@ -65,6 +77,28 @@ class AuthRepositoryImpl implements AuthRepository {
       );
 
       return Right(model);
+    } catch (e) {
+      return Left(ApiErrorHandler.handle(e));
+    }
+  }
+
+  @override
+  Future<Either<Failure, CompleteProfileResponseModel>> completeProfile(
+    RegisterDetailsModel model,
+  ) async {
+    try {
+      final response = await api.post(
+        ApiRoutes.completeProfile,
+        data: model.toJson(),
+      );
+
+      final completeProfileResponse = ApiParser.parseWrapped(
+        response.data,
+        'data',
+        CompleteProfileResponseModel.fromJson,
+      );
+      await saveUserCache(completeProfileResponse.user);
+      return Right(completeProfileResponse);
     } catch (e) {
       return Left(ApiErrorHandler.handle(e));
     }
@@ -218,6 +252,33 @@ class AuthRepositoryImpl implements AuthRepository {
     }
   }
 
+  // ================= USER PROFILE MANAGEMENT ================= //
+
+  @override
+  Future<void> saveUserCache(UserModel user) async {
+    final String jsonString = jsonEncode(user.toJson());
+    await sharedPrefsService.setString(PrefsKeys.cachedUserProfile, jsonString);
+  }
+
+  @override
+  Future<UserModel?> getCachedUser() async {
+    final String? jsonString = await sharedPrefsService.getString(
+      PrefsKeys.cachedUserProfile,
+    );
+    if (jsonString == null) return null;
+
+    try {
+      return UserModel.fromJson(jsonDecode(jsonString));
+    } catch (e) {
+      await clearUserCache();
+      return null;
+    }
+  }
+
+  @override
+  Future<void> clearUserCache() async {
+    await sharedPrefsService.remove(PrefsKeys.cachedUserProfile);
+  }
   // =====================================================
   //  TOKEN STORAGE
   // =====================================================

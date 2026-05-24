@@ -1,5 +1,6 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_it/get_it.dart';
+import 'package:pharmacy_app/core/app/session/session_cubit.dart';
 
 import 'package:pharmacy_app/core/network/auth_interceptor.dart';
 import 'package:pharmacy_app/core/network/dio_helper.dart';
@@ -60,11 +61,17 @@ Future<void> setupLocator() async {
     () => AuthRepositoryImpl(
       api: sl<DioApiHelper>(),
       secureStorageService: sl<SecureStorageService>(),
+      sharedPrefsService: sl<SharedPrefsService>(),
     ),
   );
 
   sl.registerLazySingleton<OnboardingRepository>(
     () =>
         OnboardingRepositoryImpl(sharedPrefsService: sl<SharedPrefsService>()),
+  );
+
+  //Session Cubit
+  sl.registerLazySingleton(
+    () => SessionCubit(authRepository: sl<AuthRepository>()),
   );
 }

@@ -1,4 +1,6 @@
 import 'package:dio/dio.dart';
+import 'package:pharmacy_app/core/app/session/session_cubit.dart';
+import 'package:pharmacy_app/core/di/service_locator.dart';
 import 'package:pharmacy_app/core/error/api_error_handler.dart';
 import 'package:pharmacy_app/core/error/app_dio_exception.dart';
 import 'package:pharmacy_app/core/error/failure.dart';
@@ -105,6 +107,9 @@ class AuthInterceptor extends Interceptor {
       final requestOptions = err.requestOptions;
       requestOptions.extra['__retried'] = true;
       requestOptions.headers['Authorization'] = 'Bearer $newAccess';
+      if (requestOptions.data is FormData) {
+        requestOptions.data = (requestOptions.data as FormData).clone();
+      }
 
       try {
         final response = await _refreshDio.fetch(requestOptions);
@@ -158,7 +163,9 @@ class AuthInterceptor extends Interceptor {
     await _secureStorage.remove(_accessTokenKey);
     await _secureStorage.remove(_refreshTokenKey);
 
-    // TODO: trigger SessionCubit / router logout here
+    if (sl.isRegistered<SessionCubit>()) {
+      sl<SessionCubit>().setUnauthenticated();
+    }
   }
 
   // ================= ERROR WRAPPER ================= //

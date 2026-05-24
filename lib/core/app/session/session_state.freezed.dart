@@ -20,20 +20,19 @@ mixin _$SessionState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(String accessToken, String refreshToken)
-    authenticated,
+    required TResult Function(UserModel user) authenticated,
     required TResult Function() unauthenticated,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(String accessToken, String refreshToken)? authenticated,
+    TResult? Function(UserModel user)? authenticated,
     TResult? Function()? unauthenticated,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(String accessToken, String refreshToken)? authenticated,
+    TResult Function(UserModel user)? authenticated,
     TResult Function()? unauthenticated,
     required TResult orElse(),
   }) => throw _privateConstructorUsedError;
@@ -124,8 +123,7 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(String accessToken, String refreshToken)
-    authenticated,
+    required TResult Function(UserModel user) authenticated,
     required TResult Function() unauthenticated,
   }) {
     return initial();
@@ -135,7 +133,7 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(String accessToken, String refreshToken)? authenticated,
+    TResult? Function(UserModel user)? authenticated,
     TResult? Function()? unauthenticated,
   }) {
     return initial?.call();
@@ -145,7 +143,7 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(String accessToken, String refreshToken)? authenticated,
+    TResult Function(UserModel user)? authenticated,
     TResult Function()? unauthenticated,
     required TResult orElse(),
   }) {
@@ -201,7 +199,7 @@ abstract class _$$AuthenticatedImplCopyWith<$Res> {
     $Res Function(_$AuthenticatedImpl) then,
   ) = __$$AuthenticatedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String accessToken, String refreshToken});
+  $Res call({UserModel user});
 }
 
 /// @nodoc
@@ -217,17 +215,13 @@ class __$$AuthenticatedImplCopyWithImpl<$Res>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({Object? accessToken = null, Object? refreshToken = null}) {
+  $Res call({Object? user = null}) {
     return _then(
       _$AuthenticatedImpl(
-        accessToken: null == accessToken
-            ? _value.accessToken
-            : accessToken // ignore: cast_nullable_to_non_nullable
-                  as String,
-        refreshToken: null == refreshToken
-            ? _value.refreshToken
-            : refreshToken // ignore: cast_nullable_to_non_nullable
-                  as String,
+        user: null == user
+            ? _value.user
+            : user // ignore: cast_nullable_to_non_nullable
+                  as UserModel,
       ),
     );
   }
@@ -236,19 +230,14 @@ class __$$AuthenticatedImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$AuthenticatedImpl implements _Authenticated {
-  const _$AuthenticatedImpl({
-    required this.accessToken,
-    required this.refreshToken,
-  });
+  const _$AuthenticatedImpl({required this.user});
 
   @override
-  final String accessToken;
-  @override
-  final String refreshToken;
+  final UserModel user;
 
   @override
   String toString() {
-    return 'SessionState.authenticated(accessToken: $accessToken, refreshToken: $refreshToken)';
+    return 'SessionState.authenticated(user: $user)';
   }
 
   @override
@@ -256,14 +245,11 @@ class _$AuthenticatedImpl implements _Authenticated {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$AuthenticatedImpl &&
-            (identical(other.accessToken, accessToken) ||
-                other.accessToken == accessToken) &&
-            (identical(other.refreshToken, refreshToken) ||
-                other.refreshToken == refreshToken));
+            (identical(other.user, user) || other.user == user));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, accessToken, refreshToken);
+  int get hashCode => Object.hash(runtimeType, user);
 
   /// Create a copy of SessionState
   /// with the given fields replaced by the non-null parameter values.
@@ -277,33 +263,32 @@ class _$AuthenticatedImpl implements _Authenticated {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(String accessToken, String refreshToken)
-    authenticated,
+    required TResult Function(UserModel user) authenticated,
     required TResult Function() unauthenticated,
   }) {
-    return authenticated(accessToken, refreshToken);
+    return authenticated(user);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(String accessToken, String refreshToken)? authenticated,
+    TResult? Function(UserModel user)? authenticated,
     TResult? Function()? unauthenticated,
   }) {
-    return authenticated?.call(accessToken, refreshToken);
+    return authenticated?.call(user);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(String accessToken, String refreshToken)? authenticated,
+    TResult Function(UserModel user)? authenticated,
     TResult Function()? unauthenticated,
     required TResult orElse(),
   }) {
     if (authenticated != null) {
-      return authenticated(accessToken, refreshToken);
+      return authenticated(user);
     }
     return orElse();
   }
@@ -344,13 +329,10 @@ class _$AuthenticatedImpl implements _Authenticated {
 }
 
 abstract class _Authenticated implements SessionState {
-  const factory _Authenticated({
-    required final String accessToken,
-    required final String refreshToken,
-  }) = _$AuthenticatedImpl;
+  const factory _Authenticated({required final UserModel user}) =
+      _$AuthenticatedImpl;
 
-  String get accessToken;
-  String get refreshToken;
+  UserModel get user;
 
   /// Create a copy of SessionState
   /// with the given fields replaced by the non-null parameter values.
@@ -403,8 +385,7 @@ class _$UnauthenticatedImpl implements _Unauthenticated {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(String accessToken, String refreshToken)
-    authenticated,
+    required TResult Function(UserModel user) authenticated,
     required TResult Function() unauthenticated,
   }) {
     return unauthenticated();
@@ -414,7 +395,7 @@ class _$UnauthenticatedImpl implements _Unauthenticated {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(String accessToken, String refreshToken)? authenticated,
+    TResult? Function(UserModel user)? authenticated,
     TResult? Function()? unauthenticated,
   }) {
     return unauthenticated?.call();
@@ -424,7 +405,7 @@ class _$UnauthenticatedImpl implements _Unauthenticated {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(String accessToken, String refreshToken)? authenticated,
+    TResult Function(UserModel user)? authenticated,
     TResult Function()? unauthenticated,
     required TResult orElse(),
   }) {

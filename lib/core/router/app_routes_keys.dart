@@ -9,6 +9,7 @@ class AppRoutesKeys {
   static const String resetPasswordSent = '/reset_password_sent';
   static const String forgetPassword = '/forget_password';
   static const String resetPassword = '/reset-password';
+  static const String completeProfile = '/complete_profile';
   static const String profile = '/profile';
   static const String settings = '/settings';
 }

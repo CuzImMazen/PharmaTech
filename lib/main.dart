@@ -27,18 +27,19 @@ void main() async {
 
   final authRepository = sl<AuthRepository>();
   final tokenStore = sl<TokenStore>();
-  final sessionCubit = SessionCubit(authRepository: authRepository);
+  final sessionCubit = sl<SessionCubit>();
 
   /// 1: Restore BOTH tokens from storage (if user checked remember me)
   final accessToken = await authRepository.getAccessToken();
   final refreshToken = await authRepository.getRefreshToken();
+  final cachedUser = await authRepository.getCachedUser();
 
-  if (accessToken != null && refreshToken != null) {
+  if (accessToken != null && refreshToken != null && cachedUser != null) {
     // put in-memory TokenStore for the interceptor
     tokenStore.set(accessToken: accessToken, refreshToken: refreshToken);
 
     // Pass the  tokens to  session cubit for initial validation/app state
-    sessionCubit.setAuthenticated(accessToken, refreshToken);
+    sessionCubit.setAuthenticated(cachedUser);
   } else {
     // If either token is missing, force a clean state
     tokenStore.clear();
@@ -64,7 +65,7 @@ void main() async {
         BlocProvider.value(value: sessionCubit),
       ],
       child: DevicePreview(
-        enabled: true,
+        enabled: !kReleaseMode,
         builder: (context) => const PharmacyApp(),
       ),
     ),

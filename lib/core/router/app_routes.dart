@@ -3,13 +3,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pharmacy_app/core/di/service_locator.dart';
 import 'package:pharmacy_app/core/router/app_routes_keys.dart';
+import 'package:pharmacy_app/features/authentication/cubit/complete_profile/complete_profile_cubit.dart';
 import 'package:pharmacy_app/features/authentication/cubit/email_verification/resend_email_verification_cubit.dart';
 import 'package:pharmacy_app/features/authentication/cubit/password_recovery/forget_password_cubit.dart';
 import 'package:pharmacy_app/features/authentication/cubit/login/login_cubit.dart';
 import 'package:pharmacy_app/features/authentication/cubit/password_recovery/resend_reset_password_cubit.dart';
 import 'package:pharmacy_app/features/authentication/cubit/password_recovery/reset_password_cubit.dart';
 import 'package:pharmacy_app/features/authentication/cubit/register/register_cubit.dart';
-import 'package:pharmacy_app/features/authentication/data/models/register_details_model.dart';
+import 'package:pharmacy_app/features/authentication/data/models/register/register_details_model.dart';
+import 'package:pharmacy_app/features/authentication/presentation/screens/complete_profile/complete_profile_screen.dart';
 import 'package:pharmacy_app/features/authentication/presentation/screens/password_recovery/forget_password_screen.dart';
 import 'package:pharmacy_app/features/authentication/presentation/screens/login/login_screen.dart';
 import 'package:pharmacy_app/features/authentication/presentation/screens/password_recovery/password_reset_sent_screen.dart';
@@ -143,6 +145,13 @@ class AppRoutes {
           child: PasswordResetSentScreen(email: email),
         );
       },
+    ),
+    GoRoute(
+      path: AppRoutesKeys.completeProfile,
+      builder: (context, state) => BlocProvider(
+        create: (context) => CompleteProfileCubit(authRepository: sl()),
+        child: const CompleteProfileScreen(),
+      ),
     ),
   ];
 }

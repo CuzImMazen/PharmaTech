@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:pharmacy_app/core/error/failure.dart';
-import 'package:pharmacy_app/features/authentication/data/models/login_response_model.dart';
+import 'package:pharmacy_app/features/authentication/data/models/login/login_response_model.dart';
 part 'login_state.freezed.dart';
 
 @freezed
