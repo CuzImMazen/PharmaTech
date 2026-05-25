@@ -114,7 +114,7 @@ class AppRouter {
         if (!isInitialized) {
           // Check if the current state contains our deep link params
           final comingFromDeepLink =
-              uri.queryParameters.containsKey('verified') ||
+              uri.queryParameters.containsKey('status') ||
               uri.queryParameters.containsKey('token');
 
           // Dont Show Splash
