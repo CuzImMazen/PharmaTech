@@ -53,6 +53,7 @@ void main() async {
 
   // Initialize the router with the app state notifier
   AppRouter.init(appState);
+
   runApp(
     MultiProvider(
       providers: [

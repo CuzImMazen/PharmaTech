@@ -22,7 +22,6 @@ class AppRouter {
   static void init(AppStateNotifier appStateNotifier) {
     _router = GoRouter(
       debugLogDiagnostics: true,
-      initialLocation: AppRoutesKeys.splash,
 
       refreshListenable: appStateNotifier,
 
@@ -109,6 +108,17 @@ class AppRouter {
         // =========================================================
 
         if (!isInitialized) {
+          // Check if the current state contains our deep link params
+          final comingFromDeepLink =
+              uri.queryParameters.containsKey('verified') ||
+              uri.queryParameters.containsKey('token');
+
+          // Dont Show Splash
+          if (comingFromDeepLink) {
+            return null;
+          }
+
+          // Normal cold boot (no deep link) -> go to splash
           return isSplash ? null : AppRoutesKeys.splash;
         }
 
