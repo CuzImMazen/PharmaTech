@@ -136,7 +136,7 @@
   "changed_your_mind": "Changed your mind? go back to "
   ,"complete_profile_title": "Complete Profile Details"
   ,"complete_profile_btn": "Complete Profile"
-  ,"signin_success_no_details": "Signed in with  successfully please complete your profile details to continue",
+  ,"signin_success_no_details": "Signed in successfully please complete your profile details to continue",
   "complete_profile_success": "Profile completed successfully. You can now access the app.",
   "coomplete_profile_error": "An error occurred while completing your profile. Please try again."
   ,"auth_google_sign_in_canceled": "Google sign-in was canceled. You can try again if you wish."

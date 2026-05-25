@@ -60,7 +60,7 @@ void main() async {
         BlocProvider.value(value: sessionCubit),
       ],
       child: DevicePreview(
-        enabled: !kReleaseMode,
+        enabled: false,
         builder: (context) => const PharmacyApp(),
       ),
     ),
