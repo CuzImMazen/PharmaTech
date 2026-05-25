@@ -41,6 +41,8 @@ class LoginScreenBody extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreenBody> {
+  bool _shownSnackbar = false;
+
   late final TextEditingController emailController;
   late final TextEditingController passwordController;
 
@@ -64,6 +66,24 @@ class _LoginScreenState extends State<LoginScreenBody> {
     super.initState();
     emailController = TextEditingController();
     passwordController = TextEditingController();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    //show snack bar when comming from deeplink after email verification success
+
+    final verified = GoRouterState.of(context).uri.queryParameters['verified'];
+
+    if (!_shownSnackbar && verified == 'success') {
+      _shownSnackbar = true;
+
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (!mounted) return;
+        AppSnackbar.success(message: context.tr.email_verification_success);
+      });
+    }
   }
 
   @override
