@@ -740,7 +740,7 @@ abstract class AppLocalizations {
   /// No description provided for @signin_success_no_details.
   ///
   /// In en, this message translates to:
-  /// **'Signed in with  successfully please complete your profile details to continue'**
+  /// **'Signed in successfully please complete your profile details to continue'**
   String get signin_success_no_details;
 
   /// No description provided for @complete_profile_success.
@@ -760,6 +760,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Google sign-in was canceled. You can try again if you wish.'**
   String get auth_google_sign_in_canceled;
+
+  /// No description provided for @invalid_password_reset_link.
+  ///
+  /// In en, this message translates to:
+  /// **'This password reset link is invalid or has expired.'**
+  String get invalid_password_reset_link;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

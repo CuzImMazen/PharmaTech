@@ -23,25 +23,29 @@ import 'package:pharmacy_app/features/authentication/presentation/widgets/login/
 import 'package:pharmacy_app/features/authentication/presentation/widgets/top_section.dart';
 
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
-
+  const LoginScreen({super.key, this.status, this.email});
+  final String? status;
+  final String? email;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: const LoginScreenBody());
+    return Scaffold(
+      body: LoginScreenBody(status: status, email: email),
+    );
   }
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
 
 class LoginScreenBody extends StatefulWidget {
-  const LoginScreenBody({super.key});
-
+  const LoginScreenBody({super.key, this.status, this.email});
+  final String? status;
+  final String? email;
   @override
   State<LoginScreenBody> createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreenBody> {
-  bool _shownSnackbar = false;
+  //  bool _shownSnackbar = false;
 
   late final TextEditingController emailController;
   late final TextEditingController passwordController;
@@ -64,24 +68,37 @@ class _LoginScreenState extends State<LoginScreenBody> {
   @override
   void initState() {
     super.initState();
-    emailController = TextEditingController();
+    emailController = TextEditingController(text: widget.email);
     passwordController = TextEditingController();
+
+    // 1. Handle cold-boot deep links
+    _checkAndShowDeepLinkSnackbar(widget.status);
   }
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
+  void didUpdateWidget(covariant LoginScreenBody oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    // 1. Update the email field if the email passed in changes
+    if (widget.email != oldWidget.email && widget.email != null) {
+      emailController.text = widget.email!;
+    }
+    // 2. Handle deep links that arrive while the app is already open
+    // Only trigger if the status actually changed
+    if (widget.status != oldWidget.status || widget.email != oldWidget.email) {
+      _checkAndShowDeepLinkSnackbar(widget.status);
+    }
+  }
 
-    //show snack bar when comming from deeplink after email verification success
-
-    final verified = GoRouterState.of(context).uri.queryParameters['verified'];
-
-    if (!_shownSnackbar && verified == 'success') {
-      _shownSnackbar = true;
-
+  void _checkAndShowDeepLinkSnackbar(String? status) {
+    if (status != null) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         if (!mounted) return;
-        AppSnackbar.success(message: context.tr.email_verification_success);
+
+        if (status == 'success') {
+          AppSnackbar.success(message: context.tr.email_verification_success);
+        } else if (status == 'invalid_reset_link') {
+          AppSnackbar.failure(message: context.tr.invalid_password_reset_link);
+        }
       });
     }
   }

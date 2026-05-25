@@ -334,7 +334,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get complete_profile_btn => 'Complete Profile';
 
   @override
-  String get signin_success_no_details => 'Signed in with  successfully please complete your profile details to continue';
+  String get signin_success_no_details => 'Signed in successfully please complete your profile details to continue';
 
   @override
   String get complete_profile_success => 'Profile completed successfully. You can now access the app.';
@@ -344,4 +344,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get auth_google_sign_in_canceled => 'Google sign-in was canceled. You can try again if you wish.';
+
+  @override
+  String get invalid_password_reset_link => 'This password reset link is invalid or has expired.';
 }

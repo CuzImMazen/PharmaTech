@@ -35,14 +35,18 @@ class AppRoutes {
     ),
     GoRoute(
       path: AppRoutesKeys.login,
-      builder: (context, state) => BlocProvider<LoginCubit>(
-        create: (context) => LoginCubit(
-          authRepository: sl(),
-          tokenStore: sl(),
-          googleAuthService: sl(),
-        ),
-        child: const LoginScreen(),
-      ),
+      builder: (context, state) {
+        final status = state.uri.queryParameters['status'];
+        final email = state.uri.queryParameters['email'];
+        return BlocProvider(
+          create: (context) => LoginCubit(
+            authRepository: sl(),
+            tokenStore: sl(),
+            googleAuthService: sl(),
+          ),
+          child: LoginScreen(status: status, email: email),
+        );
+      },
     ),
     GoRoute(
       path: AppRoutesKeys.registerCredentials,

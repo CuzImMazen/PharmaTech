@@ -140,4 +140,5 @@
   "complete_profile_success": "Profile completed successfully. You can now access the app.",
   "coomplete_profile_error": "An error occurred while completing your profile. Please try again."
   ,"auth_google_sign_in_canceled": "Google sign-in was canceled. You can try again if you wish."
+  ,"invalid_password_reset_link": "This password reset link is invalid or has expired."
 }

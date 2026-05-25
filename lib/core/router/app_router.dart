@@ -53,10 +53,11 @@ class AppRouter {
 
         if (isCustomScheme && uri.host == 'email-verified') {
           final status = uri.queryParameters['status'];
+          final email = uri.queryParameters['email'];
 
           return Uri(
             path: AppRoutesKeys.login,
-            queryParameters: {'verified': status},
+            queryParameters: {'status': status, 'email': email},
           ).toString();
         }
 
@@ -68,7 +69,10 @@ class AppRouter {
               token.trim().isEmpty ||
               email == null ||
               email.trim().isEmpty) {
-            return AppRoutesKeys.login;
+            return Uri(
+              path: AppRoutesKeys.login,
+              queryParameters: {'status': "invalid_reset_link"},
+            ).toString();
           }
 
           return Uri(
