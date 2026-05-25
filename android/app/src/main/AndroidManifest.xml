@@ -33,7 +33,7 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
-                    android:scheme="pharmacyapp"
+                    android:scheme="pharmatech"
                     android:host="reset-password" />
             </intent-filter>
 
@@ -45,7 +45,7 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
-                    android:scheme="pharmacyapp"
+                    android:scheme="pharmatech"
                     android:host="email-verified" />
             </intent-filter>
 

@@ -50,7 +50,7 @@ class AppRouter {
         // DEEP LINKS
         // =========================================================
 
-        final isCustomScheme = uri.scheme == 'pharmacyapp';
+        final isCustomScheme = uri.scheme == 'pharmatech';
 
         if (isCustomScheme && uri.host == 'email-verified') {
           final status = uri.queryParameters['status'];
