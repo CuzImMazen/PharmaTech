@@ -347,4 +347,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get invalid_password_reset_link => 'رابط إعادة تعيين كلمة المرور هذا غير صالح أو انتهت صلاحيته.';
+
+  @override
+  String get email_already_verified => 'تم تأكيد هذا البريد الإلكتروني بالفعل. يرجى تسجيل الدخول.';
 }

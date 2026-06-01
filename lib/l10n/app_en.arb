@@ -141,4 +141,5 @@
   "coomplete_profile_error": "An error occurred while completing your profile. Please try again."
   ,"auth_google_sign_in_canceled": "Google sign-in was canceled. You can try again if you wish."
   ,"invalid_password_reset_link": "This password reset link is invalid or has expired."
+  ,"email_already_verified": "This email address has already been verified. Please log in."
 }

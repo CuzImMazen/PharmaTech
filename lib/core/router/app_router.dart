@@ -54,10 +54,11 @@ class AppRouter {
         if (isCustomScheme && uri.host == 'email-verified') {
           final status = uri.queryParameters['status'];
           final email = uri.queryParameters['email'];
+          final t = uri.queryParameters['t'];
 
           return Uri(
             path: AppRoutesKeys.login,
-            queryParameters: {'status': status, 'email': email},
+            queryParameters: {'status': status, 'email': email, 't': t},
           ).toString();
         }
 

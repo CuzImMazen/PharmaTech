@@ -766,6 +766,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'This password reset link is invalid or has expired.'**
   String get invalid_password_reset_link;
+
+  /// No description provided for @email_already_verified.
+  ///
+  /// In en, this message translates to:
+  /// **'This email address has already been verified. Please log in.'**
+  String get email_already_verified;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

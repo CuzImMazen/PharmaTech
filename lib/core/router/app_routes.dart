@@ -9,6 +9,7 @@ import 'package:pharmacy_app/features/authentication/cubit/login/login_cubit.dar
 import 'package:pharmacy_app/features/authentication/cubit/password_recovery/resend_reset_password_cubit.dart';
 import 'package:pharmacy_app/features/authentication/cubit/password_recovery/reset_password_cubit.dart';
 import 'package:pharmacy_app/features/authentication/cubit/register/register_cubit.dart';
+import 'package:pharmacy_app/features/authentication/data/models/login/deep_link_data_model.dart';
 import 'package:pharmacy_app/features/authentication/data/models/register/register_details_model.dart';
 import 'package:pharmacy_app/features/authentication/presentation/screens/complete_profile/complete_profile_screen.dart';
 import 'package:pharmacy_app/features/authentication/presentation/screens/password_recovery/forget_password_screen.dart';
@@ -38,13 +39,20 @@ class AppRoutes {
       builder: (context, state) {
         final status = state.uri.queryParameters['status'];
         final email = state.uri.queryParameters['email'];
+        final t = state.uri.queryParameters['t'];
+
+        final deepLinkData = DeepLinkData(
+          status: status,
+          email: email,
+          timeStamp: t,
+        );
         return BlocProvider(
           create: (context) => LoginCubit(
             authRepository: sl(),
             tokenStore: sl(),
             googleAuthService: sl(),
           ),
-          child: LoginScreen(status: status, email: email),
+          child: LoginScreen(deepLinkData: deepLinkData),
         );
       },
     ),

@@ -347,4 +347,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get invalid_password_reset_link => 'This password reset link is invalid or has expired.';
+
+  @override
+  String get email_already_verified => 'This email address has already been verified. Please log in.';
 }

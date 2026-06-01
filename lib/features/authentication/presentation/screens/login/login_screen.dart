@@ -16,6 +16,7 @@ import 'package:pharmacy_app/core/widgets/custom_button.dart';
 import 'package:pharmacy_app/core/widgets/custom_text_field.dart';
 import 'package:pharmacy_app/features/authentication/cubit/login/login_cubit.dart';
 import 'package:pharmacy_app/features/authentication/cubit/login/login_state.dart';
+import 'package:pharmacy_app/features/authentication/data/models/login/deep_link_data_model.dart';
 import 'package:pharmacy_app/features/authentication/presentation/widgets/login/continue_withgoogle_btn.dart';
 import 'package:pharmacy_app/features/authentication/presentation/widgets/auth_prompt_row.dart';
 import 'package:pharmacy_app/features/authentication/presentation/widgets/login/or_divider.dart';
@@ -23,23 +24,19 @@ import 'package:pharmacy_app/features/authentication/presentation/widgets/login/
 import 'package:pharmacy_app/features/authentication/presentation/widgets/top_section.dart';
 
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key, this.status, this.email});
-  final String? status;
-  final String? email;
+  const LoginScreen({super.key, this.deepLinkData});
+  final DeepLinkData? deepLinkData;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: LoginScreenBody(status: status, email: email),
-    );
+    return Scaffold(body: LoginScreenBody(deepLinkData: deepLinkData));
   }
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
 
 class LoginScreenBody extends StatefulWidget {
-  const LoginScreenBody({super.key, this.status, this.email});
-  final String? status;
-  final String? email;
+  const LoginScreenBody({super.key, this.deepLinkData});
+  final DeepLinkData? deepLinkData;
   @override
   State<LoginScreenBody> createState() => _LoginScreenState();
 }
@@ -68,24 +65,26 @@ class _LoginScreenState extends State<LoginScreenBody> {
   @override
   void initState() {
     super.initState();
-    emailController = TextEditingController(text: widget.email);
+    emailController = TextEditingController(text: widget.deepLinkData?.email);
     passwordController = TextEditingController();
 
     // 1. Handle cold-boot deep links
-    _checkAndShowDeepLinkSnackbar(widget.status);
+    _checkAndShowDeepLinkSnackbar(widget.deepLinkData?.status);
   }
 
   @override
   void didUpdateWidget(covariant LoginScreenBody oldWidget) {
     super.didUpdateWidget(oldWidget);
     // 1. Update the email field if the email passed in changes
-    if (widget.email != oldWidget.email && widget.email != null) {
-      emailController.text = widget.email!;
+    if (widget.deepLinkData?.email != oldWidget.deepLinkData?.email &&
+        widget.deepLinkData?.email != null) {
+      emailController.text = widget.deepLinkData!.email!;
     }
     // 2. Handle deep links that arrive while the app is already open
-    // Only trigger if the status actually changed
-    if (widget.status != oldWidget.status || widget.email != oldWidget.email) {
-      _checkAndShowDeepLinkSnackbar(widget.status);
+    // Only trigger if the timeStamp  changed
+    if (widget.deepLinkData?.timeStamp != oldWidget.deepLinkData?.timeStamp ||
+        widget.deepLinkData?.email != oldWidget.deepLinkData?.email) {
+      _checkAndShowDeepLinkSnackbar(widget.deepLinkData?.status);
     }
   }
 
@@ -96,8 +95,8 @@ class _LoginScreenState extends State<LoginScreenBody> {
 
         if (status == 'success') {
           AppSnackbar.success(message: context.tr.email_verification_success);
-        } else if (status == 'invalid_reset_link') {
-          AppSnackbar.failure(message: context.tr.invalid_password_reset_link);
+        } else if (status == 'already_verified') {
+          AppSnackbar.success(message: context.tr.email_already_verified);
         }
       });
     }
