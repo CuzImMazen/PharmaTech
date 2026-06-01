@@ -142,4 +142,5 @@
   ,"auth_google_sign_in_canceled": "Google sign-in was canceled. You can try again if you wish."
   ,"invalid_password_reset_link": "This password reset link is invalid or has expired."
   ,"email_already_verified": "This email address has already been verified. Please log in."
+  ,"invalid_link": "The link is invalid or has expired please try again with new Link."
 }

@@ -72,7 +72,7 @@ class AppRouter {
               email.trim().isEmpty) {
             return Uri(
               path: AppRoutesKeys.login,
-              queryParameters: {'status': "invalid_reset_link"},
+              queryParameters: {'status': "invalid_link"},
             ).toString();
           }
 

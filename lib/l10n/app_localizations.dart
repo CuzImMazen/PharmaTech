@@ -772,6 +772,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'This email address has already been verified. Please log in.'**
   String get email_already_verified;
+
+  /// No description provided for @invalid_link.
+  ///
+  /// In en, this message translates to:
+  /// **'The link is invalid or has expired please try again with new Link.'**
+  String get invalid_link;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

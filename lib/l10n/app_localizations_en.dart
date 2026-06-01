@@ -350,4 +350,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get email_already_verified => 'This email address has already been verified. Please log in.';
+
+  @override
+  String get invalid_link => 'The link is invalid or has expired please try again with new Link.';
 }

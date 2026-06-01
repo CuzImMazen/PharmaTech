@@ -350,4 +350,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get email_already_verified => 'تم تأكيد هذا البريد الإلكتروني بالفعل. يرجى تسجيل الدخول.';
+
+  @override
+  String get invalid_link => 'الرابط غير صالح أو انتهت صلاحيته، يرجى المحاولة مرة أخرى برابط جديد.';
 }

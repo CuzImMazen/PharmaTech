@@ -80,8 +80,8 @@ class _LoginScreenState extends State<LoginScreenBody> {
         widget.deepLinkData?.email != null) {
       emailController.text = widget.deepLinkData!.email!;
     }
-    // 2. Handle deep links that arrive while the app is already open
-    // Only trigger if the timeStamp  changed
+
+    // Oshow snackbar if the timeStamp  changed
     if (widget.deepLinkData?.timeStamp != oldWidget.deepLinkData?.timeStamp ||
         widget.deepLinkData?.email != oldWidget.deepLinkData?.email) {
       _checkAndShowDeepLinkSnackbar(widget.deepLinkData?.status);
@@ -97,6 +97,8 @@ class _LoginScreenState extends State<LoginScreenBody> {
           AppSnackbar.success(message: context.tr.email_verification_success);
         } else if (status == 'already_verified') {
           AppSnackbar.success(message: context.tr.email_already_verified);
+        } else if (status == 'invalid_link') {
+          AppSnackbar.failure(message: context.tr.invalid_link);
         }
       });
     }
