@@ -353,4 +353,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get invalid_link => 'The link is invalid or has expired please try again with new Link.';
+
+  @override
+  String get dashboard => 'Dashboard';
+
+  @override
+  String get sales => 'Sales';
+
+  @override
+  String get inventory => 'Inventory';
+
+  @override
+  String get reports => 'Reports';
+
+  @override
+  String get settings => 'Settings';
 }

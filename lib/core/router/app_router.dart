@@ -21,6 +21,7 @@ class AppRouter {
 
   static void init(AppStateNotifier appStateNotifier) {
     _router = GoRouter(
+      initialLocation: AppRoutesKeys.splash,
       debugLogDiagnostics: true,
 
       refreshListenable: appStateNotifier,
@@ -152,7 +153,7 @@ class AppRouter {
 
         if (isAuthenticated) {
           if (isSplash || isLogin || isOnboarding || isRegister) {
-            return AppRoutesKeys.home;
+            return AppRoutesKeys.dashboard;
           }
         }
 

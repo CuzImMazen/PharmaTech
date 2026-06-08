@@ -61,7 +61,7 @@ void main() async {
         BlocProvider.value(value: sessionCubit),
       ],
       child: DevicePreview(
-        enabled: false,
+        enabled: true,
         builder: (context) => const PharmacyApp(),
       ),
     ),

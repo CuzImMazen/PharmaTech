@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pharmacy_app/core/theme/appcolors.dart';
+import 'package:pharmacy_app/core/theme/app_colors.dart';
 
 extension ThemeColors on BuildContext {
   ColorScheme get colors => Theme.of(this).colorScheme;

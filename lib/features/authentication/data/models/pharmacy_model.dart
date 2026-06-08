@@ -14,10 +14,14 @@ class PharmacyModel {
 
   final String? address;
 
+  @JsonKey(name: 'license_number')
+  final String licenseNumber;
+
   PharmacyModel({
     required this.name,
     required this.governorateId,
     required this.cityId,
+    required this.licenseNumber,
     this.address,
   });
 

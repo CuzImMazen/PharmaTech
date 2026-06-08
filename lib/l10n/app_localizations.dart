@@ -778,6 +778,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'The link is invalid or has expired please try again with new Link.'**
   String get invalid_link;
+
+  /// No description provided for @dashboard.
+  ///
+  /// In en, this message translates to:
+  /// **'Dashboard'**
+  String get dashboard;
+
+  /// No description provided for @sales.
+  ///
+  /// In en, this message translates to:
+  /// **'Sales'**
+  String get sales;
+
+  /// No description provided for @inventory.
+  ///
+  /// In en, this message translates to:
+  /// **'Inventory'**
+  String get inventory;
+
+  /// No description provided for @reports.
+  ///
+  /// In en, this message translates to:
+  /// **'Reports'**
+  String get reports;
+
+  /// No description provided for @settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get settings;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

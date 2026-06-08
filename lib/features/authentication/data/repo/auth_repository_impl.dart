@@ -75,7 +75,7 @@ class AuthRepositoryImpl implements AuthRepository {
         'data',
         LoginResponseModel.fromJson,
       );
-
+      await saveUserCache(model.user);
       return Right(model);
     } catch (e) {
       return Left(ApiErrorHandler.handle(e));
@@ -283,24 +283,42 @@ class AuthRepositoryImpl implements AuthRepository {
   //  TOKEN STORAGE
   // =====================================================
 
-  @override
-  Future<String?> getAccessToken() async => null;
+  // =====================================================
+  // TOKEN STORAGE
+  // =====================================================
 
   @override
-  Future<void> saveAccessToken(String token) async {}
+  Future<String?> getAccessToken() async {
+    return await secureStorageService.getString(PrefsKeys.accessToken);
+  }
 
   @override
-  Future<void> clearAccessToken() async {}
+  Future<void> saveAccessToken(String token) async {
+    await secureStorageService.setString(PrefsKeys.accessToken, token);
+  }
 
   @override
-  Future<String?> getRefreshToken() async => null;
+  Future<void> clearAccessToken() async {
+    await secureStorageService.remove(PrefsKeys.accessToken);
+  }
 
   @override
-  Future<void> saveRefreshToken(String token) async {}
+  Future<String?> getRefreshToken() async {
+    return await secureStorageService.getString(PrefsKeys.refreshToken);
+  }
 
   @override
-  Future<void> clearRefreshToken() async {}
+  Future<void> saveRefreshToken(String token) async {
+    await secureStorageService.setString(PrefsKeys.refreshToken, token);
+  }
 
   @override
-  Future<void> clearAllTokens() async {}
+  Future<void> clearRefreshToken() async {
+    await secureStorageService.remove(PrefsKeys.refreshToken);
+  }
+
+  @override
+  Future<void> clearAllTokens() async {
+    await Future.wait([clearAccessToken(), clearRefreshToken()]);
+  }
 }

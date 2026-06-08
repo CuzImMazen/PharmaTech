@@ -11,6 +11,7 @@ PharmacyModel _$PharmacyModelFromJson(Map<String, dynamic> json) =>
       name: json['name'] as String,
       governorateId: (json['governorate_id'] as num).toInt(),
       cityId: (json['city_id'] as num).toInt(),
+      licenseNumber: json['license_number'] as String,
       address: json['address'] as String?,
     );
 
@@ -20,4 +21,5 @@ Map<String, dynamic> _$PharmacyModelToJson(PharmacyModel instance) =>
       'governorate_id': instance.governorateId,
       'city_id': instance.cityId,
       'address': instance.address,
+      'license_number': instance.licenseNumber,
     };

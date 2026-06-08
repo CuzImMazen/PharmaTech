@@ -353,4 +353,19 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get invalid_link => 'الرابط غير صالح أو انتهت صلاحيته، يرجى المحاولة مرة أخرى برابط جديد.';
+
+  @override
+  String get dashboard => 'الرئيسية';
+
+  @override
+  String get sales => 'المبيعات';
+
+  @override
+  String get inventory => 'المخزون';
+
+  @override
+  String get reports => 'التقارير';
+
+  @override
+  String get settings => 'الإعدادات';
 }
