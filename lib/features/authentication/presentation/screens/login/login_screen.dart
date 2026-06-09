@@ -55,8 +55,8 @@ class _LoginScreenState extends State<LoginScreenBody> {
     FocusScope.of(context).unfocus();
     if (formKey.currentState?.validate() ?? false) {
       context.read<LoginCubit>().login(
-        email: emailController.text,
-        password: passwordController.text,
+        email: emailController.text.toLowerCase().trim(),
+        password: passwordController.text.trim(),
         rememberMe: _rememberMe.value,
       );
     }
@@ -65,7 +65,9 @@ class _LoginScreenState extends State<LoginScreenBody> {
   @override
   void initState() {
     super.initState();
-    emailController = TextEditingController(text: widget.deepLinkData?.email);
+    emailController = TextEditingController(
+      text: widget.deepLinkData?.email?.toLowerCase().trim(),
+    );
     passwordController = TextEditingController();
 
     // 1. Handle cold-boot deep links
@@ -199,6 +201,7 @@ class _LoginScreenState extends State<LoginScreenBody> {
                       keyboardType: TextInputType.emailAddress,
                       textInputAction: TextInputAction.next,
                       blockArabic: true,
+                      isEmail: true,
                       labelText: context.tr.auth_email_label,
                       hintText: "example@example.com",
                       prefixIcon: LucideIcons.mail,

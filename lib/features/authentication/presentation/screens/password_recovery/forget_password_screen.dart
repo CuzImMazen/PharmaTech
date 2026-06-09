@@ -108,6 +108,7 @@ class _ForgetPasswordBodyState extends State<ForgetPasswordBody> {
                   ),
                   context.vXl,
                   CustomTextField(
+                    isEmail: true,
                     prefixIcon: LucideIcons.mail,
                     hintText: 'example@example.com',
                     labelText: context.tr.auth_email_label,
@@ -138,7 +139,9 @@ class _ForgetPasswordBodyState extends State<ForgetPasswordBody> {
                                     context
                                         .read<ForgetPasswordCubit>()
                                         .forgetPassword(
-                                          email: emailController.text.trim(),
+                                          email: emailController.text
+                                              .toLowerCase()
+                                              .trim(),
                                         );
                                   }
                                 },

@@ -216,6 +216,7 @@ class _CompleteProfileBodyState extends State<CompleteProfileBody> {
                   // Pharmacy
                   // =========================
                   CustomTextField(
+                    onlyLetters: true,
                     prefixIcon: LucideIcons.building,
                     hintText: context.tr.pharmacy_name_hint,
                     labelText: context.tr.pharmacy_name_label,
@@ -296,6 +297,7 @@ class _CompleteProfileBodyState extends State<CompleteProfileBody> {
                   ),
                   context.vLg,
                   CustomTextField(
+                    onlyLetters: true,
                     height: 80,
                     hintText: context.tr.detailed_address_hint,
                     labelText: context.tr.detailed_address_label,

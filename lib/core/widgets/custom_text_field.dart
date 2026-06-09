@@ -10,6 +10,7 @@ class CustomTextField extends StatefulWidget {
     required this.labelText,
     this.prefixIcon,
     this.isPassword = false,
+    this.isEmail = false,
     this.validator,
     required this.controller,
     this.keyboardType = TextInputType.text,
@@ -23,13 +24,14 @@ class CustomTextField extends StatefulWidget {
     this.onFieldSubmitted,
     this.height,
     this.onlyLetters = false,
-    this.enabled = true, // Added
+    this.enabled = true,
   });
 
   final String hintText;
   final String labelText;
   final IconData? prefixIcon;
   final bool isPassword;
+  final bool isEmail;
   final String? Function(String?)? validator;
   final TextEditingController controller;
   final TextInputType keyboardType;
@@ -43,7 +45,7 @@ class CustomTextField extends StatefulWidget {
   final void Function()? onEditingComplete;
   final void Function(String)? onFieldSubmitted;
   final double? height;
-  final bool enabled; // Added
+  final bool enabled;
 
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
@@ -70,7 +72,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         SizedBox(
           height: widget.height,
           child: TextFormField(
-            enabled: widget.enabled, // Added
+            enabled: widget.enabled,
             textAlignVertical: TextAlignVertical.top,
             expands: widget.height != null,
             maxLines: widget.height != null ? null : 1,
@@ -85,16 +87,36 @@ class _CustomTextFieldState extends State<CustomTextField> {
             obscureText: widget.isPassword ? _obscureText : false,
             obscuringCharacter: '•',
             textInputAction: widget.textInputAction,
-            keyboardType: widget.keyboardType,
+            keyboardType: widget.isEmail
+                ? TextInputType.emailAddress
+                : (widget.isPassword
+                      ? TextInputType.visiblePassword
+                      : widget.keyboardType),
             inputFormatters: [
-              if (widget.blockArabic)
-                FilteringTextInputFormatter.deny(RegExp(r'[\u0600-\u06FF]')),
-              if (widget.keyboardType == TextInputType.phone ||
-                  widget.onlyDigits)
-                FilteringTextInputFormatter.digitsOnly,
+              // 1. Strict pattern formatting that rejects the ENTIRE keystroke (including ghost spaces)
+              // if an invalid character like an emoji is detected in the stream.
               if (widget.onlyLetters)
-                FilteringTextInputFormatter.allow(
-                  RegExp(r'[a-zA-Z\u0600-\u06FF\s]'),
+                _StrictRegexFormatter(RegExp(r'^[a-zA-Z\u0600-\u06FF\s]*$')),
+              if (widget.isEmail)
+                _StrictRegexFormatter(RegExp(r'^[a-zA-Z0-9@._\-\+]*$')),
+              if (widget.isPassword)
+                _StrictRegexFormatter(RegExp(r'^[\x20-\x7E]*$')),
+              if (widget.onlyDigits ||
+                  widget.keyboardType == TextInputType.phone)
+                _StrictRegexFormatter(RegExp(r'^[0-9]*$')),
+
+              // 2. Fallbacks for generic fields
+              if (widget.blockArabic && !widget.onlyLetters)
+                FilteringTextInputFormatter.deny(RegExp(r'[\u0600-\u06FF]')),
+              if (!widget.onlyLetters &&
+                  !widget.isEmail &&
+                  !widget.isPassword &&
+                  !widget.onlyDigits)
+                FilteringTextInputFormatter.deny(
+                  RegExp(
+                    r'[\u{1F300}-\u{1F6FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{1F900}-\u{1F9FF}\u{1F1E6}-\u{1F1FF}]',
+                    unicode: true,
+                  ),
                 ),
             ],
             style: theme.textTheme.bodyLarge,
@@ -165,5 +187,27 @@ class _CustomTextFieldState extends State<CustomTextField> {
         ),
       ],
     );
+  }
+}
+
+class _StrictRegexFormatter extends TextInputFormatter {
+  final RegExp pattern;
+
+  _StrictRegexFormatter(this.pattern);
+
+  @override
+  TextEditingValue formatEditUpdate(
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
+    if (newValue.text.isEmpty) return newValue;
+
+    // Checks if the ENTIRE new string matches our rules
+    if (pattern.hasMatch(newValue.text)) {
+      return newValue;
+    }
+
+    // If it fails (e.g., contains an emoji + a space), return the old value untouched.
+    return oldValue;
   }
 }

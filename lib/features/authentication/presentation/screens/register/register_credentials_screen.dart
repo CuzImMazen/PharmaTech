@@ -76,7 +76,7 @@ class _RegisterCredentialsBodyState extends State<RegisterCredentialsBody> {
       FocusManager.instance.primaryFocus?.unfocus();
 
       RegisterRequestModel registerRequestModel = RegisterRequestModel(
-        email: emailController.text.trim(),
+        email: emailController.text.toLowerCase().trim(),
         password: passwordController.text.trim(),
         firstName: widget.registerDetailsModel.firstName,
         lastName: widget.registerDetailsModel.lastName,
