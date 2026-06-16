@@ -9,11 +9,8 @@ class TodayRevenueSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String currentLanguage = Localizations.localeOf(context).languageCode;
-    final String locale = (currentLanguage == 'ar') ? 'ar_EG' : currentLanguage;
-    final currencyFormatter = NumberFormat.decimalPattern(locale);
+    final currencyFormatter = NumberFormat.decimalPattern();
     final percentFormatter = NumberFormat.decimalPercentPattern(
-      locale: locale,
       decimalDigits: 1,
     );
     return Column(

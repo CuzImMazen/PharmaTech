@@ -148,7 +148,7 @@
   ,"inventory" : "Inventory"
   ,"reports" : "Reports"
   ,"settings" : "Settings"
-  ,"welcome" : "Welcome"
+  ,"welcome" : "Welcome back"
   ,"here_is_your_pharmacy_summary" : "Here's your pharmacy summary for today"
   ,"today_revenue" : "Today's Revenue"
   ,"from_yesterday" : "from yesterday",
@@ -156,4 +156,15 @@
   ,"invoice" : "Invoice"
   ,"units_sold" : "Units Sold"
   ,"avg_invoice_value" : "Avg. Invoice"
+  ,"yesterday_revenue" : "Yesterday's Revenue"
+  ,"this_week" : "this week",
+  "total_items" : "Total Items",
+  "out_of_stock" : "Out of Stock",
+  "items_in_stock" : "Items in Stock",
+  "total_sales" : "Total Sales",
+  "today_sales" : "Today's Sales",
+  "stock_alerts" : "Stock Alerts"
+  ,"weekly_revenue" : "Weekly Revenue"
+  ,"today" : "Today"
+  ,"prevs_day" : "Prev. Days"
 }

@@ -370,7 +370,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settings => 'Settings';
 
   @override
-  String get welcome => 'Welcome';
+  String get welcome => 'Welcome back';
 
   @override
   String get here_is_your_pharmacy_summary => 'Here\'s your pharmacy summary for today';
@@ -392,4 +392,37 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get avg_invoice_value => 'Avg. Invoice';
+
+  @override
+  String get yesterday_revenue => 'Yesterday\'s Revenue';
+
+  @override
+  String get this_week => 'this week';
+
+  @override
+  String get total_items => 'Total Items';
+
+  @override
+  String get out_of_stock => 'Out of Stock';
+
+  @override
+  String get items_in_stock => 'Items in Stock';
+
+  @override
+  String get total_sales => 'Total Sales';
+
+  @override
+  String get today_sales => 'Today\'s Sales';
+
+  @override
+  String get stock_alerts => 'Stock Alerts';
+
+  @override
+  String get weekly_revenue => 'Weekly Revenue';
+
+  @override
+  String get today => 'Today';
+
+  @override
+  String get prevs_day => 'Prev. Days';
 }

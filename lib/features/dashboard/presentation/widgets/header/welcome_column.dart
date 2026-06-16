@@ -11,7 +11,7 @@ class WelcomeColumn extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "${context.tr.welcome} 👋",
+          "${context.tr.welcome}! ",
           style: context.text.titleLarge?.copyWith(color: Colors.white),
         ),
         context.vSm,

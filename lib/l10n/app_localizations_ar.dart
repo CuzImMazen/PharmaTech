@@ -392,4 +392,37 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get avg_invoice_value => 'متوسط الفاتورة';
+
+  @override
+  String get yesterday_revenue => 'إيرادات الأمس';
+
+  @override
+  String get this_week => 'هذا الأسبوع';
+
+  @override
+  String get total_items => 'إجمالي العناصر';
+
+  @override
+  String get out_of_stock => 'نفاذ من المخزون';
+
+  @override
+  String get items_in_stock => 'العناصر في المخزون';
+
+  @override
+  String get total_sales => 'إجمالي المبيعات';
+
+  @override
+  String get today_sales => 'مبيعات اليوم';
+
+  @override
+  String get stock_alerts => 'تنبيهات المخزون';
+
+  @override
+  String get weekly_revenue => 'إيرادات الأسبوع';
+
+  @override
+  String get today => 'اليوم';
+
+  @override
+  String get prevs_day => 'الأيام السابقة';
 }

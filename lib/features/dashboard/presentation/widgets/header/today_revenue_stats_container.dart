@@ -14,7 +14,7 @@ class TodayRevenueStatsContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
       decoration: BoxDecoration(
         color: Colors.white.withAlpha(38),
         borderRadius: BorderRadius.circular(16),
@@ -23,14 +23,16 @@ class TodayRevenueStatsContainer extends StatelessWidget {
         child: Row(
           children: [
             _StatItem(
-              value: currencyFormatter.format(1800),
+              value: currencyFormatter.format(23),
               label: context.tr.invoice,
             ),
             _Divider(),
+
             _StatItem(
               value: currencyFormatter.format(1200),
               label: context.tr.avg_invoice_value,
             ),
+
             _Divider(),
             _StatItem(
               value: currencyFormatter.format(600),

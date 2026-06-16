@@ -153,4 +153,15 @@
   ,"invoice" : "فاتورة"
   ,"units_sold" : "وحدة مُباعة"
   ,"avg_invoice_value" : "متوسط الفاتورة"
+  ,"yesterday_revenue" : "إيرادات الأمس"
+  ,"this_week" : "هذا الأسبوع"
+  ,"total_items" : "إجمالي العناصر"
+  ,"out_of_stock" : "نفاذ من المخزون"
+  ,"items_in_stock" : "العناصر في المخزون"
+  ,"total_sales" : "إجمالي المبيعات"
+  ,"today_sales" : "مبيعات اليوم"
+  ,"stock_alerts" : "تنبيهات المخزون",
+  "weekly_revenue": "إيرادات الأسبوع",
+  "today": "اليوم"
+  ,"prevs_day" : "الأيام السابقة"
 }

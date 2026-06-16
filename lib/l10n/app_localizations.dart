@@ -812,7 +812,7 @@ abstract class AppLocalizations {
   /// No description provided for @welcome.
   ///
   /// In en, this message translates to:
-  /// **'Welcome'**
+  /// **'Welcome back'**
   String get welcome;
 
   /// No description provided for @here_is_your_pharmacy_summary.
@@ -856,6 +856,72 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Avg. Invoice'**
   String get avg_invoice_value;
+
+  /// No description provided for @yesterday_revenue.
+  ///
+  /// In en, this message translates to:
+  /// **'Yesterday\'s Revenue'**
+  String get yesterday_revenue;
+
+  /// No description provided for @this_week.
+  ///
+  /// In en, this message translates to:
+  /// **'this week'**
+  String get this_week;
+
+  /// No description provided for @total_items.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Items'**
+  String get total_items;
+
+  /// No description provided for @out_of_stock.
+  ///
+  /// In en, this message translates to:
+  /// **'Out of Stock'**
+  String get out_of_stock;
+
+  /// No description provided for @items_in_stock.
+  ///
+  /// In en, this message translates to:
+  /// **'Items in Stock'**
+  String get items_in_stock;
+
+  /// No description provided for @total_sales.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Sales'**
+  String get total_sales;
+
+  /// No description provided for @today_sales.
+  ///
+  /// In en, this message translates to:
+  /// **'Today\'s Sales'**
+  String get today_sales;
+
+  /// No description provided for @stock_alerts.
+  ///
+  /// In en, this message translates to:
+  /// **'Stock Alerts'**
+  String get stock_alerts;
+
+  /// No description provided for @weekly_revenue.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly Revenue'**
+  String get weekly_revenue;
+
+  /// No description provided for @today.
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get today;
+
+  /// No description provided for @prevs_day.
+  ///
+  /// In en, this message translates to:
+  /// **'Prev. Days'**
+  String get prevs_day;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
