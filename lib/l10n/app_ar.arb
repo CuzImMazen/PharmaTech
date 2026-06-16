@@ -145,4 +145,12 @@
   ,"inventory" : "المخزون"
   ,"reports" : "التقارير"
   ,"settings" : "الإعدادات"
+  ,"welcome" : "أهلاً بك"
+  ,"here_is_your_pharmacy_summary" : "إليك ملخص صيدلتك لليوم"
+  ,"today_revenue" : "إيرادات اليوم"
+  ,"from_yesterday" : "منذ أمس",
+  "sp": "ل.س"
+  ,"invoice" : "فاتورة"
+  ,"units_sold" : "وحدة مُباعة"
+  ,"avg_invoice_value" : "متوسط الفاتورة"
 }

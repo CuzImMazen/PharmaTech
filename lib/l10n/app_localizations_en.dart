@@ -368,4 +368,28 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get settings => 'Settings';
+
+  @override
+  String get welcome => 'Welcome';
+
+  @override
+  String get here_is_your_pharmacy_summary => 'Here\'s your pharmacy summary for today';
+
+  @override
+  String get today_revenue => 'Today\'s Revenue';
+
+  @override
+  String get from_yesterday => 'from yesterday';
+
+  @override
+  String get sp => 'SP';
+
+  @override
+  String get invoice => 'Invoice';
+
+  @override
+  String get units_sold => 'Units Sold';
+
+  @override
+  String get avg_invoice_value => 'Avg. Invoice';
 }

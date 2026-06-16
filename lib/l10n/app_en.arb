@@ -148,4 +148,12 @@
   ,"inventory" : "Inventory"
   ,"reports" : "Reports"
   ,"settings" : "Settings"
+  ,"welcome" : "Welcome"
+  ,"here_is_your_pharmacy_summary" : "Here's your pharmacy summary for today"
+  ,"today_revenue" : "Today's Revenue"
+  ,"from_yesterday" : "from yesterday",
+  "sp": "SP"
+  ,"invoice" : "Invoice"
+  ,"units_sold" : "Units Sold"
+  ,"avg_invoice_value" : "Avg. Invoice"
 }

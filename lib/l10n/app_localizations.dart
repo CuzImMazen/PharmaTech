@@ -808,6 +808,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Settings'**
   String get settings;
+
+  /// No description provided for @welcome.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome'**
+  String get welcome;
+
+  /// No description provided for @here_is_your_pharmacy_summary.
+  ///
+  /// In en, this message translates to:
+  /// **'Here\'s your pharmacy summary for today'**
+  String get here_is_your_pharmacy_summary;
+
+  /// No description provided for @today_revenue.
+  ///
+  /// In en, this message translates to:
+  /// **'Today\'s Revenue'**
+  String get today_revenue;
+
+  /// No description provided for @from_yesterday.
+  ///
+  /// In en, this message translates to:
+  /// **'from yesterday'**
+  String get from_yesterday;
+
+  /// No description provided for @sp.
+  ///
+  /// In en, this message translates to:
+  /// **'SP'**
+  String get sp;
+
+  /// No description provided for @invoice.
+  ///
+  /// In en, this message translates to:
+  /// **'Invoice'**
+  String get invoice;
+
+  /// No description provided for @units_sold.
+  ///
+  /// In en, this message translates to:
+  /// **'Units Sold'**
+  String get units_sold;
+
+  /// No description provided for @avg_invoice_value.
+  ///
+  /// In en, this message translates to:
+  /// **'Avg. Invoice'**
+  String get avg_invoice_value;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

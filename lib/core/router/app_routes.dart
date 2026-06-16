@@ -26,6 +26,7 @@ import 'package:pharmacy_app/features/authentication/presentation/screens/regist
 import 'package:pharmacy_app/features/authentication/presentation/screens/register/register_details_screen.dart';
 import 'package:pharmacy_app/features/authentication/presentation/screens/password_recovery/reset_password_screen.dart';
 import 'package:pharmacy_app/features/authentication/presentation/screens/email_verification/email_verification_sent_screen.dart';
+import 'package:pharmacy_app/features/dashboard/presentation/screens/dashboard_screen.dart';
 import 'package:pharmacy_app/features/layout/presentation/screen/layout_screen.dart';
 import 'package:pharmacy_app/features/onboarding/presentation/screens/onboarding_screen.dart';
 import 'package:pharmacy_app/features/splash/presentation/screens/splash_screen.dart';
@@ -177,13 +178,12 @@ class AppRoutes {
         return LayoutScreen(navigationShell: navigationShell);
       },
       branches: [
-        // --- Branch 1: Home Tab ---
+        // --- Branch 1: Dashboard Tab ---
         StatefulShellBranch(
           routes: [
             GoRoute(
               path: AppRoutesKeys.dashboard,
-              builder: (context, state) =>
-                  const Scaffold(body: Center(child: Text('Main Screen'))),
+              builder: (context, state) => DashboardScreen(),
               routes: const [
                 // Add nested routes for the Home tab here if needed
               ],
@@ -191,7 +191,7 @@ class AppRoutes {
           ],
         ),
 
-        // --- Branch 2: Orders Tab ---
+        // --- Branch 2: Inventory Tab ---
         StatefulShellBranch(
           routes: [
             GoRoute(
@@ -205,7 +205,7 @@ class AppRoutes {
           ],
         ),
 
-        // --- Branch 3: Profile Tab ---
+        // --- Branch 3: Sales Tab ---
         StatefulShellBranch(
           routes: [
             GoRoute(

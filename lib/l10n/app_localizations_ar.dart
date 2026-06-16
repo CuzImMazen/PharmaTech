@@ -368,4 +368,28 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get settings => 'الإعدادات';
+
+  @override
+  String get welcome => 'أهلاً بك';
+
+  @override
+  String get here_is_your_pharmacy_summary => 'إليك ملخص صيدلتك لليوم';
+
+  @override
+  String get today_revenue => 'إيرادات اليوم';
+
+  @override
+  String get from_yesterday => 'منذ أمس';
+
+  @override
+  String get sp => 'ل.س';
+
+  @override
+  String get invoice => 'فاتورة';
+
+  @override
+  String get units_sold => 'وحدة مُباعة';
+
+  @override
+  String get avg_invoice_value => 'متوسط الفاتورة';
 }

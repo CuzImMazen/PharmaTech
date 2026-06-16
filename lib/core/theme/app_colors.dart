@@ -30,6 +30,12 @@ class AppColors {
     Color(0xFF34D399),
   ];
 
+  static const dashBoardHeaderGradient = [
+    Color(0xFF065f46),
+    Color(0xFF059669),
+    Color(0xFF34d399),
+  ];
+
   // Semantic / accent
   static const destructive = Color(0xFFEF4444);
   static const cozyBlue = Color(0xFF60A5FA);
