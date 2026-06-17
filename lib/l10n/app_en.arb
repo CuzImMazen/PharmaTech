@@ -167,4 +167,11 @@
   ,"weekly_revenue" : "Weekly Revenue"
   ,"today" : "Today"
   ,"prevs_day" : "Prev. Days"
+  ,"recent_transactions" : "Recent Transactions"
+  ,"view_all" : "View All"
+  ,"stock_alerts_title" : "Stock Alerts"
+  ,"manage_inventory" : "Manage Inventory"
+  ,"low": "Low",
+  "critical": "Critical",
+  "out": "Out"
 }

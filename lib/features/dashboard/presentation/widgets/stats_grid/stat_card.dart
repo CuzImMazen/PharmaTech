@@ -35,7 +35,7 @@ class StatCard extends StatelessWidget {
           end: Alignment.bottomRight,
           colors: [color.withAlpha(38), color.withAlpha(13)],
         ),
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: context.rLg,
         border: Border.all(color: color.withAlpha(40)),
       ),
       child: Column(

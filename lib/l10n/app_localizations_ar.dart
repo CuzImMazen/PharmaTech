@@ -425,4 +425,25 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get prevs_day => 'الأيام السابقة';
+
+  @override
+  String get recent_transactions => 'المعاملات الأخيرة';
+
+  @override
+  String get view_all => 'عرض الكل';
+
+  @override
+  String get stock_alerts_title => 'تنبيهات المخزون';
+
+  @override
+  String get manage_inventory => 'إدارة المخزون';
+
+  @override
+  String get low => 'منخفض';
+
+  @override
+  String get critical => 'حرج';
+
+  @override
+  String get out => 'نفاذ';
 }

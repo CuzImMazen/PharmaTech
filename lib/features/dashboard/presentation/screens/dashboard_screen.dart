@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:pharmacy_app/core/extensions/app_design_system_ext.dart';
-import 'package:pharmacy_app/core/theme/app_colors.dart';
+import 'package:pharmacy_app/core/extensions/localization_ext.dart';
 import 'package:pharmacy_app/features/dashboard/presentation/widgets/header/dashboard_header.dart';
+import 'package:pharmacy_app/features/dashboard/presentation/widgets/recent_transactions/recent_transactions_card.dart';
 import 'package:pharmacy_app/features/dashboard/presentation/widgets/stats_grid/stats_grid.dart';
+import 'package:pharmacy_app/features/dashboard/presentation/widgets/stock_alerts/stock_alerts_section.dart';
+import 'package:pharmacy_app/features/dashboard/presentation/widgets/title_row.dart';
 import 'package:pharmacy_app/features/dashboard/presentation/widgets/weekly_revenue/weekly_revenue_card.dart';
 
 class DashboardScreen extends StatelessWidget {
@@ -15,54 +17,21 @@ class DashboardScreen extends StatelessWidget {
         top: false,
         child: CustomScrollView(
           slivers: [
-            const SliverToBoxAdapter(child: DashboardHeader()),
+            const DashboardHeader(),
             const StatsSliverGrid(),
-            const SliverToBoxAdapter(child: WeeklyRevenueCard()),
-            SliverToBoxAdapter(child: context.vMd),
-            const SliverToBoxAdapter(child: _TitleRow()),
+            const WeeklyRevenueCard(),
+            TitleRow(
+              title: context.tr.recent_transactions,
+              actionText: context.tr.view_all,
+            ),
+            const RecentTransactionsCard(),
+            TitleRow(
+              title: context.tr.stock_alerts_title,
+              actionText: context.tr.manage_inventory,
+            ),
+            const StockAlertsSection(),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class _TitleRow extends StatelessWidget {
-  const _TitleRow();
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Row(
-        children: [
-          Text('Recent Transactions', style: context.text.titleLarge),
-          Spacer(),
-          InkWell(
-            splashColor: AppColors.primary.withAlpha(70),
-            borderRadius: BorderRadius.circular(8),
-            onTap: () {},
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: Row(
-                children: [
-                  Text(
-                    'View All',
-                    style: context.text.labelLarge?.copyWith(
-                      color: context.colors.primary,
-                    ),
-                  ),
-                  context.hSm,
-                  Icon(
-                    Icons.arrow_forward_ios,
-                    size: 16,
-                    color: context.colors.primary,
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
       ),
     );
   }

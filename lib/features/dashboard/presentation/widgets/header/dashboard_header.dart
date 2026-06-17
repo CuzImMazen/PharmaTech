@@ -11,30 +11,32 @@ class DashboardHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double statusBarHeight = MediaQuery.of(context).padding.top;
-    return Container(
-      padding: EdgeInsets.only(
-        top: statusBarHeight + 24.0,
-        bottom: 24.0,
-        left: 16.0,
-        right: 16.0,
-      ),
-
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: AppColors.dashBoardHeaderGradient,
+    return SliverToBoxAdapter(
+      child: Container(
+        padding: EdgeInsets.only(
+          top: statusBarHeight + 24.0,
+          bottom: 24.0,
+          left: 16.0,
+          right: 16.0,
         ),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          NotificationRow(),
-          context.vXl,
-          WelcomeColumn(),
-          context.vLg,
-          TodayRevenueSection(),
-        ],
+
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: AppColors.dashBoardHeaderGradient,
+          ),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            NotificationRow(),
+            context.vXl,
+            WelcomeColumn(),
+            context.vLg,
+            TodayRevenueSection(),
+          ],
+        ),
       ),
     );
   }

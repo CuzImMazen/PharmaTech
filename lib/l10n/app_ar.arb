@@ -164,4 +164,11 @@
   "weekly_revenue": "إيرادات الأسبوع",
   "today": "اليوم"
   ,"prevs_day" : "الأيام السابقة"
+  ,"recent_transactions" : "المعاملات الأخيرة"
+  ,"view_all" : "عرض الكل"
+  ,"stock_alerts_title" : "تنبيهات المخزون"
+  ,"manage_inventory" : "إدارة المخزون"
+  ,"low": "منخفض",
+  "critical": "حرج",
+  "out": "نفاذ"
 }

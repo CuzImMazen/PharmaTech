@@ -44,4 +44,5 @@ class AppColors {
   static const cozyEmerald = Color(0xFF34D399);
   static const cozyCyan = Color(0xFF22D3EE);
   static const cozyPink = Color(0xFFF472B6);
+  static const cozyRed = Color(0xFFEF4444);
 }

@@ -922,6 +922,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Prev. Days'**
   String get prevs_day;
+
+  /// No description provided for @recent_transactions.
+  ///
+  /// In en, this message translates to:
+  /// **'Recent Transactions'**
+  String get recent_transactions;
+
+  /// No description provided for @view_all.
+  ///
+  /// In en, this message translates to:
+  /// **'View All'**
+  String get view_all;
+
+  /// No description provided for @stock_alerts_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Stock Alerts'**
+  String get stock_alerts_title;
+
+  /// No description provided for @manage_inventory.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage Inventory'**
+  String get manage_inventory;
+
+  /// No description provided for @low.
+  ///
+  /// In en, this message translates to:
+  /// **'Low'**
+  String get low;
+
+  /// No description provided for @critical.
+  ///
+  /// In en, this message translates to:
+  /// **'Critical'**
+  String get critical;
+
+  /// No description provided for @out.
+  ///
+  /// In en, this message translates to:
+  /// **'Out'**
+  String get out;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

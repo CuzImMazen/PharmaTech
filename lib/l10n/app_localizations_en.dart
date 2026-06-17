@@ -425,4 +425,25 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get prevs_day => 'Prev. Days';
+
+  @override
+  String get recent_transactions => 'Recent Transactions';
+
+  @override
+  String get view_all => 'View All';
+
+  @override
+  String get stock_alerts_title => 'Stock Alerts';
+
+  @override
+  String get manage_inventory => 'Manage Inventory';
+
+  @override
+  String get low => 'Low';
+
+  @override
+  String get critical => 'Critical';
+
+  @override
+  String get out => 'Out';
 }
