@@ -16,12 +16,20 @@ class AppTheme {
     colorScheme: const ColorScheme.light(
       primary: AppColors.primary,
       secondary: AppColors.secondary,
-      surface: AppColors.surfaceLight,
+
+      // Layers for stacking light components
+      surface: AppColors.surfaceLight, // Mapped for input fields / nested cards
+      surfaceContainerLowest:
+          AppColors.backgroundLight, // Bottom-most scaffold layer
+      surfaceContainer: AppColors
+          .cardLight, // Mapped for main parent components (MedicineListCard)
+      surfaceContainerHighest: AppColors
+          .surfaceLight, // Mapped for innermost structural blocks (MedicineInfoCard)
+
       onSurface: AppColors.foregroundLight,
       onPrimary: Colors.white,
       onSecondary: Colors.white,
       outline: AppColors.borderLight,
-      surfaceContainer: AppColors.mutedLight,
     ),
 
     scaffoldBackgroundColor: AppColors.backgroundLight,
@@ -99,10 +107,16 @@ class AppTheme {
     ),
 
     chipTheme: ChipThemeData(
-      backgroundColor: AppColors.mutedLight,
-      selectedColor: AppColors.primary.withOpacity(0.15),
-      labelStyle: const TextStyle(fontFamily: 'Cairo', fontSize: 12),
-      side: BorderSide.none,
+      backgroundColor: AppColors.mutedSurfaceLight,
+      selectedColor: AppColors.primary.withAlpha(120),
+      labelStyle: const TextStyle(
+        fontFamily: 'Cairo',
+        fontSize: 12,
+        color: AppColors.foregroundLight,
+        fontWeight: FontWeight.bold,
+      ),
+      checkmarkColor: AppColors.primary,
+      side: const BorderSide(color: AppColors.borderLight),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
     ),
   );
@@ -116,18 +130,26 @@ class AppTheme {
     colorScheme: const ColorScheme.dark(
       primary: AppColors.primary,
       secondary: AppColors.secondary,
-      surface: AppColors.surfaceDark,
+
+      // Layers for stacking dark components smoothly
+      surface: AppColors.surfaceDark, // Mapped for basic dark inputs/elements
+      surfaceContainerLowest:
+          AppColors.backgroundDark, // Base scaffold canvas layer
+      surfaceContainer:
+          AppColors.cardDark, // Deep parent card color (MedicineListCard)
+      surfaceContainerHighest: AppColors
+          .surfaceDark, // Elevated inner background color (MedicineInfoCard)
+
       onSurface: AppColors.foregroundDark,
       onPrimary: Colors.white,
       onSecondary: Colors.white,
       outline: AppColors.borderDark,
-      surfaceContainer: AppColors.mutedSurfaceDark,
     ),
 
     scaffoldBackgroundColor: AppColors.backgroundDark,
 
     cardTheme: CardThemeData(
-      color: AppColors.surfaceDark,
+      color: AppColors.cardDark,
       elevation: 0,
       shape: RoundedRectangleBorder(
         borderRadius: _borderRadius,
@@ -200,8 +222,12 @@ class AppTheme {
 
     chipTheme: ChipThemeData(
       backgroundColor: AppColors.mutedSurfaceDark,
-      selectedColor: AppColors.primary.withOpacity(0.2),
-      labelStyle: const TextStyle(fontFamily: 'Cairo', fontSize: 12),
+      selectedColor: AppColors.primary.withAlpha(100),
+      labelStyle: const TextStyle(
+        fontFamily: 'Cairo',
+        fontSize: 12,
+        fontWeight: FontWeight.bold,
+      ),
       side: BorderSide.none,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
     ),

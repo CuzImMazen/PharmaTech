@@ -110,6 +110,8 @@ extension ThemeColors on BuildContext {
   Color get primary => colors.primary;
   Color get surface => colors.surface;
   Color get onSurface => colors.onSurface;
+  Color get mutedSurface =>
+      isDark ? AppColors.mutedSurfaceDark : AppColors.mutedSurfaceLight;
 
   Color get muted => isDark ? AppColors.mutedDark : AppColors.mutedLight;
 }

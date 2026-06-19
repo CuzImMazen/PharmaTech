@@ -27,6 +27,7 @@ import 'package:pharmacy_app/features/authentication/presentation/screens/regist
 import 'package:pharmacy_app/features/authentication/presentation/screens/password_recovery/reset_password_screen.dart';
 import 'package:pharmacy_app/features/authentication/presentation/screens/email_verification/email_verification_sent_screen.dart';
 import 'package:pharmacy_app/features/dashboard/presentation/screens/dashboard_screen.dart';
+import 'package:pharmacy_app/features/inventory/presentation/screens/inventory_screen.dart';
 import 'package:pharmacy_app/features/layout/presentation/screen/layout_screen.dart';
 import 'package:pharmacy_app/features/onboarding/presentation/screens/onboarding_screen.dart';
 import 'package:pharmacy_app/features/splash/presentation/screens/splash_screen.dart';
@@ -196,8 +197,7 @@ class AppRoutes {
           routes: [
             GoRoute(
               path: AppRoutesKeys.inventory,
-              builder: (context, state) =>
-                  const Scaffold(body: Center(child: Text('Inventory Screen'))),
+              builder: (context, state) => InventoryScreen(),
               routes: const [
                 // Add nested routes for the Inventory tab here if needed
               ],
