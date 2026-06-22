@@ -120,15 +120,11 @@ class _ViewTypeContainer extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment
                 .spaceEvenly, // Centers icons inside its allocated space
             children: [
-              Icon(
-                Icons.grid_view,
-                color: context.colors.primary,
-                size: context.sLg,
-              ),
+              Icon(Icons.grid_view, color: context.muted, size: context.sLg),
               context.hSm,
               Icon(
                 Icons.format_list_bulleted,
-                color: context.muted,
+                color: context.colors.primary,
                 size: context.sLg,
               ),
             ],
