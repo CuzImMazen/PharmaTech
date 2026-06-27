@@ -3,25 +3,25 @@ import 'package:pharmacy_app/core/extensions/app_design_system_ext.dart';
 import 'package:pharmacy_app/core/theme/app_colors.dart';
 
 class SearchTextField extends StatefulWidget {
-  const SearchTextField({super.key, required this.controller});
-
-  final TextEditingController controller;
+  const SearchTextField({super.key});
 
   @override
   State<SearchTextField> createState() => _SearchTextFieldState();
 }
 
 class _SearchTextFieldState extends State<SearchTextField> {
+  late final TextEditingController controller;
   bool _isEmpty = true;
 
   @override
   void initState() {
     super.initState();
-    widget.controller.addListener(_checkEmptyState);
+    controller = TextEditingController();
+    controller.addListener(_checkEmptyState);
   }
 
   void _checkEmptyState() {
-    final bool isEmpty = widget.controller.text.isEmpty;
+    final bool isEmpty = controller.text.isEmpty;
     if (isEmpty != _isEmpty) {
       setState(() {
         _isEmpty = isEmpty;
@@ -31,16 +31,16 @@ class _SearchTextFieldState extends State<SearchTextField> {
 
   @override
   void dispose() {
-    widget.controller.removeListener(_checkEmptyState);
+    controller.removeListener(_checkEmptyState);
     super.dispose();
   }
 
   @override
-  Widget build(BuildContext context) {
+  build(BuildContext context) {
     return Padding(
       padding: context.pHorizontal,
       child: TextField(
-        controller: widget.controller,
+        controller: controller,
         onTapOutside: (event) {
           FocusScope.of(context).unfocus();
         },
@@ -50,10 +50,10 @@ class _SearchTextFieldState extends State<SearchTextField> {
             Icons.search,
             color: context.colors.onSurface.withAlpha(140),
           ),
-          suffixIcon: widget.controller.text.isNotEmpty
+          suffixIcon: controller.text.isNotEmpty
               ? GestureDetector(
                   onTap: () {
-                    widget.controller.clear();
+                    controller.clear();
                   },
                   child: Icon(
                     Icons.clear,

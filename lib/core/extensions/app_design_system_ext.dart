@@ -93,6 +93,25 @@ extension AppDesignSystem on BuildContext {
 
   // Helpers
   SizedBox get shrink => const SizedBox.shrink();
+
+  int get gridColumns {
+    if (screenWidth >= 1000) return 5;
+    if (screenWidth >= 800) return 4;
+    if (screenWidth >= 600) return 3;
+    return 2;
+  }
+
+  double gridAspectRatio({
+    int columns = 2,
+    double spacing = 16,
+    double heightFactor = 1.35,
+  }) {
+    final width = (screenWidth - ((columns + 1) * spacing)) / columns;
+
+    final height = width * heightFactor;
+
+    return width / height;
+  }
 }
 
 // ==========================================================================

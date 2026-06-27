@@ -109,11 +109,17 @@ class AppTheme {
     chipTheme: ChipThemeData(
       backgroundColor: AppColors.mutedSurfaceLight,
       selectedColor: AppColors.primary.withAlpha(120),
-      labelStyle: const TextStyle(
+      // Dynamic text color switching based on state
+      labelStyle: TextStyle(
         fontFamily: 'Cairo',
         fontSize: 12,
-        color: AppColors.foregroundLight,
         fontWeight: FontWeight.bold,
+        color: WidgetStateProperty.resolveWith<Color?>((states) {
+          if (states.contains(WidgetState.selected)) {
+            return Colors.white; // Dynamic text color when selected
+          }
+          return AppColors.foregroundLight; // Color when unselected
+        }).resolve({}),
       ),
       checkmarkColor: AppColors.primary,
       side: const BorderSide(color: AppColors.borderLight),
@@ -223,10 +229,17 @@ class AppTheme {
     chipTheme: ChipThemeData(
       backgroundColor: AppColors.mutedSurfaceDark,
       selectedColor: AppColors.primary.withAlpha(100),
-      labelStyle: const TextStyle(
+      // Dynamic text color switching based on state
+      labelStyle: TextStyle(
         fontFamily: 'Cairo',
         fontSize: 12,
         fontWeight: FontWeight.bold,
+        color: WidgetStateProperty.resolveWith<Color?>((states) {
+          if (states.contains(WidgetState.selected)) {
+            return Colors.white; // Dynamic text color when selected
+          }
+          return AppColors.foregroundDark; // Color when unselected
+        }).resolve({}),
       ),
       side: BorderSide.none,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),

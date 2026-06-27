@@ -18,7 +18,10 @@ class MedicineInfoCard extends StatelessWidget {
         child: Column(
           children: [
             Text(value, style: context.text.titleMedium),
-            Text(label, style: context.text.bodyMedium),
+            Text(
+              label,
+              style: context.text.labelMedium?.copyWith(color: context.muted),
+            ),
           ],
         ),
       ),

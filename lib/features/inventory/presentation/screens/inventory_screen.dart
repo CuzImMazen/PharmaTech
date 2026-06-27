@@ -1,32 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pharmacy_app/core/enums/enums.dart';
 import 'package:pharmacy_app/core/extensions/app_design_system_ext.dart';
-import 'package:pharmacy_app/features/inventory/presentation/widgets/categories_section.dart';
+import 'package:pharmacy_app/features/inventory/cubit/view_mode_cubit.dart';
 import 'package:pharmacy_app/features/inventory/presentation/widgets/filters_row.dart';
 import 'package:pharmacy_app/features/inventory/presentation/widgets/inventory_header.dart';
-import 'package:pharmacy_app/features/inventory/presentation/widgets/medicine_card/medicine_list_card.dart';
+import 'package:pharmacy_app/features/inventory/presentation/widgets/medicine_card/grid_card/medicine_grid_card.dart';
+// ignore: unused_import
+import 'package:pharmacy_app/features/inventory/presentation/widgets/medicine_card/list_card/medicine_list_card.dart';
 import 'package:pharmacy_app/features/inventory/presentation/widgets/search_text_field.dart';
 
-class InventoryScreen extends StatefulWidget {
+class InventoryScreen extends StatelessWidget {
   const InventoryScreen({super.key});
-
-  @override
-  State<InventoryScreen> createState() => _InventoryScreenState();
-}
-
-class _InventoryScreenState extends State<InventoryScreen> {
-  late TextEditingController _searchController;
-
-  @override
-  void initState() {
-    super.initState();
-    _searchController = TextEditingController();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _searchController.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +34,7 @@ class _InventoryScreenState extends State<InventoryScreen> {
       {"name": "Lipitor", "arName": "ليبيتور", "current": 5, "min": 15},
       {"name": "Omeprazole", "arName": "أوميبرازول", "current": 30, "min": 40},
     ];
+
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -56,42 +42,82 @@ class _InventoryScreenState extends State<InventoryScreen> {
           children: [
             InventoryHeader(),
             context.vMd,
-            SearchTextField(controller: _searchController),
+            SearchTextField(),
             context.vLg,
-
-            CategoriesSection(),
-            context.vMd,
             FiltersRow(),
             context.vMd,
             Expanded(
-              child: ListView.separated(
-                // Dynamically size it based on your data length
-                itemCount: medicines.length,
-                itemBuilder: (context, index) {
-                  // Grab the specific map for this item
-                  final medicine = medicines[index];
+              child: BlocBuilder<ViewModeCubit, ViewMode>(
+                builder: (context, viewMode) {
+                  if (viewMode == ViewMode.list) {
+                    return ListView.separated(
+                      itemCount: medicines.length,
+                      itemBuilder: (context, index) {
+                        final medicine = medicines[index];
 
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 8.0,
-                      vertical: 4.0,
-                    ),
-                    child: MedicineListCard(
-                      name: medicine["name"] as String,
-                      arName: medicine["arName"] as String,
-                      currentStock: medicine["current"] as int,
-                      minStock: medicine["min"] as int,
-                    ),
-                  );
-                },
-                separatorBuilder: (context, index) {
-                  return context.vMd;
+                        return ListMedicines(medicine: medicine);
+                      },
+                      separatorBuilder: (context, index) {
+                        return context.vMd;
+                      },
+                    );
+                  }
+                  return GridMedicines(medicines: medicines);
                 },
               ),
             ),
           ],
         ),
       ),
+    );
+  }
+}
+
+class ListMedicines extends StatelessWidget {
+  const ListMedicines({super.key, required this.medicine});
+
+  final Map<String, Object> medicine;
+
+  @override
+  Widget build(BuildContext context) {
+    return MedicineListCard(
+      name: medicine["name"] as String,
+      arName: medicine["arName"] as String,
+      currentStock: medicine["current"] as int,
+      minStock: medicine["min"] as int,
+    );
+  }
+}
+
+class GridMedicines extends StatelessWidget {
+  const GridMedicines({super.key, required this.medicines});
+
+  final List<Map<String, Object>> medicines;
+
+  @override
+  Widget build(BuildContext context) {
+    return GridView.builder(
+      itemCount: medicines.length,
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: context.gridColumns,
+        childAspectRatio: context.gridAspectRatio(
+          columns: context.gridColumns,
+          spacing: context.sMd,
+        ),
+      ),
+      itemBuilder: (context, index) {
+        final medicine = medicines[index];
+
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+          child: MedicineGridCard(
+            name: medicine["name"] as String,
+            arName: medicine["arName"] as String,
+            currentStock: medicine["current"] as int,
+            minStock: medicine["min"] as int,
+          ),
+        );
+      },
     );
   }
 }
