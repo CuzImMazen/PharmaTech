@@ -27,6 +27,7 @@ import 'package:pharmacy_app/features/authentication/presentation/screens/regist
 import 'package:pharmacy_app/features/authentication/presentation/screens/password_recovery/reset_password_screen.dart';
 import 'package:pharmacy_app/features/authentication/presentation/screens/email_verification/email_verification_sent_screen.dart';
 import 'package:pharmacy_app/features/dashboard/presentation/screens/dashboard_screen.dart';
+import 'package:pharmacy_app/features/inventory/cubit/inventory_cubit.dart';
 import 'package:pharmacy_app/features/inventory/cubit/view_mode_cubit.dart';
 import 'package:pharmacy_app/features/inventory/presentation/screens/inventory_screen.dart';
 import 'package:pharmacy_app/features/layout/presentation/screen/layout_screen.dart';
@@ -200,6 +201,12 @@ class AppRoutes {
               path: AppRoutesKeys.inventory,
               builder: (context, state) => MultiBlocProvider(
                 providers: [
+                  BlocProvider<InventoryCubit>(
+                    create: (context) =>
+                        InventoryCubit(inventoryRepository: sl())
+                          ..loadProducts()
+                          ..loadFilterOptions(),
+                  ),
                   BlocProvider<ViewModeCubit>(
                     create: (context) => ViewModeCubit(),
                   ),

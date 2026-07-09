@@ -4,7 +4,7 @@ import 'package:pharmacy_app/core/state/screen_state.dart';
 part 'resend_email_verification_state.freezed.dart';
 
 @freezed
-class ResendEmailVerificationState with _$ResendEmailVerificationState {
+sealed class ResendEmailVerificationState with _$ResendEmailVerificationState {
   const factory ResendEmailVerificationState({
     @Default(0) int remainingSeconds,
     @Default(InitialState()) ScreenState screenState,

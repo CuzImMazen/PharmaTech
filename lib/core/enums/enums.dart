@@ -4,7 +4,7 @@ enum StockAlertType { critical, out, low }
 
 enum MedicineListViewType { list, grid }
 
-enum MedicineStatus { out, low, available }
+enum MedicineStockStatus { out, low, available }
 
 enum ViewMode { list, grid }
 

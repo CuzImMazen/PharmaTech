@@ -8,23 +8,23 @@ String capitalize(String input) {
   return input[0].toUpperCase() + input.substring(1);
 }
 
-MedicineStatus getMedicineStatus(int min, int current) {
+MedicineStockStatus getMedicineStatus(int min, int current) {
   if (current <= 0) {
-    return MedicineStatus.out;
+    return MedicineStockStatus.out;
   }
-  if (current <= min) {
-    return MedicineStatus.low;
+  if (min > 0 && current <= min) {
+    return MedicineStockStatus.low;
   }
-  return MedicineStatus.available;
+  return MedicineStockStatus.available;
 }
 
-Color getMedicineStatusColor(MedicineStatus status) {
+Color getMedicineStatusColor(MedicineStockStatus status) {
   switch (status) {
-    case MedicineStatus.available:
+    case MedicineStockStatus.available:
       return AppColors.cozyEmerald; // Green
-    case MedicineStatus.low:
+    case MedicineStockStatus.low:
       return AppColors.cozyAmber; // Amber
-    case MedicineStatus.out:
+    case MedicineStockStatus.out:
       return AppColors.cozyRed; // Red
   }
 }

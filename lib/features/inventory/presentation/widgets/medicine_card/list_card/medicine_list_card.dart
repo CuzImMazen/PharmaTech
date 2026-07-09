@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/core/enums/enums.dart';
 import 'package:pharmacy_app/core/extensions/app_design_system_ext.dart';
-import 'package:pharmacy_app/core/utils/helpers/helper_functions.dart';
+import 'package:pharmacy_app/features/inventory/data/models/product_card_model.dart';
 import 'package:pharmacy_app/features/inventory/presentation/widgets/medicine_card/medicine_catgeory_card.dart';
 import 'package:pharmacy_app/features/inventory/presentation/widgets/medicine_card/list_card/medicine_info_card.dart';
 import 'package:pharmacy_app/features/inventory/presentation/widgets/medicine_card/medicine_name_column.dart';
@@ -9,22 +9,15 @@ import 'package:pharmacy_app/features/inventory/presentation/widgets/medicine_ca
 import 'package:pharmacy_app/features/inventory/presentation/widgets/medicine_card/stock_progress_bar.dart';
 
 class MedicineListCard extends StatelessWidget {
-  const MedicineListCard({
-    super.key,
-    required this.name,
-    required this.arName,
-    required this.minStock,
-    required this.currentStock,
-  });
+  const MedicineListCard({super.key, required this.product});
 
-  final String name;
-  final String arName;
-  final int minStock;
-  final int currentStock;
+  final ProductCardModel product;
 
   @override
   Widget build(BuildContext context) {
-    MedicineStatus status = getMedicineStatus(minStock, currentStock);
+    final int minStock = product.minStock.toInt();
+    final int currentStock = product.quantity.toInt();
+    final MedicineStockStatus status = product.status;
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16.0),
@@ -42,19 +35,28 @@ class MedicineListCard extends StatelessWidget {
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                MedicineNameColumn(name: name, arName: arName),
+                MedicineNameColumn(name: product.name, arName: product.arName),
                 Spacer(),
                 MedicineStatusCard(status: status),
               ],
             ),
-            MedicineCategoryCard(categoryName: 'Cardiovascular'),
+            MedicineCategoryCard(categoryName: product.category.name),
             context.vMd,
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                MedicineInfoCard(label: "Box", value: "89"),
-                MedicineInfoCard(label: "SP", value: "250"),
-                MedicineInfoCard(label: "Patches", value: "15"),
+                MedicineInfoCard(
+                  label: product.baseUnit?.name ?? 'Unit',
+                  value: currentStock.toString(),
+                ),
+                MedicineInfoCard(
+                  label: 'Price',
+                  value: product.price.toString(),
+                ),
+                MedicineInfoCard(
+                  label: 'Expiry',
+                  value: product.nearestExpiration ?? '--',
+                ),
               ],
             ),
             context.vMd,
@@ -72,7 +74,10 @@ class MedicineListCard extends StatelessWidget {
               ],
             ),
             context.vMd,
-            StockProgressBar(currentStock: currentStock, minStock: minStock),
+            StockProgressBar(
+              currentStock: currentStock,
+              minStock: product.minStock.toInt(),
+            ),
           ],
         ),
       ),

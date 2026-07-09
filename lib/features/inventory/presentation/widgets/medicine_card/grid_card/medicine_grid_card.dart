@@ -1,28 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/core/enums/enums.dart';
 import 'package:pharmacy_app/core/extensions/app_design_system_ext.dart';
-import 'package:pharmacy_app/core/utils/helpers/helper_functions.dart';
+import 'package:pharmacy_app/features/inventory/data/models/product_card_model.dart';
 import 'package:pharmacy_app/features/inventory/presentation/widgets/medicine_card/grid_card/medicine_grid_card_header.dart';
 import 'package:pharmacy_app/features/inventory/presentation/widgets/medicine_card/medicine_catgeory_card.dart';
 import 'package:pharmacy_app/features/inventory/presentation/widgets/medicine_card/medicine_name_column.dart';
 
 class MedicineGridCard extends StatelessWidget {
-  const MedicineGridCard({
-    super.key,
-    required this.name,
-    required this.arName,
-    required this.minStock,
-    required this.currentStock,
-  });
+  const MedicineGridCard({super.key, required this.product});
 
-  final String name;
-  final String arName;
-  final int minStock;
-  final int currentStock;
+  final ProductCardModel product;
 
   @override
   Widget build(BuildContext context) {
-    MedicineStatus status = getMedicineStatus(minStock, currentStock);
+    final int currentStock = product.quantity.toInt();
+    final MedicineStockStatus status = product.status;
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16.0),
@@ -39,9 +31,9 @@ class MedicineGridCard extends StatelessWidget {
           children: [
             MedicineGridCardHeader(status: status),
             context.vSm,
-            MedicineNameColumn(name: name, arName: arName),
+            MedicineNameColumn(name: product.name, arName: product.arName),
 
-            MedicineCategoryCard(categoryName: 'Cardiovascular'),
+            MedicineCategoryCard(categoryName: product.category.name),
             context.vMd,
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -49,10 +41,13 @@ class MedicineGridCard extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("240", style: context.text.titleSmall),
+                    Text(
+                      currentStock.toString(),
+                      style: context.text.titleSmall,
+                    ),
                     context.vXs,
                     Text(
-                      "Box",
+                      product.baseUnit?.name ?? 'Unit',
                       style: context.text.labelMedium?.copyWith(
                         color: context.muted,
                       ),
@@ -63,10 +58,13 @@ class MedicineGridCard extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("240 SP", style: context.text.titleSmall),
+                    Text(
+                      product.price.toString(),
+                      style: context.text.titleSmall,
+                    ),
                     context.vXs,
                     Text(
-                      "Price",
+                      'Price',
                       style: context.text.labelMedium?.copyWith(
                         color: context.muted,
                       ),

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pharmacy_app/core/enums/enums.dart';
 import 'package:pharmacy_app/core/extensions/app_design_system_ext.dart';
 import 'package:pharmacy_app/features/filter/presentation/screens/filter_bottom_sheet.dart';
+import 'package:pharmacy_app/features/inventory/cubit/inventory_cubit.dart';
+import 'package:pharmacy_app/features/inventory/cubit/inventory_state.dart';
 import 'package:pharmacy_app/features/inventory/cubit/view_mode_cubit.dart';
+import 'package:pharmacy_app/core/enums/enums.dart'; // Retained for ViewMode if needed
 
 class FiltersRow extends StatelessWidget {
   const FiltersRow({super.key});
@@ -18,7 +20,7 @@ class FiltersRow extends StatelessWidget {
           context.hSm,
           const Expanded(flex: 3, child: _FilterContainer()),
           context.hSm,
-          Expanded(flex: 2, child: _ViewTypeContainer()),
+          const Expanded(flex: 2, child: _ViewTypeContainer()),
         ],
       ),
     );
@@ -35,14 +37,30 @@ class _OrderContainer extends StatefulWidget {
 class _OrderContainerState extends State<_OrderContainer> {
   final GlobalKey _key = GlobalKey();
 
-  String currentSort = "Name A→Z";
+  static const Map<String, String?> _sortOptions = {
+    'Name A→Z': 'name_asc',
+    'Name Z→A': 'name_desc',
+    'Price ↑': 'price_asc',
+    'Price ↓': 'price_desc',
+    'Stock ↑': 'stock_asc',
+    'Stock ↓': 'stock_desc',
+    'Exp Soon': 'expiry_asc',
+    'Exp Late': 'expiry_desc',
+  };
+
+  String _currentSortLabel(String? sortBy) {
+    return _sortOptions.entries
+        .firstWhere(
+          (entry) => entry.value == sortBy,
+          orElse: () => const MapEntry('Name A→Z', 'name_asc'),
+        )
+        .key;
+  }
 
   Future<void> _openMenu() async {
-    final RenderBox renderBox =
-        _key.currentContext!.findRenderObject() as RenderBox;
-
-    final Offset offset = renderBox.localToGlobal(Offset.zero);
-    final Size size = renderBox.size;
+    final renderBox = _key.currentContext!.findRenderObject() as RenderBox;
+    final offset = renderBox.localToGlobal(Offset.zero);
+    final size = renderBox.size;
 
     final selected = await showMenu<String>(
       context: context,
@@ -54,91 +72,69 @@ class _OrderContainerState extends State<_OrderContainer> {
       ),
       color: context.mutedSurface,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      items: const [
-        PopupMenuItem(value: "Name A→Z", child: Text("Name A→Z")),
-        PopupMenuItem(value: "Name Z→A", child: Text("Name Z→A")),
-        PopupMenuItem(value: "Price ↑", child: Text("Price ↑")),
-        PopupMenuItem(value: "Price ↓", child: Text("Price ↓")),
-        PopupMenuItem(value: "Stock ↑", child: Text("Stock ↑")),
-        PopupMenuItem(value: "Stock ↓", child: Text("Stock ↓")),
-        PopupMenuItem(value: "Exp Late", child: Text("Latest Expiry ")),
-        PopupMenuItem(value: "Exp Soon", child: Text("Soonest Expiry")),
-      ],
+      items: _sortOptions.keys
+          .map((label) => PopupMenuItem(value: label, child: Text(label)))
+          .toList(),
     );
 
     if (selected != null) {
-      setState(() {
-        currentSort = selected;
-      });
-
-      // update cubit here if needed
+      context.read<InventoryCubit>().updateSortBy(_sortOptions[selected]);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      key: _key,
-      onTap: _openMenu,
-      child: Container(
-        height: 40,
-        padding: const EdgeInsets.symmetric(horizontal: 12),
-        decoration: BoxDecoration(
-          borderRadius: context.rLg,
-          color: context.mutedSurface,
-        ),
-        child: Row(
-          children: [
-            Icon(Icons.arrow_drop_down_sharp, color: context.muted),
-            context.hXs,
-            Expanded(
-              child: Text(
-                currentSort,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: context.text.bodyMedium?.copyWith(
-                  color: context.colors.onSurface,
-                ),
-              ),
+    return BlocBuilder<InventoryCubit, InventoryState>(
+      builder: (context, state) {
+        return GestureDetector(
+          key: _key,
+          onTap: _openMenu,
+          child: Container(
+            height: 40,
+            padding: const EdgeInsets.symmetric(horizontal: 12),
+            decoration: BoxDecoration(
+              borderRadius: context.rLg,
+              color: context.mutedSurface,
             ),
-          ],
-        ),
-      ),
+            child: Row(
+              children: [
+                Icon(Icons.arrow_drop_down_sharp, color: context.muted),
+                context.hXs,
+                Expanded(
+                  child: Text(
+                    _currentSortLabel(state.sortBy),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: context.text.bodyMedium?.copyWith(
+                      color: context.colors.onSurface,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }
 
-//   DropdownMenuItem<String> _item(BuildContext context, String value) {
-//     return DropdownMenuItem(
-//       value: value,
-//       child: Text(
-//         value,
-//         maxLines: 1,
-//         softWrap: false,
-//         overflow: TextOverflow.ellipsis,
-//         style: context.text.bodyMedium?.copyWith(
-//           color: context.colors.onSurface,
-//         ),
-//       ),
-//     );
-//   }
-// }
 class _FilterContainer extends StatelessWidget {
   const _FilterContainer();
 
   @override
   Widget build(BuildContext context) {
+    final inventoryCubit = context.read<InventoryCubit>();
+
     return GestureDetector(
       onTap: () {
         showModalBottomSheet(
           isScrollControlled: true,
           context: context,
-          builder: (context) {
-            return SizedBox(
-              height: MediaQuery.of(context).size.height * 0.75,
-              child: FilterBottomSheet(),
-            );
-          },
+          builder: (sheetContext) => BlocProvider.value(
+            value: inventoryCubit,
+            child: const FilterBottomSheet(),
+          ),
         );
       },
       child: Container(
@@ -158,25 +154,45 @@ class _FilterContainer extends StatelessWidget {
                 const Icon(Icons.tune, color: Colors.white),
                 context.hSm,
                 Text(
-                  "Filters",
+                  'Filters',
                   style: context.text.bodyMedium!.copyWith(color: Colors.white),
                 ),
                 context.hSm,
-                Container(
-                  alignment: Alignment.center,
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    shape: BoxShape.circle,
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(6.0),
-                    child: Text(
-                      "3",
-                      style: context.text.bodyMedium!.copyWith(
-                        color: context.colors.primary,
+                BlocBuilder<InventoryCubit, InventoryState>(
+                  builder: (context, state) {
+                    final activeFilters = [
+                      if (state.stockStatus != null) 1,
+                      if (state.inStockOnly) 1,
+                      if (state.categoryIds.isNotEmpty)
+                        1, // Fixed parameter reference
+                      if (state.companyId != null) 1,
+                      if (state.baseUnitId != null) 1,
+                      if (state.prescriptionRequired != null) 1,
+                      if (state.expiryFilters.isNotEmpty) 1,
+                      if (state.minPrice != null || state.maxPrice != null) 1,
+                    ].length;
+
+                    if (activeFilters == 0) {
+                      return const SizedBox.shrink();
+                    }
+
+                    return Container(
+                      alignment: Alignment.center,
+                      decoration: const BoxDecoration(
+                        color: Colors.white,
+                        shape: BoxShape.circle,
                       ),
-                    ),
-                  ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(6.0),
+                        child: Text(
+                          '$activeFilters',
+                          style: context.text.bodyMedium!.copyWith(
+                            color: context.colors.primary,
+                          ),
+                        ),
+                      ),
+                    );
+                  },
                 ),
               ],
             ),
@@ -219,7 +235,6 @@ class _ViewTypeContainer extends StatelessWidget {
                 ),
               ),
               context.hSm,
-
               GestureDetector(
                 onTap: () {
                   context.read<ViewModeCubit>().updateViewMode(ViewMode.grid);

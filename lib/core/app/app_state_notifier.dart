@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/core/app/session/session_cubit.dart';
+import 'package:pharmacy_app/core/app/session/session_state.dart';
 import 'package:pharmacy_app/features/onboarding/data/repo/onboarding_repository.dart';
 
 class AppStateNotifier extends ChangeNotifier {

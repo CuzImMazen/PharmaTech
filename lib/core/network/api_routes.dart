@@ -16,6 +16,11 @@ class ApiRoutes {
 
   // ================= DATA ================= //
 
+  static const String products = '/products';
+  static const String lowStockProducts = '/products/low-stock';
+  static const String categories = '/categories';
+  static const String units = '/units';
+
   static const String governorates = '/governorates';
   static const String cities = '/cities';
   static const String governorateWithCities = '/governorates-cities';

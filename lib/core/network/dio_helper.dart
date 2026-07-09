@@ -13,6 +13,7 @@ class DioApiHelper {
   }) : _dio = Dio(
          BaseOptions(
            baseUrl: baseUrl,
+           listFormat: ListFormat.multiCompatible,
            connectTimeout: const Duration(seconds: 30),
            receiveTimeout: const Duration(seconds: 30),
            sendTimeout: const Duration(seconds: 30),

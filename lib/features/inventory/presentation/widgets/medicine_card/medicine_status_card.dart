@@ -5,7 +5,7 @@ import 'package:pharmacy_app/core/utils/helpers/helper_functions.dart';
 
 class MedicineStatusCard extends StatelessWidget {
   const MedicineStatusCard({super.key, required this.status});
-  final MedicineStatus status;
+  final MedicineStockStatus status;
 
   @override
   Widget build(BuildContext context) {

@@ -6,7 +6,7 @@ import 'package:pharmacy_app/features/inventory/presentation/widgets/medicine_ca
 
 class MedicineGridCardHeader extends StatelessWidget {
   const MedicineGridCardHeader({super.key, required this.status});
-  final MedicineStatus status;
+  final MedicineStockStatus status;
 
   @override
   Widget build(BuildContext context) {

@@ -129,12 +129,12 @@ class AuthInterceptor extends Interceptor {
 
   Future<bool> _executeRefresh(String refreshToken, String baseUrl) async {
     try {
-      final url = baseUrl.endsWith('/')
-          ? '$baseUrl${_refreshPath.replaceFirst('/', '')}'
-          : '$baseUrl/$_refreshPath';
+      // final url = baseUrl.endsWith('/')
+      //     ? '$baseUrl${_refreshPath.replaceFirst('/', '')}'
+      //     : '$baseUrl/$_refreshPath';
 
       final response = await _refreshDio.post(
-        url,
+        "$baseUrl${ApiRoutes.refresh}",
         data: {'refresh_token': refreshToken, 'device_name': 'mobile_app'},
         options: Options(headers: {'Accept': 'application/json'}),
       );

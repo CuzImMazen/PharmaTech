@@ -15,19 +15,21 @@ class StockProgressBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double progress = (currentStock / minStock).clamp(0.0, 1.0);
-    MedicineStatus status = currentStock >= minStock
-        ? MedicineStatus.available
-        : (currentStock > 0 && currentStock < minStock)
-        ? MedicineStatus.low
-        : MedicineStatus.out;
-    statusColor(MedicineStatus status) {
+    final double progress = minStock <= 0
+        ? (currentStock > 0 ? 1.0 : 0.0)
+        : (currentStock / minStock).clamp(0.0, 1.0);
+    final MedicineStockStatus status = currentStock <= 0
+        ? MedicineStockStatus.out
+        : (minStock > 0 && currentStock < minStock)
+        ? MedicineStockStatus.low
+        : MedicineStockStatus.available;
+    statusColor(MedicineStockStatus status) {
       switch (status) {
-        case MedicineStatus.available:
+        case MedicineStockStatus.available:
           return AppColors.cozyEmerald;
-        case MedicineStatus.low:
+        case MedicineStockStatus.low:
           return AppColors.cozyAmber;
-        case MedicineStatus.out:
+        case MedicineStockStatus.out:
           return AppColors.cozyRed;
       }
     }
