@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/core/extensions/app_design_system_ext.dart';
+import 'package:pharmacy_app/core/extensions/localization_ext.dart';
 
 class PriceRangeRow extends StatelessWidget {
   const PriceRangeRow({
@@ -19,7 +20,10 @@ class PriceRangeRow extends StatelessWidget {
           child: TextField(
             controller: minController,
             keyboardType: TextInputType.number,
-            decoration: const InputDecoration(labelText: 'From', hintText: '0'),
+            decoration: InputDecoration(
+              labelText: context.tr.filter_from,
+              hintText: '0',
+            ),
           ),
         ),
         context.hMd,
@@ -29,8 +33,8 @@ class PriceRangeRow extends StatelessWidget {
           child: TextField(
             controller: maxController,
             keyboardType: TextInputType.number,
-            decoration: const InputDecoration(
-              labelText: 'To',
+            decoration: InputDecoration(
+              labelText: context.tr.filter_to,
               hintText: '1000',
             ),
           ),

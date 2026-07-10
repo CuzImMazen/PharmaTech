@@ -964,6 +964,306 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Out'**
   String get out;
+
+  /// No description provided for @inventory_search_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'Search by name'**
+  String get inventory_search_hint;
+
+  /// No description provided for @inventory_unit.
+  ///
+  /// In en, this message translates to:
+  /// **'Unit'**
+  String get inventory_unit;
+
+  /// No description provided for @inventory_price.
+  ///
+  /// In en, this message translates to:
+  /// **'Price (SP)'**
+  String get inventory_price;
+
+  /// No description provided for @inventory_expiry.
+  ///
+  /// In en, this message translates to:
+  /// **'Expiry'**
+  String get inventory_expiry;
+
+  /// No description provided for @inventory_stock_level.
+  ///
+  /// In en, this message translates to:
+  /// **'Stock Level :'**
+  String get inventory_stock_level;
+
+  /// No description provided for @inventory_stock_min_suffix.
+  ///
+  /// In en, this message translates to:
+  /// **' (Min)'**
+  String get inventory_stock_min_suffix;
+
+  /// No description provided for @inventory_no_products.
+  ///
+  /// In en, this message translates to:
+  /// **'No products found.'**
+  String get inventory_no_products;
+
+  /// No description provided for @inventory_load_error.
+  ///
+  /// In en, this message translates to:
+  /// **'Unable to load products right now.'**
+  String get inventory_load_error;
+
+  /// No description provided for @inventory_retry.
+  ///
+  /// In en, this message translates to:
+  /// **'Retry'**
+  String get inventory_retry;
+
+  /// No description provided for @filter_filters.
+  ///
+  /// In en, this message translates to:
+  /// **'Filters'**
+  String get filter_filters;
+
+  /// No description provided for @filter_filters_and_sort.
+  ///
+  /// In en, this message translates to:
+  /// **'Filters & Sort'**
+  String get filter_filters_and_sort;
+
+  /// No description provided for @filter_reset.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset'**
+  String get filter_reset;
+
+  /// No description provided for @filter_reset_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset filters?'**
+  String get filter_reset_title;
+
+  /// No description provided for @filter_reset_message.
+  ///
+  /// In en, this message translates to:
+  /// **'This will clear all selected filters. This action cannot be undone.'**
+  String get filter_reset_message;
+
+  /// No description provided for @filter_cancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get filter_cancel;
+
+  /// No description provided for @filter_show_results.
+  ///
+  /// In en, this message translates to:
+  /// **'Show Results'**
+  String get filter_show_results;
+
+  /// No description provided for @filter_loading.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading filters...'**
+  String get filter_loading;
+
+  /// No description provided for @filter_section_failed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t load'**
+  String get filter_section_failed;
+
+  /// No description provided for @filter_retry.
+  ///
+  /// In en, this message translates to:
+  /// **'Retry'**
+  String get filter_retry;
+
+  /// No description provided for @filter_all.
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get filter_all;
+
+  /// No description provided for @filter_category.
+  ///
+  /// In en, this message translates to:
+  /// **'Category'**
+  String get filter_category;
+
+  /// No description provided for @filter_stock_status.
+  ///
+  /// In en, this message translates to:
+  /// **'Stock Status'**
+  String get filter_stock_status;
+
+  /// No description provided for @filter_price_range.
+  ///
+  /// In en, this message translates to:
+  /// **'Price Range (SP)'**
+  String get filter_price_range;
+
+  /// No description provided for @filter_expiry_date.
+  ///
+  /// In en, this message translates to:
+  /// **'Expiry Date'**
+  String get filter_expiry_date;
+
+  /// No description provided for @filter_package_unit.
+  ///
+  /// In en, this message translates to:
+  /// **'Package Unit'**
+  String get filter_package_unit;
+
+  /// No description provided for @filter_company.
+  ///
+  /// In en, this message translates to:
+  /// **'Company'**
+  String get filter_company;
+
+  /// No description provided for @filter_prescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Prescription'**
+  String get filter_prescription;
+
+  /// No description provided for @filter_rx_only.
+  ///
+  /// In en, this message translates to:
+  /// **'Rx-Only'**
+  String get filter_rx_only;
+
+  /// No description provided for @filter_non_rx.
+  ///
+  /// In en, this message translates to:
+  /// **'Non-Rx'**
+  String get filter_non_rx;
+
+  /// No description provided for @filter_from.
+  ///
+  /// In en, this message translates to:
+  /// **'From'**
+  String get filter_from;
+
+  /// No description provided for @filter_to.
+  ///
+  /// In en, this message translates to:
+  /// **'To'**
+  String get filter_to;
+
+  /// No description provided for @filter_stock_available.
+  ///
+  /// In en, this message translates to:
+  /// **'Available'**
+  String get filter_stock_available;
+
+  /// No description provided for @filter_stock_low.
+  ///
+  /// In en, this message translates to:
+  /// **'Low'**
+  String get filter_stock_low;
+
+  /// No description provided for @filter_stock_out.
+  ///
+  /// In en, this message translates to:
+  /// **'Out'**
+  String get filter_stock_out;
+
+  /// No description provided for @filter_expiry_expired.
+  ///
+  /// In en, this message translates to:
+  /// **'Expired'**
+  String get filter_expiry_expired;
+
+  /// No description provided for @filter_expiry_30_days.
+  ///
+  /// In en, this message translates to:
+  /// **'30 days'**
+  String get filter_expiry_30_days;
+
+  /// No description provided for @filter_expiry_60_days.
+  ///
+  /// In en, this message translates to:
+  /// **'60 days'**
+  String get filter_expiry_60_days;
+
+  /// No description provided for @filter_expiry_90_days.
+  ///
+  /// In en, this message translates to:
+  /// **'90 days'**
+  String get filter_expiry_90_days;
+
+  /// No description provided for @filter_expiry_6_months.
+  ///
+  /// In en, this message translates to:
+  /// **'6 months'**
+  String get filter_expiry_6_months;
+
+  /// No description provided for @sort_name_asc.
+  ///
+  /// In en, this message translates to:
+  /// **'Name A→Z'**
+  String get sort_name_asc;
+
+  /// No description provided for @sort_name_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Name Z→A'**
+  String get sort_name_desc;
+
+  /// No description provided for @sort_price_asc.
+  ///
+  /// In en, this message translates to:
+  /// **'Price ↑'**
+  String get sort_price_asc;
+
+  /// No description provided for @sort_price_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Price ↓'**
+  String get sort_price_desc;
+
+  /// No description provided for @sort_stock_asc.
+  ///
+  /// In en, this message translates to:
+  /// **'Stock ↑'**
+  String get sort_stock_asc;
+
+  /// No description provided for @sort_stock_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Stock ↓'**
+  String get sort_stock_desc;
+
+  /// No description provided for @sort_expiry_soon.
+  ///
+  /// In en, this message translates to:
+  /// **'Exp Soon'**
+  String get sort_expiry_soon;
+
+  /// No description provided for @sort_expiry_late.
+  ///
+  /// In en, this message translates to:
+  /// **'Exp Late'**
+  String get sort_expiry_late;
+
+  /// No description provided for @stock_status_available.
+  ///
+  /// In en, this message translates to:
+  /// **'Available'**
+  String get stock_status_available;
+
+  /// No description provided for @stock_status_low.
+  ///
+  /// In en, this message translates to:
+  /// **'Low'**
+  String get stock_status_low;
+
+  /// No description provided for @stock_status_out.
+  ///
+  /// In en, this message translates to:
+  /// **'Out'**
+  String get stock_status_out;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

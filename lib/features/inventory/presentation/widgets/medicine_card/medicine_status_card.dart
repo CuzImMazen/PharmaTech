@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/core/enums/enums.dart';
 import 'package:pharmacy_app/core/extensions/app_design_system_ext.dart';
+import 'package:pharmacy_app/core/extensions/localization_ext.dart';
 import 'package:pharmacy_app/core/utils/helpers/helper_functions.dart';
 
 class MedicineStatusCard extends StatelessWidget {
@@ -10,6 +11,7 @@ class MedicineStatusCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Color statusColor = getMedicineStatusColor(status);
+    final tr = context.tr;
 
     return Container(
       alignment: Alignment.center,
@@ -21,7 +23,11 @@ class MedicineStatusCard extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 12),
         child: Text(
-          capitalize(status.name),
+          switch (status) {
+            MedicineStockStatus.available => tr.stock_status_available,
+            MedicineStockStatus.low => tr.stock_status_low,
+            MedicineStockStatus.out => tr.stock_status_out,
+          },
           style: context.text.labelSmall?.copyWith(
             color: statusColor,
             fontWeight: FontWeight.bold,

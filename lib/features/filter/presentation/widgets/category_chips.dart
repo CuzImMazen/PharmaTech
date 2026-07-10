@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pharmacy_app/core/extensions/localization_ext.dart';
 import 'package:pharmacy_app/features/inventory/cubit/inventory_cubit.dart';
 import 'package:pharmacy_app/features/inventory/data/models/product_category.dart';
 
@@ -17,7 +18,7 @@ class CategoryChips extends StatelessWidget {
       runSpacing: 12,
       children: [
         ChoiceChip(
-          label: const Text('All'),
+          label: Text(context.tr.filter_all),
           selected: state.categoryIds.isEmpty,
           onSelected: (_) =>
               context.read<InventoryCubit>().updateCategoryIds({}),

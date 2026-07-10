@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/core/extensions/app_design_system_ext.dart';
+import 'package:pharmacy_app/core/extensions/localization_ext.dart';
 
 class InventoryHeader extends StatelessWidget {
   const InventoryHeader({super.key});
@@ -9,23 +10,18 @@ class InventoryHeader extends StatelessWidget {
     return Padding(
       padding: context.pAllMd,
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Inventory",
+                context.tr.inventory,
                 style: context.text.headlineLarge?.copyWith(
                   fontWeight: FontWeight.bold,
                 ),
               ),
               context.vSm,
-              Text(
-                "20 of 20 items",
-                style: context.text.bodyMedium?.copyWith(
-                  color: context.colors.onSurface.withAlpha(140),
-                ),
-              ),
             ],
           ),
           Spacer(),

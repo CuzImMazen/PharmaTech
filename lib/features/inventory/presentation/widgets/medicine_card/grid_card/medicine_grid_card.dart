@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/core/enums/enums.dart';
 import 'package:pharmacy_app/core/extensions/app_design_system_ext.dart';
+import 'package:pharmacy_app/core/extensions/localization_ext.dart';
 import 'package:pharmacy_app/features/inventory/data/models/product_card_model.dart';
 import 'package:pharmacy_app/features/inventory/presentation/widgets/medicine_card/grid_card/medicine_grid_card_header.dart';
 import 'package:pharmacy_app/features/inventory/presentation/widgets/medicine_card/medicine_catgeory_card.dart';
@@ -47,7 +48,7 @@ class MedicineGridCard extends StatelessWidget {
                     ),
                     context.vXs,
                     Text(
-                      product.baseUnit?.name ?? 'Unit',
+                      product.baseUnit?.name ?? context.tr.inventory_unit,
                       style: context.text.labelMedium?.copyWith(
                         color: context.muted,
                       ),
@@ -64,7 +65,7 @@ class MedicineGridCard extends StatelessWidget {
                     ),
                     context.vXs,
                     Text(
-                      'Price',
+                      context.tr.inventory_price,
                       style: context.text.labelMedium?.copyWith(
                         color: context.muted,
                       ),

@@ -5,6 +5,7 @@ import 'package:pharmacy_app/core/network/api_parser.dart';
 import 'package:pharmacy_app/core/network/api_routes.dart';
 import 'package:pharmacy_app/core/network/dio_helper.dart';
 import 'package:pharmacy_app/features/inventory/data/models/base_unit_model.dart';
+import 'package:pharmacy_app/features/inventory/data/models/company_model.dart';
 import 'package:pharmacy_app/features/inventory/data/models/inventory_products_page.dart';
 import 'package:pharmacy_app/features/inventory/data/models/product_category.dart';
 import 'package:pharmacy_app/features/inventory/data/models/product_card_model.dart';
@@ -20,7 +21,7 @@ class InventoryRepositoryImpl implements InventoryRepository {
   Future<Either<Failure, InventoryProductsPage>> fetchProducts({
     String? search,
     String? categoryId,
-    int? companyId,
+    String? companyId,
     int? baseUnitId,
     bool? prescriptionRequired,
     List<String>? expiryFilter,
@@ -102,6 +103,34 @@ class InventoryRepositoryImpl implements InventoryRepository {
       );
 
       return Right(categories);
+    } catch (e) {
+      return Left(ApiErrorHandler.handle(e));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<CompanyModel>>> fetchCompanies({
+    String? search,
+    int perPage = 200,
+  }) async {
+    try {
+      final queryParameters = <String, dynamic>{
+        'search': search?.trim().isEmpty ?? true ? null : search!.trim(),
+        'per_page': perPage,
+      }..removeWhere((key, value) => value == null);
+
+      final response = await api.get(
+        ApiRoutes.companies,
+        queryParameters: queryParameters,
+      );
+
+      final companies = ApiParser.parseWrappedList(
+        response.data,
+        'data',
+        CompanyModel.fromJson,
+      );
+
+      return Right(companies);
     } catch (e) {
       return Left(ApiErrorHandler.handle(e));
     }

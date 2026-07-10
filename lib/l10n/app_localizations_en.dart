@@ -446,4 +446,154 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get out => 'Out';
+
+  @override
+  String get inventory_search_hint => 'Search by name';
+
+  @override
+  String get inventory_unit => 'Unit';
+
+  @override
+  String get inventory_price => 'Price (SP)';
+
+  @override
+  String get inventory_expiry => 'Expiry';
+
+  @override
+  String get inventory_stock_level => 'Stock Level :';
+
+  @override
+  String get inventory_stock_min_suffix => ' (Min)';
+
+  @override
+  String get inventory_no_products => 'No products found.';
+
+  @override
+  String get inventory_load_error => 'Unable to load products right now.';
+
+  @override
+  String get inventory_retry => 'Retry';
+
+  @override
+  String get filter_filters => 'Filters';
+
+  @override
+  String get filter_filters_and_sort => 'Filters & Sort';
+
+  @override
+  String get filter_reset => 'Reset';
+
+  @override
+  String get filter_reset_title => 'Reset filters?';
+
+  @override
+  String get filter_reset_message => 'This will clear all selected filters. This action cannot be undone.';
+
+  @override
+  String get filter_cancel => 'Cancel';
+
+  @override
+  String get filter_show_results => 'Show Results';
+
+  @override
+  String get filter_loading => 'Loading filters...';
+
+  @override
+  String get filter_section_failed => 'Couldn\'t load';
+
+  @override
+  String get filter_retry => 'Retry';
+
+  @override
+  String get filter_all => 'All';
+
+  @override
+  String get filter_category => 'Category';
+
+  @override
+  String get filter_stock_status => 'Stock Status';
+
+  @override
+  String get filter_price_range => 'Price Range (SP)';
+
+  @override
+  String get filter_expiry_date => 'Expiry Date';
+
+  @override
+  String get filter_package_unit => 'Package Unit';
+
+  @override
+  String get filter_company => 'Company';
+
+  @override
+  String get filter_prescription => 'Prescription';
+
+  @override
+  String get filter_rx_only => 'Rx-Only';
+
+  @override
+  String get filter_non_rx => 'Non-Rx';
+
+  @override
+  String get filter_from => 'From';
+
+  @override
+  String get filter_to => 'To';
+
+  @override
+  String get filter_stock_available => 'Available';
+
+  @override
+  String get filter_stock_low => 'Low';
+
+  @override
+  String get filter_stock_out => 'Out';
+
+  @override
+  String get filter_expiry_expired => 'Expired';
+
+  @override
+  String get filter_expiry_30_days => '30 days';
+
+  @override
+  String get filter_expiry_60_days => '60 days';
+
+  @override
+  String get filter_expiry_90_days => '90 days';
+
+  @override
+  String get filter_expiry_6_months => '6 months';
+
+  @override
+  String get sort_name_asc => 'Name A→Z';
+
+  @override
+  String get sort_name_desc => 'Name Z→A';
+
+  @override
+  String get sort_price_asc => 'Price ↑';
+
+  @override
+  String get sort_price_desc => 'Price ↓';
+
+  @override
+  String get sort_stock_asc => 'Stock ↑';
+
+  @override
+  String get sort_stock_desc => 'Stock ↓';
+
+  @override
+  String get sort_expiry_soon => 'Exp Soon';
+
+  @override
+  String get sort_expiry_late => 'Exp Late';
+
+  @override
+  String get stock_status_available => 'Available';
+
+  @override
+  String get stock_status_low => 'Low';
+
+  @override
+  String get stock_status_out => 'Out';
 }

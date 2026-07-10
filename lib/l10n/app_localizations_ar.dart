@@ -446,4 +446,154 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get out => 'نفاذ';
+
+  @override
+  String get inventory_search_hint => 'ابحث بالاسم';
+
+  @override
+  String get inventory_unit => 'وحدة';
+
+  @override
+  String get inventory_price => 'السعر (ل.س)';
+
+  @override
+  String get inventory_expiry => 'تاريخ الانتهاء';
+
+  @override
+  String get inventory_stock_level => 'مستوى المخزون :';
+
+  @override
+  String get inventory_stock_min_suffix => ' (الحد الأدنى)';
+
+  @override
+  String get inventory_no_products => 'لا توجد منتجات.';
+
+  @override
+  String get inventory_load_error => 'تعذر تحميل المنتجات حالياً.';
+
+  @override
+  String get inventory_retry => 'إعادة المحاولة';
+
+  @override
+  String get filter_filters => 'تصفية';
+
+  @override
+  String get filter_filters_and_sort => 'تصفية وترتيب';
+
+  @override
+  String get filter_reset => 'إعادة تعيين';
+
+  @override
+  String get filter_reset_title => 'إعادة تعيين التصفية؟';
+
+  @override
+  String get filter_reset_message => 'سيتم مسح كل عوامل التصفية المحددة. لا يمكن التراجع عن هذا الإجراء.';
+
+  @override
+  String get filter_cancel => 'إلغاء';
+
+  @override
+  String get filter_show_results => 'عرض النتائج';
+
+  @override
+  String get filter_loading => 'جارٍ تحميل عوامل التصفية...';
+
+  @override
+  String get filter_section_failed => 'تعذر التحميل';
+
+  @override
+  String get filter_retry => 'إعادة';
+
+  @override
+  String get filter_all => 'الكل';
+
+  @override
+  String get filter_category => 'الفئة';
+
+  @override
+  String get filter_stock_status => 'حالة المخزون';
+
+  @override
+  String get filter_price_range => 'نطاق السعر (ل.س)';
+
+  @override
+  String get filter_expiry_date => 'تاريخ الانتهاء';
+
+  @override
+  String get filter_package_unit => 'وحدة التعبئة';
+
+  @override
+  String get filter_company => 'الشركة';
+
+  @override
+  String get filter_prescription => 'الوصفة الطبية';
+
+  @override
+  String get filter_rx_only => 'بوصفة فقط';
+
+  @override
+  String get filter_non_rx => 'بدون وصفة';
+
+  @override
+  String get filter_from => 'من';
+
+  @override
+  String get filter_to => 'إلى';
+
+  @override
+  String get filter_stock_available => 'متوفر';
+
+  @override
+  String get filter_stock_low => 'منخفض';
+
+  @override
+  String get filter_stock_out => 'نفاذ';
+
+  @override
+  String get filter_expiry_expired => 'منتهي';
+
+  @override
+  String get filter_expiry_30_days => '30 يوماً';
+
+  @override
+  String get filter_expiry_60_days => '60 يوماً';
+
+  @override
+  String get filter_expiry_90_days => '90 يوماً';
+
+  @override
+  String get filter_expiry_6_months => '6 أشهر';
+
+  @override
+  String get sort_name_asc => 'الاسم أ←ي';
+
+  @override
+  String get sort_name_desc => 'الاسم ي←أ';
+
+  @override
+  String get sort_price_asc => 'السعر ↑';
+
+  @override
+  String get sort_price_desc => 'السعر ↓';
+
+  @override
+  String get sort_stock_asc => 'المخزون ↑';
+
+  @override
+  String get sort_stock_desc => 'المخزون ↓';
+
+  @override
+  String get sort_expiry_soon => 'أقرب انتهاء';
+
+  @override
+  String get sort_expiry_late => 'أبعد انتهاء';
+
+  @override
+  String get stock_status_available => 'متوفر';
+
+  @override
+  String get stock_status_low => 'منخفض';
+
+  @override
+  String get stock_status_out => 'نفاذ';
 }

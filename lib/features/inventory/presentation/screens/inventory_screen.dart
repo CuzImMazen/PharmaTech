@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pharmacy_app/core/enums/enums.dart';
 import 'package:pharmacy_app/core/extensions/app_design_system_ext.dart';
+import 'package:pharmacy_app/core/extensions/localization_ext.dart';
 import 'package:pharmacy_app/features/inventory/cubit/inventory_cubit.dart';
 import 'package:pharmacy_app/features/inventory/cubit/inventory_state.dart';
 import 'package:pharmacy_app/features/inventory/cubit/view_mode_cubit.dart';
@@ -53,117 +54,133 @@ class _InventoryScreenState extends State<InventoryScreen> {
 
     return Scaffold(
       body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            InventoryHeader(),
-            context.vMd,
-            SearchTextField(
-              controller: _searchController,
-              onChanged: inventoryCubit.updateSearchQuery,
-            ),
-            context.vLg,
-            FiltersRow(),
-            context.vMd,
-            Expanded(
-              child: BlocBuilder<InventoryCubit, InventoryState>(
-                builder: (context, state) {
-                  final showInlineLoading =
-                      state.isRefreshing && state.products.isNotEmpty;
+        child: BlocListener<InventoryCubit, InventoryState>(
+          listenWhen: (previous, current) =>
+              previous.searchQuery != current.searchQuery,
+          listener: (context, state) {
+            if (_searchController.text != state.searchQuery) {
+              _searchController.value = TextEditingValue(
+                text: state.searchQuery,
+                selection: TextSelection.fromPosition(
+                  TextPosition(offset: state.searchQuery.length),
+                ),
+              );
+            }
+          },
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              InventoryHeader(),
+              context.vMd,
+              SearchTextField(
+                controller: _searchController,
+                onChanged: inventoryCubit.updateSearchQuery,
+              ),
+              context.vLg,
+              FiltersRow(),
+              context.vMd,
+              Expanded(
+                child: BlocBuilder<InventoryCubit, InventoryState>(
+                  builder: (context, state) {
+                    final showInlineLoading =
+                        state.isRefreshing && state.products.isNotEmpty;
 
-                  if (state.isInitialLoading && state.products.isEmpty) {
-                    return BlocBuilder<ViewModeCubit, ViewMode>(
-                      builder: (context, viewMode) {
-                        return InventoryShimmer(viewMode: viewMode);
-                      },
-                    );
-                  }
+                    if (state.isInitialLoading && state.products.isEmpty) {
+                      return BlocBuilder<ViewModeCubit, ViewMode>(
+                        builder: (context, viewMode) {
+                          return InventoryShimmer(viewMode: viewMode);
+                        },
+                      );
+                    }
 
-                  if (state.failure != null && state.products.isEmpty) {
-                    return _InventoryErrorState(
-                      message: 'Unable to load products right now.',
-                      onRetry: inventoryCubit.refreshProducts,
-                    );
-                  }
+                    if (state.failure != null && state.products.isEmpty) {
+                      return _InventoryErrorState(
+                        message: context.tr.inventory_load_error,
+                        onRetry: inventoryCubit.refreshProducts,
+                      );
+                    }
 
-                  if (state.products.isEmpty) {
-                    return const _InventoryEmptyState();
-                  }
+                    if (state.products.isEmpty) {
+                      return _InventoryEmptyState();
+                    }
 
-                  return Column(
-                    children: [
-                      if (showInlineLoading) const LinearProgressIndicator(),
-                      Expanded(
-                        child: RefreshIndicator(
-                          onRefresh: () => inventoryCubit.refreshProducts(),
-                          child: BlocBuilder<ViewModeCubit, ViewMode>(
-                            builder: (context, viewMode) {
-                              if (viewMode == ViewMode.list) {
-                                return ListView.separated(
+                    return Column(
+                      children: [
+                        if (showInlineLoading) const LinearProgressIndicator(),
+                        Expanded(
+                          child: RefreshIndicator(
+                            onRefresh: () => inventoryCubit.refreshProducts(),
+                            child: BlocBuilder<ViewModeCubit, ViewMode>(
+                              builder: (context, viewMode) {
+                                if (viewMode == ViewMode.list) {
+                                  return ListView.separated(
+                                    controller: _scrollController,
+                                    physics:
+                                        const AlwaysScrollableScrollPhysics(),
+                                    itemCount:
+                                        state.products.length +
+                                        (state.isLoadingMore ? 1 : 0),
+                                    itemBuilder: (context, index) {
+                                      if (index >= state.products.length) {
+                                        return const _BottomLoader();
+                                      }
+
+                                      return ListMedicines(
+                                        product: state.products[index],
+                                      );
+                                    },
+                                    separatorBuilder: (context, index) {
+                                      return context.vMd;
+                                    },
+                                  );
+                                }
+
+                                return GridView.builder(
                                   controller: _scrollController,
                                   physics:
                                       const AlwaysScrollableScrollPhysics(),
                                   itemCount:
                                       state.products.length +
                                       (state.isLoadingMore ? 1 : 0),
+                                  gridDelegate:
+                                      SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: context.gridColumns,
+                                        childAspectRatio: context
+                                            .gridAspectRatio(
+                                              columns: context.gridColumns,
+                                              spacing: context.sMd,
+                                            ),
+                                      ),
                                   itemBuilder: (context, index) {
                                     if (index >= state.products.length) {
-                                      return const _BottomLoader();
+                                      return const Padding(
+                                        padding: EdgeInsets.all(8.0),
+                                        child: _BottomLoader(),
+                                      );
                                     }
 
-                                    return ListMedicines(
-                                      product: state.products[index],
+                                    return Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 8.0,
+                                        vertical: 8.0,
+                                      ),
+                                      child: GridMedicines(
+                                        product: state.products[index],
+                                      ),
                                     );
-                                  },
-                                  separatorBuilder: (context, index) {
-                                    return context.vMd;
                                   },
                                 );
-                              }
-
-                              return GridView.builder(
-                                controller: _scrollController,
-                                physics: const AlwaysScrollableScrollPhysics(),
-                                itemCount:
-                                    state.products.length +
-                                    (state.isLoadingMore ? 1 : 0),
-                                gridDelegate:
-                                    SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: context.gridColumns,
-                                      childAspectRatio: context.gridAspectRatio(
-                                        columns: context.gridColumns,
-                                        spacing: context.sMd,
-                                      ),
-                                    ),
-                                itemBuilder: (context, index) {
-                                  if (index >= state.products.length) {
-                                    return const Padding(
-                                      padding: EdgeInsets.all(8.0),
-                                      child: _BottomLoader(),
-                                    );
-                                  }
-
-                                  return Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 8.0,
-                                      vertical: 8.0,
-                                    ),
-                                    child: GridMedicines(
-                                      product: state.products[index],
-                                    ),
-                                  );
-                                },
-                              );
-                            },
+                              },
+                            ),
                           ),
                         ),
-                      ),
-                    ],
-                  );
-                },
+                      ],
+                    );
+                  },
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -209,7 +226,10 @@ class _InventoryErrorState extends StatelessWidget {
           children: [
             Text(message, textAlign: TextAlign.center),
             context.vMd,
-            FilledButton(onPressed: onRetry, child: const Text('Retry')),
+            FilledButton(
+              onPressed: onRetry,
+              child: Text(context.tr.inventory_retry),
+            ),
           ],
         ),
       ),
@@ -223,7 +243,10 @@ class _InventoryEmptyState extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Text('No products found.', style: context.text.bodyMedium),
+      child: Text(
+        context.tr.inventory_no_products,
+        style: context.text.bodyMedium,
+      ),
     );
   }
 }

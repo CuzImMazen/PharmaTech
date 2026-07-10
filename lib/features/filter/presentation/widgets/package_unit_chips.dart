@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pharmacy_app/core/extensions/localization_ext.dart';
 import 'package:pharmacy_app/features/inventory/cubit/inventory_cubit.dart';
 import 'package:pharmacy_app/features/inventory/data/models/base_unit_model.dart';
 
@@ -17,14 +18,14 @@ class PackageUnitChips extends StatelessWidget {
       runSpacing: 12,
       children: [
         ChoiceChip(
-          label: const Text('All'),
+          label: Text(context.tr.filter_all),
           selected: state.baseUnitId == null,
           onSelected: (_) =>
               context.read<InventoryCubit>().updateBaseUnitId(null),
         ),
         ...units.map(
           (unit) => ChoiceChip(
-            label: Text('${unit.name} (${unit.type})'),
+            label: Text(unit.name),
             selected: state.baseUnitId == unit.id,
             onSelected: (_) {
               context.read<InventoryCubit>().updateBaseUnitId(unit.id);

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pharmacy_app/core/extensions/app_design_system_ext.dart';
+import 'package:pharmacy_app/core/extensions/localization_ext.dart';
 import 'package:pharmacy_app/features/filter/presentation/screens/filter_bottom_sheet.dart';
 import 'package:pharmacy_app/features/inventory/cubit/inventory_cubit.dart';
 import 'package:pharmacy_app/features/inventory/cubit/inventory_state.dart';
@@ -37,24 +38,30 @@ class _OrderContainer extends StatefulWidget {
 class _OrderContainerState extends State<_OrderContainer> {
   final GlobalKey _key = GlobalKey();
 
-  static const Map<String, String?> _sortOptions = {
-    'Name A→Z': 'name_asc',
-    'Name Z→A': 'name_desc',
-    'Price ↑': 'price_asc',
-    'Price ↓': 'price_desc',
-    'Stock ↑': 'stock_asc',
-    'Stock ↓': 'stock_desc',
-    'Exp Soon': 'expiry_asc',
-    'Exp Late': 'expiry_desc',
-  };
+  static const List<String> _sortValues = [
+    'name_asc',
+    'name_desc',
+    'price_asc',
+    'price_desc',
+    'stock_asc',
+    'stock_desc',
+    'expiry_asc',
+    'expiry_desc',
+  ];
 
-  String _currentSortLabel(String? sortBy) {
-    return _sortOptions.entries
-        .firstWhere(
-          (entry) => entry.value == sortBy,
-          orElse: () => const MapEntry('Name A→Z', 'name_asc'),
-        )
-        .key;
+  String _labelFor(BuildContext context, String value) {
+    final tr = context.tr;
+    return switch (value) {
+      'name_asc' => tr.sort_name_asc,
+      'name_desc' => tr.sort_name_desc,
+      'price_asc' => tr.sort_price_asc,
+      'price_desc' => tr.sort_price_desc,
+      'stock_asc' => tr.sort_stock_asc,
+      'stock_desc' => tr.sort_stock_desc,
+      'expiry_asc' => tr.sort_expiry_soon,
+      'expiry_desc' => tr.sort_expiry_late,
+      _ => value,
+    };
   }
 
   Future<void> _openMenu() async {
@@ -72,13 +79,18 @@ class _OrderContainerState extends State<_OrderContainer> {
       ),
       color: context.mutedSurface,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      items: _sortOptions.keys
-          .map((label) => PopupMenuItem(value: label, child: Text(label)))
+      items: _sortValues
+          .map(
+            (value) => PopupMenuItem(
+              value: value,
+              child: Text(_labelFor(context, value)),
+            ),
+          )
           .toList(),
     );
 
     if (selected != null) {
-      context.read<InventoryCubit>().updateSortBy(_sortOptions[selected]);
+      context.read<InventoryCubit>().updateSortBy(selected);
     }
   }
 
@@ -86,6 +98,8 @@ class _OrderContainerState extends State<_OrderContainer> {
   Widget build(BuildContext context) {
     return BlocBuilder<InventoryCubit, InventoryState>(
       builder: (context, state) {
+        final currentLabel =
+            state.sortBy != null ? _labelFor(context, state.sortBy!) : null;
         return GestureDetector(
           key: _key,
           onTap: _openMenu,
@@ -102,7 +116,7 @@ class _OrderContainerState extends State<_OrderContainer> {
                 context.hXs,
                 Expanded(
                   child: Text(
-                    _currentSortLabel(state.sortBy),
+                    currentLabel ?? context.tr.sort_name_asc,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: context.text.bodyMedium?.copyWith(
@@ -154,7 +168,7 @@ class _FilterContainer extends StatelessWidget {
                 const Icon(Icons.tune, color: Colors.white),
                 context.hSm,
                 Text(
-                  'Filters',
+                  context.tr.filter_filters,
                   style: context.text.bodyMedium!.copyWith(color: Colors.white),
                 ),
                 context.hSm,
@@ -163,9 +177,8 @@ class _FilterContainer extends StatelessWidget {
                     final activeFilters = [
                       if (state.stockStatus != null) 1,
                       if (state.inStockOnly) 1,
-                      if (state.categoryIds.isNotEmpty)
-                        1, // Fixed parameter reference
-                      if (state.companyId != null) 1,
+                      if (state.categoryIds.isNotEmpty) 1,
+                      if (state.companyIds.isNotEmpty) 1,
                       if (state.baseUnitId != null) 1,
                       if (state.prescriptionRequired != null) 1,
                       if (state.expiryFilters.isNotEmpty) 1,

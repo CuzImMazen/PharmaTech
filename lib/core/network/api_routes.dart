@@ -20,6 +20,7 @@ class ApiRoutes {
   static const String lowStockProducts = '/products/low-stock';
   static const String categories = '/categories';
   static const String units = '/units';
+  static const String companies = '/companies';
 
   static const String governorates = '/governorates';
   static const String cities = '/cities';

@@ -2,9 +2,7 @@ import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pharmacy_app/features/inventory/cubit/inventory_state.dart';
-import 'package:pharmacy_app/features/inventory/data/models/base_unit_model.dart';
 import 'package:pharmacy_app/features/inventory/data/models/inventory_products_page.dart';
-import 'package:pharmacy_app/features/inventory/data/models/product_category.dart';
 import 'package:pharmacy_app/features/inventory/data/repo/inventory_repository.dart';
 
 class InventoryCubit extends Cubit<InventoryState> {
@@ -18,32 +16,89 @@ class InventoryCubit extends Cubit<InventoryState> {
     return _fetchProducts(reset: true);
   }
 
+  /// Loads all filter options (categories, units, companies) concurrently.
+  /// Each section tracks its own loading + error state independently, so a
+  /// failed section surfaces its own retry affordance without affecting the
+  /// sections that loaded fine.
   Future<void> loadFilterOptions() async {
     if (isClosed) return;
 
-    emit(state.copyWith(isFilterOptionsLoading: true, failure: null));
-
-    final categoriesResult = await inventoryRepository.fetchCategories(
-      perPage: 200,
-    );
-    final unitsResult = await inventoryRepository.fetchUnits(perPage: 200);
-
-    if (isClosed) return;
-
-    final categories = categoriesResult.fold<List<ProductCategoryModel>>(
-      (_) => state.categories,
-      (items) => items,
-    );
-    final units = unitsResult.fold<List<BaseUnitModel>>(
-      (_) => state.units,
-      (items) => items,
-    );
-
     emit(
       state.copyWith(
-        isFilterOptionsLoading: false,
-        categories: categories,
-        units: units,
+        isFilterOptionsLoading: true,
+        isLoadingCategories: true,
+        isLoadingUnits: true,
+        isLoadingCompanies: true,
+        hasCategoriesError: false,
+        hasUnitsError: false,
+        hasCompaniesError: false,
+        failure: null,
+      ),
+    );
+
+    // Fire all three concurrently; each resolves its own slice.
+    await Future.wait([
+      _loadCategories(),
+      _loadUnits(),
+      _loadCompanies(),
+    ]);
+
+    if (isClosed) return;
+    emit(state.copyWith(isFilterOptionsLoading: false));
+  }
+
+  /// Re-fetches only the categories section (used by its per-section retry).
+  Future<void> reloadCategories() => _loadCategories();
+
+  /// Re-fetches only the packaging units section (used by its per-section
+  /// retry).
+  Future<void> reloadUnits() => _loadUnits();
+
+  /// Re-fetches only the companies section (used by its per-section retry).
+  Future<void> reloadCompanies() => _loadCompanies();
+
+  Future<void> _loadCategories() async {
+    if (isClosed) return;
+    emit(state.copyWith(isLoadingCategories: true, hasCategoriesError: false));
+
+    final result = await inventoryRepository.fetchCategories(perPage: 200);
+    if (isClosed) return;
+
+    result.fold(
+      (_) => emit(state.copyWith(isLoadingCategories: false, hasCategoriesError: true)),
+      (items) => emit(
+        state.copyWith(isLoadingCategories: false, categories: items),
+      ),
+    );
+  }
+
+  Future<void> _loadUnits() async {
+    if (isClosed) return;
+    emit(state.copyWith(isLoadingUnits: true, hasUnitsError: false));
+
+    final result = await inventoryRepository.fetchUnits(
+      perPage: 200,
+      type: 'packaging',
+    );
+    if (isClosed) return;
+
+    result.fold(
+      (_) => emit(state.copyWith(isLoadingUnits: false, hasUnitsError: true)),
+      (items) => emit(state.copyWith(isLoadingUnits: false, units: items)),
+    );
+  }
+
+  Future<void> _loadCompanies() async {
+    if (isClosed) return;
+    emit(state.copyWith(isLoadingCompanies: true, hasCompaniesError: false));
+
+    final result = await inventoryRepository.fetchCompanies(perPage: 200);
+    if (isClosed) return;
+
+    result.fold(
+      (_) => emit(state.copyWith(isLoadingCompanies: false, hasCompaniesError: true)),
+      (items) => emit(
+        state.copyWith(isLoadingCompanies: false, companies: items),
       ),
     );
   }
@@ -81,49 +136,47 @@ class InventoryCubit extends Cubit<InventoryState> {
         failure: null,
       ),
     );
-    _fetchProducts(reset: true);
   }
 
   void updateInStockOnly(bool inStockOnly) {
     emit(state.copyWith(inStockOnly: inStockOnly, failure: null));
-    _fetchProducts(reset: true);
   }
 
   void updateCategoryIds(Set<int> categoryIds) {
     emit(state.copyWith(categoryIds: categoryIds.toList(), failure: null));
-    _fetchProducts(reset: true);
+  }
+
+  void updateCompanyIds(Set<int> companyIds) {
+    emit(state.copyWith(companyIds: companyIds.toList(), failure: null));
   }
 
   void updateBaseUnitId(int? baseUnitId) {
     emit(state.copyWith(baseUnitId: baseUnitId, failure: null));
-    _fetchProducts(reset: true);
   }
 
   void updatePrescriptionRequired(bool? prescriptionRequired) {
     emit(
       state.copyWith(prescriptionRequired: prescriptionRequired, failure: null),
     );
-    _fetchProducts(reset: true);
   }
 
   void updateExpiryFilters(Set<String> expiryFilters) {
     emit(state.copyWith(expiryFilters: expiryFilters.toList(), failure: null));
-    _fetchProducts(reset: true);
   }
 
   void updatePriceRange({num? minPrice, num? maxPrice}) {
     emit(state.copyWith(minPrice: minPrice, maxPrice: maxPrice, failure: null));
-    _fetchProducts(reset: true);
   }
 
   void clearFilters() {
     _searchDebounce?.cancel();
     emit(
       state.copyWith(
+        searchQuery: '',
         sortBy: null,
         stockStatus: null,
         categoryIds: const [],
-        companyId: null,
+        companyIds: const [],
         baseUnitId: null,
         prescriptionRequired: null,
         expiryFilters: const [],
@@ -133,6 +186,10 @@ class InventoryCubit extends Cubit<InventoryState> {
         failure: null,
       ),
     );
+    _fetchProducts(reset: true);
+  }
+
+  void applyFilters() {
     _fetchProducts(reset: true);
   }
 
@@ -165,10 +222,14 @@ class InventoryCubit extends Cubit<InventoryState> {
         ? state.categoryIds.join(',') // Converts [1, 2, 3] into "1,2,3"
         : null;
 
+    final String? companyParam = state.companyIds.isNotEmpty
+        ? state.companyIds.join(',') // Converts [1, 2, 3] into "1,2,3"
+        : null;
+
     final result = await inventoryRepository.fetchProducts(
       search: state.searchQuery,
       categoryId: categoryParam,
-      companyId: state.companyId,
+      companyId: companyParam,
       baseUnitId: state.baseUnitId,
       prescriptionRequired: state.prescriptionRequired,
       expiryFilter: state.expiryFilters,

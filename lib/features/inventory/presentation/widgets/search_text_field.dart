@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/core/extensions/app_design_system_ext.dart';
+import 'package:pharmacy_app/core/extensions/localization_ext.dart';
 import 'package:pharmacy_app/core/theme/app_colors.dart';
 
 class SearchTextField extends StatefulWidget {
@@ -8,13 +9,13 @@ class SearchTextField extends StatefulWidget {
     this.controller,
     this.onChanged,
     this.onClear,
-    this.hintText = 'Search by name',
+    this.hintText,
   });
 
   final TextEditingController? controller;
   final ValueChanged<String>? onChanged;
   final VoidCallback? onClear;
-  final String hintText;
+  final String? hintText;
 
   @override
   State<SearchTextField> createState() => _SearchTextFieldState();
@@ -60,7 +61,7 @@ class _SearchTextFieldState extends State<SearchTextField> {
           FocusScope.of(context).unfocus();
         },
         decoration: InputDecoration(
-          hintText: widget.hintText,
+          hintText: widget.hintText ?? context.tr.inventory_search_hint,
           prefixIcon: Icon(
             Icons.search,
             color: context.colors.onSurface.withAlpha(140),

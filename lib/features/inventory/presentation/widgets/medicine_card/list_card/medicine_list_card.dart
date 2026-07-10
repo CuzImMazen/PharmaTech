@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/core/enums/enums.dart';
 import 'package:pharmacy_app/core/extensions/app_design_system_ext.dart';
+import 'package:pharmacy_app/core/extensions/localization_ext.dart';
 import 'package:pharmacy_app/features/inventory/data/models/product_card_model.dart';
 import 'package:pharmacy_app/features/inventory/presentation/widgets/medicine_card/medicine_catgeory_card.dart';
 import 'package:pharmacy_app/features/inventory/presentation/widgets/medicine_card/list_card/medicine_info_card.dart';
@@ -46,15 +47,15 @@ class MedicineListCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 MedicineInfoCard(
-                  label: product.baseUnit?.name ?? 'Unit',
+                  label: product.baseUnit?.name ?? context.tr.inventory_unit,
                   value: currentStock.toString(),
                 ),
                 MedicineInfoCard(
-                  label: 'Price',
+                  label: context.tr.inventory_price,
                   value: product.price.toString(),
                 ),
                 MedicineInfoCard(
-                  label: 'Expiry',
+                  label: context.tr.inventory_expiry,
                   value: product.nearestExpiration ?? '--',
                 ),
               ],
@@ -63,13 +64,20 @@ class MedicineListCard extends StatelessWidget {
             Row(
               children: [
                 Text(
-                  "Stock Level :",
+                  context.tr.inventory_stock_level,
                   style: context.text.bodySmall!.copyWith(color: context.muted),
                 ),
-                Spacer(),
-                Text(
-                  "$currentStock/$minStock (Min)",
-                  style: context.text.bodySmall!.copyWith(color: context.muted),
+                const Spacer(),
+                // The value is numeric (inherently LTR); force LTR so the
+                // "60/5" reads in the right order and the "(min)" suffix stays
+                // next to the 5 in both LTR and RTL locales.
+                Directionality(
+                  textDirection: TextDirection.ltr,
+                  child: Text(
+                    '$currentStock/$minStock${context.tr.inventory_stock_min_suffix}',
+                    style:
+                        context.text.bodySmall!.copyWith(color: context.muted),
+                  ),
                 ),
               ],
             ),

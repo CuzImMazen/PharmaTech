@@ -17,7 +17,13 @@ class MedicineInfoCard extends StatelessWidget {
         padding: EdgeInsets.symmetric(vertical: 14.0),
         child: Column(
           children: [
-            Text(value, style: context.text.titleMedium),
+            FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: Text(value, style: context.text.titleMedium),
+              ),
+            ),
             Text(
               label,
               style: context.text.labelMedium?.copyWith(color: context.muted),
