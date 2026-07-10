@@ -14,6 +14,8 @@ import 'package:pharmacy_app/features/authentication/data/repo/auth_repository_i
 
 import 'package:pharmacy_app/features/inventory/data/repo/inventory_repository.dart';
 import 'package:pharmacy_app/features/inventory/data/repo/inventory_repository_impl.dart';
+import 'package:pharmacy_app/features/inventory/data/repo/product_detail_repository.dart';
+import 'package:pharmacy_app/features/inventory/data/repo/product_detail_repository_impl.dart';
 
 import 'package:pharmacy_app/features/onboarding/data/repo/onboarding_repository.dart';
 import 'package:pharmacy_app/features/onboarding/data/repo/onboarding_repository_impl.dart';
@@ -75,6 +77,10 @@ Future<void> setupLocator() async {
 
   sl.registerLazySingleton<InventoryRepository>(
     () => InventoryRepositoryImpl(api: sl<DioApiHelper>()),
+  );
+
+  sl.registerLazySingleton<ProductDetailRepository>(
+    () => ProductDetailRepositoryImpl(api: sl<DioApiHelper>()),
   );
 
   //Session Cubit

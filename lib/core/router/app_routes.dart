@@ -28,8 +28,17 @@ import 'package:pharmacy_app/features/authentication/presentation/screens/passwo
 import 'package:pharmacy_app/features/authentication/presentation/screens/email_verification/email_verification_sent_screen.dart';
 import 'package:pharmacy_app/features/dashboard/presentation/screens/dashboard_screen.dart';
 import 'package:pharmacy_app/features/inventory/cubit/inventory_cubit.dart';
+import 'package:pharmacy_app/features/inventory/cubit/medical_info_form/medical_info_form_cubit.dart';
+import 'package:pharmacy_app/features/inventory/cubit/product_detail/product_detail_cubit.dart';
+import 'package:pharmacy_app/features/inventory/cubit/product_form/product_form_cubit.dart';
 import 'package:pharmacy_app/features/inventory/cubit/view_mode_cubit.dart';
+import 'package:pharmacy_app/features/inventory/data/models/product_detail_model.dart';
+import 'package:pharmacy_app/features/inventory/data/models/product_medical_info_model.dart';
+import 'package:pharmacy_app/features/inventory/data/repo/product_detail_repository.dart';
 import 'package:pharmacy_app/features/inventory/presentation/screens/inventory_screen.dart';
+import 'package:pharmacy_app/features/inventory/presentation/screens/medical_info_form_screen.dart';
+import 'package:pharmacy_app/features/inventory/presentation/screens/product_detail_screen.dart';
+import 'package:pharmacy_app/features/inventory/presentation/screens/product_form_screen.dart';
 import 'package:pharmacy_app/features/layout/presentation/screen/layout_screen.dart';
 import 'package:pharmacy_app/features/onboarding/presentation/screens/onboarding_screen.dart';
 import 'package:pharmacy_app/features/splash/presentation/screens/splash_screen.dart';
@@ -168,6 +177,73 @@ class AppRoutes {
         return BlocProvider(
           create: (context) => ResendResetPasswordCubit(authRepository: sl()),
           child: PasswordResetSentScreen(email: email),
+        );
+      },
+    ),
+
+    // =========================================================================
+    // 3.5. PRODUCT DETAIL + FORMS (pushed over the nav shell; no bottom nav)
+    // =========================================================================
+
+    // Add product — must precede /product/:id so "add" isn't captured as an id.
+    GoRoute(
+      path: AppRoutesKeys.productAdd,
+      builder: (context, state) => BlocProvider(
+        create: (context) => ProductFormCubit(
+          productDetailRepository: sl<ProductDetailRepository>(),
+          inventoryRepository: sl(),
+        )..loadOptions(),
+        child: const ProductFormScreen(),
+      ),
+    ),
+
+    // Medical info form (add/edit) — share the parent ProductDetailCubit so the
+    // saved model updates the detail screen instantly on return.
+    GoRoute(
+      path: AppRoutesKeys.medicalInfoEdit,
+      builder: (context, state) {
+        final productId = int.tryParse(state.pathParameters['id'] ?? '') ?? 0;
+        final existing = state.extra as ProductMedicalInfoModel?;
+        return BlocProvider(
+          create: (context) =>
+              MedicalInfoFormCubit(repository: sl<ProductDetailRepository>()),
+          child: MedicalInfoFormScreen(
+            productId: productId,
+            existing: existing,
+          ),
+        );
+      },
+    ),
+
+    // Edit product — share the parent ProductDetailCubit so the saved product
+    // refreshes the detail screen instantly on return.
+    GoRoute(
+      path: AppRoutesKeys.productEdit,
+      builder: (context, state) {
+        final productId = int.tryParse(state.pathParameters['id'] ?? '') ?? 0;
+        final existing = state.extra as ProductDetailModel?;
+        return BlocProvider(
+          create: (context) => ProductFormCubit(
+            productDetailRepository: sl<ProductDetailRepository>(),
+            inventoryRepository: sl(),
+          )..loadOptions(),
+          child: ProductFormScreen(
+            productId: productId,
+            existing: existing,
+          ),
+        );
+      },
+    ),
+
+    GoRoute(
+      path: AppRoutesKeys.productDetail,
+      builder: (context, state) {
+        final productId = int.tryParse(state.pathParameters['id'] ?? '') ?? 0;
+        return BlocProvider(
+          create: (context) => ProductDetailCubit(
+            repository: sl<ProductDetailRepository>(),
+          )..loadAll(productId),
+          child: ProductDetailScreen(productId: productId),
         );
       },
     ),

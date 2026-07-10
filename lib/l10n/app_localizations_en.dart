@@ -596,4 +596,243 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get stock_status_out => 'Out';
+
+  @override
+  String get detail_not_available => '—';
+
+  @override
+  String get detail_edit => 'Edit';
+
+  @override
+  String get detail_delete => 'Delete';
+
+  @override
+  String get detail_tab_overview => 'Overview';
+
+  @override
+  String get detail_tab_batches => 'Stock';
+
+  @override
+  String get detail_tab_medical => 'Medical Info';
+
+  @override
+  String get detail_section_product_info => 'Product Information';
+
+  @override
+  String get detail_section_pricing => 'Pricing';
+
+  @override
+  String get detail_section_inventory => 'Inventory';
+
+  @override
+  String get detail_barcode => 'Barcode';
+
+  @override
+  String get detail_scientific_name => 'Scientific Name';
+
+  @override
+  String get detail_strength => 'Strength';
+
+  @override
+  String get detail_company => 'Company';
+
+  @override
+  String get detail_category => 'Category';
+
+  @override
+  String get detail_shelf => 'Shelf';
+
+  @override
+  String get detail_prescription => 'Prescription';
+
+  @override
+  String get detail_yes => 'Yes';
+
+  @override
+  String get detail_no => 'No';
+
+  @override
+  String get detail_buying_price => 'Buying Price';
+
+  @override
+  String get detail_selling_price => 'Selling Price';
+
+  @override
+  String get detail_tax => 'Tax Rate';
+
+  @override
+  String get detail_discount => 'Discount Rate';
+
+  @override
+  String get detail_total_quantity => 'Total Quantity';
+
+  @override
+  String get detail_min_stock => 'Min. Stock';
+
+  @override
+  String get detail_units_per_base => 'Units per Base';
+
+  @override
+  String get detail_nearest_expiry => 'Nearest Expiry';
+
+  @override
+  String get detail_allow_partial_selling => 'Allow Partial Selling';
+
+  @override
+  String detail_batches_count(int count) {
+    return '$count batches';
+  }
+
+  @override
+  String get detail_add_batch => 'Add Batch';
+
+  @override
+  String get detail_no_batches => 'No batches available';
+
+  @override
+  String get detail_batch_id => 'Batch';
+
+  @override
+  String get detail_received_date => 'Received';
+
+  @override
+  String get detail_expiry => 'Expiry';
+
+  @override
+  String get detail_quantity_on_hand => 'On Hand';
+
+  @override
+  String get detail_purchase_price => 'Purchase Price';
+
+  @override
+  String get detail_batch_selling_price => 'Selling Price';
+
+  @override
+  String get detail_batch_status_active => 'Active';
+
+  @override
+  String get detail_batch_status_expired => 'Expired';
+
+  @override
+  String get detail_batch_status_depleted => 'Depleted';
+
+  @override
+  String get detail_batch_status_inactive => 'Inactive';
+
+  @override
+  String get detail_medical_empty_title => 'No Medical Info';
+
+  @override
+  String get detail_medical_empty_subtitle => 'Add medical information for this product to keep it available here.';
+
+  @override
+  String get detail_add_medical_info => 'Add Medical Info';
+
+  @override
+  String get detail_medical_indications => 'Indications';
+
+  @override
+  String get detail_medical_contraindications => 'Contraindications';
+
+  @override
+  String get detail_medical_warnings => 'Warnings';
+
+  @override
+  String get detail_medical_side_effects => 'Side Effects';
+
+  @override
+  String get detail_medical_overdose => 'Overdose';
+
+  @override
+  String get detail_medical_pregnancy_safety => 'Pregnancy Safety';
+
+  @override
+  String get detail_medical_lactation_safety => 'Lactation Safety';
+
+  @override
+  String get detail_medical_drug_interactions => 'Drug Interactions';
+
+  @override
+  String get detail_medical_dose_info => 'Dose Info';
+
+  @override
+  String get detail_save => 'Save';
+
+  @override
+  String get detail_cancel => 'Cancel';
+
+  @override
+  String get product_add_title => 'Add Product';
+
+  @override
+  String get product_edit_title => 'Edit Product';
+
+  @override
+  String get product_create => 'Create';
+
+  @override
+  String get product_created => 'Product created successfully.';
+
+  @override
+  String get product_saved => 'Product updated successfully.';
+
+  @override
+  String get product_deleted => 'Product deleted successfully.';
+
+  @override
+  String get product_delete_title => 'Delete Product';
+
+  @override
+  String get product_delete_confirm => 'Are you sure you want to delete this product? This can be undone by restoring it later.';
+
+  @override
+  String get product_form_section_basic => 'Basic Information';
+
+  @override
+  String get product_form_section_classification => 'Classification';
+
+  @override
+  String get product_form_barcode_hint => 'e.g. 123456789';
+
+  @override
+  String get product_form_brand_name => 'Brand Name';
+
+  @override
+  String get product_form_brand_name_hint => 'e.g. Amoxil 500mg';
+
+  @override
+  String get product_form_ar_name => 'Arabic Name';
+
+  @override
+  String get product_form_optional_hint => 'Optional';
+
+  @override
+  String get product_form_select_category => 'Select a category';
+
+  @override
+  String get product_form_base_unit => 'Base Unit';
+
+  @override
+  String get product_form_selling_unit => 'Selling Unit';
+
+  @override
+  String get medical_info_edit_title => 'Edit Medical Info';
+
+  @override
+  String get medical_info_field_hint => 'Enter details (optional)';
+
+  @override
+  String get medical_info_saved => 'Medical info saved successfully.';
+
+  @override
+  String get medical_info_deleted => 'Medical info deleted successfully.';
+
+  @override
+  String get medical_info_delete_title => 'Delete Medical Info';
+
+  @override
+  String get medical_info_delete_confirm => 'Are you sure you want to delete the medical info for this product?';
+
+  @override
+  String get field_required => 'This field is required';
 }

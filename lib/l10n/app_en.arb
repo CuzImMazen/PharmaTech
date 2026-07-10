@@ -228,5 +228,100 @@
 
   "stock_status_available": "Available",
   "stock_status_low": "Low",
-  "stock_status_out": "Out"
+  "stock_status_out": "Out",
+
+  "detail_not_available": "—",
+  "detail_edit": "Edit",
+  "detail_delete": "Delete",
+
+  "detail_tab_overview": "Overview",
+  "detail_tab_batches": "Stock",
+  "detail_tab_medical": "Medical Info",
+
+  "detail_section_product_info": "Product Information",
+  "detail_section_pricing": "Pricing",
+  "detail_section_inventory": "Inventory",
+
+  "detail_barcode": "Barcode",
+  "detail_scientific_name": "Scientific Name",
+  "detail_strength": "Strength",
+  "detail_company": "Company",
+  "detail_category": "Category",
+  "detail_shelf": "Shelf",
+  "detail_prescription": "Prescription",
+  "detail_yes": "Yes",
+  "detail_no": "No",
+  "detail_buying_price": "Buying Price",
+  "detail_selling_price": "Selling Price",
+  "detail_tax": "Tax Rate",
+  "detail_discount": "Discount Rate",
+  "detail_total_quantity": "Total Quantity",
+  "detail_min_stock": "Min. Stock",
+  "detail_units_per_base": "Units per Base",
+  "detail_nearest_expiry": "Nearest Expiry",
+  "detail_allow_partial_selling": "Allow Partial Selling",
+
+  "detail_batches_count": "{count} batches",
+  "@detail_batches_count": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "detail_add_batch": "Add Batch",
+  "detail_no_batches": "No batches available",
+  "detail_batch_id": "Batch",
+  "detail_received_date": "Received",
+  "detail_expiry": "Expiry",
+  "detail_quantity_on_hand": "On Hand",
+  "detail_purchase_price": "Purchase Price",
+  "detail_batch_selling_price": "Selling Price",
+
+  "detail_batch_status_active": "Active",
+  "detail_batch_status_expired": "Expired",
+  "detail_batch_status_depleted": "Depleted",
+  "detail_batch_status_inactive": "Inactive",
+
+  "detail_medical_empty_title": "No Medical Info",
+  "detail_medical_empty_subtitle": "Add medical information for this product to keep it available here.",
+  "detail_add_medical_info": "Add Medical Info",
+
+  "detail_medical_indications": "Indications",
+  "detail_medical_contraindications": "Contraindications",
+  "detail_medical_warnings": "Warnings",
+  "detail_medical_side_effects": "Side Effects",
+  "detail_medical_overdose": "Overdose",
+  "detail_medical_pregnancy_safety": "Pregnancy Safety",
+  "detail_medical_lactation_safety": "Lactation Safety",
+  "detail_medical_drug_interactions": "Drug Interactions",
+  "detail_medical_dose_info": "Dose Info",
+
+  "detail_save": "Save",
+  "detail_cancel": "Cancel",
+
+  "product_add_title": "Add Product",
+  "product_edit_title": "Edit Product",
+  "product_create": "Create",
+  "product_created": "Product created successfully.",
+  "product_saved": "Product updated successfully.",
+  "product_deleted": "Product deleted successfully.",
+  "product_delete_title": "Delete Product",
+  "product_delete_confirm": "Are you sure you want to delete this product? This can be undone by restoring it later.",
+
+  "product_form_section_basic": "Basic Information",
+  "product_form_section_classification": "Classification",
+  "product_form_barcode_hint": "e.g. 123456789",
+  "product_form_brand_name": "Brand Name",
+  "product_form_brand_name_hint": "e.g. Amoxil 500mg",
+  "product_form_ar_name": "Arabic Name",
+  "product_form_optional_hint": "Optional",
+  "product_form_select_category": "Select a category",
+  "product_form_base_unit": "Base Unit",
+  "product_form_selling_unit": "Selling Unit",
+
+  "medical_info_edit_title": "Edit Medical Info",
+  "medical_info_field_hint": "Enter details (optional)",
+  "medical_info_saved": "Medical info saved successfully.",
+  "medical_info_deleted": "Medical info deleted successfully.",
+  "medical_info_delete_title": "Delete Medical Info",
+  "medical_info_delete_confirm": "Are you sure you want to delete the medical info for this product?",
+
+  "field_required": "This field is required"
 }

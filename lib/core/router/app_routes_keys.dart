@@ -15,4 +15,17 @@ class AppRoutesKeys {
   static const String reports = '/reports';
 
   static const String settings = '/settings';
+  static const String productDetail = '/product/:id';
+  static const String productAdd = '/product/add';
+  static const String productEdit = '/product/:id/edit';
+  static const String medicalInfoEdit = '/product/:id/medical-info/edit';
+
+  /// Builds an edit route for a specific product id.
+  static String productEditWith(int id) => '/product/$id/edit';
+
+  /// Builds a medical-info edit route for a specific product id.
+  static String medicalInfoEditWith(int id) => '/product/$id/medical-info/edit';
+
+  /// Builds a product detail route for a specific product id.
+  static String productDetailWith(int id) => '/product/$id';
 }

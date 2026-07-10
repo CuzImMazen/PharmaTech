@@ -1264,6 +1264,480 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Out'**
   String get stock_status_out;
+
+  /// No description provided for @detail_not_available.
+  ///
+  /// In en, this message translates to:
+  /// **'—'**
+  String get detail_not_available;
+
+  /// No description provided for @detail_edit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit'**
+  String get detail_edit;
+
+  /// No description provided for @detail_delete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get detail_delete;
+
+  /// No description provided for @detail_tab_overview.
+  ///
+  /// In en, this message translates to:
+  /// **'Overview'**
+  String get detail_tab_overview;
+
+  /// No description provided for @detail_tab_batches.
+  ///
+  /// In en, this message translates to:
+  /// **'Stock'**
+  String get detail_tab_batches;
+
+  /// No description provided for @detail_tab_medical.
+  ///
+  /// In en, this message translates to:
+  /// **'Medical Info'**
+  String get detail_tab_medical;
+
+  /// No description provided for @detail_section_product_info.
+  ///
+  /// In en, this message translates to:
+  /// **'Product Information'**
+  String get detail_section_product_info;
+
+  /// No description provided for @detail_section_pricing.
+  ///
+  /// In en, this message translates to:
+  /// **'Pricing'**
+  String get detail_section_pricing;
+
+  /// No description provided for @detail_section_inventory.
+  ///
+  /// In en, this message translates to:
+  /// **'Inventory'**
+  String get detail_section_inventory;
+
+  /// No description provided for @detail_barcode.
+  ///
+  /// In en, this message translates to:
+  /// **'Barcode'**
+  String get detail_barcode;
+
+  /// No description provided for @detail_scientific_name.
+  ///
+  /// In en, this message translates to:
+  /// **'Scientific Name'**
+  String get detail_scientific_name;
+
+  /// No description provided for @detail_strength.
+  ///
+  /// In en, this message translates to:
+  /// **'Strength'**
+  String get detail_strength;
+
+  /// No description provided for @detail_company.
+  ///
+  /// In en, this message translates to:
+  /// **'Company'**
+  String get detail_company;
+
+  /// No description provided for @detail_category.
+  ///
+  /// In en, this message translates to:
+  /// **'Category'**
+  String get detail_category;
+
+  /// No description provided for @detail_shelf.
+  ///
+  /// In en, this message translates to:
+  /// **'Shelf'**
+  String get detail_shelf;
+
+  /// No description provided for @detail_prescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Prescription'**
+  String get detail_prescription;
+
+  /// No description provided for @detail_yes.
+  ///
+  /// In en, this message translates to:
+  /// **'Yes'**
+  String get detail_yes;
+
+  /// No description provided for @detail_no.
+  ///
+  /// In en, this message translates to:
+  /// **'No'**
+  String get detail_no;
+
+  /// No description provided for @detail_buying_price.
+  ///
+  /// In en, this message translates to:
+  /// **'Buying Price'**
+  String get detail_buying_price;
+
+  /// No description provided for @detail_selling_price.
+  ///
+  /// In en, this message translates to:
+  /// **'Selling Price'**
+  String get detail_selling_price;
+
+  /// No description provided for @detail_tax.
+  ///
+  /// In en, this message translates to:
+  /// **'Tax Rate'**
+  String get detail_tax;
+
+  /// No description provided for @detail_discount.
+  ///
+  /// In en, this message translates to:
+  /// **'Discount Rate'**
+  String get detail_discount;
+
+  /// No description provided for @detail_total_quantity.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Quantity'**
+  String get detail_total_quantity;
+
+  /// No description provided for @detail_min_stock.
+  ///
+  /// In en, this message translates to:
+  /// **'Min. Stock'**
+  String get detail_min_stock;
+
+  /// No description provided for @detail_units_per_base.
+  ///
+  /// In en, this message translates to:
+  /// **'Units per Base'**
+  String get detail_units_per_base;
+
+  /// No description provided for @detail_nearest_expiry.
+  ///
+  /// In en, this message translates to:
+  /// **'Nearest Expiry'**
+  String get detail_nearest_expiry;
+
+  /// No description provided for @detail_allow_partial_selling.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow Partial Selling'**
+  String get detail_allow_partial_selling;
+
+  /// No description provided for @detail_batches_count.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} batches'**
+  String detail_batches_count(int count);
+
+  /// No description provided for @detail_add_batch.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Batch'**
+  String get detail_add_batch;
+
+  /// No description provided for @detail_no_batches.
+  ///
+  /// In en, this message translates to:
+  /// **'No batches available'**
+  String get detail_no_batches;
+
+  /// No description provided for @detail_batch_id.
+  ///
+  /// In en, this message translates to:
+  /// **'Batch'**
+  String get detail_batch_id;
+
+  /// No description provided for @detail_received_date.
+  ///
+  /// In en, this message translates to:
+  /// **'Received'**
+  String get detail_received_date;
+
+  /// No description provided for @detail_expiry.
+  ///
+  /// In en, this message translates to:
+  /// **'Expiry'**
+  String get detail_expiry;
+
+  /// No description provided for @detail_quantity_on_hand.
+  ///
+  /// In en, this message translates to:
+  /// **'On Hand'**
+  String get detail_quantity_on_hand;
+
+  /// No description provided for @detail_purchase_price.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase Price'**
+  String get detail_purchase_price;
+
+  /// No description provided for @detail_batch_selling_price.
+  ///
+  /// In en, this message translates to:
+  /// **'Selling Price'**
+  String get detail_batch_selling_price;
+
+  /// No description provided for @detail_batch_status_active.
+  ///
+  /// In en, this message translates to:
+  /// **'Active'**
+  String get detail_batch_status_active;
+
+  /// No description provided for @detail_batch_status_expired.
+  ///
+  /// In en, this message translates to:
+  /// **'Expired'**
+  String get detail_batch_status_expired;
+
+  /// No description provided for @detail_batch_status_depleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Depleted'**
+  String get detail_batch_status_depleted;
+
+  /// No description provided for @detail_batch_status_inactive.
+  ///
+  /// In en, this message translates to:
+  /// **'Inactive'**
+  String get detail_batch_status_inactive;
+
+  /// No description provided for @detail_medical_empty_title.
+  ///
+  /// In en, this message translates to:
+  /// **'No Medical Info'**
+  String get detail_medical_empty_title;
+
+  /// No description provided for @detail_medical_empty_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Add medical information for this product to keep it available here.'**
+  String get detail_medical_empty_subtitle;
+
+  /// No description provided for @detail_add_medical_info.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Medical Info'**
+  String get detail_add_medical_info;
+
+  /// No description provided for @detail_medical_indications.
+  ///
+  /// In en, this message translates to:
+  /// **'Indications'**
+  String get detail_medical_indications;
+
+  /// No description provided for @detail_medical_contraindications.
+  ///
+  /// In en, this message translates to:
+  /// **'Contraindications'**
+  String get detail_medical_contraindications;
+
+  /// No description provided for @detail_medical_warnings.
+  ///
+  /// In en, this message translates to:
+  /// **'Warnings'**
+  String get detail_medical_warnings;
+
+  /// No description provided for @detail_medical_side_effects.
+  ///
+  /// In en, this message translates to:
+  /// **'Side Effects'**
+  String get detail_medical_side_effects;
+
+  /// No description provided for @detail_medical_overdose.
+  ///
+  /// In en, this message translates to:
+  /// **'Overdose'**
+  String get detail_medical_overdose;
+
+  /// No description provided for @detail_medical_pregnancy_safety.
+  ///
+  /// In en, this message translates to:
+  /// **'Pregnancy Safety'**
+  String get detail_medical_pregnancy_safety;
+
+  /// No description provided for @detail_medical_lactation_safety.
+  ///
+  /// In en, this message translates to:
+  /// **'Lactation Safety'**
+  String get detail_medical_lactation_safety;
+
+  /// No description provided for @detail_medical_drug_interactions.
+  ///
+  /// In en, this message translates to:
+  /// **'Drug Interactions'**
+  String get detail_medical_drug_interactions;
+
+  /// No description provided for @detail_medical_dose_info.
+  ///
+  /// In en, this message translates to:
+  /// **'Dose Info'**
+  String get detail_medical_dose_info;
+
+  /// No description provided for @detail_save.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get detail_save;
+
+  /// No description provided for @detail_cancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get detail_cancel;
+
+  /// No description provided for @product_add_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Product'**
+  String get product_add_title;
+
+  /// No description provided for @product_edit_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Product'**
+  String get product_edit_title;
+
+  /// No description provided for @product_create.
+  ///
+  /// In en, this message translates to:
+  /// **'Create'**
+  String get product_create;
+
+  /// No description provided for @product_created.
+  ///
+  /// In en, this message translates to:
+  /// **'Product created successfully.'**
+  String get product_created;
+
+  /// No description provided for @product_saved.
+  ///
+  /// In en, this message translates to:
+  /// **'Product updated successfully.'**
+  String get product_saved;
+
+  /// No description provided for @product_deleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Product deleted successfully.'**
+  String get product_deleted;
+
+  /// No description provided for @product_delete_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Product'**
+  String get product_delete_title;
+
+  /// No description provided for @product_delete_confirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete this product? This can be undone by restoring it later.'**
+  String get product_delete_confirm;
+
+  /// No description provided for @product_form_section_basic.
+  ///
+  /// In en, this message translates to:
+  /// **'Basic Information'**
+  String get product_form_section_basic;
+
+  /// No description provided for @product_form_section_classification.
+  ///
+  /// In en, this message translates to:
+  /// **'Classification'**
+  String get product_form_section_classification;
+
+  /// No description provided for @product_form_barcode_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. 123456789'**
+  String get product_form_barcode_hint;
+
+  /// No description provided for @product_form_brand_name.
+  ///
+  /// In en, this message translates to:
+  /// **'Brand Name'**
+  String get product_form_brand_name;
+
+  /// No description provided for @product_form_brand_name_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. Amoxil 500mg'**
+  String get product_form_brand_name_hint;
+
+  /// No description provided for @product_form_ar_name.
+  ///
+  /// In en, this message translates to:
+  /// **'Arabic Name'**
+  String get product_form_ar_name;
+
+  /// No description provided for @product_form_optional_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'Optional'**
+  String get product_form_optional_hint;
+
+  /// No description provided for @product_form_select_category.
+  ///
+  /// In en, this message translates to:
+  /// **'Select a category'**
+  String get product_form_select_category;
+
+  /// No description provided for @product_form_base_unit.
+  ///
+  /// In en, this message translates to:
+  /// **'Base Unit'**
+  String get product_form_base_unit;
+
+  /// No description provided for @product_form_selling_unit.
+  ///
+  /// In en, this message translates to:
+  /// **'Selling Unit'**
+  String get product_form_selling_unit;
+
+  /// No description provided for @medical_info_edit_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Medical Info'**
+  String get medical_info_edit_title;
+
+  /// No description provided for @medical_info_field_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter details (optional)'**
+  String get medical_info_field_hint;
+
+  /// No description provided for @medical_info_saved.
+  ///
+  /// In en, this message translates to:
+  /// **'Medical info saved successfully.'**
+  String get medical_info_saved;
+
+  /// No description provided for @medical_info_deleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Medical info deleted successfully.'**
+  String get medical_info_deleted;
+
+  /// No description provided for @medical_info_delete_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Medical Info'**
+  String get medical_info_delete_title;
+
+  /// No description provided for @medical_info_delete_confirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete the medical info for this product?'**
+  String get medical_info_delete_confirm;
+
+  /// No description provided for @field_required.
+  ///
+  /// In en, this message translates to:
+  /// **'This field is required'**
+  String get field_required;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

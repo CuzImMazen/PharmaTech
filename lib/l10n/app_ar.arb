@@ -225,5 +225,100 @@
 
   "stock_status_available": "متوفر",
   "stock_status_low": "منخفض",
-  "stock_status_out": "نفاذ"
+  "stock_status_out": "نفاذ",
+
+  "detail_not_available": "—",
+  "detail_edit": "تعديل",
+  "detail_delete": "حذف",
+
+  "detail_tab_overview": "نظرة عامة",
+  "detail_tab_batches": "المخزون",
+  "detail_tab_medical": "المعلومات الطبية",
+
+  "detail_section_product_info": "معلومات المنتج",
+  "detail_section_pricing": "التسعير",
+  "detail_section_inventory": "المخزون",
+
+  "detail_barcode": "الباركود",
+  "detail_scientific_name": "الاسم العلمي",
+  "detail_strength": "التركيز",
+  "detail_company": "الشركة",
+  "detail_category": "الفئة",
+  "detail_shelf": "الرف",
+  "detail_prescription": "يحتاج وصفة",
+  "detail_yes": "نعم",
+  "detail_no": "لا",
+  "detail_buying_price": "سعر الشراء",
+  "detail_selling_price": "سعر البيع",
+  "detail_tax": "نسبة الضريبة",
+  "detail_discount": "نسبة الخصم",
+  "detail_total_quantity": "إجمالي الكمية",
+  "detail_min_stock": "الحد الأدنى",
+  "detail_units_per_base": "الوحدات لكل أساس",
+  "detail_nearest_expiry": "أقرب انتهاء",
+  "detail_allow_partial_selling": "السماح بالبيع الجزئي",
+
+  "detail_batches_count": "{count} دفعة",
+  "@detail_batches_count": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "detail_add_batch": "إضافة دفعة",
+  "detail_no_batches": "لا توجد دفعات متاحة",
+  "detail_batch_id": "الدفعة",
+  "detail_received_date": "تاريخ الاستلام",
+  "detail_expiry": "تاريخ الانتهاء",
+  "detail_quantity_on_hand": "المتوفر",
+  "detail_purchase_price": "سعر الشراء",
+  "detail_batch_selling_price": "سعر البيع",
+
+  "detail_batch_status_active": "ساري",
+  "detail_batch_status_expired": "منتهي",
+  "detail_batch_status_depleted": "مستنزف",
+  "detail_batch_status_inactive": "غير مفعّل",
+
+  "detail_medical_empty_title": "لا توجد معلومات طبية",
+  "detail_medical_empty_subtitle": "أضف المعلومات الطبية لهذا المنتج لتصبح متاحة هنا.",
+  "detail_add_medical_info": "إضافة معلومات طبية",
+
+  "detail_medical_indications": "دواعي الاستعمال",
+  "detail_medical_contraindications": "موانع الاستعمال",
+  "detail_medical_warnings": "تحذيرات",
+  "detail_medical_side_effects": "الآثار الجانبية",
+  "detail_medical_overdose": "جرعة زائدة",
+  "detail_medical_pregnancy_safety": "الأمان أثناء الحمل",
+  "detail_medical_lactation_safety": "الأمان أثناء الرضاعة",
+  "detail_medical_drug_interactions": "التفاعلات الدوائية",
+  "detail_medical_dose_info": "معلومات الجرعة",
+
+  "detail_save": "حفظ",
+  "detail_cancel": "إلغاء",
+
+  "product_add_title": "إضافة منتج",
+  "product_edit_title": "تعديل المنتج",
+  "product_create": "إنشاء",
+  "product_created": "تم إنشاء المنتج بنجاح.",
+  "product_saved": "تم تحديث المنتج بنجاح.",
+  "product_deleted": "تم حذف المنتج بنجاح.",
+  "product_delete_title": "حذف المنتج",
+  "product_delete_confirm": "هل أنت متأكد من حذف هذا المنتج؟ يمكن التراجع عن ذلك لاحقًا عبر الاستعادة.",
+
+  "product_form_section_basic": "المعلومات الأساسية",
+  "product_form_section_classification": "التصنيف",
+  "product_form_barcode_hint": "مثال: 123456789",
+  "product_form_brand_name": "الاسم التجاري",
+  "product_form_brand_name_hint": "مثال: أموكسيل 500 مغ",
+  "product_form_ar_name": "الاسم بالعربية",
+  "product_form_optional_hint": "اختياري",
+  "product_form_select_category": "اختر تصنيفًا",
+  "product_form_base_unit": "وحدة القياس الأساسية",
+  "product_form_selling_unit": "وحدة البيع",
+
+  "medical_info_edit_title": "تعديل المعلومات الطبية",
+  "medical_info_field_hint": "أدخل التفاصيل (اختياري)",
+  "medical_info_saved": "تم حفظ المعلومات الطبية بنجاح.",
+  "medical_info_deleted": "تم حذف المعلومات الطبية بنجاح.",
+  "medical_info_delete_title": "حذف المعلومات الطبية",
+  "medical_info_delete_confirm": "هل أنت متأكد من حذف المعلومات الطبية لهذا المنتج؟",
+
+  "field_required": "هذا الحقل مطلوب"
 }

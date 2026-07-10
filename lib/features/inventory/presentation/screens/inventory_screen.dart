@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:pharmacy_app/core/enums/enums.dart';
 import 'package:pharmacy_app/core/extensions/app_design_system_ext.dart';
 import 'package:pharmacy_app/core/extensions/localization_ext.dart';
@@ -127,6 +128,15 @@ class _InventoryScreenState extends State<InventoryScreen> {
 
                                       return ListMedicines(
                                         product: state.products[index],
+                                        onTap: () async {
+                                          await context.push(
+                                            '/product/${state.products[index].id}',
+                                            extra: state.products[index],
+                                          );
+                                          if (context.mounted) {
+                                            inventoryCubit.refreshProducts();
+                                          }
+                                        },
                                       );
                                     },
                                     separatorBuilder: (context, index) {
@@ -166,6 +176,15 @@ class _InventoryScreenState extends State<InventoryScreen> {
                                       ),
                                       child: GridMedicines(
                                         product: state.products[index],
+                                        onTap: () async {
+                                          await context.push(
+                                            '/product/${state.products[index].id}',
+                                            extra: state.products[index],
+                                          );
+                                          if (context.mounted) {
+                                            inventoryCubit.refreshProducts();
+                                          }
+                                        },
                                       ),
                                     );
                                   },
@@ -188,24 +207,26 @@ class _InventoryScreenState extends State<InventoryScreen> {
 }
 
 class ListMedicines extends StatelessWidget {
-  const ListMedicines({super.key, required this.product});
+  const ListMedicines({super.key, required this.product, this.onTap});
 
   final ProductCardModel product;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
-    return MedicineListCard(product: product);
+    return MedicineListCard(product: product, onTap: onTap);
   }
 }
 
 class GridMedicines extends StatelessWidget {
-  const GridMedicines({super.key, required this.product});
+  const GridMedicines({super.key, required this.product, this.onTap});
 
   final ProductCardModel product;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
-    return MedicineGridCard(product: product);
+    return MedicineGridCard(product: product, onTap: onTap);
   }
 }
 

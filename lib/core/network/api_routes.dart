@@ -22,6 +22,11 @@ class ApiRoutes {
   static const String units = '/units';
   static const String companies = '/companies';
 
+  // ---- Product detail (path-parameter builders) ----
+  static String productDetail(int id) => '$products/$id';
+  static String productBatches(int id) => '$products/$id/batches/available';
+  static String productMedicalInfo(int id) => '$products/$id/medical-info';
+
   static const String governorates = '/governorates';
   static const String cities = '/cities';
   static const String governorateWithCities = '/governorates-cities';

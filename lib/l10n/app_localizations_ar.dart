@@ -596,4 +596,243 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get stock_status_out => 'نفاذ';
+
+  @override
+  String get detail_not_available => '—';
+
+  @override
+  String get detail_edit => 'تعديل';
+
+  @override
+  String get detail_delete => 'حذف';
+
+  @override
+  String get detail_tab_overview => 'نظرة عامة';
+
+  @override
+  String get detail_tab_batches => 'المخزون';
+
+  @override
+  String get detail_tab_medical => 'المعلومات الطبية';
+
+  @override
+  String get detail_section_product_info => 'معلومات المنتج';
+
+  @override
+  String get detail_section_pricing => 'التسعير';
+
+  @override
+  String get detail_section_inventory => 'المخزون';
+
+  @override
+  String get detail_barcode => 'الباركود';
+
+  @override
+  String get detail_scientific_name => 'الاسم العلمي';
+
+  @override
+  String get detail_strength => 'التركيز';
+
+  @override
+  String get detail_company => 'الشركة';
+
+  @override
+  String get detail_category => 'الفئة';
+
+  @override
+  String get detail_shelf => 'الرف';
+
+  @override
+  String get detail_prescription => 'يحتاج وصفة';
+
+  @override
+  String get detail_yes => 'نعم';
+
+  @override
+  String get detail_no => 'لا';
+
+  @override
+  String get detail_buying_price => 'سعر الشراء';
+
+  @override
+  String get detail_selling_price => 'سعر البيع';
+
+  @override
+  String get detail_tax => 'نسبة الضريبة';
+
+  @override
+  String get detail_discount => 'نسبة الخصم';
+
+  @override
+  String get detail_total_quantity => 'إجمالي الكمية';
+
+  @override
+  String get detail_min_stock => 'الحد الأدنى';
+
+  @override
+  String get detail_units_per_base => 'الوحدات لكل أساس';
+
+  @override
+  String get detail_nearest_expiry => 'أقرب انتهاء';
+
+  @override
+  String get detail_allow_partial_selling => 'السماح بالبيع الجزئي';
+
+  @override
+  String detail_batches_count(int count) {
+    return '$count دفعة';
+  }
+
+  @override
+  String get detail_add_batch => 'إضافة دفعة';
+
+  @override
+  String get detail_no_batches => 'لا توجد دفعات متاحة';
+
+  @override
+  String get detail_batch_id => 'الدفعة';
+
+  @override
+  String get detail_received_date => 'تاريخ الاستلام';
+
+  @override
+  String get detail_expiry => 'تاريخ الانتهاء';
+
+  @override
+  String get detail_quantity_on_hand => 'المتوفر';
+
+  @override
+  String get detail_purchase_price => 'سعر الشراء';
+
+  @override
+  String get detail_batch_selling_price => 'سعر البيع';
+
+  @override
+  String get detail_batch_status_active => 'ساري';
+
+  @override
+  String get detail_batch_status_expired => 'منتهي';
+
+  @override
+  String get detail_batch_status_depleted => 'مستنزف';
+
+  @override
+  String get detail_batch_status_inactive => 'غير مفعّل';
+
+  @override
+  String get detail_medical_empty_title => 'لا توجد معلومات طبية';
+
+  @override
+  String get detail_medical_empty_subtitle => 'أضف المعلومات الطبية لهذا المنتج لتصبح متاحة هنا.';
+
+  @override
+  String get detail_add_medical_info => 'إضافة معلومات طبية';
+
+  @override
+  String get detail_medical_indications => 'دواعي الاستعمال';
+
+  @override
+  String get detail_medical_contraindications => 'موانع الاستعمال';
+
+  @override
+  String get detail_medical_warnings => 'تحذيرات';
+
+  @override
+  String get detail_medical_side_effects => 'الآثار الجانبية';
+
+  @override
+  String get detail_medical_overdose => 'جرعة زائدة';
+
+  @override
+  String get detail_medical_pregnancy_safety => 'الأمان أثناء الحمل';
+
+  @override
+  String get detail_medical_lactation_safety => 'الأمان أثناء الرضاعة';
+
+  @override
+  String get detail_medical_drug_interactions => 'التفاعلات الدوائية';
+
+  @override
+  String get detail_medical_dose_info => 'معلومات الجرعة';
+
+  @override
+  String get detail_save => 'حفظ';
+
+  @override
+  String get detail_cancel => 'إلغاء';
+
+  @override
+  String get product_add_title => 'إضافة منتج';
+
+  @override
+  String get product_edit_title => 'تعديل المنتج';
+
+  @override
+  String get product_create => 'إنشاء';
+
+  @override
+  String get product_created => 'تم إنشاء المنتج بنجاح.';
+
+  @override
+  String get product_saved => 'تم تحديث المنتج بنجاح.';
+
+  @override
+  String get product_deleted => 'تم حذف المنتج بنجاح.';
+
+  @override
+  String get product_delete_title => 'حذف المنتج';
+
+  @override
+  String get product_delete_confirm => 'هل أنت متأكد من حذف هذا المنتج؟ يمكن التراجع عن ذلك لاحقًا عبر الاستعادة.';
+
+  @override
+  String get product_form_section_basic => 'المعلومات الأساسية';
+
+  @override
+  String get product_form_section_classification => 'التصنيف';
+
+  @override
+  String get product_form_barcode_hint => 'مثال: 123456789';
+
+  @override
+  String get product_form_brand_name => 'الاسم التجاري';
+
+  @override
+  String get product_form_brand_name_hint => 'مثال: أموكسيل 500 مغ';
+
+  @override
+  String get product_form_ar_name => 'الاسم بالعربية';
+
+  @override
+  String get product_form_optional_hint => 'اختياري';
+
+  @override
+  String get product_form_select_category => 'اختر تصنيفًا';
+
+  @override
+  String get product_form_base_unit => 'وحدة القياس الأساسية';
+
+  @override
+  String get product_form_selling_unit => 'وحدة البيع';
+
+  @override
+  String get medical_info_edit_title => 'تعديل المعلومات الطبية';
+
+  @override
+  String get medical_info_field_hint => 'أدخل التفاصيل (اختياري)';
+
+  @override
+  String get medical_info_saved => 'تم حفظ المعلومات الطبية بنجاح.';
+
+  @override
+  String get medical_info_deleted => 'تم حذف المعلومات الطبية بنجاح.';
+
+  @override
+  String get medical_info_delete_title => 'حذف المعلومات الطبية';
+
+  @override
+  String get medical_info_delete_confirm => 'هل أنت متأكد من حذف المعلومات الطبية لهذا المنتج؟';
+
+  @override
+  String get field_required => 'هذا الحقل مطلوب';
 }

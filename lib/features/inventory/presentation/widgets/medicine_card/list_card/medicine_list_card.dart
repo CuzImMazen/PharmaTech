@@ -10,16 +10,19 @@ import 'package:pharmacy_app/features/inventory/presentation/widgets/medicine_ca
 import 'package:pharmacy_app/features/inventory/presentation/widgets/medicine_card/stock_progress_bar.dart';
 
 class MedicineListCard extends StatelessWidget {
-  const MedicineListCard({super.key, required this.product});
+  const MedicineListCard({super.key, required this.product, this.onTap});
 
   final ProductCardModel product;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
     final int minStock = product.minStock.toInt();
     final int currentStock = product.quantity.toInt();
     final MedicineStockStatus status = product.status;
-    return Container(
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16.0),
         border: Border.all(
@@ -89,6 +92,7 @@ class MedicineListCard extends StatelessWidget {
           ],
         ),
       ),
+    ),
     );
   }
 }
