@@ -35,9 +35,11 @@ class ProductDetailRepositoryImpl implements ProductDetailRepository {
     int perPage = 15,
   }) async {
     try {
+      // All batches for the product (active + depleted + expired + inactive).
+      // `available` endpoint only returns active/qty>0, which hides history.
       final response = await api.get(
-        ApiRoutes.productBatches(id),
-        queryParameters: {'per_page': perPage},
+        ApiRoutes.stockBatches,
+        queryParameters: {'product_id': id, 'per_page': perPage},
       );
       final batches = ApiParser.parseWrappedList(
         response.data,

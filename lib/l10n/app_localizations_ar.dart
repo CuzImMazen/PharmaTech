@@ -789,7 +789,19 @@ class AppLocalizationsAr extends AppLocalizations {
   String get product_form_section_basic => 'المعلومات الأساسية';
 
   @override
+  String get product_form_section_basic_sub => 'الهوية والتسمية';
+
+  @override
   String get product_form_section_classification => 'التصنيف';
+
+  @override
+  String get product_form_section_classification_sub => 'التصنيف والشركة والوحدات';
+
+  @override
+  String get product_form_section_pricing_sub => 'التكلفة والسعر والضريبة والخصم';
+
+  @override
+  String get product_form_section_inventory_sub => 'حدود المخزون والتخزين';
 
   @override
   String get product_form_barcode_hint => 'مثال: 123456789';
@@ -820,6 +832,33 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get medical_info_field_hint => 'أدخل التفاصيل (اختياري)';
+
+  @override
+  String get medical_info_form_intro => 'املأ التفاصيل الطبية ذات الصلة. جميع الحقول اختيارية — اتركها فارغة لحذفها.';
+
+  @override
+  String get medical_info_section_usage => 'الاستخدام والأمان';
+
+  @override
+  String get medical_info_section_usage_sub => 'دواعي الاستعمال وموانعه والتحذيرات';
+
+  @override
+  String get medical_info_section_effects => 'الآثار والجرعة الزائدة';
+
+  @override
+  String get medical_info_section_effects_sub => 'الآثار الجانبية والتعامل مع الجرعة الزائدة';
+
+  @override
+  String get medical_info_section_populations => 'الحالات الخاصة';
+
+  @override
+  String get medical_info_section_populations_sub => 'الأمان أثناء الحمل والرضاعة';
+
+  @override
+  String get medical_info_section_dosage => 'الجرعة والتفاعلات';
+
+  @override
+  String get medical_info_section_dosage_sub => 'معلومات الجرعة والتفاعلات الدوائية';
 
   @override
   String get medical_info_saved => 'تم حفظ المعلومات الطبية بنجاح.';

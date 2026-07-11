@@ -6,6 +6,7 @@ import 'package:pharmacy_app/core/extensions/localization_ext.dart';
 import 'package:pharmacy_app/core/widgets/custom_button.dart';
 import 'package:pharmacy_app/core/widgets/custom_dropdown_field.dart';
 import 'package:pharmacy_app/core/widgets/custom_text_field.dart';
+import 'package:pharmacy_app/core/widgets/form_section_card.dart';
 import 'package:pharmacy_app/features/inventory/cubit/product_form/product_form_cubit.dart';
 import 'package:pharmacy_app/features/inventory/cubit/product_form/product_form_state.dart';
 import 'package:pharmacy_app/features/inventory/data/models/product_detail_model.dart';
@@ -160,217 +161,268 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
               }
               return AbsorbPointer(
                 absorbing: state.isSaving,
-                child: Form(
-                  key: _formKey,
-                  child: SingleChildScrollView(
-                    padding: context.pScreen,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        _SectionTitle(text: tr.product_form_section_basic),
-                        context.vMd,
-                        CustomTextField(
-                          controller: _barcode,
-                          labelText: tr.detail_barcode,
-                          hintText: tr.product_form_barcode_hint,
-                          onlyDigits: false,
-                          validator: (v) =>
-                              (v == null || v.trim().isEmpty) ? tr.field_required : null,
-                        ),
-                        context.vMd,
-                        CustomTextField(
-                          controller: _brandName,
-                          labelText: tr.product_form_brand_name,
-                          hintText: tr.product_form_brand_name_hint,
-                          validator: (v) =>
-                              (v == null || v.trim().isEmpty) ? tr.field_required : null,
-                        ),
-                        context.vMd,
-                        CustomTextField(
-                          controller: _scientificName,
-                          labelText: tr.detail_scientific_name,
-                          hintText: tr.product_form_optional_hint,
-                        ),
-                        context.vMd,
-                        CustomTextField(
-                          controller: _arName,
-                          labelText: tr.product_form_ar_name,
-                          hintText: tr.product_form_optional_hint,
-                        ),
-                        context.vMd,
-                        CustomTextField(
-                          controller: _strength,
-                          labelText: tr.detail_strength,
-                          hintText: tr.product_form_optional_hint,
-                        ),
-                        context.vLg,
+                child: Stack(
+                  children: [
+                    Form(
+                      key: _formKey,
+                      child: SingleChildScrollView(
+                        padding: context.pScreen,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // Section 1 — Basic Information.
+                            FormSectionCard(
+                              title: tr.product_form_section_basic,
+                              subtitle: tr.product_form_section_basic_sub,
+                              icon: Icons.medication_outlined,
+                              children: [
+                                CustomTextField(
+                                  controller: _barcode,
+                                  labelText: tr.detail_barcode,
+                                  hintText: tr.product_form_barcode_hint,
+                                  prefixIcon: Icons.qr_code_scanner_rounded,
+                                  onlyDigits: false,
+                                  validator: (v) => (v == null || v.trim().isEmpty)
+                                      ? tr.field_required
+                                      : null,
+                                ),
+                                context.vMd,
+                                CustomTextField(
+                                  controller: _brandName,
+                                  labelText: tr.product_form_brand_name,
+                                  hintText: tr.product_form_brand_name_hint,
+                                  prefixIcon: Icons.medication_outlined,
+                                  validator: (v) => (v == null || v.trim().isEmpty)
+                                      ? tr.field_required
+                                      : null,
+                                ),
+                                context.vMd,
+                                CustomTextField(
+                                  controller: _scientificName,
+                                  labelText: tr.detail_scientific_name,
+                                  hintText: tr.product_form_optional_hint,
+                                  prefixIcon: Icons.science_outlined,
+                                ),
+                                context.vMd,
+                                CustomTextField(
+                                  controller: _arName,
+                                  labelText: tr.product_form_ar_name,
+                                  hintText: tr.product_form_optional_hint,
+                                  prefixIcon: Icons.translate_rounded,
+                                ),
+                                context.vMd,
+                                CustomTextField(
+                                  controller: _strength,
+                                  labelText: tr.detail_strength,
+                                  hintText: tr.product_form_optional_hint,
+                                  prefixIcon: Icons.fitness_center_outlined,
+                                ),
+                              ],
+                            ),
+                            context.vLg,
 
-                        _SectionTitle(text: tr.product_form_section_classification),
-                        context.vMd,
-                        CustomDropdownField(
-                          labelText: tr.detail_category,
-                          hintText: tr.product_form_select_category,
-                          items: state.categories,
-                          itemLabel: (c) => c.name,
-                          value: state.selectedCategory,
-                          onChanged: context.read<ProductFormCubit>().selectCategory,
-                          isLoading: state.isOptionsLoading,
-                          hasError: state.hasCategoriesError,
-                          onRetry: () => context
-                              .read<ProductFormCubit>()
-                              .reloadCategories(),
-                        ),
-                        context.vMd,
-                        CustomDropdownField(
-                          labelText: tr.detail_company,
-                          hintText: tr.product_form_optional_hint,
-                          items: state.companies,
-                          itemLabel: (c) => c.name,
-                          value: state.selectedCompany,
-                          onChanged: context.read<ProductFormCubit>().selectCompany,
-                          isLoading: state.isOptionsLoading,
-                          hasError: state.hasCompaniesError,
-                          onRetry: () => context
-                              .read<ProductFormCubit>()
-                              .reloadCompanies(),
-                        ),
-                        context.vMd,
-                        CustomDropdownField(
-                          labelText: tr.product_form_base_unit,
-                          hintText: tr.product_form_optional_hint,
-                          items: state.units,
-                          itemLabel: (u) => u.name,
-                          value: state.selectedBaseUnit,
-                          onChanged: context.read<ProductFormCubit>().selectBaseUnit,
-                          isLoading: state.isOptionsLoading,
-                          hasError: state.hasUnitsError,
-                          onRetry: () =>
-                              context.read<ProductFormCubit>().reloadUnits(),
-                        ),
-                        context.vMd,
-                        CustomDropdownField(
-                          labelText: tr.product_form_selling_unit,
-                          hintText: tr.product_form_optional_hint,
-                          items: state.units,
-                          itemLabel: (u) => u.name,
-                          value: state.selectedSellingUnit,
-                          onChanged:
-                              context.read<ProductFormCubit>().selectSellingUnit,
-                          isLoading: state.isOptionsLoading,
-                          hasError: state.hasUnitsError,
-                          onRetry: () =>
-                              context.read<ProductFormCubit>().reloadUnits(),
-                        ),
-                        context.vLg,
+                            // Section 2 — Classification.
+                            FormSectionCard(
+                              title: tr.product_form_section_classification,
+                              subtitle: tr.product_form_section_classification_sub,
+                              icon: Icons.category_outlined,
+                              children: [
+                                CustomDropdownField(
+                                  labelText: tr.detail_category,
+                                  hintText: tr.product_form_select_category,
+                                  items: state.categories,
+                                  itemLabel: (c) => c.name,
+                                  value: state.selectedCategory,
+                                  onChanged:
+                                      context.read<ProductFormCubit>().selectCategory,
+                                  isLoading: state.isOptionsLoading,
+                                  hasError: state.hasCategoriesError,
+                                  onRetry: () => context
+                                      .read<ProductFormCubit>()
+                                      .reloadCategories(),
+                                ),
+                                context.vMd,
+                                CustomDropdownField(
+                                  labelText: tr.detail_company,
+                                  hintText: tr.product_form_optional_hint,
+                                  items: state.companies,
+                                  itemLabel: (c) => c.name,
+                                  value: state.selectedCompany,
+                                  onChanged:
+                                      context.read<ProductFormCubit>().selectCompany,
+                                  isLoading: state.isOptionsLoading,
+                                  hasError: state.hasCompaniesError,
+                                  onRetry: () => context
+                                      .read<ProductFormCubit>()
+                                      .reloadCompanies(),
+                                ),
+                                context.vMd,
+                                CustomDropdownField(
+                                  labelText: tr.product_form_base_unit,
+                                  hintText: tr.product_form_optional_hint,
+                                  items: state.units,
+                                  itemLabel: (u) => u.name,
+                                  value: state.selectedBaseUnit,
+                                  onChanged:
+                                      context.read<ProductFormCubit>().selectBaseUnit,
+                                  isLoading: state.isOptionsLoading,
+                                  hasError: state.hasUnitsError,
+                                  onRetry: () =>
+                                      context.read<ProductFormCubit>().reloadUnits(),
+                                ),
+                                context.vMd,
+                                CustomDropdownField(
+                                  labelText: tr.product_form_selling_unit,
+                                  hintText: tr.product_form_optional_hint,
+                                  items: state.units,
+                                  itemLabel: (u) => u.name,
+                                  value: state.selectedSellingUnit,
+                                  onChanged: context
+                                      .read<ProductFormCubit>()
+                                      .selectSellingUnit,
+                                  isLoading: state.isOptionsLoading,
+                                  hasError: state.hasUnitsError,
+                                  onRetry: () =>
+                                      context.read<ProductFormCubit>().reloadUnits(),
+                                ),
+                              ],
+                            ),
+                            context.vLg,
 
-                        _SectionTitle(text: tr.detail_section_pricing),
-                        context.vMd,
-                        CustomTextField(
-                          controller: _buyingPrice,
-                          labelText: tr.detail_buying_price,
-                          hintText: '0',
-                          keyboardType: const TextInputType.numberWithOptions(
-                            decimal: true,
-                          ),
-                          onlyDigits: false,
-                          validator: (v) =>
-                              (v == null || v.trim().isEmpty) ? tr.field_required : null,
-                        ),
-                        context.vMd,
-                        CustomTextField(
-                          controller: _sellingPrice,
-                          labelText: tr.detail_selling_price,
-                          hintText: '0',
-                          keyboardType: const TextInputType.numberWithOptions(
-                            decimal: true,
-                          ),
-                          onlyDigits: false,
-                          validator: (v) =>
-                              (v == null || v.trim().isEmpty) ? tr.field_required : null,
-                        ),
-                        context.vMd,
-                        CustomTextField(
-                          controller: _taxRate,
-                          labelText: tr.detail_tax,
-                          hintText: '0',
-                          keyboardType: const TextInputType.numberWithOptions(
-                            decimal: true,
-                          ),
-                          onlyDigits: false,
-                        ),
-                        context.vMd,
-                        CustomTextField(
-                          controller: _discountRate,
-                          labelText: tr.detail_discount,
-                          hintText: '0',
-                          keyboardType: const TextInputType.numberWithOptions(
-                            decimal: true,
-                          ),
-                          onlyDigits: false,
-                        ),
-                        context.vLg,
-
-                        _SectionTitle(text: tr.detail_section_inventory),
-                        context.vMd,
-                        CustomTextField(
-                          controller: _minStock,
-                          labelText: tr.detail_min_stock,
-                          hintText: '0',
-                          keyboardType: TextInputType.number,
-                          onlyDigits: true,
-                        ),
-                        context.vMd,
-                        CustomTextField(
-                          controller: _unitsPerBase,
-                          labelText: tr.detail_units_per_base,
-                          hintText: '1',
-                          keyboardType: TextInputType.number,
-                          onlyDigits: true,
-                        ),
-                        context.vMd,
-                        CustomTextField(
-                          controller: _shelf,
-                          labelText: tr.detail_shelf,
-                          hintText: tr.product_form_optional_hint,
-                        ),
-                        context.vMd,
-                        SwitchListTile(
-                          contentPadding: EdgeInsets.zero,
-                          value: state.prescriptionRequired,
-                          onChanged:
-                              context.read<ProductFormCubit>().togglePrescriptionRequired,
-                          title: Text(tr.detail_prescription),
-                        ),
-                        SwitchListTile(
-                          contentPadding: EdgeInsets.zero,
-                          value: state.allowPartialSelling,
-                          onChanged: context
-                              .read<ProductFormCubit>()
-                              .toggleAllowPartialSelling,
-                          title: Text(tr.detail_allow_partial_selling),
-                        ),
-                        context.vLg,
-                        CustomButton(
-                          onTap: state.isSaving
-                              ? null
-                              : () => _submit(
-                                    context.read<ProductFormCubit>(),
-                                    state,
+                            // Section 3 — Pricing.
+                            FormSectionCard(
+                              title: tr.detail_section_pricing,
+                              subtitle: tr.product_form_section_pricing_sub,
+                              icon: Icons.payments_outlined,
+                              children: [
+                                CustomTextField(
+                                  controller: _buyingPrice,
+                                  labelText: tr.detail_buying_price,
+                                  hintText: '0',
+                                  prefixIcon: Icons.payments_outlined,
+                                  keyboardType:
+                                      const TextInputType.numberWithOptions(
+                                    decimal: true,
                                   ),
-                          child: state.isSaving
-                              ? const SizedBox(
-                                  width: 22,
-                                  height: 22,
-                                  child: CircularProgressIndicator(
-                                    strokeWidth: 2,
-                                    color: Colors.white,
+                                  onlyDigits: false,
+                                  validator: (v) => (v == null || v.trim().isEmpty)
+                                      ? tr.field_required
+                                      : null,
+                                ),
+                                context.vMd,
+                                CustomTextField(
+                                  controller: _sellingPrice,
+                                  labelText: tr.detail_selling_price,
+                                  hintText: '0',
+                                  prefixIcon: Icons.local_offer_outlined,
+                                  keyboardType:
+                                      const TextInputType.numberWithOptions(
+                                    decimal: true,
                                   ),
-                                )
-                              : Text(isEdit ? tr.detail_save : tr.product_create),
+                                  onlyDigits: false,
+                                  validator: (v) => (v == null || v.trim().isEmpty)
+                                      ? tr.field_required
+                                      : null,
+                                ),
+                                context.vMd,
+                                CustomTextField(
+                                  controller: _taxRate,
+                                  labelText: tr.detail_tax,
+                                  hintText: '0',
+                                  prefixIcon: Icons.percent_outlined,
+                                  keyboardType:
+                                      const TextInputType.numberWithOptions(
+                                    decimal: true,
+                                  ),
+                                  onlyDigits: false,
+                                ),
+                                context.vMd,
+                                CustomTextField(
+                                  controller: _discountRate,
+                                  labelText: tr.detail_discount,
+                                  hintText: '0',
+                                  prefixIcon: Icons.discount_outlined,
+                                  keyboardType:
+                                      const TextInputType.numberWithOptions(
+                                    decimal: true,
+                                  ),
+                                  onlyDigits: false,
+                                ),
+                              ],
+                            ),
+                            context.vLg,
+
+                            // Section 4 — Inventory.
+                            FormSectionCard(
+                              title: tr.detail_section_inventory,
+                              subtitle: tr.product_form_section_inventory_sub,
+                              icon: Icons.inventory_2_outlined,
+                              children: [
+                                CustomTextField(
+                                  controller: _minStock,
+                                  labelText: tr.detail_min_stock,
+                                  hintText: '0',
+                                  prefixIcon: Icons.warning_amber_outlined,
+                                  keyboardType: TextInputType.number,
+                                  onlyDigits: true,
+                                ),
+                                context.vMd,
+                                CustomTextField(
+                                  controller: _unitsPerBase,
+                                  labelText: tr.detail_units_per_base,
+                                  hintText: '1',
+                                  prefixIcon: Icons.straighten_outlined,
+                                  keyboardType: TextInputType.number,
+                                  onlyDigits: true,
+                                ),
+                                context.vMd,
+                                CustomTextField(
+                                  controller: _shelf,
+                                  labelText: tr.detail_shelf,
+                                  hintText: tr.product_form_optional_hint,
+                                  prefixIcon: Icons.place_outlined,
+                                ),
+                                context.vMd,
+                                SwitchListTile(
+                                  contentPadding: EdgeInsets.zero,
+                                  value: state.prescriptionRequired,
+                                  onChanged: context
+                                      .read<ProductFormCubit>()
+                                      .togglePrescriptionRequired,
+                                  title: Text(tr.detail_prescription),
+                                ),
+                                SwitchListTile(
+                                  contentPadding: EdgeInsets.zero,
+                                  value: state.allowPartialSelling,
+                                  onChanged: context
+                                      .read<ProductFormCubit>()
+                                      .toggleAllowPartialSelling,
+                                  title: Text(tr.detail_allow_partial_selling),
+                                ),
+                              ],
+                            ),
+                            // Bottom spacing so the sticky bar doesn't cover.
+                            SizedBox(height: context.sXxl + context.btnLg),
+                          ],
                         ),
-                      ],
+                      ),
                     ),
-                  ),
+
+                    // Sticky bottom save bar.
+                    Positioned(
+                      left: 0,
+                      right: 0,
+                      bottom: 0,
+                      child: _StickySaveBar(
+                        isSaving: state.isSaving,
+                        isEdit: isEdit,
+                        onTap: () => _submit(
+                          context.read<ProductFormCubit>(),
+                          state,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               );
             },
@@ -381,16 +433,55 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
   }
 }
 
-class _SectionTitle extends StatelessWidget {
-  const _SectionTitle({required this.text});
+/// Full-width gradient save button pinned to the bottom of the form.
+class _StickySaveBar extends StatelessWidget {
+  const _StickySaveBar({
+    required this.isSaving,
+    required this.isEdit,
+    required this.onTap,
+  });
 
-  final String text;
+  final bool isSaving;
+  final bool isEdit;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      text,
-      style: context.text.titleSmall?.copyWith(fontWeight: FontWeight.bold),
+    return Container(
+      padding: context.pAllMd,
+      decoration: BoxDecoration(
+        color: context.colors.surface,
+        border: Border(
+          top: BorderSide(
+            color: context.colors.outline.withAlpha(120),
+            width: 1,
+          ),
+        ),
+      ),
+      child: SafeArea(
+        top: false,
+        child: CustomButton(
+          onTap: isSaving ? null : onTap,
+          child: isSaving
+              ? const SizedBox(
+                  width: 22,
+                  height: 22,
+                  child: CircularProgressIndicator(
+                    strokeWidth: 2,
+                    color: Colors.white,
+                  ),
+                )
+              : Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Icon(Icons.check_rounded, color: Colors.white),
+                    SizedBox(width: context.sSm),
+                    Text(isEdit ? context.tr.detail_save : context.tr.product_create),
+                  ],
+                ),
+        ),
+      ),
     );
   }
 }

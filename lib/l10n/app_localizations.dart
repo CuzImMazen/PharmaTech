@@ -1643,11 +1643,35 @@ abstract class AppLocalizations {
   /// **'Basic Information'**
   String get product_form_section_basic;
 
+  /// No description provided for @product_form_section_basic_sub.
+  ///
+  /// In en, this message translates to:
+  /// **'Identity and naming'**
+  String get product_form_section_basic_sub;
+
   /// No description provided for @product_form_section_classification.
   ///
   /// In en, this message translates to:
   /// **'Classification'**
   String get product_form_section_classification;
+
+  /// No description provided for @product_form_section_classification_sub.
+  ///
+  /// In en, this message translates to:
+  /// **'Category, company, and units'**
+  String get product_form_section_classification_sub;
+
+  /// No description provided for @product_form_section_pricing_sub.
+  ///
+  /// In en, this message translates to:
+  /// **'Cost, price, tax, and discount'**
+  String get product_form_section_pricing_sub;
+
+  /// No description provided for @product_form_section_inventory_sub.
+  ///
+  /// In en, this message translates to:
+  /// **'Stock thresholds and storage'**
+  String get product_form_section_inventory_sub;
 
   /// No description provided for @product_form_barcode_hint.
   ///
@@ -1708,6 +1732,60 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Enter details (optional)'**
   String get medical_info_field_hint;
+
+  /// No description provided for @medical_info_form_intro.
+  ///
+  /// In en, this message translates to:
+  /// **'Fill in the relevant medical details. All fields are optional — leave any blank to omit.'**
+  String get medical_info_form_intro;
+
+  /// No description provided for @medical_info_section_usage.
+  ///
+  /// In en, this message translates to:
+  /// **'Usage & Safety'**
+  String get medical_info_section_usage;
+
+  /// No description provided for @medical_info_section_usage_sub.
+  ///
+  /// In en, this message translates to:
+  /// **'Indications, contraindications, and warnings'**
+  String get medical_info_section_usage_sub;
+
+  /// No description provided for @medical_info_section_effects.
+  ///
+  /// In en, this message translates to:
+  /// **'Effects & Overdose'**
+  String get medical_info_section_effects;
+
+  /// No description provided for @medical_info_section_effects_sub.
+  ///
+  /// In en, this message translates to:
+  /// **'Side effects and overdose handling'**
+  String get medical_info_section_effects_sub;
+
+  /// No description provided for @medical_info_section_populations.
+  ///
+  /// In en, this message translates to:
+  /// **'Special Populations'**
+  String get medical_info_section_populations;
+
+  /// No description provided for @medical_info_section_populations_sub.
+  ///
+  /// In en, this message translates to:
+  /// **'Pregnancy and lactation safety'**
+  String get medical_info_section_populations_sub;
+
+  /// No description provided for @medical_info_section_dosage.
+  ///
+  /// In en, this message translates to:
+  /// **'Dosage & Interactions'**
+  String get medical_info_section_dosage;
+
+  /// No description provided for @medical_info_section_dosage_sub.
+  ///
+  /// In en, this message translates to:
+  /// **'Dose info and drug interactions'**
+  String get medical_info_section_dosage_sub;
 
   /// No description provided for @medical_info_saved.
   ///

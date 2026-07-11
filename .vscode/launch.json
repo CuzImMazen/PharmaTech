@@ -1,0 +1,26 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "PharmaTech (Mi 10)",
+      "request": "launch",
+      "type": "dart",
+      "deviceId": "838c5751",
+      "program": "lib/main.dart"
+    },
+    {
+      "name": "PharmaTech (Chrome)",
+      "request": "launch",
+      "type": "dart",
+      "deviceId": "chrome",
+      "program": "lib/main.dart"
+    },
+    {
+      "name": "PharmaTech (Linux)",
+      "request": "launch",
+      "type": "dart",
+      "deviceId": "linux",
+      "program": "lib/main.dart"
+    }
+  ]
+}

@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pharmacy_app/features/inventory/cubit/product_detail/product_detail_state.dart';
 import 'package:pharmacy_app/features/inventory/data/models/product_detail_model.dart';
 import 'package:pharmacy_app/features/inventory/data/models/product_medical_info_model.dart';
+import 'package:pharmacy_app/features/inventory/data/models/stock_batch_model.dart';
 import 'package:pharmacy_app/features/inventory/data/repo/product_detail_repository.dart';
 
 class ProductDetailCubit extends Cubit<ProductDetailState> {
@@ -65,13 +66,47 @@ class ProductDetailCubit extends Cubit<ProductDetailState> {
               isBatchesLoading: false,
               product: product,
               medicalInfo: product.medicalInfo,
-              batches: batches,
+              batches: _sortBatchesAvailableFirst(batches),
               failure: null,
             ),
           ),
         );
       },
     );
+  }
+
+  /// Sorts batches so available ones (active with stock) appear first, then
+  /// depleted, inactive, and expired last. Within the available group, the
+  /// soonest-expiring batch leads.
+  static List<StockBatchModel> _sortBatchesAvailableFirst(
+    List<StockBatchModel> batches,
+  ) {
+    final list = [...batches];
+    list.sort((a, b) {
+      final rankA = _availabilityRank(a);
+      final rankB = _availabilityRank(b);
+      if (rankA != rankB) return rankA.compareTo(rankB);
+      // Same group: earliest expiry first (null expiry treated as latest).
+      final aExp = a.expiryDate ?? '';
+      final bExp = b.expiryDate ?? '';
+      return aExp.compareTo(bExp);
+    });
+    return list;
+  }
+
+  /// Lower = shown first. Available (active, qty>0) = 0; depleted = 1;
+  /// inactive = 2; expired = 3; anything else = 4.
+  static int _availabilityRank(StockBatchModel b) {
+    switch (b.status) {
+      case StockBatchStatus.active:
+        return b.quantityOnHand > 0 ? 0 : 1;
+      case StockBatchStatus.depleted:
+        return 1;
+      case StockBatchStatus.inactive:
+        return 2;
+      case StockBatchStatus.expired:
+        return 3;
+    }
   }
 
   Future<void> refresh(int productId) => loadAll(productId);

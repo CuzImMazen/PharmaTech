@@ -789,7 +789,19 @@ class AppLocalizationsEn extends AppLocalizations {
   String get product_form_section_basic => 'Basic Information';
 
   @override
+  String get product_form_section_basic_sub => 'Identity and naming';
+
+  @override
   String get product_form_section_classification => 'Classification';
+
+  @override
+  String get product_form_section_classification_sub => 'Category, company, and units';
+
+  @override
+  String get product_form_section_pricing_sub => 'Cost, price, tax, and discount';
+
+  @override
+  String get product_form_section_inventory_sub => 'Stock thresholds and storage';
 
   @override
   String get product_form_barcode_hint => 'e.g. 123456789';
@@ -820,6 +832,33 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get medical_info_field_hint => 'Enter details (optional)';
+
+  @override
+  String get medical_info_form_intro => 'Fill in the relevant medical details. All fields are optional — leave any blank to omit.';
+
+  @override
+  String get medical_info_section_usage => 'Usage & Safety';
+
+  @override
+  String get medical_info_section_usage_sub => 'Indications, contraindications, and warnings';
+
+  @override
+  String get medical_info_section_effects => 'Effects & Overdose';
+
+  @override
+  String get medical_info_section_effects_sub => 'Side effects and overdose handling';
+
+  @override
+  String get medical_info_section_populations => 'Special Populations';
+
+  @override
+  String get medical_info_section_populations_sub => 'Pregnancy and lactation safety';
+
+  @override
+  String get medical_info_section_dosage => 'Dosage & Interactions';
+
+  @override
+  String get medical_info_section_dosage_sub => 'Dose info and drug interactions';
 
   @override
   String get medical_info_saved => 'Medical info saved successfully.';

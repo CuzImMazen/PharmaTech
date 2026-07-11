@@ -5,14 +5,15 @@ import 'package:pharmacy_app/core/extensions/failure_message_localization_ext.da
 import 'package:pharmacy_app/core/extensions/localization_ext.dart';
 import 'package:pharmacy_app/core/widgets/custom_button.dart';
 import 'package:pharmacy_app/core/widgets/custom_text_field.dart';
+import 'package:pharmacy_app/core/widgets/form_section_card.dart';
 import 'package:pharmacy_app/features/inventory/cubit/medical_info_form/medical_info_form_cubit.dart';
 import 'package:pharmacy_app/features/inventory/cubit/medical_info_form/medical_info_form_state.dart';
 import 'package:pharmacy_app/features/inventory/data/models/product_medical_info_model.dart';
 
 /// Full-screen Add/Edit Medical Info form. Renders the 9 nullable-text fields
-/// (each optional). On save it PUTs to `/products/{id}/medical-info`, hands the
-/// saved model to the parent [ProductDetailCubit] so the tab updates instantly,
-/// shows a snackbar, and pops.
+/// grouped into themed sections, with a sticky bottom save bar. On save it PUTs
+/// to `/products/{id}/medical-info`, shows a snackbar, and pops (the detail
+/// screen reloads its medical info on return).
 class MedicalInfoFormScreen extends StatefulWidget {
   const MedicalInfoFormScreen({
     super.key,
@@ -100,16 +101,12 @@ class _MedicalInfoFormScreenState extends State<MedicalInfoFormScreen> {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text(tr.medical_info_saved)),
           );
-          // The detail screen owns the ProductDetailCubit (it is not in scope
-          // here across a pushed route); pop with a result so it can reload.
           Navigator.of(context).pop(true);
           return;
         }
         if (state.failure != null) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(state.failure!.localizedMessage(context)),
-            ),
+            SnackBar(content: Text(state.failure!.localizedMessage(context))),
           );
           context.read<MedicalInfoFormCubit>().clearFailure();
         }
@@ -129,84 +126,139 @@ class _MedicalInfoFormScreenState extends State<MedicalInfoFormScreen> {
             builder: (context, state) {
               return AbsorbPointer(
                 absorbing: state.isSaving,
-                child: SingleChildScrollView(
-                  padding: context.pScreen,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      _Field(
-                        controller: _indications,
-                        label: tr.detail_medical_indications,
-                        hint: tr.medical_info_field_hint,
+                child: Stack(
+                  children: [
+                    SingleChildScrollView(
+                      padding: context.pScreen,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // Intro hint.
+                          Text(
+                            tr.medical_info_form_intro,
+                            style: context.text.bodyMedium?.copyWith(
+                              color: context.muted,
+                            ),
+                          ),
+                          context.vLg,
+
+                          // Section 1 — Usage & Safety.
+                          FormSectionCard(
+                            title: tr.medical_info_section_usage,
+                            subtitle: tr.medical_info_section_usage_sub,
+                            icon: Icons.healing_outlined,
+                            children: [
+                              _Field(
+                                controller: _indications,
+                                label: tr.detail_medical_indications,
+                                hint: tr.medical_info_field_hint,
+                                icon: Icons.healing_outlined,
+                              ),
+                              context.vMd,
+                              _Field(
+                                controller: _contraindications,
+                                label: tr.detail_medical_contraindications,
+                                hint: tr.medical_info_field_hint,
+                                icon: Icons.block_outlined,
+                              ),
+                              context.vMd,
+                              _Field(
+                                controller: _warnings,
+                                label: tr.detail_medical_warnings,
+                                hint: tr.medical_info_field_hint,
+                                icon: Icons.warning_amber_outlined,
+                              ),
+                            ],
+                          ),
+                          context.vLg,
+
+                          // Section 2 — Effects & Overdose.
+                          FormSectionCard(
+                            title: tr.medical_info_section_effects,
+                            subtitle: tr.medical_info_section_effects_sub,
+                            icon: Icons.science_outlined,
+                            children: [
+                              _Field(
+                                controller: _sideEffects,
+                                label: tr.detail_medical_side_effects,
+                                hint: tr.medical_info_field_hint,
+                                icon: Icons.science_outlined,
+                              ),
+                              context.vMd,
+                              _Field(
+                                controller: _overdose,
+                                label: tr.detail_medical_overdose,
+                                hint: tr.medical_info_field_hint,
+                                icon: Icons.medication_liquid_outlined,
+                              ),
+                            ],
+                          ),
+                          context.vLg,
+
+                          // Section 3 — Special Populations.
+                          FormSectionCard(
+                            title: tr.medical_info_section_populations,
+                            subtitle: tr.medical_info_section_populations_sub,
+                            icon: Icons.pregnant_woman_outlined,
+                            children: [
+                              _Field(
+                                controller: _pregnancySafety,
+                                label: tr.detail_medical_pregnancy_safety,
+                                hint: tr.medical_info_field_hint,
+                                icon: Icons.pregnant_woman_outlined,
+                              ),
+                              context.vMd,
+                              _Field(
+                                controller: _lactationSafety,
+                                label: tr.detail_medical_lactation_safety,
+                                hint: tr.medical_info_field_hint,
+                                icon: Icons.child_friendly_outlined,
+                              ),
+                            ],
+                          ),
+                          context.vLg,
+
+                          // Section 4 — Dosage & Interactions.
+                          FormSectionCard(
+                            title: tr.medical_info_section_dosage,
+                            subtitle: tr.medical_info_section_dosage_sub,
+                            icon: Icons.scale_outlined,
+                            children: [
+                              _Field(
+                                controller: _doseInfo,
+                                label: tr.detail_medical_dose_info,
+                                hint: tr.medical_info_field_hint,
+                                icon: Icons.scale_outlined,
+                              ),
+                              context.vMd,
+                              _Field(
+                                controller: _drugInteractions,
+                                label: tr.detail_medical_drug_interactions,
+                                hint: tr.medical_info_field_hint,
+                                icon: Icons.swap_horiz_outlined,
+                              ),
+                            ],
+                          ),
+                          // Bottom spacing so the sticky bar doesn't cover.
+                          SizedBox(height: context.sXxl + context.btnLg),
+                        ],
                       ),
-                      context.vMd,
-                      _Field(
-                        controller: _contraindications,
-                        label: tr.detail_medical_contraindications,
-                        hint: tr.medical_info_field_hint,
+                    ),
+
+                    // Sticky bottom save bar.
+                    Positioned(
+                      left: 0,
+                      right: 0,
+                      bottom: 0,
+                      child: _StickySaveBar(
+                        isSaving: state.isSaving,
+                        isEdit: isEdit,
+                        onTap: () => _submit(
+                          context.read<MedicalInfoFormCubit>(),
+                        ),
                       ),
-                      context.vMd,
-                      _Field(
-                        controller: _warnings,
-                        label: tr.detail_medical_warnings,
-                        hint: tr.medical_info_field_hint,
-                      ),
-                      context.vMd,
-                      _Field(
-                        controller: _sideEffects,
-                        label: tr.detail_medical_side_effects,
-                        hint: tr.medical_info_field_hint,
-                      ),
-                      context.vMd,
-                      _Field(
-                        controller: _overdose,
-                        label: tr.detail_medical_overdose,
-                        hint: tr.medical_info_field_hint,
-                      ),
-                      context.vMd,
-                      _Field(
-                        controller: _pregnancySafety,
-                        label: tr.detail_medical_pregnancy_safety,
-                        hint: tr.medical_info_field_hint,
-                      ),
-                      context.vMd,
-                      _Field(
-                        controller: _lactationSafety,
-                        label: tr.detail_medical_lactation_safety,
-                        hint: tr.medical_info_field_hint,
-                      ),
-                      context.vMd,
-                      _Field(
-                        controller: _drugInteractions,
-                        label: tr.detail_medical_drug_interactions,
-                        hint: tr.medical_info_field_hint,
-                      ),
-                      context.vMd,
-                      _Field(
-                        controller: _doseInfo,
-                        label: tr.detail_medical_dose_info,
-                        hint: tr.medical_info_field_hint,
-                      ),
-                      context.vLg,
-                      CustomButton(
-                        onTap: state.isSaving
-                            ? null
-                            : () => _submit(
-                                  context.read<MedicalInfoFormCubit>(),
-                                ),
-                        child: state.isSaving
-                            ? const SizedBox(
-                                width: 22,
-                                height: 22,
-                                child: CircularProgressIndicator(
-                                  strokeWidth: 2,
-                                  color: Colors.white,
-                                ),
-                              )
-                            : Text(tr.detail_save),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               );
             },
@@ -223,11 +275,13 @@ class _Field extends StatelessWidget {
     required this.controller,
     required this.label,
     required this.hint,
+    this.icon,
   });
 
   final TextEditingController controller;
   final String label;
   final String hint;
+  final IconData? icon;
 
   @override
   Widget build(BuildContext context) {
@@ -235,7 +289,61 @@ class _Field extends StatelessWidget {
       controller: controller,
       labelText: label,
       hintText: hint,
-      height: 120,
+      prefixIcon: icon,
+      height: 140,
+    );
+  }
+}
+
+/// Full-width gradient save button pinned to the bottom of the form.
+class _StickySaveBar extends StatelessWidget {
+  const _StickySaveBar({
+    required this.isSaving,
+    required this.isEdit,
+    required this.onTap,
+  });
+
+  final bool isSaving;
+  final bool isEdit;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: context.pAllMd,
+      decoration: BoxDecoration(
+        color: context.colors.surface,
+        border: Border(
+          top: BorderSide(
+            color: context.colors.outline.withAlpha(120),
+            width: 1,
+          ),
+        ),
+      ),
+      child: SafeArea(
+        top: false,
+        child: CustomButton(
+          onTap: isSaving ? null : onTap,
+          child: isSaving
+              ? const SizedBox(
+                  width: 22,
+                  height: 22,
+                  child: CircularProgressIndicator(
+                    strokeWidth: 2,
+                    color: Colors.white,
+                  ),
+                )
+              : Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Icon(Icons.check_rounded, color: Colors.white),
+                    SizedBox(width: context.sSm),
+                    Text(context.tr.detail_save),
+                  ],
+                ),
+        ),
+      ),
     );
   }
 }

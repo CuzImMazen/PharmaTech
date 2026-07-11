@@ -71,7 +71,14 @@ class _InventoryScreenState extends State<InventoryScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              InventoryHeader(),
+              InventoryHeader(
+                onAdd: () async {
+                  await context.push('/product/add');
+                  if (context.mounted) {
+                    inventoryCubit.refreshProducts();
+                  }
+                },
+              ),
               context.vMd,
               SearchTextField(
                 controller: _searchController,

@@ -27,6 +27,9 @@ class ApiRoutes {
   static String productBatches(int id) => '$products/$id/batches/available';
   static String productMedicalInfo(int id) => '$products/$id/medical-info';
 
+  // All stock batches (any status) for a product — `?product_id={id}`.
+  static const String stockBatches = '/stock-batches';
+
   static const String governorates = '/governorates';
   static const String cities = '/cities';
   static const String governorateWithCities = '/governorates-cities';
