@@ -16,11 +16,15 @@ abstract class ProductFormState with _$ProductFormState {
   const factory ProductFormState({
     // ---- Options ----
     @Default(<ProductCategoryModel>[]) List<ProductCategoryModel> categories,
-    @Default(<BaseUnitModel>[]) List<BaseUnitModel> units,
+    // Base unit options = `unit` type (Tablet, Capsule, Ml…).
+    @Default(<BaseUnitModel>[]) List<BaseUnitModel> baseUnits,
+    // Selling unit options = `packaging` type (Box, Bottle, Vial…).
+    @Default(<BaseUnitModel>[]) List<BaseUnitModel> sellingUnits,
     @Default(<CompanyModel>[]) List<CompanyModel> companies,
     @Default(false) bool isOptionsLoading,
     @Default(false) bool hasCategoriesError,
-    @Default(false) bool hasUnitsError,
+    @Default(false) bool hasBaseUnitsError,
+    @Default(false) bool hasSellingUnitsError,
     @Default(false) bool hasCompaniesError,
 
     // ---- Dropdown selections (nullable = none selected) ----

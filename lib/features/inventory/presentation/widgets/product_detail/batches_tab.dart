@@ -11,11 +11,20 @@ class BatchesTab extends StatelessWidget {
   const BatchesTab({
     super.key,
     required this.batches,
+    this.mutatingBatchId,
     this.onAddBatch,
+    this.onMarkExpired,
   });
 
   final List<StockBatchModel> batches;
+
+  /// The id of the batch currently being mutated, so its card shows a spinner.
+  final int? mutatingBatchId;
+
   final VoidCallback? onAddBatch;
+
+  /// Called with a batch id when the user marks a batch expired.
+  final ValueChanged<int>? onMarkExpired;
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +51,12 @@ class BatchesTab extends StatelessWidget {
           ...batches.map(
             (batch) => Padding(
               padding: EdgeInsets.only(bottom: context.sMd),
-              child: BatchCard(batch: batch),
+              child: BatchCard(
+                batch: batch,
+                onMarkExpired:
+                    onMarkExpired == null ? null : () => onMarkExpired!(batch.id),
+                isMutating: mutatingBatchId == batch.id,
+              ),
             ),
           ),
       ],

@@ -3,6 +3,7 @@ import 'package:pharmacy_app/core/error/failure.dart';
 import 'package:pharmacy_app/features/inventory/data/models/product_detail_model.dart';
 import 'package:pharmacy_app/features/inventory/data/models/product_medical_info_model.dart';
 import 'package:pharmacy_app/features/inventory/data/models/stock_batch_model.dart';
+import 'package:pharmacy_app/features/inventory/data/models/stock_movement_model.dart';
 
 /// Data source for the Product Detail page.
 abstract class ProductDetailRepository {
@@ -47,4 +48,27 @@ abstract class ProductDetailRepository {
 
   /// Soft-deletes a product. Idempotent on the backend.
   Future<Either<Failure, void>> deleteProduct(int id);
+
+  // ---- Stock batches ---------------------------------------------------- //
+
+  /// Marks a batch expired. Backend sets status=`expired`, qty=0, and records
+  /// an `expiry_out` movement. Returns the updated batch.
+  Future<Either<Failure, StockBatchModel>> markBatchExpired(int batchId);
+
+  /// Creates a new active batch for a product via a manual stock-in
+  /// adjustment (`POST /stock-adjustments` with `adjustment_type: add`). Also
+  /// records an `adjustment_in` movement. [body] must include `product_id`,
+  /// `quantity`, `purchase_price`, `selling_price` (+ optional `batch_number`,
+  /// `expiry_date`, `notes`). Returns the created batch.
+  Future<Either<Failure, StockBatchModel>> addStockBatch(
+    Map<String, dynamic> body,
+  );
+
+  // ---- Stock movements -------------------------------------------------- //
+
+  /// Returns the stock-movement history for a product (newest first).
+  Future<Either<Failure, List<StockMovementModel>>> fetchStockMovements(
+    int productId, {
+    int perPage = 50,
+  });
 }

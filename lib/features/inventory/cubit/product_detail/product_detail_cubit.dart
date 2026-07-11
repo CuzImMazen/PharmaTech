@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pharmacy_app/features/inventory/cubit/product_detail/product_detail_state.dart';
 import 'package:pharmacy_app/features/inventory/data/models/product_detail_model.dart';
@@ -73,6 +75,10 @@ class ProductDetailCubit extends Cubit<ProductDetailState> {
         );
       },
     );
+
+    // Movements are loaded last and non-fatally: a failure here doesn't block
+    // the product/batches from rendering.
+    await reloadStockMovements(productId);
   }
 
   /// Sorts batches so available ones (active with stock) appear first, then
@@ -110,6 +116,23 @@ class ProductDetailCubit extends Cubit<ProductDetailState> {
   }
 
   Future<void> refresh(int productId) => loadAll(productId);
+
+  /// Re-fetches only the stock-movement history (newest first). Non-fatal: a
+  /// failure is surfaced via [movementsFailure] without blocking the screen.
+  Future<void> reloadStockMovements(int productId) async {
+    if (isClosed) return;
+    emit(state.copyWith(isMovementsLoading: true, movementsFailure: null));
+    final result = await repository.fetchStockMovements(productId);
+    if (isClosed) return;
+    result.fold(
+      (failure) => emit(
+        state.copyWith(isMovementsLoading: false, movementsFailure: failure),
+      ),
+      (movements) => emit(
+        state.copyWith(isMovementsLoading: false, movements: movements),
+      ),
+    );
+  }
 
   /// Called by the product form cubit after a successful update (the form
   /// returns the saved model). Updates the detail screen instantly without a
@@ -228,6 +251,95 @@ class ProductDetailCubit extends Cubit<ProductDetailState> {
         state.copyWith(
           lastMedicalAction: null,
           medicalFailure: null,
+        ),
+      );
+    }
+  }
+
+  // ---- Batch mutations ------------------------------------------------- //
+
+  /// Marks a batch expired. On success replaces that batch in [state.batches]
+  /// with the returned (now-expired, qty=0) batch and re-sorts available-first.
+  /// Emits a transient `lastBatchAction` so the UI shows a snackbar.
+  Future<void> markBatchExpired(int batchId) async {
+    if (isClosed) return;
+    emit(
+      state.copyWith(
+        mutatingBatchId: batchId,
+        batchFailure: null,
+        lastBatchAction: null,
+      ),
+    );
+    final result = await repository.markBatchExpired(batchId);
+    if (isClosed) return;
+    result.fold(
+      (failure) => emit(
+        state.copyWith(mutatingBatchId: null, batchFailure: failure),
+      ),
+      (batch) {
+        final updated = state.batches
+            .map((b) => b.id == batch.id ? batch : b)
+            .toList();
+        emit(
+          state.copyWith(
+            mutatingBatchId: null,
+            batches: _sortBatchesAvailableFirst(updated),
+            lastBatchAction: BatchActionResult.markedExpired,
+          ),
+        );
+        // Refresh the movements history so the new expiry_out shows up.
+        unawaited(reloadStockMovements(batch.productId));
+      },
+    );
+  }
+
+  /// Creates a new batch for the product via a manual stock-in adjustment.
+  /// On success prepends the returned batch to [state.batches], re-sorts, and
+  /// signals the UI. [body] is the snake_case payload (without
+  /// `adjustment_type`, which is added here).
+  Future<void> addBatch(Map<String, dynamic> body) async {
+    if (isClosed) return;
+    emit(
+      state.copyWith(
+        isAddingBatch: true,
+        batchFailure: null,
+        lastBatchAction: null,
+      ),
+    );
+    final result = await repository.addStockBatch({
+      'adjustment_type': 'add',
+      ...body,
+    });
+    if (isClosed) return;
+    result.fold(
+      (failure) => emit(
+        state.copyWith(isAddingBatch: false, batchFailure: failure),
+      ),
+      (batch) {
+        // Avoid duplicate batch numbers (idempotency safety).
+        final withoutDup = state.batches.where((b) => b.id != batch.id).toList();
+        final updated = [batch, ...withoutDup];
+        emit(
+          state.copyWith(
+            isAddingBatch: false,
+            batches: _sortBatchesAvailableFirst(updated),
+            lastBatchAction: BatchActionResult.added,
+          ),
+        );
+        // Refresh the movements history so the new adjustment_in shows up.
+        unawaited(reloadStockMovements(batch.productId));
+      },
+    );
+  }
+
+  /// Clears the transient batch-action signal after the UI has reacted.
+  void clearBatchAction() {
+    if (isClosed) return;
+    if (state.lastBatchAction != null || state.batchFailure != null) {
+      emit(
+        state.copyWith(
+          lastBatchAction: null,
+          batchFailure: null,
         ),
       );
     }

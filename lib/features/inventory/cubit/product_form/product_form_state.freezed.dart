@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$ProductFormState {
 
- List<ProductCategoryModel> get categories; List<BaseUnitModel> get units; List<CompanyModel> get companies; bool get isOptionsLoading; bool get hasCategoriesError; bool get hasUnitsError; bool get hasCompaniesError; ProductCategoryModel? get selectedCategory; BaseUnitModel? get selectedBaseUnit; BaseUnitModel? get selectedSellingUnit; CompanyModel? get selectedCompany; bool get prescriptionRequired; bool get allowPartialSelling; bool get isSaving; bool get saved; Failure? get failure; ProductDetailModel? get savedProduct;
+ List<ProductCategoryModel> get categories; List<BaseUnitModel> get baseUnits; List<BaseUnitModel> get sellingUnits; List<CompanyModel> get companies; bool get isOptionsLoading; bool get hasCategoriesError; bool get hasBaseUnitsError; bool get hasSellingUnitsError; bool get hasCompaniesError; ProductCategoryModel? get selectedCategory; BaseUnitModel? get selectedBaseUnit; BaseUnitModel? get selectedSellingUnit; CompanyModel? get selectedCompany; bool get prescriptionRequired; bool get allowPartialSelling; bool get isSaving; bool get saved; Failure? get failure; ProductDetailModel? get savedProduct;
 /// Create a copy of ProductFormState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -26,16 +26,16 @@ $ProductFormStateCopyWith<ProductFormState> get copyWith => _$ProductFormStateCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ProductFormState&&const DeepCollectionEquality().equals(other.categories, categories)&&const DeepCollectionEquality().equals(other.units, units)&&const DeepCollectionEquality().equals(other.companies, companies)&&(identical(other.isOptionsLoading, isOptionsLoading) || other.isOptionsLoading == isOptionsLoading)&&(identical(other.hasCategoriesError, hasCategoriesError) || other.hasCategoriesError == hasCategoriesError)&&(identical(other.hasUnitsError, hasUnitsError) || other.hasUnitsError == hasUnitsError)&&(identical(other.hasCompaniesError, hasCompaniesError) || other.hasCompaniesError == hasCompaniesError)&&(identical(other.selectedCategory, selectedCategory) || other.selectedCategory == selectedCategory)&&(identical(other.selectedBaseUnit, selectedBaseUnit) || other.selectedBaseUnit == selectedBaseUnit)&&(identical(other.selectedSellingUnit, selectedSellingUnit) || other.selectedSellingUnit == selectedSellingUnit)&&(identical(other.selectedCompany, selectedCompany) || other.selectedCompany == selectedCompany)&&(identical(other.prescriptionRequired, prescriptionRequired) || other.prescriptionRequired == prescriptionRequired)&&(identical(other.allowPartialSelling, allowPartialSelling) || other.allowPartialSelling == allowPartialSelling)&&(identical(other.isSaving, isSaving) || other.isSaving == isSaving)&&(identical(other.saved, saved) || other.saved == saved)&&(identical(other.failure, failure) || other.failure == failure)&&(identical(other.savedProduct, savedProduct) || other.savedProduct == savedProduct));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ProductFormState&&const DeepCollectionEquality().equals(other.categories, categories)&&const DeepCollectionEquality().equals(other.baseUnits, baseUnits)&&const DeepCollectionEquality().equals(other.sellingUnits, sellingUnits)&&const DeepCollectionEquality().equals(other.companies, companies)&&(identical(other.isOptionsLoading, isOptionsLoading) || other.isOptionsLoading == isOptionsLoading)&&(identical(other.hasCategoriesError, hasCategoriesError) || other.hasCategoriesError == hasCategoriesError)&&(identical(other.hasBaseUnitsError, hasBaseUnitsError) || other.hasBaseUnitsError == hasBaseUnitsError)&&(identical(other.hasSellingUnitsError, hasSellingUnitsError) || other.hasSellingUnitsError == hasSellingUnitsError)&&(identical(other.hasCompaniesError, hasCompaniesError) || other.hasCompaniesError == hasCompaniesError)&&(identical(other.selectedCategory, selectedCategory) || other.selectedCategory == selectedCategory)&&(identical(other.selectedBaseUnit, selectedBaseUnit) || other.selectedBaseUnit == selectedBaseUnit)&&(identical(other.selectedSellingUnit, selectedSellingUnit) || other.selectedSellingUnit == selectedSellingUnit)&&(identical(other.selectedCompany, selectedCompany) || other.selectedCompany == selectedCompany)&&(identical(other.prescriptionRequired, prescriptionRequired) || other.prescriptionRequired == prescriptionRequired)&&(identical(other.allowPartialSelling, allowPartialSelling) || other.allowPartialSelling == allowPartialSelling)&&(identical(other.isSaving, isSaving) || other.isSaving == isSaving)&&(identical(other.saved, saved) || other.saved == saved)&&(identical(other.failure, failure) || other.failure == failure)&&(identical(other.savedProduct, savedProduct) || other.savedProduct == savedProduct));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(categories),const DeepCollectionEquality().hash(units),const DeepCollectionEquality().hash(companies),isOptionsLoading,hasCategoriesError,hasUnitsError,hasCompaniesError,selectedCategory,selectedBaseUnit,selectedSellingUnit,selectedCompany,prescriptionRequired,allowPartialSelling,isSaving,saved,failure,savedProduct);
+int get hashCode => Object.hashAll([runtimeType,const DeepCollectionEquality().hash(categories),const DeepCollectionEquality().hash(baseUnits),const DeepCollectionEquality().hash(sellingUnits),const DeepCollectionEquality().hash(companies),isOptionsLoading,hasCategoriesError,hasBaseUnitsError,hasSellingUnitsError,hasCompaniesError,selectedCategory,selectedBaseUnit,selectedSellingUnit,selectedCompany,prescriptionRequired,allowPartialSelling,isSaving,saved,failure,savedProduct]);
 
 @override
 String toString() {
-  return 'ProductFormState(categories: $categories, units: $units, companies: $companies, isOptionsLoading: $isOptionsLoading, hasCategoriesError: $hasCategoriesError, hasUnitsError: $hasUnitsError, hasCompaniesError: $hasCompaniesError, selectedCategory: $selectedCategory, selectedBaseUnit: $selectedBaseUnit, selectedSellingUnit: $selectedSellingUnit, selectedCompany: $selectedCompany, prescriptionRequired: $prescriptionRequired, allowPartialSelling: $allowPartialSelling, isSaving: $isSaving, saved: $saved, failure: $failure, savedProduct: $savedProduct)';
+  return 'ProductFormState(categories: $categories, baseUnits: $baseUnits, sellingUnits: $sellingUnits, companies: $companies, isOptionsLoading: $isOptionsLoading, hasCategoriesError: $hasCategoriesError, hasBaseUnitsError: $hasBaseUnitsError, hasSellingUnitsError: $hasSellingUnitsError, hasCompaniesError: $hasCompaniesError, selectedCategory: $selectedCategory, selectedBaseUnit: $selectedBaseUnit, selectedSellingUnit: $selectedSellingUnit, selectedCompany: $selectedCompany, prescriptionRequired: $prescriptionRequired, allowPartialSelling: $allowPartialSelling, isSaving: $isSaving, saved: $saved, failure: $failure, savedProduct: $savedProduct)';
 }
 
 
@@ -46,7 +46,7 @@ abstract mixin class $ProductFormStateCopyWith<$Res>  {
   factory $ProductFormStateCopyWith(ProductFormState value, $Res Function(ProductFormState) _then) = _$ProductFormStateCopyWithImpl;
 @useResult
 $Res call({
- List<ProductCategoryModel> categories, List<BaseUnitModel> units, List<CompanyModel> companies, bool isOptionsLoading, bool hasCategoriesError, bool hasUnitsError, bool hasCompaniesError, ProductCategoryModel? selectedCategory, BaseUnitModel? selectedBaseUnit, BaseUnitModel? selectedSellingUnit, CompanyModel? selectedCompany, bool prescriptionRequired, bool allowPartialSelling, bool isSaving, bool saved, Failure? failure, ProductDetailModel? savedProduct
+ List<ProductCategoryModel> categories, List<BaseUnitModel> baseUnits, List<BaseUnitModel> sellingUnits, List<CompanyModel> companies, bool isOptionsLoading, bool hasCategoriesError, bool hasBaseUnitsError, bool hasSellingUnitsError, bool hasCompaniesError, ProductCategoryModel? selectedCategory, BaseUnitModel? selectedBaseUnit, BaseUnitModel? selectedSellingUnit, CompanyModel? selectedCompany, bool prescriptionRequired, bool allowPartialSelling, bool isSaving, bool saved, Failure? failure, ProductDetailModel? savedProduct
 });
 
 
@@ -63,14 +63,16 @@ class _$ProductFormStateCopyWithImpl<$Res>
 
 /// Create a copy of ProductFormState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? categories = null,Object? units = null,Object? companies = null,Object? isOptionsLoading = null,Object? hasCategoriesError = null,Object? hasUnitsError = null,Object? hasCompaniesError = null,Object? selectedCategory = freezed,Object? selectedBaseUnit = freezed,Object? selectedSellingUnit = freezed,Object? selectedCompany = freezed,Object? prescriptionRequired = null,Object? allowPartialSelling = null,Object? isSaving = null,Object? saved = null,Object? failure = freezed,Object? savedProduct = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? categories = null,Object? baseUnits = null,Object? sellingUnits = null,Object? companies = null,Object? isOptionsLoading = null,Object? hasCategoriesError = null,Object? hasBaseUnitsError = null,Object? hasSellingUnitsError = null,Object? hasCompaniesError = null,Object? selectedCategory = freezed,Object? selectedBaseUnit = freezed,Object? selectedSellingUnit = freezed,Object? selectedCompany = freezed,Object? prescriptionRequired = null,Object? allowPartialSelling = null,Object? isSaving = null,Object? saved = null,Object? failure = freezed,Object? savedProduct = freezed,}) {
   return _then(ProductFormState(
 categories: null == categories ? _self.categories : categories // ignore: cast_nullable_to_non_nullable
-as List<ProductCategoryModel>,units: null == units ? _self.units : units // ignore: cast_nullable_to_non_nullable
+as List<ProductCategoryModel>,baseUnits: null == baseUnits ? _self.baseUnits : baseUnits // ignore: cast_nullable_to_non_nullable
+as List<BaseUnitModel>,sellingUnits: null == sellingUnits ? _self.sellingUnits : sellingUnits // ignore: cast_nullable_to_non_nullable
 as List<BaseUnitModel>,companies: null == companies ? _self.companies : companies // ignore: cast_nullable_to_non_nullable
 as List<CompanyModel>,isOptionsLoading: null == isOptionsLoading ? _self.isOptionsLoading : isOptionsLoading // ignore: cast_nullable_to_non_nullable
 as bool,hasCategoriesError: null == hasCategoriesError ? _self.hasCategoriesError : hasCategoriesError // ignore: cast_nullable_to_non_nullable
-as bool,hasUnitsError: null == hasUnitsError ? _self.hasUnitsError : hasUnitsError // ignore: cast_nullable_to_non_nullable
+as bool,hasBaseUnitsError: null == hasBaseUnitsError ? _self.hasBaseUnitsError : hasBaseUnitsError // ignore: cast_nullable_to_non_nullable
+as bool,hasSellingUnitsError: null == hasSellingUnitsError ? _self.hasSellingUnitsError : hasSellingUnitsError // ignore: cast_nullable_to_non_nullable
 as bool,hasCompaniesError: null == hasCompaniesError ? _self.hasCompaniesError : hasCompaniesError // ignore: cast_nullable_to_non_nullable
 as bool,selectedCategory: freezed == selectedCategory ? _self.selectedCategory : selectedCategory // ignore: cast_nullable_to_non_nullable
 as ProductCategoryModel?,selectedBaseUnit: freezed == selectedBaseUnit ? _self.selectedBaseUnit : selectedBaseUnit // ignore: cast_nullable_to_non_nullable
@@ -167,10 +169,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<ProductCategoryModel> categories,  List<BaseUnitModel> units,  List<CompanyModel> companies,  bool isOptionsLoading,  bool hasCategoriesError,  bool hasUnitsError,  bool hasCompaniesError,  ProductCategoryModel? selectedCategory,  BaseUnitModel? selectedBaseUnit,  BaseUnitModel? selectedSellingUnit,  CompanyModel? selectedCompany,  bool prescriptionRequired,  bool allowPartialSelling,  bool isSaving,  bool saved,  Failure? failure,  ProductDetailModel? savedProduct)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<ProductCategoryModel> categories,  List<BaseUnitModel> baseUnits,  List<BaseUnitModel> sellingUnits,  List<CompanyModel> companies,  bool isOptionsLoading,  bool hasCategoriesError,  bool hasBaseUnitsError,  bool hasSellingUnitsError,  bool hasCompaniesError,  ProductCategoryModel? selectedCategory,  BaseUnitModel? selectedBaseUnit,  BaseUnitModel? selectedSellingUnit,  CompanyModel? selectedCompany,  bool prescriptionRequired,  bool allowPartialSelling,  bool isSaving,  bool saved,  Failure? failure,  ProductDetailModel? savedProduct)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ProductFormState() when $default != null:
-return $default(_that.categories,_that.units,_that.companies,_that.isOptionsLoading,_that.hasCategoriesError,_that.hasUnitsError,_that.hasCompaniesError,_that.selectedCategory,_that.selectedBaseUnit,_that.selectedSellingUnit,_that.selectedCompany,_that.prescriptionRequired,_that.allowPartialSelling,_that.isSaving,_that.saved,_that.failure,_that.savedProduct);case _:
+return $default(_that.categories,_that.baseUnits,_that.sellingUnits,_that.companies,_that.isOptionsLoading,_that.hasCategoriesError,_that.hasBaseUnitsError,_that.hasSellingUnitsError,_that.hasCompaniesError,_that.selectedCategory,_that.selectedBaseUnit,_that.selectedSellingUnit,_that.selectedCompany,_that.prescriptionRequired,_that.allowPartialSelling,_that.isSaving,_that.saved,_that.failure,_that.savedProduct);case _:
   return orElse();
 
 }
@@ -188,10 +190,10 @@ return $default(_that.categories,_that.units,_that.companies,_that.isOptionsLoad
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<ProductCategoryModel> categories,  List<BaseUnitModel> units,  List<CompanyModel> companies,  bool isOptionsLoading,  bool hasCategoriesError,  bool hasUnitsError,  bool hasCompaniesError,  ProductCategoryModel? selectedCategory,  BaseUnitModel? selectedBaseUnit,  BaseUnitModel? selectedSellingUnit,  CompanyModel? selectedCompany,  bool prescriptionRequired,  bool allowPartialSelling,  bool isSaving,  bool saved,  Failure? failure,  ProductDetailModel? savedProduct)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<ProductCategoryModel> categories,  List<BaseUnitModel> baseUnits,  List<BaseUnitModel> sellingUnits,  List<CompanyModel> companies,  bool isOptionsLoading,  bool hasCategoriesError,  bool hasBaseUnitsError,  bool hasSellingUnitsError,  bool hasCompaniesError,  ProductCategoryModel? selectedCategory,  BaseUnitModel? selectedBaseUnit,  BaseUnitModel? selectedSellingUnit,  CompanyModel? selectedCompany,  bool prescriptionRequired,  bool allowPartialSelling,  bool isSaving,  bool saved,  Failure? failure,  ProductDetailModel? savedProduct)  $default,) {final _that = this;
 switch (_that) {
 case _ProductFormState():
-return $default(_that.categories,_that.units,_that.companies,_that.isOptionsLoading,_that.hasCategoriesError,_that.hasUnitsError,_that.hasCompaniesError,_that.selectedCategory,_that.selectedBaseUnit,_that.selectedSellingUnit,_that.selectedCompany,_that.prescriptionRequired,_that.allowPartialSelling,_that.isSaving,_that.saved,_that.failure,_that.savedProduct);case _:
+return $default(_that.categories,_that.baseUnits,_that.sellingUnits,_that.companies,_that.isOptionsLoading,_that.hasCategoriesError,_that.hasBaseUnitsError,_that.hasSellingUnitsError,_that.hasCompaniesError,_that.selectedCategory,_that.selectedBaseUnit,_that.selectedSellingUnit,_that.selectedCompany,_that.prescriptionRequired,_that.allowPartialSelling,_that.isSaving,_that.saved,_that.failure,_that.savedProduct);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -208,10 +210,10 @@ return $default(_that.categories,_that.units,_that.companies,_that.isOptionsLoad
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<ProductCategoryModel> categories,  List<BaseUnitModel> units,  List<CompanyModel> companies,  bool isOptionsLoading,  bool hasCategoriesError,  bool hasUnitsError,  bool hasCompaniesError,  ProductCategoryModel? selectedCategory,  BaseUnitModel? selectedBaseUnit,  BaseUnitModel? selectedSellingUnit,  CompanyModel? selectedCompany,  bool prescriptionRequired,  bool allowPartialSelling,  bool isSaving,  bool saved,  Failure? failure,  ProductDetailModel? savedProduct)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<ProductCategoryModel> categories,  List<BaseUnitModel> baseUnits,  List<BaseUnitModel> sellingUnits,  List<CompanyModel> companies,  bool isOptionsLoading,  bool hasCategoriesError,  bool hasBaseUnitsError,  bool hasSellingUnitsError,  bool hasCompaniesError,  ProductCategoryModel? selectedCategory,  BaseUnitModel? selectedBaseUnit,  BaseUnitModel? selectedSellingUnit,  CompanyModel? selectedCompany,  bool prescriptionRequired,  bool allowPartialSelling,  bool isSaving,  bool saved,  Failure? failure,  ProductDetailModel? savedProduct)?  $default,) {final _that = this;
 switch (_that) {
 case _ProductFormState() when $default != null:
-return $default(_that.categories,_that.units,_that.companies,_that.isOptionsLoading,_that.hasCategoriesError,_that.hasUnitsError,_that.hasCompaniesError,_that.selectedCategory,_that.selectedBaseUnit,_that.selectedSellingUnit,_that.selectedCompany,_that.prescriptionRequired,_that.allowPartialSelling,_that.isSaving,_that.saved,_that.failure,_that.savedProduct);case _:
+return $default(_that.categories,_that.baseUnits,_that.sellingUnits,_that.companies,_that.isOptionsLoading,_that.hasCategoriesError,_that.hasBaseUnitsError,_that.hasSellingUnitsError,_that.hasCompaniesError,_that.selectedCategory,_that.selectedBaseUnit,_that.selectedSellingUnit,_that.selectedCompany,_that.prescriptionRequired,_that.allowPartialSelling,_that.isSaving,_that.saved,_that.failure,_that.savedProduct);case _:
   return null;
 
 }
@@ -223,7 +225,7 @@ return $default(_that.categories,_that.units,_that.companies,_that.isOptionsLoad
 
 
 class _ProductFormState implements ProductFormState {
-  const _ProductFormState({ List<ProductCategoryModel> categories = const <ProductCategoryModel>[],  List<BaseUnitModel> units = const <BaseUnitModel>[],  List<CompanyModel> companies = const <CompanyModel>[], this.isOptionsLoading = false, this.hasCategoriesError = false, this.hasUnitsError = false, this.hasCompaniesError = false, this.selectedCategory, this.selectedBaseUnit, this.selectedSellingUnit, this.selectedCompany, this.prescriptionRequired = false, this.allowPartialSelling = false, this.isSaving = false, this.saved = false, this.failure, this.savedProduct}): _categories = categories,_units = units,_companies = companies;
+  const _ProductFormState({ List<ProductCategoryModel> categories = const <ProductCategoryModel>[],  List<BaseUnitModel> baseUnits = const <BaseUnitModel>[],  List<BaseUnitModel> sellingUnits = const <BaseUnitModel>[],  List<CompanyModel> companies = const <CompanyModel>[], this.isOptionsLoading = false, this.hasCategoriesError = false, this.hasBaseUnitsError = false, this.hasSellingUnitsError = false, this.hasCompaniesError = false, this.selectedCategory, this.selectedBaseUnit, this.selectedSellingUnit, this.selectedCompany, this.prescriptionRequired = false, this.allowPartialSelling = false, this.isSaving = false, this.saved = false, this.failure, this.savedProduct}): _categories = categories,_baseUnits = baseUnits,_sellingUnits = sellingUnits,_companies = companies;
   
 
  final  List<ProductCategoryModel> _categories;
@@ -233,11 +235,18 @@ class _ProductFormState implements ProductFormState {
   return EqualUnmodifiableListView(_categories);
 }
 
- final  List<BaseUnitModel> _units;
-@override@JsonKey() List<BaseUnitModel> get units {
-  if (_units is EqualUnmodifiableListView) return _units;
+ final  List<BaseUnitModel> _baseUnits;
+@override@JsonKey() List<BaseUnitModel> get baseUnits {
+  if (_baseUnits is EqualUnmodifiableListView) return _baseUnits;
   // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(_units);
+  return EqualUnmodifiableListView(_baseUnits);
+}
+
+ final  List<BaseUnitModel> _sellingUnits;
+@override@JsonKey() List<BaseUnitModel> get sellingUnits {
+  if (_sellingUnits is EqualUnmodifiableListView) return _sellingUnits;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_sellingUnits);
 }
 
  final  List<CompanyModel> _companies;
@@ -249,7 +258,8 @@ class _ProductFormState implements ProductFormState {
 
 @override@JsonKey() final  bool isOptionsLoading;
 @override@JsonKey() final  bool hasCategoriesError;
-@override@JsonKey() final  bool hasUnitsError;
+@override@JsonKey() final  bool hasBaseUnitsError;
+@override@JsonKey() final  bool hasSellingUnitsError;
 @override@JsonKey() final  bool hasCompaniesError;
 @override final  ProductCategoryModel? selectedCategory;
 @override final  BaseUnitModel? selectedBaseUnit;
@@ -272,16 +282,16 @@ _$ProductFormStateCopyWith<_ProductFormState> get copyWith => __$ProductFormStat
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ProductFormState&&const DeepCollectionEquality().equals(other._categories, _categories)&&const DeepCollectionEquality().equals(other._units, _units)&&const DeepCollectionEquality().equals(other._companies, _companies)&&(identical(other.isOptionsLoading, isOptionsLoading) || other.isOptionsLoading == isOptionsLoading)&&(identical(other.hasCategoriesError, hasCategoriesError) || other.hasCategoriesError == hasCategoriesError)&&(identical(other.hasUnitsError, hasUnitsError) || other.hasUnitsError == hasUnitsError)&&(identical(other.hasCompaniesError, hasCompaniesError) || other.hasCompaniesError == hasCompaniesError)&&(identical(other.selectedCategory, selectedCategory) || other.selectedCategory == selectedCategory)&&(identical(other.selectedBaseUnit, selectedBaseUnit) || other.selectedBaseUnit == selectedBaseUnit)&&(identical(other.selectedSellingUnit, selectedSellingUnit) || other.selectedSellingUnit == selectedSellingUnit)&&(identical(other.selectedCompany, selectedCompany) || other.selectedCompany == selectedCompany)&&(identical(other.prescriptionRequired, prescriptionRequired) || other.prescriptionRequired == prescriptionRequired)&&(identical(other.allowPartialSelling, allowPartialSelling) || other.allowPartialSelling == allowPartialSelling)&&(identical(other.isSaving, isSaving) || other.isSaving == isSaving)&&(identical(other.saved, saved) || other.saved == saved)&&(identical(other.failure, failure) || other.failure == failure)&&(identical(other.savedProduct, savedProduct) || other.savedProduct == savedProduct));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ProductFormState&&const DeepCollectionEquality().equals(other._categories, _categories)&&const DeepCollectionEquality().equals(other._baseUnits, _baseUnits)&&const DeepCollectionEquality().equals(other._sellingUnits, _sellingUnits)&&const DeepCollectionEquality().equals(other._companies, _companies)&&(identical(other.isOptionsLoading, isOptionsLoading) || other.isOptionsLoading == isOptionsLoading)&&(identical(other.hasCategoriesError, hasCategoriesError) || other.hasCategoriesError == hasCategoriesError)&&(identical(other.hasBaseUnitsError, hasBaseUnitsError) || other.hasBaseUnitsError == hasBaseUnitsError)&&(identical(other.hasSellingUnitsError, hasSellingUnitsError) || other.hasSellingUnitsError == hasSellingUnitsError)&&(identical(other.hasCompaniesError, hasCompaniesError) || other.hasCompaniesError == hasCompaniesError)&&(identical(other.selectedCategory, selectedCategory) || other.selectedCategory == selectedCategory)&&(identical(other.selectedBaseUnit, selectedBaseUnit) || other.selectedBaseUnit == selectedBaseUnit)&&(identical(other.selectedSellingUnit, selectedSellingUnit) || other.selectedSellingUnit == selectedSellingUnit)&&(identical(other.selectedCompany, selectedCompany) || other.selectedCompany == selectedCompany)&&(identical(other.prescriptionRequired, prescriptionRequired) || other.prescriptionRequired == prescriptionRequired)&&(identical(other.allowPartialSelling, allowPartialSelling) || other.allowPartialSelling == allowPartialSelling)&&(identical(other.isSaving, isSaving) || other.isSaving == isSaving)&&(identical(other.saved, saved) || other.saved == saved)&&(identical(other.failure, failure) || other.failure == failure)&&(identical(other.savedProduct, savedProduct) || other.savedProduct == savedProduct));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_categories),const DeepCollectionEquality().hash(_units),const DeepCollectionEquality().hash(_companies),isOptionsLoading,hasCategoriesError,hasUnitsError,hasCompaniesError,selectedCategory,selectedBaseUnit,selectedSellingUnit,selectedCompany,prescriptionRequired,allowPartialSelling,isSaving,saved,failure,savedProduct);
+int get hashCode => Object.hashAll([runtimeType,const DeepCollectionEquality().hash(_categories),const DeepCollectionEquality().hash(_baseUnits),const DeepCollectionEquality().hash(_sellingUnits),const DeepCollectionEquality().hash(_companies),isOptionsLoading,hasCategoriesError,hasBaseUnitsError,hasSellingUnitsError,hasCompaniesError,selectedCategory,selectedBaseUnit,selectedSellingUnit,selectedCompany,prescriptionRequired,allowPartialSelling,isSaving,saved,failure,savedProduct]);
 
 @override
 String toString() {
-  return 'ProductFormState(categories: $categories, units: $units, companies: $companies, isOptionsLoading: $isOptionsLoading, hasCategoriesError: $hasCategoriesError, hasUnitsError: $hasUnitsError, hasCompaniesError: $hasCompaniesError, selectedCategory: $selectedCategory, selectedBaseUnit: $selectedBaseUnit, selectedSellingUnit: $selectedSellingUnit, selectedCompany: $selectedCompany, prescriptionRequired: $prescriptionRequired, allowPartialSelling: $allowPartialSelling, isSaving: $isSaving, saved: $saved, failure: $failure, savedProduct: $savedProduct)';
+  return 'ProductFormState(categories: $categories, baseUnits: $baseUnits, sellingUnits: $sellingUnits, companies: $companies, isOptionsLoading: $isOptionsLoading, hasCategoriesError: $hasCategoriesError, hasBaseUnitsError: $hasBaseUnitsError, hasSellingUnitsError: $hasSellingUnitsError, hasCompaniesError: $hasCompaniesError, selectedCategory: $selectedCategory, selectedBaseUnit: $selectedBaseUnit, selectedSellingUnit: $selectedSellingUnit, selectedCompany: $selectedCompany, prescriptionRequired: $prescriptionRequired, allowPartialSelling: $allowPartialSelling, isSaving: $isSaving, saved: $saved, failure: $failure, savedProduct: $savedProduct)';
 }
 
 
@@ -292,7 +302,7 @@ abstract mixin class _$ProductFormStateCopyWith<$Res> implements $ProductFormSta
   factory _$ProductFormStateCopyWith(_ProductFormState value, $Res Function(_ProductFormState) _then) = __$ProductFormStateCopyWithImpl;
 @override @useResult
 $Res call({
- List<ProductCategoryModel> categories, List<BaseUnitModel> units, List<CompanyModel> companies, bool isOptionsLoading, bool hasCategoriesError, bool hasUnitsError, bool hasCompaniesError, ProductCategoryModel? selectedCategory, BaseUnitModel? selectedBaseUnit, BaseUnitModel? selectedSellingUnit, CompanyModel? selectedCompany, bool prescriptionRequired, bool allowPartialSelling, bool isSaving, bool saved, Failure? failure, ProductDetailModel? savedProduct
+ List<ProductCategoryModel> categories, List<BaseUnitModel> baseUnits, List<BaseUnitModel> sellingUnits, List<CompanyModel> companies, bool isOptionsLoading, bool hasCategoriesError, bool hasBaseUnitsError, bool hasSellingUnitsError, bool hasCompaniesError, ProductCategoryModel? selectedCategory, BaseUnitModel? selectedBaseUnit, BaseUnitModel? selectedSellingUnit, CompanyModel? selectedCompany, bool prescriptionRequired, bool allowPartialSelling, bool isSaving, bool saved, Failure? failure, ProductDetailModel? savedProduct
 });
 
 
@@ -309,14 +319,16 @@ class __$ProductFormStateCopyWithImpl<$Res>
 
 /// Create a copy of ProductFormState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? categories = null,Object? units = null,Object? companies = null,Object? isOptionsLoading = null,Object? hasCategoriesError = null,Object? hasUnitsError = null,Object? hasCompaniesError = null,Object? selectedCategory = freezed,Object? selectedBaseUnit = freezed,Object? selectedSellingUnit = freezed,Object? selectedCompany = freezed,Object? prescriptionRequired = null,Object? allowPartialSelling = null,Object? isSaving = null,Object? saved = null,Object? failure = freezed,Object? savedProduct = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? categories = null,Object? baseUnits = null,Object? sellingUnits = null,Object? companies = null,Object? isOptionsLoading = null,Object? hasCategoriesError = null,Object? hasBaseUnitsError = null,Object? hasSellingUnitsError = null,Object? hasCompaniesError = null,Object? selectedCategory = freezed,Object? selectedBaseUnit = freezed,Object? selectedSellingUnit = freezed,Object? selectedCompany = freezed,Object? prescriptionRequired = null,Object? allowPartialSelling = null,Object? isSaving = null,Object? saved = null,Object? failure = freezed,Object? savedProduct = freezed,}) {
   return _then(_ProductFormState(
 categories: null == categories ? _self._categories : categories // ignore: cast_nullable_to_non_nullable
-as List<ProductCategoryModel>,units: null == units ? _self._units : units // ignore: cast_nullable_to_non_nullable
+as List<ProductCategoryModel>,baseUnits: null == baseUnits ? _self._baseUnits : baseUnits // ignore: cast_nullable_to_non_nullable
+as List<BaseUnitModel>,sellingUnits: null == sellingUnits ? _self._sellingUnits : sellingUnits // ignore: cast_nullable_to_non_nullable
 as List<BaseUnitModel>,companies: null == companies ? _self._companies : companies // ignore: cast_nullable_to_non_nullable
 as List<CompanyModel>,isOptionsLoading: null == isOptionsLoading ? _self.isOptionsLoading : isOptionsLoading // ignore: cast_nullable_to_non_nullable
 as bool,hasCategoriesError: null == hasCategoriesError ? _self.hasCategoriesError : hasCategoriesError // ignore: cast_nullable_to_non_nullable
-as bool,hasUnitsError: null == hasUnitsError ? _self.hasUnitsError : hasUnitsError // ignore: cast_nullable_to_non_nullable
+as bool,hasBaseUnitsError: null == hasBaseUnitsError ? _self.hasBaseUnitsError : hasBaseUnitsError // ignore: cast_nullable_to_non_nullable
+as bool,hasSellingUnitsError: null == hasSellingUnitsError ? _self.hasSellingUnitsError : hasSellingUnitsError // ignore: cast_nullable_to_non_nullable
 as bool,hasCompaniesError: null == hasCompaniesError ? _self.hasCompaniesError : hasCompaniesError // ignore: cast_nullable_to_non_nullable
 as bool,selectedCategory: freezed == selectedCategory ? _self.selectedCategory : selectedCategory // ignore: cast_nullable_to_non_nullable
 as ProductCategoryModel?,selectedBaseUnit: freezed == selectedBaseUnit ? _self.selectedBaseUnit : selectedBaseUnit // ignore: cast_nullable_to_non_nullable

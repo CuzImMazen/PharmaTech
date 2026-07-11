@@ -49,3 +49,6 @@ app.*.map.json
 
 #script
 gen-l10n-location.cmd
+
+#claude
+.claude

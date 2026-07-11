@@ -6,6 +6,7 @@ import 'package:pharmacy_app/core/extensions/localization_ext.dart';
 import 'package:pharmacy_app/core/widgets/custom_button.dart';
 import 'package:pharmacy_app/core/widgets/custom_text_field.dart';
 import 'package:pharmacy_app/core/widgets/form_section_card.dart';
+import 'package:pharmacy_app/core/utils/messages/snackbar.dart';
 import 'package:pharmacy_app/features/inventory/cubit/medical_info_form/medical_info_form_cubit.dart';
 import 'package:pharmacy_app/features/inventory/cubit/medical_info_form/medical_info_form_state.dart';
 import 'package:pharmacy_app/features/inventory/data/models/product_medical_info_model.dart';
@@ -98,15 +99,13 @@ class _MedicalInfoFormScreenState extends State<MedicalInfoFormScreen> {
           p.failure != c.failure || (!p.saved && c.saved),
       listener: (context, state) {
         if (state.saved) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(tr.medical_info_saved)),
-          );
+          AppSnackbar.success(message: tr.medical_info_saved);
           Navigator.of(context).pop(true);
           return;
         }
         if (state.failure != null) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(state.failure!.localizedMessage(context))),
+          AppSnackbar.failure(
+            message: state.failure!.localizedMessage(context),
           );
           context.read<MedicalInfoFormCubit>().clearFailure();
         }

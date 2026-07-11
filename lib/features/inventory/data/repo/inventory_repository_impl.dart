@@ -163,4 +163,32 @@ class InventoryRepositoryImpl implements InventoryRepository {
       return Left(ApiErrorHandler.handle(e));
     }
   }
+
+  @override
+  Future<Either<Failure, List<ProductCardModel>>> fetchLowStock({
+    String? severity,
+    int perPage = 100,
+  }) async {
+    try {
+      final queryParameters = <String, dynamic>{
+        'severity': severity,
+        'per_page': perPage,
+      }..removeWhere((key, value) => value == null);
+
+      final response = await api.get(
+        ApiRoutes.lowStockProducts,
+        queryParameters: queryParameters,
+      );
+
+      final products = ApiParser.parseWrappedList(
+        response.data,
+        'data',
+        ProductCardModel.fromJson,
+      );
+
+      return Right(products);
+    } catch (e) {
+      return Left(ApiErrorHandler.handle(e));
+    }
+  }
 }

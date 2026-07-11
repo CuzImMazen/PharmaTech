@@ -708,6 +708,68 @@ class AppLocalizationsAr extends AppLocalizations {
   String get detail_batch_selling_price => 'سعر البيع';
 
   @override
+  String get detail_batch_added => 'تمت إضافة الدفعة بنجاح.';
+
+  @override
+  String get detail_batch_marked_expired => 'تم تمييز الدفعة كمنتهية.';
+
+  @override
+  String get detail_add_batch_title => 'إضافة دفعة جديدة';
+
+  @override
+  String get detail_add_batch_subtitle => 'تسجيل عملية إدخال مخزون يدوية لهذا المنتج.';
+
+  @override
+  String get detail_add_batch_section => 'تفاصيل الدفعة';
+
+  @override
+  String get detail_add_batch_section_sub => 'الكمية والأسعار ومعلومات الدفعة الاختيارية';
+
+  @override
+  String get detail_add_batch_notes => 'ملاحظات';
+
+  @override
+  String get detail_tab_movements => 'الحركات';
+
+  @override
+  String get detail_no_movements => 'لا توجد حركات مخزون بعد.';
+
+  @override
+  String get movement_purchase_in => 'إدخال شراء';
+
+  @override
+  String get movement_customer_return_in => 'إرجاع عميل';
+
+  @override
+  String get movement_adjustment_in => 'تسوية إدخال';
+
+  @override
+  String get movement_sale_out => 'بيع';
+
+  @override
+  String get movement_supplier_return_out => 'إرجاع مورد';
+
+  @override
+  String get movement_adjustment_out => 'تسوية إخراج';
+
+  @override
+  String get movement_expiry_out => 'إخراج انتهاء';
+
+  @override
+  String get stock_alerts_loading => 'جارٍ تحميل تنبيهات المخزون…';
+
+  @override
+  String get stock_alerts_error => 'تعذّر تحميل تنبيهات المخزون.';
+
+  @override
+  String get stock_alerts_empty => 'جميع المنتجات مخزّنة بشكل جيد.';
+
+  @override
+  String stock_alerts_count(int count) {
+    return '$count عناصر منخفضة المخزون';
+  }
+
+  @override
   String get detail_batch_status_active => 'ساري';
 
   @override

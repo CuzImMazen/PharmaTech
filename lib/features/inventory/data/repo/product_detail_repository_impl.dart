@@ -7,6 +7,7 @@ import 'package:pharmacy_app/core/network/dio_helper.dart';
 import 'package:pharmacy_app/features/inventory/data/models/product_detail_model.dart';
 import 'package:pharmacy_app/features/inventory/data/models/product_medical_info_model.dart';
 import 'package:pharmacy_app/features/inventory/data/models/stock_batch_model.dart';
+import 'package:pharmacy_app/features/inventory/data/models/stock_movement_model.dart';
 import 'package:pharmacy_app/features/inventory/data/repo/product_detail_repository.dart';
 
 class ProductDetailRepositoryImpl implements ProductDetailRepository {
@@ -141,6 +142,66 @@ class ProductDetailRepositoryImpl implements ProductDetailRepository {
     try {
       await api.delete(ApiRoutes.productDetail(id));
       return const Right(null);
+    } catch (e) {
+      return Left(ApiErrorHandler.handle(e));
+    }
+  }
+
+  @override
+  Future<Either<Failure, StockBatchModel>> markBatchExpired(
+    int batchId,
+  ) async {
+    try {
+      final response = await api.patch(ApiRoutes.markBatchExpired(batchId));
+      final batch = ApiParser.parseWrapped(
+        response.data,
+        'data',
+        StockBatchModel.fromJson,
+      );
+      return Right(batch);
+    } catch (e) {
+      return Left(ApiErrorHandler.handle(e));
+    }
+  }
+
+  @override
+  Future<Either<Failure, StockBatchModel>> addStockBatch(
+    Map<String, dynamic> body,
+  ) async {
+    try {
+      // StockAdjustmentResource = {"batch": {...}, "movement": {...}}.
+      final response = await api.post(ApiRoutes.stockAdjustments, data: body);
+      final data = response.data is Map<String, dynamic>
+          ? response.data['data']
+          : null;
+      if (data is! Map<String, dynamic>) {
+        return const Left(ParsingFailure());
+      }
+      final batch = StockBatchModel.fromJson(
+        data['batch'] as Map<String, dynamic>,
+      );
+      return Right(batch);
+    } catch (e) {
+      return Left(ApiErrorHandler.handle(e));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<StockMovementModel>>> fetchStockMovements(
+    int productId, {
+    int perPage = 50,
+  }) async {
+    try {
+      final response = await api.get(
+        ApiRoutes.stockMovements,
+        queryParameters: {'product_id': productId, 'per_page': perPage},
+      );
+      final movements = ApiParser.parseWrappedList(
+        response.data,
+        'data',
+        StockMovementModel.fromJson,
+      );
+      return Right(movements);
     } catch (e) {
       return Left(ApiErrorHandler.handle(e));
     }

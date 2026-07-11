@@ -39,6 +39,13 @@ class CustomDropdownField<T> extends StatelessWidget {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
 
+    // Only honor [value] when it's actually present in [items]. A value that
+    // isn't in the list (e.g. a saved selection whose options haven't loaded
+    // yet, or a unit that no longer matches the list's type) would otherwise
+    // trip DropdownButton's "exactly one item with value" assertion.
+    final effectiveValue =
+        (value != null && items.contains(value)) ? value : null;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -60,7 +67,7 @@ class CustomDropdownField<T> extends StatelessWidget {
           ),
           child: DropdownButtonHideUnderline(
             child: DropdownButton<T>(
-              value: value,
+              value: effectiveValue,
               isExpanded: true,
               icon: Icon(
                 Icons.keyboard_arrow_down_rounded,

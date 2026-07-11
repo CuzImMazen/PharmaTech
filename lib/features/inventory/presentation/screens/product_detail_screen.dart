@@ -5,13 +5,16 @@ import 'package:pharmacy_app/core/extensions/app_design_system_ext.dart';
 import 'package:pharmacy_app/core/extensions/failure_message_localization_ext.dart';
 import 'package:pharmacy_app/core/extensions/localization_ext.dart';
 import 'package:pharmacy_app/core/router/app_routes_keys.dart';
+import 'package:pharmacy_app/core/utils/messages/snackbar.dart';
 import 'package:pharmacy_app/features/inventory/cubit/product_detail/product_detail_cubit.dart';
 import 'package:pharmacy_app/features/inventory/cubit/product_detail/product_detail_state.dart';
+import 'package:pharmacy_app/features/inventory/presentation/widgets/product_detail/add_batch_bottom_sheet.dart';
 import 'package:pharmacy_app/features/inventory/presentation/widgets/product_detail/batches_tab.dart';
 import 'package:pharmacy_app/features/inventory/presentation/widgets/product_detail/medical_info_tab.dart';
 import 'package:pharmacy_app/features/inventory/presentation/widgets/product_detail/overview_tab.dart';
 import 'package:pharmacy_app/features/inventory/presentation/widgets/product_detail/product_detail_app_bar.dart';
 import 'package:pharmacy_app/features/inventory/presentation/widgets/product_detail/product_detail_shimmer.dart';
+import 'package:pharmacy_app/features/inventory/presentation/widgets/product_detail/stock_movements_tab.dart';
 
 class ProductDetailScreen extends StatefulWidget {
   const ProductDetailScreen({super.key, required this.productId});
@@ -29,7 +32,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 3, vsync: this);
+    _tabController = TabController(length: 4, vsync: this);
   }
 
   @override
@@ -39,6 +42,15 @@ class _ProductDetailScreenState extends State<ProductDetailScreen>
   }
 
   ProductDetailCubit get _cubit => context.read<ProductDetailCubit>();
+
+  void _openAddBatchSheet(int productId) {
+    showAddBatchBottomSheet(
+      context,
+      productId: productId,
+      cubit: _cubit,
+      onSubmit: (body) => _cubit.addBatch(body),
+    );
+  }
 
   void _confirmDeleteProduct() {
     final tr = context.tr;
@@ -99,46 +111,61 @@ class _ProductDetailScreenState extends State<ProductDetailScreen>
           // Medical mutation outcomes.
           p.lastMedicalAction != c.lastMedicalAction ||
           p.medicalFailure != c.medicalFailure ||
+          // Batch mutation outcomes.
+          p.lastBatchAction != c.lastBatchAction ||
+          p.batchFailure != c.batchFailure ||
           // Product delete outcome.
           (!p.isProductDeleted && c.isProductDeleted) ||
           p.failure != c.failure,
       listener: (context, state) {
         // Product deleted → pop back to inventory.
         if (state.isProductDeleted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(tr.product_deleted)),
-          );
+          AppSnackbar.success(message: tr.product_deleted);
           _cubit.clearProductDeleted();
           context.pop(true);
+          return;
+        }
+
+        // Batch mutation outcomes.
+        if (state.lastBatchAction != null) {
+          AppSnackbar.success(
+            message: state.lastBatchAction == BatchActionResult.added
+                ? tr.detail_batch_added
+                : tr.detail_batch_marked_expired,
+          );
+          _cubit.clearBatchAction();
+          return;
+        }
+        if (state.batchFailure != null) {
+          AppSnackbar.failure(
+            message: state.batchFailure!.localizedMessage(context),
+          );
+          _cubit.clearBatchAction();
           return;
         }
 
         // Medical info outcomes.
         final action = state.lastMedicalAction;
         if (action != null) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(
-                action == MedicalActionResult.saved
-                    ? tr.medical_info_saved
-                    : tr.medical_info_deleted,
-              ),
-            ),
+          AppSnackbar.success(
+            message: action == MedicalActionResult.saved
+                ? tr.medical_info_saved
+                : tr.medical_info_deleted,
           );
           _cubit.clearMedicalAction();
           return;
         }
         if (state.medicalFailure != null) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(state.medicalFailure!.localizedMessage(context))),
+          AppSnackbar.failure(
+            message: state.medicalFailure!.localizedMessage(context),
           );
           return;
         }
 
         // Hard failure (e.g. delete product failed, or load failed on retry).
         if (state.failure != null) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(state.failure!.localizedMessage(context))),
+          AppSnackbar.failure(
+            message: state.failure!.localizedMessage(context),
           );
         }
       },
@@ -212,6 +239,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen>
                       ),
                       child: TabBar(
                         controller: _tabController,
+                        isScrollable: true,
+                        tabAlignment: TabAlignment.start,
                         indicatorColor: context.primary,
                         indicatorSize: TabBarIndicatorSize.label,
                         indicatorWeight: 3,
@@ -225,6 +254,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen>
                           Tab(text: tr.detail_tab_overview),
                           Tab(text: tr.detail_tab_batches),
                           Tab(text: tr.detail_tab_medical),
+                          Tab(text: tr.detail_tab_movements),
                         ],
                       ),
                     ),
@@ -234,19 +264,41 @@ class _ProductDetailScreenState extends State<ProductDetailScreen>
                         controller: _tabController,
                         children: [
                           OverviewTab(product: product),
-                          BatchesTab(batches: state.batches, onAddBatch: () {}),
+                          BatchesTab(
+                            batches: state.batches,
+                            mutatingBatchId: state.mutatingBatchId,
+                            onAddBatch: () => _openAddBatchSheet(product.id),
+                            onMarkExpired: (batchId) =>
+                                _cubit.markBatchExpired(batchId),
+                          ),
                           MedicalInfoTab(
                             medicalInfo: state.medicalInfo,
-                            onAdd: () => context.push(
-                              AppRoutesKeys.medicalInfoEditWith(product.id),
-                              extra: state.medicalInfo,
-                            ),
-                            onEdit: () => context.push(
-                              AppRoutesKeys.medicalInfoEditWith(product.id),
-                              extra: state.medicalInfo,
-                            ),
+                            onAdd: () async {
+                              await context.push(
+                                AppRoutesKeys.medicalInfoEditWith(product.id),
+                                extra: state.medicalInfo,
+                              );
+                              if (context.mounted) {
+                                _cubit.reloadMedicalInfo(widget.productId);
+                              }
+                            },
+                            onEdit: () async {
+                              await context.push(
+                                AppRoutesKeys.medicalInfoEditWith(product.id),
+                                extra: state.medicalInfo,
+                              );
+                              if (context.mounted) {
+                                _cubit.reloadMedicalInfo(widget.productId);
+                              }
+                            },
                             onDelete: _confirmDeleteMedicalInfo,
                             isDeleting: state.isMedicalDeleting,
+                          ),
+                          StockMovementsTab(
+                            movements: state.movements,
+                            isLoading: state.isMovementsLoading,
+                            onRetry: () =>
+                                _cubit.reloadStockMovements(widget.productId),
                           ),
                         ],
                       ),

@@ -3,6 +3,7 @@ import 'package:pharmacy_app/core/error/failure.dart';
 import 'package:pharmacy_app/features/inventory/data/models/base_unit_model.dart';
 import 'package:pharmacy_app/features/inventory/data/models/company_model.dart';
 import 'package:pharmacy_app/features/inventory/data/models/inventory_products_page.dart';
+import 'package:pharmacy_app/features/inventory/data/models/product_card_model.dart';
 import 'package:pharmacy_app/features/inventory/data/models/product_category.dart';
 
 abstract class InventoryRepository {
@@ -34,6 +35,14 @@ abstract class InventoryRepository {
 
   Future<Either<Failure, List<CompanyModel>>> fetchCompanies({
     String? search,
+    int perPage,
+  });
+
+  /// Products at or below their min-stock threshold, ordered by total quantity
+  /// ascending. Maps to the backend `GET /products/low-stock` (returns
+  /// `ProductCardResource` with `stock_status`, `total_quantity`, `min_stock`).
+  Future<Either<Failure, List<ProductCardModel>>> fetchLowStock({
+    String? severity,
     int perPage,
   });
 }

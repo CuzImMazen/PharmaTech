@@ -7,6 +7,7 @@ import 'package:pharmacy_app/core/widgets/custom_button.dart';
 import 'package:pharmacy_app/core/widgets/custom_dropdown_field.dart';
 import 'package:pharmacy_app/core/widgets/custom_text_field.dart';
 import 'package:pharmacy_app/core/widgets/form_section_card.dart';
+import 'package:pharmacy_app/core/utils/messages/snackbar.dart';
 import 'package:pharmacy_app/features/inventory/cubit/product_form/product_form_cubit.dart';
 import 'package:pharmacy_app/features/inventory/cubit/product_form/product_form_state.dart';
 import 'package:pharmacy_app/features/inventory/data/models/product_detail_model.dart';
@@ -58,6 +59,27 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
     _minStock = TextEditingController(text: e == null ? '' : '${e.minStock}');
     _unitsPerBase = TextEditingController(text: e == null ? '' : '${e.unitsPerBase}');
     _shelf = TextEditingController(text: e?.shelf ?? '');
+  }
+
+  bool _seededExisting = false;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // Pre-select the saved base/selling units when editing. Runs once after the
+    // cubit is available; the seeded instance matches the options list by id
+    // (BaseUnitModel has id-based equality).
+    if (_seededExisting) return;
+    final e = widget.existing;
+    if (e == null) {
+      _seededExisting = true;
+      return;
+    }
+    _seededExisting = true;
+    context.read<ProductFormCubit>().seedExistingUnits(
+      baseUnit: e.baseUnit,
+      sellingUnit: e.sellingUnit,
+    );
   }
 
   @override
@@ -127,8 +149,8 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
       listenWhen: (p, c) => p.failure != c.failure || (!p.saved && c.saved),
       listener: (context, state) {
         if (state.saved) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(isEdit ? tr.product_saved : tr.product_created)),
+          AppSnackbar.success(
+            message: isEdit ? tr.product_saved : tr.product_created,
           );
           // The detail screen owns the ProductDetailCubit (not in scope across
           // a pushed route); pop with a result so it can reload on return.
@@ -136,8 +158,8 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
           return;
         }
         if (state.failure != null) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(state.failure!.localizedMessage(context))),
+          AppSnackbar.failure(
+            message: state.failure!.localizedMessage(context),
           );
           context.read<ProductFormCubit>().clearFailure();
         }
@@ -155,7 +177,8 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
             builder: (context, state) {
               if (state.isOptionsLoading &&
                   state.categories.isEmpty &&
-                  state.units.isEmpty &&
+                  state.baseUnits.isEmpty &&
+                  state.sellingUnits.isEmpty &&
                   state.companies.isEmpty) {
                 return const Center(child: CircularProgressIndicator());
               }
@@ -260,30 +283,31 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
                                 CustomDropdownField(
                                   labelText: tr.product_form_base_unit,
                                   hintText: tr.product_form_optional_hint,
-                                  items: state.units,
+                                  items: state.baseUnits,
                                   itemLabel: (u) => u.name,
                                   value: state.selectedBaseUnit,
                                   onChanged:
                                       context.read<ProductFormCubit>().selectBaseUnit,
                                   isLoading: state.isOptionsLoading,
-                                  hasError: state.hasUnitsError,
+                                  hasError: state.hasBaseUnitsError,
                                   onRetry: () =>
-                                      context.read<ProductFormCubit>().reloadUnits(),
+                                      context.read<ProductFormCubit>().reloadBaseUnits(),
                                 ),
                                 context.vMd,
                                 CustomDropdownField(
                                   labelText: tr.product_form_selling_unit,
                                   hintText: tr.product_form_optional_hint,
-                                  items: state.units,
+                                  items: state.sellingUnits,
                                   itemLabel: (u) => u.name,
                                   value: state.selectedSellingUnit,
                                   onChanged: context
                                       .read<ProductFormCubit>()
                                       .selectSellingUnit,
                                   isLoading: state.isOptionsLoading,
-                                  hasError: state.hasUnitsError,
-                                  onRetry: () =>
-                                      context.read<ProductFormCubit>().reloadUnits(),
+                                  hasError: state.hasSellingUnitsError,
+                                  onRetry: () => context
+                                      .read<ProductFormCubit>()
+                                      .reloadSellingUnits(),
                                 ),
                               ],
                             ),

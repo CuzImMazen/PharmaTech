@@ -2,21 +2,32 @@ import 'package:flutter/material.dart';
 import 'package:pharmacy_app/core/extensions/app_design_system_ext.dart';
 import 'package:pharmacy_app/core/extensions/localization_ext.dart';
 import 'package:pharmacy_app/core/theme/app_colors.dart';
+import 'package:pharmacy_app/core/utils/helpers/date_formatter.dart';
 import 'package:pharmacy_app/features/inventory/data/models/stock_batch_model.dart';
 
 /// A single batch card used in the Batches tab.
 ///
 /// Top section: a status pill (leading) + batch id / received date stacked
 /// (trailing). Bottom section: a 2×2 grid of label/value cells separated by a
-/// horizontal and a vertical divider (forming a cross).
+/// horizontal and a vertical divider (forming a cross). An active batch shows a
+/// "mark expired" action in the header.
 class BatchCard extends StatelessWidget {
-  const BatchCard({super.key, required this.batch});
+  const BatchCard({
+    super.key,
+    required this.batch,
+    this.onMarkExpired,
+    this.isMutating = false,
+  });
 
   final StockBatchModel batch;
+  final VoidCallback? onMarkExpired;
+  final bool isMutating;
 
   @override
   Widget build(BuildContext context) {
     final tr = context.tr;
+    final canExpire =
+        batch.status == StockBatchStatus.active && batch.quantityOnHand > 0;
 
     return Container(
       width: double.infinity,
@@ -31,11 +42,12 @@ class BatchCard extends StatelessWidget {
       ),
       child: Column(
         children: [
-          // Top section: status pill (start) + id/date (end).
+          // Top section: status pill (start) + batch number/date (end).
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _BatchStatusPill(status: batch.status),
+              SizedBox(width: context.sSm),
               const Spacer(),
               Expanded(
                 child: Column(
@@ -43,19 +55,22 @@ class BatchCard extends StatelessWidget {
                   children: [
                     Directionality(
                       textDirection: TextDirection.ltr,
-                      child: Text(
-                        '#${batch.id} · ${batch.batchNumber}',
-                        style: context.text.titleSmall?.copyWith(
-                          fontWeight: FontWeight.bold,
+                      child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        alignment: Alignment.centerRight,
+                        child: Text(
+                          batch.batchNumber,
+                          style: context.text.titleSmall?.copyWith(
+                            fontWeight: FontWeight.bold,
+                          ),
+                          maxLines: 1,
+                          textAlign: TextAlign.end,
                         ),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        textAlign: TextAlign.end,
                       ),
                     ),
                     SizedBox(height: context.sXs),
                     Text(
-                      batch.receivedAt,
+                      '#${batch.id} · ${DateFormatter.toDateOnly(batch.receivedAt) ?? batch.receivedAt}',
                       style: context.text.labelSmall?.copyWith(
                         color: context.muted,
                       ),
@@ -66,6 +81,13 @@ class BatchCard extends StatelessWidget {
                   ],
                 ),
               ),
+              if (canExpire || isMutating) ...[
+                SizedBox(width: context.sMd),
+                _MarkExpiredButton(
+                  onTap: isMutating ? null : onMarkExpired,
+                  isMutating: isMutating,
+                ),
+              ],
             ],
           ),
           SizedBox(height: context.sMd),
@@ -95,7 +117,8 @@ class BatchCard extends StatelessWidget {
                 Expanded(
                   child: _GridCell(
                     label: tr.detail_expiry,
-                    value: batch.expiryDate ?? tr.detail_not_available,
+                    value: DateFormatter.toDateOnly(batch.expiryDate) ??
+                        tr.detail_not_available,
                     ltrValue: true,
                   ),
                 ),
@@ -140,6 +163,50 @@ class BatchCard extends StatelessWidget {
   }
 }
 
+class _MarkExpiredButton extends StatelessWidget {
+  const _MarkExpiredButton({this.onTap, required this.isMutating});
+
+  final VoidCallback? onTap;
+  final bool isMutating;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: context.iLg,
+      height: context.iLg,
+      child: Material(
+        color: AppColors.cozyRed.withAlpha(25),
+        shape: RoundedRectangleBorder(
+          borderRadius: context.rMd,
+          side: BorderSide(color: AppColors.cozyRed.withAlpha(90)),
+        ),
+        child: InkWell(
+          customBorder: RoundedRectangleBorder(
+            borderRadius: context.rMd,
+          ),
+          onTap: onTap,
+          child: Center(
+            child: isMutating
+                ? SizedBox(
+                    width: 16,
+                    height: 16,
+                    child: CircularProgressIndicator(
+                      strokeWidth: 2,
+                      color: AppColors.cozyRed,
+                    ),
+                  )
+                : Icon(
+                    Icons.event_busy_outlined,
+                    size: context.iSm,
+                    color: AppColors.cozyRed,
+                  ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 class _GridCell extends StatelessWidget {
   const _GridCell({
     required this.label,
@@ -155,14 +222,17 @@ class _GridCell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final valueText = Text(
-      value,
-      style: context.text.titleSmall?.copyWith(
-        color: accent ? context.primary : context.colors.onSurface,
-        fontWeight: FontWeight.bold,
+    final valueText = FittedBox(
+      fit: BoxFit.scaleDown,
+      alignment: Alignment.centerLeft,
+      child: Text(
+        value,
+        style: context.text.titleSmall?.copyWith(
+          color: accent ? context.primary : context.colors.onSurface,
+          fontWeight: FontWeight.bold,
+        ),
+        maxLines: 1,
       ),
-      maxLines: 1,
-      overflow: TextOverflow.ellipsis,
     );
 
     return Padding(
@@ -177,6 +247,8 @@ class _GridCell extends StatelessWidget {
           Text(
             label,
             style: context.text.labelSmall?.copyWith(color: context.muted),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
           ),
           SizedBox(height: context.sXs),
           ltrValue

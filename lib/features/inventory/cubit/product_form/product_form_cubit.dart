@@ -19,22 +19,25 @@ class ProductFormCubit extends Cubit<ProductFormState> {
   final ProductDetailRepository productDetailRepository;
   final InventoryRepository inventoryRepository;
 
-  /// Loads categories, units, companies concurrently. Each section tracks its
-  /// own error flag so the dropdown can show a per-field retry affordance.
+  /// Loads categories, base/selling units, and companies concurrently. Each
+  /// section tracks its own error flag so the dropdown can show a per-field
+  /// retry affordance.
   Future<void> loadOptions() async {
     if (isClosed) return;
     emit(
       state.copyWith(
         isOptionsLoading: true,
         hasCategoriesError: false,
-        hasUnitsError: false,
+        hasBaseUnitsError: false,
+        hasSellingUnitsError: false,
         hasCompaniesError: false,
       ),
     );
 
     await Future.wait([
       _loadCategories(),
-      _loadUnits(),
+      _loadBaseUnits(),
+      _loadSellingUnits(),
       _loadCompanies(),
     ]);
 
@@ -43,7 +46,8 @@ class ProductFormCubit extends Cubit<ProductFormState> {
   }
 
   Future<void> reloadCategories() => _loadCategories();
-  Future<void> reloadUnits() => _loadUnits();
+  Future<void> reloadBaseUnits() => _loadBaseUnits();
+  Future<void> reloadSellingUnits() => _loadSellingUnits();
   Future<void> reloadCompanies() => _loadCompanies();
 
   Future<void> _loadCategories() async {
@@ -57,17 +61,34 @@ class ProductFormCubit extends Cubit<ProductFormState> {
     );
   }
 
-  Future<void> _loadUnits() async {
+  /// Base unit = `unit` type (Tablet, Capsule, Ml, Mg… the atomic unit stock
+  /// is counted in).
+  Future<void> _loadBaseUnits() async {
     if (isClosed) return;
-    emit(state.copyWith(hasUnitsError: false));
+    emit(state.copyWith(hasBaseUnitsError: false));
+    final result = await inventoryRepository.fetchUnits(
+      perPage: 200,
+      type: 'unit',
+    );
+    if (isClosed) return;
+    result.fold(
+      (_) => emit(state.copyWith(hasBaseUnitsError: true)),
+      (items) => emit(state.copyWith(baseUnits: items)),
+    );
+  }
+
+  /// Selling unit = `packaging` type (Box, Bottle, Vial… the pack sold).
+  Future<void> _loadSellingUnits() async {
+    if (isClosed) return;
+    emit(state.copyWith(hasSellingUnitsError: false));
     final result = await inventoryRepository.fetchUnits(
       perPage: 200,
       type: 'packaging',
     );
     if (isClosed) return;
     result.fold(
-      (_) => emit(state.copyWith(hasUnitsError: true)),
-      (items) => emit(state.copyWith(units: items)),
+      (_) => emit(state.copyWith(hasSellingUnitsError: true)),
+      (items) => emit(state.copyWith(sellingUnits: items)),
     );
   }
 
@@ -92,6 +113,24 @@ class ProductFormCubit extends Cubit<ProductFormState> {
 
   void selectSellingUnit(BaseUnitModel? unit) =>
       emit(state.copyWith(selectedSellingUnit: unit));
+
+  /// Pre-seeds the base/selling unit selections from an existing product when
+  /// editing. Called from the screen's `initState` (before options load).
+  /// `BaseUnitModel` has id-based equality so the dropdown matches the seeded
+  /// instance against the freshly-fetched options list.
+  void seedExistingUnits({
+    BaseUnitModel? baseUnit,
+    BaseUnitModel? sellingUnit,
+  }) {
+    if (isClosed) return;
+    if (baseUnit == null && sellingUnit == null) return;
+    emit(
+      state.copyWith(
+        selectedBaseUnit: baseUnit ?? state.selectedBaseUnit,
+        selectedSellingUnit: sellingUnit ?? state.selectedSellingUnit,
+      ),
+    );
+  }
 
   void selectCompany(CompanyModel? company) =>
       emit(state.copyWith(selectedCompany: company));

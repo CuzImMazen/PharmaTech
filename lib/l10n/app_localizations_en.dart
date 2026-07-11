@@ -708,6 +708,68 @@ class AppLocalizationsEn extends AppLocalizations {
   String get detail_batch_selling_price => 'Selling Price';
 
   @override
+  String get detail_batch_added => 'Batch added successfully.';
+
+  @override
+  String get detail_batch_marked_expired => 'Batch marked as expired.';
+
+  @override
+  String get detail_add_batch_title => 'Add New Batch';
+
+  @override
+  String get detail_add_batch_subtitle => 'Record a manual stock-in adjustment for this product.';
+
+  @override
+  String get detail_add_batch_section => 'Batch Details';
+
+  @override
+  String get detail_add_batch_section_sub => 'Quantity, pricing, and optional batch info';
+
+  @override
+  String get detail_add_batch_notes => 'Notes';
+
+  @override
+  String get detail_tab_movements => 'Movements';
+
+  @override
+  String get detail_no_movements => 'No stock movements yet.';
+
+  @override
+  String get movement_purchase_in => 'Purchase In';
+
+  @override
+  String get movement_customer_return_in => 'Customer Return In';
+
+  @override
+  String get movement_adjustment_in => 'Adjustment In';
+
+  @override
+  String get movement_sale_out => 'Sale Out';
+
+  @override
+  String get movement_supplier_return_out => 'Supplier Return Out';
+
+  @override
+  String get movement_adjustment_out => 'Adjustment Out';
+
+  @override
+  String get movement_expiry_out => 'Expiry Out';
+
+  @override
+  String get stock_alerts_loading => 'Loading stock alerts…';
+
+  @override
+  String get stock_alerts_error => 'Couldn\'t load stock alerts.';
+
+  @override
+  String get stock_alerts_empty => 'All products are well stocked.';
+
+  @override
+  String stock_alerts_count(int count) {
+    return '$count low-stock items';
+  }
+
+  @override
   String get detail_batch_status_active => 'Active';
 
   @override

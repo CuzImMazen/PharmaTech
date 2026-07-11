@@ -29,6 +29,13 @@ class ApiRoutes {
 
   // All stock batches (any status) for a product — `?product_id={id}`.
   static const String stockBatches = '/stock-batches';
+  static String markBatchExpired(int id) => '$stockBatches/$id/mark-expired';
+
+  // Stock movements history — `?product_id={id}`.
+  static const String stockMovements = '/stock-movements';
+
+  // Manual stock adjustments (add/remove a batch) — POST.
+  static const String stockAdjustments = '/stock-adjustments';
 
   static const String governorates = '/governorates';
   static const String cities = '/cities';

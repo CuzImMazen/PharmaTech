@@ -117,4 +117,23 @@ class DioApiHelper {
       ),
     );
   }
+
+  // ================= PATCH ================= //
+
+  Future<Response> patch(
+    String path, {
+    dynamic data,
+    Map<String, dynamic>? queryParameters,
+    Options? options,
+    bool skipAuth = false,
+  }) {
+    return _dio.patch(
+      path,
+      data: data,
+      queryParameters: queryParameters,
+      options: (options ?? Options()).copyWith(
+        extra: {...?options?.extra, 'skipAuth': skipAuth},
+      ),
+    );
+  }
 }

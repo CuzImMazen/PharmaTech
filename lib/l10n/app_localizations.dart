@@ -1481,6 +1481,126 @@ abstract class AppLocalizations {
   /// **'Selling Price'**
   String get detail_batch_selling_price;
 
+  /// No description provided for @detail_batch_added.
+  ///
+  /// In en, this message translates to:
+  /// **'Batch added successfully.'**
+  String get detail_batch_added;
+
+  /// No description provided for @detail_batch_marked_expired.
+  ///
+  /// In en, this message translates to:
+  /// **'Batch marked as expired.'**
+  String get detail_batch_marked_expired;
+
+  /// No description provided for @detail_add_batch_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Add New Batch'**
+  String get detail_add_batch_title;
+
+  /// No description provided for @detail_add_batch_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Record a manual stock-in adjustment for this product.'**
+  String get detail_add_batch_subtitle;
+
+  /// No description provided for @detail_add_batch_section.
+  ///
+  /// In en, this message translates to:
+  /// **'Batch Details'**
+  String get detail_add_batch_section;
+
+  /// No description provided for @detail_add_batch_section_sub.
+  ///
+  /// In en, this message translates to:
+  /// **'Quantity, pricing, and optional batch info'**
+  String get detail_add_batch_section_sub;
+
+  /// No description provided for @detail_add_batch_notes.
+  ///
+  /// In en, this message translates to:
+  /// **'Notes'**
+  String get detail_add_batch_notes;
+
+  /// No description provided for @detail_tab_movements.
+  ///
+  /// In en, this message translates to:
+  /// **'Movements'**
+  String get detail_tab_movements;
+
+  /// No description provided for @detail_no_movements.
+  ///
+  /// In en, this message translates to:
+  /// **'No stock movements yet.'**
+  String get detail_no_movements;
+
+  /// No description provided for @movement_purchase_in.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase In'**
+  String get movement_purchase_in;
+
+  /// No description provided for @movement_customer_return_in.
+  ///
+  /// In en, this message translates to:
+  /// **'Customer Return In'**
+  String get movement_customer_return_in;
+
+  /// No description provided for @movement_adjustment_in.
+  ///
+  /// In en, this message translates to:
+  /// **'Adjustment In'**
+  String get movement_adjustment_in;
+
+  /// No description provided for @movement_sale_out.
+  ///
+  /// In en, this message translates to:
+  /// **'Sale Out'**
+  String get movement_sale_out;
+
+  /// No description provided for @movement_supplier_return_out.
+  ///
+  /// In en, this message translates to:
+  /// **'Supplier Return Out'**
+  String get movement_supplier_return_out;
+
+  /// No description provided for @movement_adjustment_out.
+  ///
+  /// In en, this message translates to:
+  /// **'Adjustment Out'**
+  String get movement_adjustment_out;
+
+  /// No description provided for @movement_expiry_out.
+  ///
+  /// In en, this message translates to:
+  /// **'Expiry Out'**
+  String get movement_expiry_out;
+
+  /// No description provided for @stock_alerts_loading.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading stock alerts…'**
+  String get stock_alerts_loading;
+
+  /// No description provided for @stock_alerts_error.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t load stock alerts.'**
+  String get stock_alerts_error;
+
+  /// No description provided for @stock_alerts_empty.
+  ///
+  /// In en, this message translates to:
+  /// **'All products are well stocked.'**
+  String get stock_alerts_empty;
+
+  /// No description provided for @stock_alerts_count.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} low-stock items'**
+  String stock_alerts_count(int count);
+
   /// No description provided for @detail_batch_status_active.
   ///
   /// In en, this message translates to:
