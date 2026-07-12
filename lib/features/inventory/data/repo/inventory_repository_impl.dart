@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
 import 'package:pharmacy_app/core/error/api_error_handler.dart';
 import 'package:pharmacy_app/core/error/failure.dart';
 import 'package:pharmacy_app/core/network/api_parser.dart';
@@ -9,6 +10,7 @@ import 'package:pharmacy_app/features/inventory/data/models/company_model.dart';
 import 'package:pharmacy_app/features/inventory/data/models/inventory_products_page.dart';
 import 'package:pharmacy_app/features/inventory/data/models/product_category.dart';
 import 'package:pharmacy_app/features/inventory/data/models/product_card_model.dart';
+import 'package:pharmacy_app/features/inventory/data/models/product_detail_model.dart';
 
 import 'inventory_repository.dart';
 
@@ -28,6 +30,7 @@ class InventoryRepositoryImpl implements InventoryRepository {
     String? sortBy,
     String? stockStatus,
     bool inStockOnly = false,
+    bool withTrashed = false,
     num? minPrice,
     num? maxPrice,
     int page = 1,
@@ -46,6 +49,7 @@ class InventoryRepositoryImpl implements InventoryRepository {
         'sort_by': sortBy,
         'stock_status': stockStatus,
         'in_stock': inStockOnly ? 1 : null,
+        'with_trashed': withTrashed ? 1 : null,
         'min_price': minPrice,
         'max_price': maxPrice,
         'page': page,
@@ -187,6 +191,31 @@ class InventoryRepositoryImpl implements InventoryRepository {
       );
 
       return Right(products);
+    } catch (e) {
+      return Left(ApiErrorHandler.handle(e));
+    }
+  }
+
+  @override
+  Future<Either<Failure, ProductDetailModel?>> lookupByBarcode(
+    String barcode,
+  ) async {
+    try {
+      final response = await api.get(ApiRoutes.productByBarcode(barcode));
+      final product = ApiParser.parseWrapped(
+        response.data,
+        'data',
+        ProductDetailModel.fromJson,
+      );
+      return Right(product);
+    } on DioException catch (e) {
+      // A 404 means "no product matches this barcode" — a valid not-found
+      // outcome, not an error. The backend's not-found body is a plain
+      // `{message}` (not the global 404 shape).
+      if (e.response?.statusCode == 404) {
+        return const Right(null);
+      }
+      return Left(ApiErrorHandler.handle(e));
     } catch (e) {
       return Left(ApiErrorHandler.handle(e));
     }

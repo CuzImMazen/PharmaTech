@@ -10,8 +10,9 @@ part 'product_detail_state.freezed.dart';
 /// Outcome of a medical-info mutation, surfaced to the UI via BlocListener.
 enum MedicalActionResult { saved, deleted }
 
-/// Outcome of a batch mutation (mark-expired / add), surfaced via BlocListener.
-enum BatchActionResult { markedExpired, added }
+/// Outcome of a batch mutation (mark-expired / add / remove), surfaced via
+/// BlocListener.
+enum BatchActionResult { markedExpired, added, removed }
 
 @freezed
 abstract class ProductDetailState with _$ProductDetailState {
@@ -31,6 +32,11 @@ abstract class ProductDetailState with _$ProductDetailState {
     // Transient signal set after a successful product delete so the screen's
     // BlocListener can pop back to the inventory. Null otherwise.
     @Default(false) bool isProductDeleted,
+    // ---- Product restore (soft-delete) ----
+    @Default(false) bool isProductRestoring,
+    // Transient signal set after a successful product restore so the screen's
+    // BlocListener can react. False otherwise.
+    @Default(false) bool isProductRestored,
     // Set on a failed mutation; cleared on the next successful one. The UI
     // shows it via a BlocListener then it is ignored until it changes again.
     Failure? medicalFailure,
@@ -42,6 +48,7 @@ abstract class ProductDetailState with _$ProductDetailState {
     // can show a spinner on its action. Null when none.
     int? mutatingBatchId,
     @Default(false) bool isAddingBatch,
+    @Default(false) bool isRemovingBatch,
     BatchActionResult? lastBatchAction,
     Failure? batchFailure,
     Failure? movementsFailure,

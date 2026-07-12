@@ -5,6 +5,7 @@ import 'package:pharmacy_app/features/inventory/data/models/company_model.dart';
 import 'package:pharmacy_app/features/inventory/data/models/inventory_products_page.dart';
 import 'package:pharmacy_app/features/inventory/data/models/product_card_model.dart';
 import 'package:pharmacy_app/features/inventory/data/models/product_category.dart';
+import 'package:pharmacy_app/features/inventory/data/models/product_detail_model.dart';
 
 abstract class InventoryRepository {
   Future<Either<Failure, InventoryProductsPage>> fetchProducts({
@@ -17,6 +18,7 @@ abstract class InventoryRepository {
     String? sortBy,
     String? stockStatus,
     bool inStockOnly = false,
+    bool withTrashed = false,
     num? minPrice,
     num? maxPrice,
     int page,
@@ -45,4 +47,10 @@ abstract class InventoryRepository {
     String? severity,
     int perPage,
   });
+
+  /// Looks up a product by barcode (`GET /products/barcode/{barcode}`). Returns
+  /// `null` when not found — a 404 is a valid "not found" outcome, not an
+  /// error. Soft-deleted products are excluded by the backend (also 404).
+  /// Other failures surface as `Left`.
+  Future<Either<Failure, ProductDetailModel?>> lookupByBarcode(String barcode);
 }

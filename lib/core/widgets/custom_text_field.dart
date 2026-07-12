@@ -9,6 +9,7 @@ class CustomTextField extends StatefulWidget {
     required this.hintText,
     required this.labelText,
     this.prefixIcon,
+    this.suffixIcon,
     this.isPassword = false,
     this.isEmail = false,
     this.validator,
@@ -30,6 +31,11 @@ class CustomTextField extends StatefulWidget {
   final String hintText;
   final String labelText;
   final IconData? prefixIcon;
+
+  /// Optional trailing widget inside the field (e.g. a scan button). Ignored
+  /// when [isPassword] is true (the visibility toggle takes precedence).
+  final Widget? suffixIcon;
+
   final bool isPassword;
   final bool isEmail;
   final String? Function(String?)? validator;
@@ -145,7 +151,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                           ? () => setState(() => _obscureText = !_obscureText)
                           : null,
                     )
-                  : null,
+                  : widget.suffixIcon,
               contentPadding: const EdgeInsets.symmetric(
                 horizontal: 16,
                 vertical: 18,

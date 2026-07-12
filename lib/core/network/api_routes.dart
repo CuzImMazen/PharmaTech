@@ -26,6 +26,9 @@ class ApiRoutes {
   static String productDetail(int id) => '$products/$id';
   static String productBatches(int id) => '$products/$id/batches/available';
   static String productMedicalInfo(int id) => '$products/$id/medical-info';
+  static String productRestore(int id) => '$products/$id/restore';
+  static String productByBarcode(String barcode) =>
+      '$products/barcode/${Uri.encodeComponent(barcode)}';
 
   // All stock batches (any status) for a product — `?product_id={id}`.
   static const String stockBatches = '/stock-batches';

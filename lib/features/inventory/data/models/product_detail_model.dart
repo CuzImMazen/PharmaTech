@@ -39,6 +39,7 @@ class ProductDetailModel {
     this.sellingUnit,
     this.company,
     this.medicalInfo,
+    this.deletedAt,
   });
 
   final int id;
@@ -99,6 +100,14 @@ class ProductDetailModel {
   final ProductMedicalInfoModel? medicalInfo;
 
   final ProductCategoryModel category;
+
+  /// ISO-8601 timestamp when the product is soft-deleted, else null. The
+  /// backend `ProductResource` exposes `deleted_at`; `ProductCardResource`
+  /// (list endpoint) does not.
+  @JsonKey(name: 'deleted_at')
+  final String? deletedAt;
+
+  bool get isDeleted => deletedAt != null;
 
   factory ProductDetailModel.fromJson(Map<String, dynamic> json) =>
       _$ProductDetailModelFromJson(json);

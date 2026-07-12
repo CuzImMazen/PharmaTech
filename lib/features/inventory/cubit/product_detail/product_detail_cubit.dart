@@ -188,6 +188,48 @@ class ProductDetailCubit extends Cubit<ProductDetailState> {
     }
   }
 
+  /// Restores a soft-deleted product. On success emits a transient
+  /// `isProductRestored` signal so the screen's BlocListener can show a
+  /// snackbar and pop back to the inventory (where the restored product
+  /// reappears in the list).
+  Future<void> restoreProduct(int productId) async {
+    if (isClosed) return;
+    emit(
+      state.copyWith(
+        isProductRestoring: true,
+        isProductRestored: false,
+        failure: null,
+      ),
+    );
+    final result = await repository.restoreProduct(productId);
+    if (isClosed) return;
+    result.fold(
+      (failure) => emit(
+        state.copyWith(
+          isProductRestoring: false,
+          isProductRestored: false,
+          failure: failure,
+        ),
+      ),
+      (restoredProduct) => emit(
+        state.copyWith(
+          isProductRestoring: false,
+          isProductRestored: true,
+          product: restoredProduct,
+          failure: null,
+        ),
+      ),
+    );
+  }
+
+  /// Clears the transient restore signal after the UI has reacted.
+  void clearProductRestored() {
+    if (isClosed) return;
+    if (state.isProductRestored) {
+      emit(state.copyWith(isProductRestored: false));
+    }
+  }
+
   /// Re-fetches only the medical info (used after the form closes).
   Future<void> reloadMedicalInfo(int productId) async {
     if (isClosed) return;
@@ -327,6 +369,49 @@ class ProductDetailCubit extends Cubit<ProductDetailState> {
           ),
         );
         // Refresh the movements history so the new adjustment_in shows up.
+        unawaited(reloadStockMovements(batch.productId));
+      },
+    );
+  }
+
+  /// Records a manual stock-out adjustment for a batch. On success replaces
+  /// the affected batch in [state.batches] (its on-hand quantity drops, and it
+  /// becomes `depleted` when it reaches 0), re-sorts available-first, and
+  /// signals the UI. [body] is the snake_case payload (without
+  /// `adjustment_type`, which is added here). The backend validates that the
+  /// batch belongs to the product and has enough quantity — a 422 surfaces via
+  /// [batchFailure] with the localized backend message.
+  Future<void> removeStock(Map<String, dynamic> body) async {
+    if (isClosed) return;
+    emit(
+      state.copyWith(
+        isRemovingBatch: true,
+        batchFailure: null,
+        lastBatchAction: null,
+      ),
+    );
+    final result = await repository.removeStock({
+      'adjustment_type': 'remove',
+      ...body,
+    });
+    if (isClosed) return;
+    result.fold(
+      (failure) => emit(
+        state.copyWith(isRemovingBatch: false, batchFailure: failure),
+      ),
+      (batch) {
+        // Replace the affected batch by id (its quantity_on_hand dropped).
+        final updated = state.batches
+            .map((b) => b.id == batch.id ? batch : b)
+            .toList();
+        emit(
+          state.copyWith(
+            isRemovingBatch: false,
+            batches: _sortBatchesAvailableFirst(updated),
+            lastBatchAction: BatchActionResult.removed,
+          ),
+        );
+        // Refresh the movements history so the new adjustment_out shows up.
         unawaited(reloadStockMovements(batch.productId));
       },
     );

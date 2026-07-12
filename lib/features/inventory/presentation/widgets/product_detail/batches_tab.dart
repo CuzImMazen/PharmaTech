@@ -14,6 +14,7 @@ class BatchesTab extends StatelessWidget {
     this.mutatingBatchId,
     this.onAddBatch,
     this.onMarkExpired,
+    this.onRemoveStock,
   });
 
   final List<StockBatchModel> batches;
@@ -26,6 +27,9 @@ class BatchesTab extends StatelessWidget {
   /// Called with a batch id when the user marks a batch expired.
   final ValueChanged<int>? onMarkExpired;
 
+  /// Opens the Remove Stock screen (manual stock-out adjustment).
+  final VoidCallback? onRemoveStock;
+
   @override
   Widget build(BuildContext context) {
     final tr = context.tr;
@@ -33,16 +37,21 @@ class BatchesTab extends StatelessWidget {
     return ListView(
       padding: context.pScreen,
       children: [
-        // Header row: add button (start) + count (end).
-        Row(
+        // Header: add/remove buttons on the first line, count on the second.
+        // Stacked (not a single Row with a Spacer) so the buttons never
+        // overflow on narrow screens or with long localized labels.
+        Wrap(
+          spacing: context.sSm,
+          runSpacing: context.sSm,
           children: [
             _AddBatchButton(onTap: onAddBatch),
-            const Spacer(),
-            Text(
-              tr.detail_batches_count(batches.length),
-              style: context.text.labelMedium?.copyWith(color: context.muted),
-            ),
+            _RemoveStockButton(onTap: onRemoveStock),
           ],
+        ),
+        context.vXs,
+        Text(
+          tr.detail_batches_count(batches.length),
+          style: context.text.labelMedium?.copyWith(color: context.muted),
         ),
         context.vMd,
         if (batches.isEmpty)
@@ -95,6 +104,49 @@ class _AddBatchButton extends StatelessWidget {
                 tr.detail_add_batch,
                 style: context.text.labelLarge?.copyWith(
                   color: context.primary,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _RemoveStockButton extends StatelessWidget {
+  const _RemoveStockButton({this.onTap});
+
+  final VoidCallback? onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final tr = context.tr;
+    final color = Theme.of(context).colorScheme.error;
+    return Material(
+      color: Colors.transparent,
+      shape: RoundedRectangleBorder(
+        borderRadius: context.rLg,
+        side: BorderSide(color: color, width: 1.5),
+      ),
+      child: InkWell(
+        borderRadius: context.rLg,
+        onTap: onTap,
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: context.sMd,
+            vertical: context.sSm,
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(Icons.remove, size: context.iSm, color: color),
+              SizedBox(width: context.sXs),
+              Text(
+                tr.detail_remove_batch,
+                style: context.text.labelLarge?.copyWith(
+                  color: color,
                   fontWeight: FontWeight.bold,
                 ),
               ),

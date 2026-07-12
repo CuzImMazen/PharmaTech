@@ -56,10 +56,18 @@ import 'package:pharmacy_app/features/cash_boxes/cubit/cash_box_cubit.dart';
 import 'package:pharmacy_app/features/cash_boxes/data/repo/cash_box_repository.dart';
 import 'package:pharmacy_app/features/cash_boxes/presentation/screens/cash_box_screen.dart';
 
+import 'package:pharmacy_app/features/profile/cubit/profile_cubit.dart';
+import 'package:pharmacy_app/features/profile/presentation/screens/profile_screen.dart';
+import 'package:pharmacy_app/features/authentication/data/repo/auth_repository.dart';
+
 import 'package:pharmacy_app/features/supplier_debts/cubit/supplier_debt_cubit.dart';
 import 'package:pharmacy_app/features/supplier_debts/data/repo/supplier_debt_repository.dart';
 import 'package:pharmacy_app/features/supplier_debts/presentation/screens/supplier_debt_detail_screen.dart';
 import 'package:pharmacy_app/features/supplier_debts/presentation/screens/supplier_debts_screen.dart';
+
+import 'package:pharmacy_app/features/stock_adjustments/cubit/stock_adjustment_cubit.dart';
+import 'package:pharmacy_app/features/stock_adjustments/data/repo/stock_adjustment_repository.dart';
+import 'package:pharmacy_app/features/stock_adjustments/presentation/screens/stock_adjustments_screen.dart';
 
 import 'package:pharmacy_app/features/purchase_invoices/cubit/purchase_invoice_cubit.dart';
 import 'package:pharmacy_app/features/purchase_invoices/cubit/purchase_invoice_form_cubit.dart';
@@ -213,13 +221,18 @@ class AppRoutes {
     // Add product — must precede /product/:id so "add" isn't captured as an id.
     GoRoute(
       path: AppRoutesKeys.productAdd,
-      builder: (context, state) => BlocProvider(
-        create: (context) => ProductFormCubit(
-          productDetailRepository: sl<ProductDetailRepository>(),
-          inventoryRepository: sl(),
-        )..loadOptions(),
-        child: const ProductFormScreen(),
-      ),
+      builder: (context, state) {
+        final extra = state.extra;
+        final initialBarcode =
+            extra is Map<String, dynamic> ? extra['barcode'] as String? : null;
+        return BlocProvider(
+          create: (context) => ProductFormCubit(
+            productDetailRepository: sl<ProductDetailRepository>(),
+            inventoryRepository: sl(),
+          )..loadOptions(),
+          child: ProductFormScreen(initialBarcode: initialBarcode),
+        );
+      },
     ),
 
     // Medical info form (add/edit) — share the parent ProductDetailCubit so the
@@ -334,6 +347,19 @@ class AppRoutes {
     ),
 
     // =========================================================================
+    // 3.7.1 PROFILE (pushed over the nav shell; no bottom nav)
+    // =========================================================================
+
+    GoRoute(
+      path: AppRoutesKeys.profile,
+      builder: (context, state) => BlocProvider(
+        create: (context) =>
+            ProfileCubit(authRepository: sl<AuthRepository>())..load(),
+        child: const ProfileScreen(),
+      ),
+    ),
+
+    // =========================================================================
     // 3.8. SUPPLIER DEBTS (pushed over the nav shell; no bottom nav)
     // =========================================================================
 
@@ -358,7 +384,22 @@ class AppRoutes {
     ),
 
     // =========================================================================
-    // 3.9. PURCHASE INVOICES (pushed over the nav shell; no bottom nav)
+    // 3.9. STOCK ADJUSTMENTS LOG (pushed over the nav shell; no bottom nav)
+    // =========================================================================
+
+    // Adjustments log (read-only, pharmacy-wide manual stock corrections).
+    GoRoute(
+      path: AppRoutesKeys.adjustmentsList,
+      builder: (context, state) => BlocProvider(
+        create: (context) =>
+            StockAdjustmentCubit(repository: sl<StockAdjustmentRepository>())
+              ..loadAdjustments(),
+        child: const StockAdjustmentsScreen(),
+      ),
+    ),
+
+    // =========================================================================
+    // 3.10. PURCHASE INVOICES (pushed over the nav shell; no bottom nav)
     // =========================================================================
 
     // Invoices list — must precede /purchase-invoices/:id so "add" isn't an id.

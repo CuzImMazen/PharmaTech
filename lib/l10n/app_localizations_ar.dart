@@ -1070,6 +1070,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get settings_cash_box => 'الصندوق';
 
   @override
+  String get settings_stock_adjustments => 'تسويات المخزون';
+
+  @override
   String get cash_box_title => 'الصندوق النقدي';
 
   @override
@@ -1143,6 +1146,18 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get debts_filter_status => 'الحالة';
+
+  @override
+  String get stock_adjustments_title => 'تسويات المخزون';
+
+  @override
+  String get stock_adjustments_empty => 'لا توجد تسويات بعد.';
+
+  @override
+  String get stock_adjustments_empty_hint => 'ستظهر هنا التصحيحات اليدوية للمخزون التي تسجلها.';
+
+  @override
+  String get stock_adjustments_load_error => 'تعذّر تحميل تسويات المخزون حالياً.';
 
   @override
   String get debt_total_amount => 'إجمالي المبلغ';
@@ -1368,4 +1383,112 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get invoice_item_price_required => 'سعر الجملة مطلوب.';
+
+  @override
+  String get remove_stock => 'إزالة مخزون';
+
+  @override
+  String get remove_stock_title => 'إزالة مخزون';
+
+  @override
+  String get remove_stock_subtitle => 'سجّل خصمًا يدويًا من المخزون لهذا المنتج.';
+
+  @override
+  String get remove_stock_section => 'الدفعة والكمية';
+
+  @override
+  String get remove_stock_section_sub => 'اختر دفعة وكمية للإزالة';
+
+  @override
+  String get remove_stock_batch => 'الدفعة';
+
+  @override
+  String get remove_stock_quantity => 'الكمية المراد إزالتها';
+
+  @override
+  String get remove_stock_notes => 'ملاحظات';
+
+  @override
+  String get remove_stock_too_much => 'لا يمكن أن تتجاوز الكمية الكمية المتاحة في الدفعة.';
+
+  @override
+  String get remove_stock_no_batches => 'لا توجد دفعات بمخزون متاح.';
+
+  @override
+  String get stock_removed => 'تمت إزالة المخزون بنجاح.';
+
+  @override
+  String get detail_remove_batch => 'إزالة مخزون';
+
+  @override
+  String get inventory_show_deleted => 'إظهار المحذوفة';
+
+  @override
+  String get restore => 'استعادة';
+
+  @override
+  String get restore_product_title => 'استعادة المنتج';
+
+  @override
+  String get product_restore => 'استعادة';
+
+  @override
+  String get product_restore_confirm => 'استعادة هذا المنتج؟ سيعود متاحًا.';
+
+  @override
+  String get product_restored => 'تمت استعادة المنتج بنجاح.';
+
+  @override
+  String get product_deleted_pill => 'محذوف';
+
+  @override
+  String get profile => 'الملف الشخصي';
+
+  @override
+  String get profile_title => 'الملف الشخصي';
+
+  @override
+  String get profile_verified => 'موثّق';
+
+  @override
+  String get profile_not_verified => 'غير موثّق';
+
+  @override
+  String get profile_phone => 'الهاتف';
+
+  @override
+  String get profile_email => 'البريد الإلكتروني';
+
+  @override
+  String get profile_name => 'الاسم';
+
+  @override
+  String get profile_load_error => 'تعذّر تحميل الملف الشخصي.';
+
+  @override
+  String get scan => 'مسح';
+
+  @override
+  String get scan_barcode => 'مسح الباركود';
+
+  @override
+  String get scan_title => 'امسح باركود المنتج';
+
+  @override
+  String get scan_not_found => 'لم يتم العثور على المنتج';
+
+  @override
+  String get scan_not_found_offer_create => 'لا يوجد منتج بهذا الباركود. هل تريد إنشاء منتج جديد بهذا الباركود؟';
+
+  @override
+  String get scan_create => 'إنشاء منتج';
+
+  @override
+  String get scan_enter_manually => 'إدخال يدوي';
+
+  @override
+  String get scan_camera_permission_denied => 'تم رفض إذن الكاميرا. يمكنك إدخال الباركود يدويًا.';
+
+  @override
+  String get scan_looking_up => 'جارٍ البحث عن المنتج…';
 }

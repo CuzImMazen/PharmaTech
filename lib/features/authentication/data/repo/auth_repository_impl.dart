@@ -255,6 +255,19 @@ class AuthRepositoryImpl implements AuthRepository {
   // ================= USER PROFILE MANAGEMENT ================= //
 
   @override
+  Future<Either<Failure, UserModel>> fetchUser() async {
+    try {
+      // GET /user returns the RAW User model (NOT wrapped under `data`).
+      final response = await api.get(ApiRoutes.user);
+      final user = ApiParser.parse(response.data, UserModel.fromJson);
+      await saveUserCache(user);
+      return Right(user);
+    } catch (e) {
+      return Left(ApiErrorHandler.handle(e));
+    }
+  }
+
+  @override
   Future<void> saveUserCache(UserModel user) async {
     final String jsonString = jsonEncode(user.toJson());
     await sharedPrefsService.setString(PrefsKeys.cachedUserProfile, jsonString);

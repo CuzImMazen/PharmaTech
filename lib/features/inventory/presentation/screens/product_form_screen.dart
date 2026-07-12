@@ -11,6 +11,7 @@ import 'package:pharmacy_app/core/utils/messages/snackbar.dart';
 import 'package:pharmacy_app/features/inventory/cubit/product_form/product_form_cubit.dart';
 import 'package:pharmacy_app/features/inventory/cubit/product_form/product_form_state.dart';
 import 'package:pharmacy_app/features/inventory/data/models/product_detail_model.dart';
+import 'package:pharmacy_app/features/shared/barcode/barcode_flow.dart';
 
 /// Full-screen Add/Edit Product form. Required: barcode, brand name, category,
 /// buying price, selling price. The rest is optional. Dropdowns are loaded from
@@ -18,11 +19,20 @@ import 'package:pharmacy_app/features/inventory/data/models/product_detail_model
 /// `ProductDetailModel` is forwarded to the parent [ProductDetailCubit] (for
 /// edit) and the screen pops with `true` so the inventory list refreshes.
 class ProductFormScreen extends StatefulWidget {
-  const ProductFormScreen({super.key, this.productId, this.existing});
+  const ProductFormScreen({
+    super.key,
+    this.productId,
+    this.existing,
+    this.initialBarcode,
+  });
 
   /// When non-null the form is in edit mode for this product.
   final int? productId;
   final ProductDetailModel? existing;
+
+  /// Pre-fills the barcode field (used when creating a product from a scanned
+  /// barcode that had no match).
+  final String? initialBarcode;
 
   @override
   State<ProductFormScreen> createState() => _ProductFormScreenState();
@@ -47,7 +57,9 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
   void initState() {
     super.initState();
     final e = widget.existing;
-    _barcode = TextEditingController(text: e?.barcode ?? '');
+    _barcode = TextEditingController(
+      text: e?.barcode ?? widget.initialBarcode ?? '',
+    );
     _brandName = TextEditingController(text: e?.brandName ?? '');
     _scientificName = TextEditingController(text: e?.scientificName ?? '');
     _arName = TextEditingController(text: e?.arName ?? '');
@@ -204,6 +216,22 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
                                   labelText: tr.detail_barcode,
                                   hintText: tr.product_form_barcode_hint,
                                   prefixIcon: Icons.qr_code_scanner_rounded,
+                                  suffixIcon: IconButton(
+                                    icon: Icon(
+                                      Icons.qr_code_scanner_rounded,
+                                      size: 20,
+                                      color: context.muted,
+                                    ),
+                                    onPressed: () async {
+                                      final code =
+                                          await BarcodeFlow.scanOnly(context);
+                                      if (code != null &&
+                                          code.isNotEmpty &&
+                                          mounted) {
+                                        setState(() => _barcode.text = code);
+                                      }
+                                    },
+                                  ),
                                   onlyDigits: false,
                                   validator: (v) => (v == null || v.trim().isEmpty)
                                       ? tr.field_required

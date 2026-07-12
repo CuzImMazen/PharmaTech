@@ -40,6 +40,7 @@ ProductDetailModel _$ProductDetailModelFromJson(Map<String, dynamic> json) =>
           ? null
           : CompanyModel.fromJson(json['company'] as Map<String, dynamic>),
       medicalInfo: ProductMedicalInfoModel.fromJsonOrNull(json['medical_info']),
+      deletedAt: json['deleted_at'] as String?,
     );
 
 Map<String, dynamic> _$ProductDetailModelToJson(ProductDetailModel instance) =>
@@ -66,4 +67,5 @@ Map<String, dynamic> _$ProductDetailModelToJson(ProductDetailModel instance) =>
       'company': instance.company,
       'medical_info': instance.medicalInfo,
       'category': instance.category,
+      'deleted_at': instance.deletedAt,
     };

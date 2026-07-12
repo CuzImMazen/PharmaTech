@@ -53,6 +53,10 @@ abstract class AuthRepository {
 
   // ================= USER PROFILE MANAGEMENT ================= //
 
+  /// Fetches the current user from `GET /user` (raw User model, NOT wrapped).
+  /// Also refreshes the local cache on success.
+  Future<Either<Failure, UserModel>> fetchUser();
+
   /// Reads the fast local JSON string and returns the deserialized User object.
   Future<UserModel?> getCachedUser();
 

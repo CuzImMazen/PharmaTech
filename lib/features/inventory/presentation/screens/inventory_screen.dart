@@ -84,6 +84,20 @@ class _InventoryScreenState extends State<InventoryScreen> {
                 controller: _searchController,
                 onChanged: inventoryCubit.updateSearchQuery,
               ),
+              context.vSm,
+              // Show-deleted toggle.
+              Padding(
+                padding: context.pHorizontal,
+                child: BlocBuilder<InventoryCubit, InventoryState>(
+                  buildWhen: (p, c) => p.showDeleted != c.showDeleted,
+                  builder: (context, state) {
+                    return _ShowDeletedToggle(
+                      value: state.showDeleted,
+                      onChanged: (_) => inventoryCubit.toggleShowDeleted(),
+                    );
+                  },
+                ),
+              ),
               context.vLg,
               FiltersRow(),
               context.vMd,
@@ -275,6 +289,34 @@ class _InventoryEmptyState extends StatelessWidget {
         context.tr.inventory_no_products,
         style: context.text.bodyMedium,
       ),
+    );
+  }
+}
+
+/// A "Show deleted" row with a trailing switch (mirrors the suppliers screen).
+class _ShowDeletedToggle extends StatelessWidget {
+  const _ShowDeletedToggle({required this.value, required this.onChanged});
+
+  final bool value;
+  final ValueChanged<bool?> onChanged;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Icon(
+          Icons.delete_outline_rounded,
+          size: context.iSm,
+          color: context.muted,
+        ),
+        SizedBox(width: context.sXs),
+        Text(
+          context.tr.inventory_show_deleted,
+          style: context.text.bodyMedium?.copyWith(color: context.muted),
+        ),
+        const Spacer(),
+        Switch(value: value, onChanged: onChanged),
+      ],
     );
   }
 }

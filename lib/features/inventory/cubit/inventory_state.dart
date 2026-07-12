@@ -25,6 +25,7 @@ sealed class InventoryState with _$InventoryState {
     num? minPrice,
     num? maxPrice,
     @Default(false) bool inStockOnly,
+    @Default(false) bool showDeleted,
     @Default(1) int currentPage,
     @Default(1) int lastPage,
     @Default(true) bool hasMore,

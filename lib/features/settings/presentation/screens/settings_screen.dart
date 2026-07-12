@@ -107,6 +107,12 @@ class _SettingsView extends StatelessWidget {
                     label: tr.settings_cash_box,
                     onTap: () => context.push(AppRoutesKeys.cashBox),
                   ),
+                  _SettingsRow(
+                    icon: LucideIcons.slidersHorizontal,
+                    iconColor: AppColorsHelper.adjustment(context),
+                    label: tr.settings_stock_adjustments,
+                    onTap: () => context.push(AppRoutesKeys.adjustmentsList),
+                  ),
                 ],
               ),
 
@@ -115,6 +121,12 @@ class _SettingsView extends StatelessWidget {
               _SectionHeader(label: tr.settings_account),
               _SettingsSection(
                 children: [
+                  _SettingsRow(
+                    icon: LucideIcons.user,
+                    iconColor: AppColorsHelper.profile(context),
+                    label: tr.profile,
+                    onTap: () => context.push(AppRoutesKeys.profile),
+                  ),
                   _SignOutRow(),
                 ],
               ),
@@ -575,6 +587,12 @@ class AppColorsHelper {
 
   static Color cashBox(BuildContext context) =>
       context.isDark ? const Color(0xFF34D399) : const Color(0xFF059669);
+
+  static Color adjustment(BuildContext context) =>
+      context.isDark ? const Color(0xFF60A5FA) : const Color(0xFF2563EB);
+
+  static Color profile(BuildContext context) =>
+      context.isDark ? const Color(0xFFA78BFA) : const Color(0xFF6D28D9);
 
   static Color destructive(BuildContext context) =>
       context.isDark ? const Color(0xFFF87171) : const Color(0xFFDC2626);

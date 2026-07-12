@@ -2201,6 +2201,12 @@ abstract class AppLocalizations {
   /// **'Cash Box'**
   String get settings_cash_box;
 
+  /// No description provided for @settings_stock_adjustments.
+  ///
+  /// In en, this message translates to:
+  /// **'Stock Adjustments'**
+  String get settings_stock_adjustments;
+
   /// No description provided for @cash_box_title.
   ///
   /// In en, this message translates to:
@@ -2350,6 +2356,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Status'**
   String get debts_filter_status;
+
+  /// No description provided for @stock_adjustments_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Stock Adjustments'**
+  String get stock_adjustments_title;
+
+  /// No description provided for @stock_adjustments_empty.
+  ///
+  /// In en, this message translates to:
+  /// **'No stock adjustments yet.'**
+  String get stock_adjustments_empty;
+
+  /// No description provided for @stock_adjustments_empty_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'Manual stock corrections you record will appear here.'**
+  String get stock_adjustments_empty_hint;
+
+  /// No description provided for @stock_adjustments_load_error.
+  ///
+  /// In en, this message translates to:
+  /// **'Unable to load stock adjustments right now.'**
+  String get stock_adjustments_load_error;
 
   /// No description provided for @debt_total_amount.
   ///
@@ -2800,6 +2830,222 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Wholesale price is required.'**
   String get invoice_item_price_required;
+
+  /// No description provided for @remove_stock.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove Stock'**
+  String get remove_stock;
+
+  /// No description provided for @remove_stock_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove Stock'**
+  String get remove_stock_title;
+
+  /// No description provided for @remove_stock_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Record a manual stock-out adjustment for this product.'**
+  String get remove_stock_subtitle;
+
+  /// No description provided for @remove_stock_section.
+  ///
+  /// In en, this message translates to:
+  /// **'Batch & Quantity'**
+  String get remove_stock_section;
+
+  /// No description provided for @remove_stock_section_sub.
+  ///
+  /// In en, this message translates to:
+  /// **'Select a batch and the quantity to remove'**
+  String get remove_stock_section_sub;
+
+  /// No description provided for @remove_stock_batch.
+  ///
+  /// In en, this message translates to:
+  /// **'Batch'**
+  String get remove_stock_batch;
+
+  /// No description provided for @remove_stock_quantity.
+  ///
+  /// In en, this message translates to:
+  /// **'Quantity to remove'**
+  String get remove_stock_quantity;
+
+  /// No description provided for @remove_stock_notes.
+  ///
+  /// In en, this message translates to:
+  /// **'Notes'**
+  String get remove_stock_notes;
+
+  /// No description provided for @remove_stock_too_much.
+  ///
+  /// In en, this message translates to:
+  /// **'Quantity cannot exceed the batch on-hand quantity.'**
+  String get remove_stock_too_much;
+
+  /// No description provided for @remove_stock_no_batches.
+  ///
+  /// In en, this message translates to:
+  /// **'No batches with available stock.'**
+  String get remove_stock_no_batches;
+
+  /// No description provided for @stock_removed.
+  ///
+  /// In en, this message translates to:
+  /// **'Stock removed successfully.'**
+  String get stock_removed;
+
+  /// No description provided for @detail_remove_batch.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove Stock'**
+  String get detail_remove_batch;
+
+  /// No description provided for @inventory_show_deleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Show deleted'**
+  String get inventory_show_deleted;
+
+  /// No description provided for @restore.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore'**
+  String get restore;
+
+  /// No description provided for @restore_product_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore Product'**
+  String get restore_product_title;
+
+  /// No description provided for @product_restore.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore'**
+  String get product_restore;
+
+  /// No description provided for @product_restore_confirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore this product? It will become active again.'**
+  String get product_restore_confirm;
+
+  /// No description provided for @product_restored.
+  ///
+  /// In en, this message translates to:
+  /// **'Product restored successfully.'**
+  String get product_restored;
+
+  /// No description provided for @product_deleted_pill.
+  ///
+  /// In en, this message translates to:
+  /// **'Deleted'**
+  String get product_deleted_pill;
+
+  /// No description provided for @profile.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile'**
+  String get profile;
+
+  /// No description provided for @profile_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile'**
+  String get profile_title;
+
+  /// No description provided for @profile_verified.
+  ///
+  /// In en, this message translates to:
+  /// **'Verified'**
+  String get profile_verified;
+
+  /// No description provided for @profile_not_verified.
+  ///
+  /// In en, this message translates to:
+  /// **'Not verified'**
+  String get profile_not_verified;
+
+  /// No description provided for @profile_phone.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone'**
+  String get profile_phone;
+
+  /// No description provided for @profile_email.
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get profile_email;
+
+  /// No description provided for @profile_name.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get profile_name;
+
+  /// No description provided for @profile_load_error.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load profile.'**
+  String get profile_load_error;
+
+  /// No description provided for @scan.
+  ///
+  /// In en, this message translates to:
+  /// **'Scan'**
+  String get scan;
+
+  /// No description provided for @scan_barcode.
+  ///
+  /// In en, this message translates to:
+  /// **'Scan Barcode'**
+  String get scan_barcode;
+
+  /// No description provided for @scan_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Scan a product barcode'**
+  String get scan_title;
+
+  /// No description provided for @scan_not_found.
+  ///
+  /// In en, this message translates to:
+  /// **'No product found'**
+  String get scan_not_found;
+
+  /// No description provided for @scan_not_found_offer_create.
+  ///
+  /// In en, this message translates to:
+  /// **'No product matches this barcode. Would you like to create a new product with this barcode?'**
+  String get scan_not_found_offer_create;
+
+  /// No description provided for @scan_create.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Product'**
+  String get scan_create;
+
+  /// No description provided for @scan_enter_manually.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter manually'**
+  String get scan_enter_manually;
+
+  /// No description provided for @scan_camera_permission_denied.
+  ///
+  /// In en, this message translates to:
+  /// **'Camera permission was denied. You can enter the barcode manually.'**
+  String get scan_camera_permission_denied;
+
+  /// No description provided for @scan_looking_up.
+  ///
+  /// In en, this message translates to:
+  /// **'Looking up product…'**
+  String get scan_looking_up;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

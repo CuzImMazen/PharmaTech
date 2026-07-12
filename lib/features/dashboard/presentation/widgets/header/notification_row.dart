@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:pharmacy_app/core/extensions/app_design_system_ext.dart';
 import 'package:pharmacy_app/core/theme/app_colors.dart';
+import 'package:pharmacy_app/features/shared/barcode/barcode_flow.dart';
 
 class NotificationRow extends StatelessWidget {
   const NotificationRow({super.key});
@@ -39,6 +40,23 @@ class NotificationRow extends StatelessWidget {
           ],
         ),
         Spacer(),
+        // Scan icon — opens the barcode scan flow.
+        GestureDetector(
+          onTap: () => BarcodeFlow.start(context),
+          child: Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: Colors.white.withAlpha(38),
+              borderRadius: BorderRadius.circular(14),
+            ),
+            child: const Icon(
+              LucideIcons.scanLine,
+              color: Colors.white,
+              size: 20,
+            ),
+          ),
+        ),
+        context.hSm,
         Container(
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(

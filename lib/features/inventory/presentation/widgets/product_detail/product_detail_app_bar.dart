@@ -17,12 +17,17 @@ class ProductDetailAppBar extends StatelessWidget
     required this.subtitle,
     this.onEdit,
     this.onDelete,
+    this.onRestore,
   });
 
   final String title;
   final String subtitle;
   final VoidCallback? onEdit;
   final VoidCallback? onDelete;
+
+  /// When non-null, the product is soft-deleted: a restore action replaces
+  /// the edit/delete actions.
+  final VoidCallback? onRestore;
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
@@ -53,20 +58,29 @@ class ProductDetailAppBar extends StatelessWidget
           ),
         ],
       ),
-      actions: [
-        _CircleActionButton(
-          icon: Icons.edit_outlined,
-          color: AppColors.primary,
-          onTap: onEdit,
-        ),
-        context.hMd,
-        _CircleActionButton(
-          icon: Icons.delete_outline,
-          color: AppColors.cozyRed,
-          onTap: onDelete,
-        ),
-        SizedBox(width: context.sSm),
-      ],
+      actions: onRestore != null
+          ? [
+              _CircleActionButton(
+                icon: Icons.restore_rounded,
+                color: AppColors.primary,
+                onTap: onRestore,
+              ),
+              SizedBox(width: context.sSm),
+            ]
+          : [
+              _CircleActionButton(
+                icon: Icons.edit_outlined,
+                color: AppColors.primary,
+                onTap: onEdit,
+              ),
+              context.hMd,
+              _CircleActionButton(
+                icon: Icons.delete_outline,
+                color: AppColors.cozyRed,
+                onTap: onDelete,
+              ),
+              SizedBox(width: context.sSm),
+            ],
     );
   }
 }

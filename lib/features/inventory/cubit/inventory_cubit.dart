@@ -142,6 +142,12 @@ class InventoryCubit extends Cubit<InventoryState> {
     emit(state.copyWith(inStockOnly: inStockOnly, failure: null));
   }
 
+  /// Toggles showing soft-deleted products, then reloads from page 1.
+  Future<void> toggleShowDeleted() async {
+    emit(state.copyWith(showDeleted: !state.showDeleted, failure: null));
+    await _fetchProducts(reset: true);
+  }
+
   void updateCategoryIds(Set<int> categoryIds) {
     emit(state.copyWith(categoryIds: categoryIds.toList(), failure: null));
   }
@@ -183,6 +189,7 @@ class InventoryCubit extends Cubit<InventoryState> {
         minPrice: null,
         maxPrice: null,
         inStockOnly: false,
+        showDeleted: false,
         failure: null,
       ),
     );
@@ -236,6 +243,7 @@ class InventoryCubit extends Cubit<InventoryState> {
       sortBy: state.sortBy,
       stockStatus: state.stockStatus,
       inStockOnly: state.inStockOnly,
+      withTrashed: state.showDeleted,
       minPrice: state.minPrice,
       maxPrice: state.maxPrice,
       page: page ?? 1,

@@ -32,6 +32,7 @@ class CashTransactionCard extends StatelessWidget {
         color: context.colors.surfaceContainer,
       ),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _TypeIcon(type: transaction.transactionType, color: amountColor),
           context.hMd,
@@ -39,26 +40,59 @@ class CashTransactionCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  cashTransactionTypeLabel(transaction.transactionType, tr),
-                  style: context.text.titleSmall?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
+                // Title + amount on the same line; the amount sits opposite the
+                // label so the footer below gets the full card width for the
+                // time + recorder metadata (no truncation competition).
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: Text(
+                        cashTransactionTypeLabel(
+                          transaction.transactionType,
+                          tr,
+                        ),
+                        style: context.text.titleSmall?.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                    context.hSm,
+                    Text(
+                      '$sign${_formatMoney(transaction.amount, tr.sp)}',
+                      style: context.text.titleMedium?.copyWith(
+                        color: amountColor,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
                 ),
-                if (transaction.notes != null &&
-                    transaction.notes!.isNotEmpty) ...[
+                // Reference chip: when the transaction is tied to a purchase
+                // invoice, the backend buries its number in `notes` (e.g.
+                // "Payment for purchase invoice PUR-2026-0001"). Extract and
+                // surface it as a compact chip so the unique number stays
+                // visible without showing the unlocalized boilerplate sentence.
+                if (_referenceNumber(transaction.notes).isNotEmpty) ...[
+                  context.vXs,
+                  _ReferenceChip(number: _referenceNumber(transaction.notes)),
+                ],
+                if (_userNote(transaction.notes).isNotEmpty) ...[
                   context.vXs,
                   Text(
-                    transaction.notes!,
+                    _userNote(transaction.notes),
                     style: context.text.bodySmall?.copyWith(
                       color: context.muted,
                     ),
-                    maxLines: 2,
+                    maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
                 ],
+                // Single compact footer line: timestamp + recorder separated by
+                // a dot, both visible without crowding each other onto two
+                // stacked rows. The recorder (when present) gets a Flexible
+                // wrapper so a long name ellipses instead of overflowing.
                 context.vXs,
                 Row(
                   children: [
@@ -80,7 +114,17 @@ class CashTransactionCard extends StatelessWidget {
                     ),
                     if (transaction.createdBy != null &&
                         transaction.createdBy!.displayName.isNotEmpty) ...[
-                      SizedBox(width: context.sSm),
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: context.sXs,
+                        ),
+                        child: Text(
+                          '·',
+                          style: context.text.labelSmall?.copyWith(
+                            color: context.muted,
+                          ),
+                        ),
+                      ),
                       Icon(
                         Icons.person_outline_rounded,
                         size: context.iXs,
@@ -101,14 +145,6 @@ class CashTransactionCard extends StatelessWidget {
                   ],
                 ),
               ],
-            ),
-          ),
-          context.hMd,
-          Text(
-            '$sign${_formatMoney(transaction.amount, tr.sp)}',
-            style: context.text.titleMedium?.copyWith(
-              color: amountColor,
-              fontWeight: FontWeight.bold,
             ),
           ),
         ],
@@ -136,6 +172,50 @@ class _TypeIcon extends StatelessWidget {
         cashTransactionTypeIcon(type),
         size: context.iSm,
         color: color,
+      ),
+    );
+  }
+}
+
+/// Compact chip that surfaces a transaction's reference (invoice) number —
+/// the unique identifier the backend otherwise buries in the boilerplate
+/// `notes` string. Kept small and muted so it reads as metadata, not a label.
+class _ReferenceChip extends StatelessWidget {
+  const _ReferenceChip({required this.number});
+
+  final String number;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.symmetric(
+        horizontal: context.sXs,
+        vertical: context.sXs / 2,
+      ),
+      decoration: BoxDecoration(
+        color: context.colors.outline.withAlpha(40),
+        borderRadius: context.rSm,
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(
+            Icons.receipt_long_outlined,
+            size: context.iXs,
+            color: context.muted,
+          ),
+          SizedBox(width: context.sXs / 2),
+          Text(
+            number,
+            style: context.text.labelSmall?.copyWith(
+              color: context.muted,
+              fontWeight: FontWeight.w600,
+              letterSpacing: 0.2,
+            ),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ],
       ),
     );
   }
@@ -181,4 +261,42 @@ String _formatDateTime(String iso) {
   final d = parsed.toLocal();
   String two(int n) => n.toString().padLeft(2, '0');
   return '${d.year}-${two(d.month)}-${two(d.day)} ${two(d.hour)}:${two(d.minute)}';
+}
+
+/// Returns a user-written note to display, or an empty string to hide it.
+///
+/// The backend auto-fills `notes` with English boilerplate for system-driven
+/// transactions (e.g. "Payment for purchase invoice PUR-2026-0001",
+/// "Refund — invoice PUR-2026-0001 cancelled") which is unlocalized and
+/// redundant with the localized type label ("Purchase Out", "Supplier Return
+/// In"). Hide those and only surface genuinely user-written notes.
+String _userNote(String? raw) {
+  final note = raw?.trim() ?? '';
+  if (note.isEmpty) return '';
+  final lower = note.toLowerCase();
+  const boilerplate = [
+    'payment for purchase invoice',
+    'refund — invoice',
+    'refund - invoice',
+    'refund invoice',
+    'refund for invoice',
+  ];
+  for (final prefix in boilerplate) {
+    if (lower.startsWith(prefix)) return '';
+  }
+  return note;
+}
+
+/// Extracts a reference (invoice) number from a boilerplate note, e.g.
+/// "PUR-2026-0001" out of "Payment for purchase invoice PUR-2026-0001".
+/// Returns '' when there's no recognisable reference — so the chip is only
+/// shown for system-driven transactions that actually carry one.
+String _referenceNumber(String? raw) {
+  final note = raw ?? '';
+  // Invoice numbers the backend generates look like `PUR-YYYY-NNNN`. Match
+  // any `XXX-YYYY-NNNN[-...]` token to stay resilient to format tweaks.
+  final match = RegExp(
+    r'\b([A-Z]{2,5}-\d{4}-\d{1,6}(?:-\d+)?)\b',
+  ).firstMatch(note);
+  return match?.group(1) ?? '';
 }

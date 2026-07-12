@@ -9,6 +9,7 @@ import 'package:pharmacy_app/core/utils/messages/snackbar.dart';
 import 'package:pharmacy_app/features/inventory/cubit/product_detail/product_detail_cubit.dart';
 import 'package:pharmacy_app/features/inventory/cubit/product_detail/product_detail_state.dart';
 import 'package:pharmacy_app/features/inventory/presentation/screens/add_batch_screen.dart';
+import 'package:pharmacy_app/features/inventory/presentation/screens/remove_stock_screen.dart';
 import 'package:pharmacy_app/features/inventory/presentation/widgets/product_detail/batches_tab.dart';
 import 'package:pharmacy_app/features/inventory/presentation/widgets/product_detail/medical_info_tab.dart';
 import 'package:pharmacy_app/features/inventory/presentation/widgets/product_detail/overview_tab.dart';
@@ -54,6 +55,17 @@ class _ProductDetailScreenState extends State<ProductDetailScreen>
     );
   }
 
+  void _openRemoveStockSheet(int productId) {
+    Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        builder: (_) => BlocProvider<ProductDetailCubit>.value(
+          value: _cubit,
+          child: RemoveStockScreen(productId: productId),
+        ),
+      ),
+    );
+  }
+
   void _confirmDeleteProduct() {
     final tr = context.tr;
     showDialog<void>(
@@ -73,6 +85,30 @@ class _ProductDetailScreenState extends State<ProductDetailScreen>
               _cubit.deleteProduct(widget.productId);
             },
             child: Text(tr.detail_delete),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _confirmRestoreProduct() {
+    final tr = context.tr;
+    showDialog<void>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: Text(tr.restore_product_title),
+        content: Text(tr.product_restore_confirm),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(dialogContext).pop(),
+            child: Text(tr.detail_cancel),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.of(dialogContext).pop();
+              _cubit.restoreProduct(widget.productId);
+            },
+            child: Text(tr.product_restore),
           ),
         ],
       ),
@@ -118,8 +154,18 @@ class _ProductDetailScreenState extends State<ProductDetailScreen>
           p.batchFailure != c.batchFailure ||
           // Product delete outcome.
           (!p.isProductDeleted && c.isProductDeleted) ||
+          // Product restore outcome.
+          (!p.isProductRestored && c.isProductRestored) ||
           p.failure != c.failure,
       listener: (context, state) {
+        // Product restored → pop back to inventory (list refreshes).
+        if (state.isProductRestored) {
+          AppSnackbar.success(message: tr.product_restored);
+          _cubit.clearProductRestored();
+          context.pop(true);
+          return;
+        }
+
         // Product deleted → pop back to inventory.
         if (state.isProductDeleted) {
           AppSnackbar.success(message: tr.product_deleted);
@@ -131,9 +177,11 @@ class _ProductDetailScreenState extends State<ProductDetailScreen>
         // Batch mutation outcomes.
         if (state.lastBatchAction != null) {
           AppSnackbar.success(
-            message: state.lastBatchAction == BatchActionResult.added
-                ? tr.detail_batch_added
-                : tr.detail_batch_marked_expired,
+            message: switch (state.lastBatchAction!) {
+              BatchActionResult.added => tr.detail_batch_added,
+              BatchActionResult.markedExpired => tr.detail_batch_marked_expired,
+              BatchActionResult.removed => tr.stock_removed,
+            },
           );
           _cubit.clearBatchAction();
           return;
@@ -218,6 +266,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen>
                 appBar: ProductDetailAppBar(
                   title: product.brandName,
                   subtitle: subtitle,
+                  onRestore: product.isDeleted ? _confirmRestoreProduct : null,
                   onEdit: () async {
                     await context.push(
                       AppRoutesKeys.productEditWith(product.id),
@@ -270,6 +319,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen>
                             batches: state.batches,
                             mutatingBatchId: state.mutatingBatchId,
                             onAddBatch: () => _openAddBatchSheet(product.id),
+                            onRemoveStock: () =>
+                                _openRemoveStockSheet(product.id),
                             onMarkExpired: (batchId) =>
                                 _cubit.markBatchExpired(batchId),
                           ),

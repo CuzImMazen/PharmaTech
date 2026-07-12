@@ -3,8 +3,8 @@ import 'package:pharmacy_app/core/extensions/app_design_system_ext.dart';
 import 'package:pharmacy_app/core/extensions/localization_ext.dart';
 import 'package:pharmacy_app/core/theme/app_colors.dart';
 import 'package:pharmacy_app/core/utils/helpers/date_formatter.dart';
+import 'package:pharmacy_app/core/utils/helpers/movement_label.dart';
 import 'package:pharmacy_app/features/inventory/data/models/stock_movement_model.dart';
-import 'package:pharmacy_app/l10n/app_localizations.dart';
 
 /// Tab 4 — Stock Movements: a timeline of every stock-in / stock-out event
 /// for this product (newest first). Each tile shows a direction-colored icon,
@@ -149,20 +149,6 @@ class _MovementTile extends StatelessWidget {
       ),
     );
   }
-}
-
-/// Maps a backend movement_type to its localized label.
-String movementLabel(AppLocalizations tr, String type) {
-  return switch (type) {
-    'purchase_in' => tr.movement_purchase_in,
-    'customer_return_in' => tr.movement_customer_return_in,
-    'adjustment_in' => tr.movement_adjustment_in,
-    'sale_out' => tr.movement_sale_out,
-    'supplier_return_out' => tr.movement_supplier_return_out,
-    'adjustment_out' => tr.movement_adjustment_out,
-    'expiry_out' => tr.movement_expiry_out,
-    _ => type,
-  };
 }
 
 class _MovementsEmpty extends StatelessWidget {

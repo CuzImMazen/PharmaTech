@@ -49,6 +49,10 @@ abstract class ProductDetailRepository {
   /// Soft-deletes a product. Idempotent on the backend.
   Future<Either<Failure, void>> deleteProduct(int id);
 
+  /// Restores a soft-deleted product (`PATCH /products/{id}/restore`). Returns
+  /// the restored product (`ProductResource` with `deleted_at: null`).
+  Future<Either<Failure, ProductDetailModel>> restoreProduct(int id);
+
   // ---- Stock batches ---------------------------------------------------- //
 
   /// Marks a batch expired. Backend sets status=`expired`, qty=0, and records
@@ -61,6 +65,16 @@ abstract class ProductDetailRepository {
   /// `quantity`, `purchase_price`, `selling_price` (+ optional `batch_number`,
   /// `expiry_date`, `notes`). Returns the created batch.
   Future<Either<Failure, StockBatchModel>> addStockBatch(
+    Map<String, dynamic> body,
+  );
+
+  /// Records a manual stock-out adjustment (`POST /stock-adjustments` with
+  /// `adjustment_type: remove`). Also records an `adjustment_out` movement.
+  /// [body] must include `product_id`, `batch_id`, `quantity` (+ optional
+  /// `notes`). The backend validates that the batch belongs to the product and
+  /// has enough on-hand quantity (else a 422 `ValidationFailure`). Returns the
+  /// updated batch.
+  Future<Either<Failure, StockBatchModel>> removeStock(
     Map<String, dynamic> body,
   );
 

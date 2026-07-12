@@ -148,6 +148,21 @@ class ProductDetailRepositoryImpl implements ProductDetailRepository {
   }
 
   @override
+  Future<Either<Failure, ProductDetailModel>> restoreProduct(int id) async {
+    try {
+      final response = await api.patch(ApiRoutes.productRestore(id));
+      final product = ApiParser.parseWrapped(
+        response.data,
+        'data',
+        ProductDetailModel.fromJson,
+      );
+      return Right(product);
+    } catch (e) {
+      return Left(ApiErrorHandler.handle(e));
+    }
+  }
+
+  @override
   Future<Either<Failure, StockBatchModel>> markBatchExpired(
     int batchId,
   ) async {
@@ -166,6 +181,28 @@ class ProductDetailRepositoryImpl implements ProductDetailRepository {
 
   @override
   Future<Either<Failure, StockBatchModel>> addStockBatch(
+    Map<String, dynamic> body,
+  ) async {
+    try {
+      // StockAdjustmentResource = {"batch": {...}, "movement": {...}}.
+      final response = await api.post(ApiRoutes.stockAdjustments, data: body);
+      final data = response.data is Map<String, dynamic>
+          ? response.data['data']
+          : null;
+      if (data is! Map<String, dynamic>) {
+        return const Left(ParsingFailure());
+      }
+      final batch = StockBatchModel.fromJson(
+        data['batch'] as Map<String, dynamic>,
+      );
+      return Right(batch);
+    } catch (e) {
+      return Left(ApiErrorHandler.handle(e));
+    }
+  }
+
+  @override
+  Future<Either<Failure, StockBatchModel>> removeStock(
     Map<String, dynamic> body,
   ) async {
     try {

@@ -1070,6 +1070,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settings_cash_box => 'Cash Box';
 
   @override
+  String get settings_stock_adjustments => 'Stock Adjustments';
+
+  @override
   String get cash_box_title => 'Cash Box';
 
   @override
@@ -1143,6 +1146,18 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get debts_filter_status => 'Status';
+
+  @override
+  String get stock_adjustments_title => 'Stock Adjustments';
+
+  @override
+  String get stock_adjustments_empty => 'No stock adjustments yet.';
+
+  @override
+  String get stock_adjustments_empty_hint => 'Manual stock corrections you record will appear here.';
+
+  @override
+  String get stock_adjustments_load_error => 'Unable to load stock adjustments right now.';
 
   @override
   String get debt_total_amount => 'Total Amount';
@@ -1368,4 +1383,112 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get invoice_item_price_required => 'Wholesale price is required.';
+
+  @override
+  String get remove_stock => 'Remove Stock';
+
+  @override
+  String get remove_stock_title => 'Remove Stock';
+
+  @override
+  String get remove_stock_subtitle => 'Record a manual stock-out adjustment for this product.';
+
+  @override
+  String get remove_stock_section => 'Batch & Quantity';
+
+  @override
+  String get remove_stock_section_sub => 'Select a batch and the quantity to remove';
+
+  @override
+  String get remove_stock_batch => 'Batch';
+
+  @override
+  String get remove_stock_quantity => 'Quantity to remove';
+
+  @override
+  String get remove_stock_notes => 'Notes';
+
+  @override
+  String get remove_stock_too_much => 'Quantity cannot exceed the batch on-hand quantity.';
+
+  @override
+  String get remove_stock_no_batches => 'No batches with available stock.';
+
+  @override
+  String get stock_removed => 'Stock removed successfully.';
+
+  @override
+  String get detail_remove_batch => 'Remove Stock';
+
+  @override
+  String get inventory_show_deleted => 'Show deleted';
+
+  @override
+  String get restore => 'Restore';
+
+  @override
+  String get restore_product_title => 'Restore Product';
+
+  @override
+  String get product_restore => 'Restore';
+
+  @override
+  String get product_restore_confirm => 'Restore this product? It will become active again.';
+
+  @override
+  String get product_restored => 'Product restored successfully.';
+
+  @override
+  String get product_deleted_pill => 'Deleted';
+
+  @override
+  String get profile => 'Profile';
+
+  @override
+  String get profile_title => 'Profile';
+
+  @override
+  String get profile_verified => 'Verified';
+
+  @override
+  String get profile_not_verified => 'Not verified';
+
+  @override
+  String get profile_phone => 'Phone';
+
+  @override
+  String get profile_email => 'Email';
+
+  @override
+  String get profile_name => 'Name';
+
+  @override
+  String get profile_load_error => 'Could not load profile.';
+
+  @override
+  String get scan => 'Scan';
+
+  @override
+  String get scan_barcode => 'Scan Barcode';
+
+  @override
+  String get scan_title => 'Scan a product barcode';
+
+  @override
+  String get scan_not_found => 'No product found';
+
+  @override
+  String get scan_not_found_offer_create => 'No product matches this barcode. Would you like to create a new product with this barcode?';
+
+  @override
+  String get scan_create => 'Create Product';
+
+  @override
+  String get scan_enter_manually => 'Enter manually';
+
+  @override
+  String get scan_camera_permission_denied => 'Camera permission was denied. You can enter the barcode manually.';
+
+  @override
+  String get scan_looking_up => 'Looking up product…';
 }

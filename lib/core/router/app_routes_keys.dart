@@ -15,6 +15,7 @@ class AppRoutesKeys {
   static const String reports = '/reports';
 
   static const String settings = '/settings';
+  static const String profile = '/profile';
   static const String productDetail = '/product/:id';
   static const String productAdd = '/product/add';
   static const String productEdit = '/product/:id/edit';
@@ -36,6 +37,9 @@ class AppRoutesKeys {
   static const String invoicesList = '/purchase-invoices';
   static const String invoiceAdd = '/purchase-invoices/add';
   static const String invoiceDetail = '/purchase-invoices/:id';
+
+  // Stock Adjustments log — pushed over the nav shell (no bottom nav).
+  static const String adjustmentsList = '/stock-adjustments';
 
   /// Builds a detail route for a specific supplier debt id.
   static String debtDetailWith(int id) => '/supplier-debts/$id';
