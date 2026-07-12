@@ -69,6 +69,10 @@ import 'package:pharmacy_app/features/stock_adjustments/cubit/stock_adjustment_c
 import 'package:pharmacy_app/features/stock_adjustments/data/repo/stock_adjustment_repository.dart';
 import 'package:pharmacy_app/features/stock_adjustments/presentation/screens/stock_adjustments_screen.dart';
 
+import 'package:pharmacy_app/features/bulk_stock_adjustment/cubit/bulk_stock_adjustment_cubit.dart';
+import 'package:pharmacy_app/features/bulk_stock_adjustment/data/repo/bulk_stock_adjustment_repository.dart';
+import 'package:pharmacy_app/features/bulk_stock_adjustment/presentation/screens/bulk_stock_adjustment_screen.dart';
+
 import 'package:pharmacy_app/features/purchase_invoices/cubit/purchase_invoice_cubit.dart';
 import 'package:pharmacy_app/features/purchase_invoices/cubit/purchase_invoice_form_cubit.dart';
 import 'package:pharmacy_app/features/purchase_invoices/data/repo/purchase_invoice_repository.dart';
@@ -411,6 +415,19 @@ class AppRoutes {
             StockAdjustmentCubit(repository: sl<StockAdjustmentRepository>())
               ..loadAdjustments(),
         child: const StockAdjustmentsScreen(),
+      ),
+    ),
+
+    // Bulk Stock Adjustment form (mixed add/remove rows in one atomic submit).
+    GoRoute(
+      path: AppRoutesKeys.bulkStockAdjustment,
+      builder: (context, state) => BlocProvider(
+        create: (context) => BulkStockAdjustmentCubit(
+          bulkRepository: sl<BulkStockAdjustmentRepository>(),
+          inventoryRepository: sl<InventoryRepository>(),
+          productDetailRepository: sl<ProductDetailRepository>(),
+        )..loadOptions(),
+        child: const BulkStockAdjustmentScreen(),
       ),
     ),
 

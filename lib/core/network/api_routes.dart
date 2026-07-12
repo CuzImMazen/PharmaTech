@@ -40,6 +40,10 @@ class ApiRoutes {
   // Manual stock adjustments (add/remove a batch) — POST.
   static const String stockAdjustments = '/stock-adjustments';
 
+  // Bulk stock adjustments — POST a single body `{items: [...]}`; the backend
+  // applies every item atomically in one transaction (all-or-nothing).
+  static const String stockAdjustmentsBulk = '/stock-adjustments/bulk';
+
   static const String governorates = '/governorates';
   static const String cities = '/cities';
   static const String governorateWithCities = '/governorates-cities';

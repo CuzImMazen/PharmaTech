@@ -83,6 +83,7 @@ class _SettingsView extends StatelessWidget {
                     onTap: () => context.push(AppRoutesKeys.profile),
                   ),
                   _SignOutRow(),
+                  _SignOutAllRow(),
                 ],
               ),
             ],
@@ -392,5 +393,85 @@ class _SignOutRow extends StatelessWidget {
       ),
     );
     if (confirmed == true) cubit.signOut();
+  }
+}
+
+/// The "log out of all devices" row: mirrors [_SignOutRow] but calls the
+/// backend `POST /logout-all`, which revokes every token for this user across
+/// all sessions. Shows its own spinner ([SignOutState.isSigningOutAll]) and a
+/// stronger confirm dialog warning that all devices are signed out.
+class _SignOutAllRow extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final tr = context.tr;
+    return BlocBuilder<SignOutCubit, SignOutState>(
+      buildWhen: (p, c) => p.isSigningOutAll != c.isSigningOutAll,
+      builder: (context, state) {
+        return Material(
+          color: Colors.transparent,
+          child: InkWell(
+            borderRadius: BorderRadius.circular(16),
+            onTap: state.isSigningOutAll ? null : () => _confirm(context),
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: context.sMd,
+                vertical: context.sMd,
+              ),
+              child: Row(
+                children: [
+                  IconBox(
+                    icon: Icons.phonelink_erase_rounded,
+                    color: AppColorsHelper.destructive(context),
+                  ),
+                  context.hMd,
+                  Expanded(
+                    child: Text(
+                      tr.sign_out_all,
+                      style: context.text.titleSmall?.copyWith(
+                        fontWeight: FontWeight.w600,
+                        color: AppColorsHelper.destructive(context),
+                      ),
+                    ),
+                  ),
+                  if (state.isSigningOutAll)
+                    SizedBox(
+                      width: context.iSm,
+                      height: context.iSm,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2,
+                        color: AppColorsHelper.destructive(context),
+                      ),
+                    ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> _confirm(BuildContext context) async {
+    final tr = context.tr;
+    final cubit = context.read<SignOutCubit>();
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: Text(tr.sign_out_all_confirm_title),
+        content: Text(tr.sign_out_all_confirm),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(dialogContext).pop(false),
+            child: Text(tr.detail_cancel),
+          ),
+          TextButton(
+            style: TextButton.styleFrom(foregroundColor: Colors.redAccent),
+            onPressed: () => Navigator.of(dialogContext).pop(true),
+            child: Text(tr.sign_out_all),
+          ),
+        ],
+      ),
+    );
+    if (confirmed == true) cubit.signOutAll();
   }
 }

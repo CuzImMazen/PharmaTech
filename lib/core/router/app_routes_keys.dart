@@ -41,6 +41,9 @@ class AppRoutesKeys {
   // Stock Adjustments log — pushed over the nav shell (no bottom nav).
   static const String adjustmentsList = '/stock-adjustments';
 
+  // Bulk Stock Adjustment form — pushed over the nav shell (no bottom nav).
+  static const String bulkStockAdjustment = '/bulk-stock-adjustment';
+
   // Customers — pushed over the nav shell (no bottom nav).
   static const String customersList = '/customers';
   static const String customerAdd = '/customers/add';

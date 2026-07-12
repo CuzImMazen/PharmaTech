@@ -85,6 +85,12 @@ class OperationsHubScreen extends StatelessWidget {
                   label: tr.settings_stock_adjustments,
                   onTap: () => context.push(AppRoutesKeys.adjustmentsList),
                 ),
+                SettingsRow(
+                  icon: LucideIcons.layers,
+                  iconColor: AppColorsHelper.adjustment(context),
+                  label: tr.settings_bulk_adjustment,
+                  onTap: () => context.push(AppRoutesKeys.bulkStockAdjustment),
+                ),
               ],
             ),
           ],

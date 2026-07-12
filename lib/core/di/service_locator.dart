@@ -34,6 +34,9 @@ import 'package:pharmacy_app/features/supplier_debts/data/repo/supplier_debt_rep
 import 'package:pharmacy_app/features/stock_adjustments/data/repo/stock_adjustment_repository.dart';
 import 'package:pharmacy_app/features/stock_adjustments/data/repo/stock_adjustment_repository_impl.dart';
 
+import 'package:pharmacy_app/features/bulk_stock_adjustment/data/repo/bulk_stock_adjustment_repository.dart';
+import 'package:pharmacy_app/features/bulk_stock_adjustment/data/repo/bulk_stock_adjustment_repository_impl.dart';
+
 import 'package:pharmacy_app/features/purchase_invoices/data/repo/purchase_invoice_repository.dart';
 import 'package:pharmacy_app/features/purchase_invoices/data/repo/purchase_invoice_repository_impl.dart';
 
@@ -120,6 +123,10 @@ Future<void> setupLocator() async {
 
   sl.registerLazySingleton<StockAdjustmentRepository>(
     () => StockAdjustmentRepositoryImpl(api: sl<DioApiHelper>()),
+  );
+
+  sl.registerLazySingleton<BulkStockAdjustmentRepository>(
+    () => BulkStockAdjustmentRepositoryImpl(api: sl<DioApiHelper>()),
   );
 
   sl.registerLazySingleton<PurchaseInvoiceRepository>(

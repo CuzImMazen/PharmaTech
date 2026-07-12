@@ -1058,6 +1058,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get sign_out_failed => 'Sign out failed. Please try again.';
 
   @override
+  String get sign_out_all => 'Log out of all devices';
+
+  @override
+  String get sign_out_all_confirm_title => 'Log out everywhere?';
+
+  @override
+  String get sign_out_all_confirm => 'This signs you out of every device and session. You\'ll need to sign in again on all of them. Continue?';
+
+  @override
   String get field_required => 'This field is required';
 
   @override
@@ -1074,6 +1083,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get settings_stock_adjustments => 'Stock Adjustments';
+
+  @override
+  String get settings_bulk_adjustment => 'Bulk Stock Adjustment';
 
   @override
   String get cash_box_title => 'Cash Box';
@@ -1419,6 +1431,84 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get stock_removed => 'Stock removed successfully.';
+
+  @override
+  String get bulk_adjustment_title => 'Bulk Stock Adjustment';
+
+  @override
+  String get bulk_adjustment_subtitle => 'Apply several add/remove adjustments in one transaction. All rows commit together or none do.';
+
+  @override
+  String get bulk_adjustment_section => 'Adjustments';
+
+  @override
+  String get bulk_adjustment_section_sub => 'One row per product';
+
+  @override
+  String get bulk_adjustment_saved => 'Bulk adjustment applied successfully.';
+
+  @override
+  String get bulk_apply => 'Apply Adjustments';
+
+  @override
+  String get bulk_add => 'Add';
+
+  @override
+  String get bulk_remove => 'Remove';
+
+  @override
+  String get bulk_no_items => 'Add at least one adjustment.';
+
+  @override
+  String get bulk_add_item => 'Add adjustment';
+
+  @override
+  String get bulk_item_product => 'Product';
+
+  @override
+  String get bulk_item_product_hint => 'Select product';
+
+  @override
+  String get bulk_item_product_required => 'Select a product.';
+
+  @override
+  String get bulk_item_quantity => 'Quantity';
+
+  @override
+  String get bulk_item_qty_required => 'Enter a valid quantity (1 or more).';
+
+  @override
+  String get bulk_item_purchase_price => 'Purchase price';
+
+  @override
+  String get bulk_item_selling_price => 'Selling price';
+
+  @override
+  String get bulk_item_price_required => 'Enter purchase and selling price.';
+
+  @override
+  String get bulk_item_batch => 'Batch';
+
+  @override
+  String get bulk_item_no_batches => 'No batches with available stock.';
+
+  @override
+  String get bulk_item_batch_required => 'Select a batch.';
+
+  @override
+  String get bulk_item_batch_details => 'Batch details';
+
+  @override
+  String get bulk_item_batch_number => 'Batch number';
+
+  @override
+  String get bulk_item_expiry_date => 'Expiry date';
+
+  @override
+  String get bulk_item_notes => 'Notes';
+
+  @override
+  String get bulk_item_optional => 'optional';
 
   @override
   String get detail_remove_batch => 'Remove Stock';

@@ -741,7 +741,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get movement_customer_return_in => 'إرجاع عميل';
 
   @override
-  String get movement_adjustment_in => 'تسوية إدخال';
+  String get movement_adjustment_in => 'تعديل إدخال';
 
   @override
   String get movement_sale_return_in => 'مرتجع بيع';
@@ -753,7 +753,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get movement_supplier_return_out => 'إرجاع مورد';
 
   @override
-  String get movement_adjustment_out => 'تسوية إخراج';
+  String get movement_adjustment_out => 'تعديل إخراج';
 
   @override
   String get movement_expiry_out => 'إخراج انتهاء';
@@ -1058,6 +1058,15 @@ class AppLocalizationsAr extends AppLocalizations {
   String get sign_out_failed => 'فشل تسجيل الخروج. حاول مرة أخرى.';
 
   @override
+  String get sign_out_all => 'تسجيل الخروج من كل الأجهزة';
+
+  @override
+  String get sign_out_all_confirm_title => 'تسجيل الخروج من كل مكان؟';
+
+  @override
+  String get sign_out_all_confirm => 'سيؤدي هذا إلى تسجيل خروجك من كل جهاز وجلسة. ستحتاج إلى تسجيل الدخول مرة أخرى في كل منها. هل تريد المتابعة؟';
+
+  @override
   String get field_required => 'هذا الحقل مطلوب';
 
   @override
@@ -1073,7 +1082,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String get settings_cash_box => 'الصندوق';
 
   @override
-  String get settings_stock_adjustments => 'تسويات المخزون';
+  String get settings_stock_adjustments => 'تعديلات المخزون';
+
+  @override
+  String get settings_bulk_adjustment => 'تعديل مخزون متعدد';
 
   @override
   String get cash_box_title => 'الصندوق النقدي';
@@ -1151,16 +1163,16 @@ class AppLocalizationsAr extends AppLocalizations {
   String get debts_filter_status => 'الحالة';
 
   @override
-  String get stock_adjustments_title => 'تسويات المخزون';
+  String get stock_adjustments_title => 'تعديلات المخزون';
 
   @override
-  String get stock_adjustments_empty => 'لا توجد تسويات بعد.';
+  String get stock_adjustments_empty => 'لا توجد تعديلات بعد.';
 
   @override
   String get stock_adjustments_empty_hint => 'ستظهر هنا التصحيحات اليدوية للمخزون التي تسجلها.';
 
   @override
-  String get stock_adjustments_load_error => 'تعذّر تحميل تسويات المخزون حالياً.';
+  String get stock_adjustments_load_error => 'تعذّر تحميل تعديلات المخزون حالياً.';
 
   @override
   String get debt_total_amount => 'إجمالي المبلغ';
@@ -1419,6 +1431,84 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get stock_removed => 'تمت إزالة المخزون بنجاح.';
+
+  @override
+  String get bulk_adjustment_title => 'تعديل مخزون متعدد';
+
+  @override
+  String get bulk_adjustment_subtitle => 'تطبيق عدة تعديلات إضافة/إزالة في معاملة واحدة. يتم تنفيذ كل الصفوف معًا أو لا شيء.';
+
+  @override
+  String get bulk_adjustment_section => 'التعديلات';
+
+  @override
+  String get bulk_adjustment_section_sub => 'صف لكل منتج';
+
+  @override
+  String get bulk_adjustment_saved => 'تم تطبيق التعديل المتعدد بنجاح.';
+
+  @override
+  String get bulk_apply => 'تطبيق التعديلات';
+
+  @override
+  String get bulk_add => 'إضافة';
+
+  @override
+  String get bulk_remove => 'إزالة';
+
+  @override
+  String get bulk_no_items => 'أضف تعديلاً واحداً على الأقل.';
+
+  @override
+  String get bulk_add_item => 'إضافة تعديل';
+
+  @override
+  String get bulk_item_product => 'المنتج';
+
+  @override
+  String get bulk_item_product_hint => 'اختر منتجًا';
+
+  @override
+  String get bulk_item_product_required => 'اختر منتجًا.';
+
+  @override
+  String get bulk_item_quantity => 'الكمية';
+
+  @override
+  String get bulk_item_qty_required => 'أدخل كمية صحيحة (1 أو أكثر).';
+
+  @override
+  String get bulk_item_purchase_price => 'سعر الشراء';
+
+  @override
+  String get bulk_item_selling_price => 'سعر البيع';
+
+  @override
+  String get bulk_item_price_required => 'أدخل سعر الشراء وسعر البيع.';
+
+  @override
+  String get bulk_item_batch => 'الدفعة';
+
+  @override
+  String get bulk_item_no_batches => 'لا توجد دفعات بمخزون متاح.';
+
+  @override
+  String get bulk_item_batch_required => 'اختر دفعة.';
+
+  @override
+  String get bulk_item_batch_details => 'تفاصيل الدفعة';
+
+  @override
+  String get bulk_item_batch_number => 'رقم الدفعة';
+
+  @override
+  String get bulk_item_expiry_date => 'تاريخ الانتهاء';
+
+  @override
+  String get bulk_item_notes => 'ملاحظات';
+
+  @override
+  String get bulk_item_optional => 'اختياري';
 
   @override
   String get detail_remove_batch => 'إزالة مخزون';

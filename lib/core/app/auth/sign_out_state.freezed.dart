@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$SignOutState {
 
- bool get isSigningOut; Failure? get failure;
+ bool get isSigningOut; bool get isSigningOutAll; Failure? get failure;
 /// Create a copy of SignOutState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -26,16 +26,16 @@ $SignOutStateCopyWith<SignOutState> get copyWith => _$SignOutStateCopyWithImpl<S
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SignOutState&&(identical(other.isSigningOut, isSigningOut) || other.isSigningOut == isSigningOut)&&(identical(other.failure, failure) || other.failure == failure));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SignOutState&&(identical(other.isSigningOut, isSigningOut) || other.isSigningOut == isSigningOut)&&(identical(other.isSigningOutAll, isSigningOutAll) || other.isSigningOutAll == isSigningOutAll)&&(identical(other.failure, failure) || other.failure == failure));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,isSigningOut,failure);
+int get hashCode => Object.hash(runtimeType,isSigningOut,isSigningOutAll,failure);
 
 @override
 String toString() {
-  return 'SignOutState(isSigningOut: $isSigningOut, failure: $failure)';
+  return 'SignOutState(isSigningOut: $isSigningOut, isSigningOutAll: $isSigningOutAll, failure: $failure)';
 }
 
 
@@ -46,7 +46,7 @@ abstract mixin class $SignOutStateCopyWith<$Res>  {
   factory $SignOutStateCopyWith(SignOutState value, $Res Function(SignOutState) _then) = _$SignOutStateCopyWithImpl;
 @useResult
 $Res call({
- bool isSigningOut, Failure? failure
+ bool isSigningOut, bool isSigningOutAll, Failure? failure
 });
 
 
@@ -63,9 +63,10 @@ class _$SignOutStateCopyWithImpl<$Res>
 
 /// Create a copy of SignOutState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? isSigningOut = null,Object? failure = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? isSigningOut = null,Object? isSigningOutAll = null,Object? failure = freezed,}) {
   return _then(SignOutState(
 isSigningOut: null == isSigningOut ? _self.isSigningOut : isSigningOut // ignore: cast_nullable_to_non_nullable
+as bool,isSigningOutAll: null == isSigningOutAll ? _self.isSigningOutAll : isSigningOutAll // ignore: cast_nullable_to_non_nullable
 as bool,failure: freezed == failure ? _self.failure : failure // ignore: cast_nullable_to_non_nullable
 as Failure?,
   ));
@@ -152,10 +153,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool isSigningOut,  Failure? failure)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool isSigningOut,  bool isSigningOutAll,  Failure? failure)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _SignOutState() when $default != null:
-return $default(_that.isSigningOut,_that.failure);case _:
+return $default(_that.isSigningOut,_that.isSigningOutAll,_that.failure);case _:
   return orElse();
 
 }
@@ -173,10 +174,10 @@ return $default(_that.isSigningOut,_that.failure);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool isSigningOut,  Failure? failure)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool isSigningOut,  bool isSigningOutAll,  Failure? failure)  $default,) {final _that = this;
 switch (_that) {
 case _SignOutState():
-return $default(_that.isSigningOut,_that.failure);case _:
+return $default(_that.isSigningOut,_that.isSigningOutAll,_that.failure);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -193,10 +194,10 @@ return $default(_that.isSigningOut,_that.failure);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool isSigningOut,  Failure? failure)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool isSigningOut,  bool isSigningOutAll,  Failure? failure)?  $default,) {final _that = this;
 switch (_that) {
 case _SignOutState() when $default != null:
-return $default(_that.isSigningOut,_that.failure);case _:
+return $default(_that.isSigningOut,_that.isSigningOutAll,_that.failure);case _:
   return null;
 
 }
@@ -208,10 +209,11 @@ return $default(_that.isSigningOut,_that.failure);case _:
 
 
 class _SignOutState implements SignOutState {
-  const _SignOutState({this.isSigningOut = false, this.failure});
+  const _SignOutState({this.isSigningOut = false, this.isSigningOutAll = false, this.failure});
   
 
 @override@JsonKey() final  bool isSigningOut;
+@override@JsonKey() final  bool isSigningOutAll;
 @override final  Failure? failure;
 
 /// Create a copy of SignOutState
@@ -224,16 +226,16 @@ _$SignOutStateCopyWith<_SignOutState> get copyWith => __$SignOutStateCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SignOutState&&(identical(other.isSigningOut, isSigningOut) || other.isSigningOut == isSigningOut)&&(identical(other.failure, failure) || other.failure == failure));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SignOutState&&(identical(other.isSigningOut, isSigningOut) || other.isSigningOut == isSigningOut)&&(identical(other.isSigningOutAll, isSigningOutAll) || other.isSigningOutAll == isSigningOutAll)&&(identical(other.failure, failure) || other.failure == failure));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,isSigningOut,failure);
+int get hashCode => Object.hash(runtimeType,isSigningOut,isSigningOutAll,failure);
 
 @override
 String toString() {
-  return 'SignOutState(isSigningOut: $isSigningOut, failure: $failure)';
+  return 'SignOutState(isSigningOut: $isSigningOut, isSigningOutAll: $isSigningOutAll, failure: $failure)';
 }
 
 
@@ -244,7 +246,7 @@ abstract mixin class _$SignOutStateCopyWith<$Res> implements $SignOutStateCopyWi
   factory _$SignOutStateCopyWith(_SignOutState value, $Res Function(_SignOutState) _then) = __$SignOutStateCopyWithImpl;
 @override @useResult
 $Res call({
- bool isSigningOut, Failure? failure
+ bool isSigningOut, bool isSigningOutAll, Failure? failure
 });
 
 
@@ -261,9 +263,10 @@ class __$SignOutStateCopyWithImpl<$Res>
 
 /// Create a copy of SignOutState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? isSigningOut = null,Object? failure = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? isSigningOut = null,Object? isSigningOutAll = null,Object? failure = freezed,}) {
   return _then(_SignOutState(
 isSigningOut: null == isSigningOut ? _self.isSigningOut : isSigningOut // ignore: cast_nullable_to_non_nullable
+as bool,isSigningOutAll: null == isSigningOutAll ? _self.isSigningOutAll : isSigningOutAll // ignore: cast_nullable_to_non_nullable
 as bool,failure: freezed == failure ? _self.failure : failure // ignore: cast_nullable_to_non_nullable
 as Failure?,
   ));

@@ -2177,6 +2177,24 @@ abstract class AppLocalizations {
   /// **'Sign out failed. Please try again.'**
   String get sign_out_failed;
 
+  /// No description provided for @sign_out_all.
+  ///
+  /// In en, this message translates to:
+  /// **'Log out of all devices'**
+  String get sign_out_all;
+
+  /// No description provided for @sign_out_all_confirm_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Log out everywhere?'**
+  String get sign_out_all_confirm_title;
+
+  /// No description provided for @sign_out_all_confirm.
+  ///
+  /// In en, this message translates to:
+  /// **'This signs you out of every device and session. You\'ll need to sign in again on all of them. Continue?'**
+  String get sign_out_all_confirm;
+
   /// No description provided for @field_required.
   ///
   /// In en, this message translates to:
@@ -2212,6 +2230,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Stock Adjustments'**
   String get settings_stock_adjustments;
+
+  /// No description provided for @settings_bulk_adjustment.
+  ///
+  /// In en, this message translates to:
+  /// **'Bulk Stock Adjustment'**
+  String get settings_bulk_adjustment;
 
   /// No description provided for @cash_box_title.
   ///
@@ -2902,6 +2926,162 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Stock removed successfully.'**
   String get stock_removed;
+
+  /// No description provided for @bulk_adjustment_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Bulk Stock Adjustment'**
+  String get bulk_adjustment_title;
+
+  /// No description provided for @bulk_adjustment_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Apply several add/remove adjustments in one transaction. All rows commit together or none do.'**
+  String get bulk_adjustment_subtitle;
+
+  /// No description provided for @bulk_adjustment_section.
+  ///
+  /// In en, this message translates to:
+  /// **'Adjustments'**
+  String get bulk_adjustment_section;
+
+  /// No description provided for @bulk_adjustment_section_sub.
+  ///
+  /// In en, this message translates to:
+  /// **'One row per product'**
+  String get bulk_adjustment_section_sub;
+
+  /// No description provided for @bulk_adjustment_saved.
+  ///
+  /// In en, this message translates to:
+  /// **'Bulk adjustment applied successfully.'**
+  String get bulk_adjustment_saved;
+
+  /// No description provided for @bulk_apply.
+  ///
+  /// In en, this message translates to:
+  /// **'Apply Adjustments'**
+  String get bulk_apply;
+
+  /// No description provided for @bulk_add.
+  ///
+  /// In en, this message translates to:
+  /// **'Add'**
+  String get bulk_add;
+
+  /// No description provided for @bulk_remove.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove'**
+  String get bulk_remove;
+
+  /// No description provided for @bulk_no_items.
+  ///
+  /// In en, this message translates to:
+  /// **'Add at least one adjustment.'**
+  String get bulk_no_items;
+
+  /// No description provided for @bulk_add_item.
+  ///
+  /// In en, this message translates to:
+  /// **'Add adjustment'**
+  String get bulk_add_item;
+
+  /// No description provided for @bulk_item_product.
+  ///
+  /// In en, this message translates to:
+  /// **'Product'**
+  String get bulk_item_product;
+
+  /// No description provided for @bulk_item_product_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'Select product'**
+  String get bulk_item_product_hint;
+
+  /// No description provided for @bulk_item_product_required.
+  ///
+  /// In en, this message translates to:
+  /// **'Select a product.'**
+  String get bulk_item_product_required;
+
+  /// No description provided for @bulk_item_quantity.
+  ///
+  /// In en, this message translates to:
+  /// **'Quantity'**
+  String get bulk_item_quantity;
+
+  /// No description provided for @bulk_item_qty_required.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a valid quantity (1 or more).'**
+  String get bulk_item_qty_required;
+
+  /// No description provided for @bulk_item_purchase_price.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase price'**
+  String get bulk_item_purchase_price;
+
+  /// No description provided for @bulk_item_selling_price.
+  ///
+  /// In en, this message translates to:
+  /// **'Selling price'**
+  String get bulk_item_selling_price;
+
+  /// No description provided for @bulk_item_price_required.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter purchase and selling price.'**
+  String get bulk_item_price_required;
+
+  /// No description provided for @bulk_item_batch.
+  ///
+  /// In en, this message translates to:
+  /// **'Batch'**
+  String get bulk_item_batch;
+
+  /// No description provided for @bulk_item_no_batches.
+  ///
+  /// In en, this message translates to:
+  /// **'No batches with available stock.'**
+  String get bulk_item_no_batches;
+
+  /// No description provided for @bulk_item_batch_required.
+  ///
+  /// In en, this message translates to:
+  /// **'Select a batch.'**
+  String get bulk_item_batch_required;
+
+  /// No description provided for @bulk_item_batch_details.
+  ///
+  /// In en, this message translates to:
+  /// **'Batch details'**
+  String get bulk_item_batch_details;
+
+  /// No description provided for @bulk_item_batch_number.
+  ///
+  /// In en, this message translates to:
+  /// **'Batch number'**
+  String get bulk_item_batch_number;
+
+  /// No description provided for @bulk_item_expiry_date.
+  ///
+  /// In en, this message translates to:
+  /// **'Expiry date'**
+  String get bulk_item_expiry_date;
+
+  /// No description provided for @bulk_item_notes.
+  ///
+  /// In en, this message translates to:
+  /// **'Notes'**
+  String get bulk_item_notes;
+
+  /// No description provided for @bulk_item_optional.
+  ///
+  /// In en, this message translates to:
+  /// **'optional'**
+  String get bulk_item_optional;
 
   /// No description provided for @detail_remove_batch.
   ///
