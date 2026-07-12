@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/core/enums/enums.dart';
 import 'package:pharmacy_app/core/extensions/app_design_system_ext.dart';
+import 'package:pharmacy_app/core/widgets/shimmer_box.dart';
 
+/// Loading placeholder for the inventory list/grid. Mirrors the real
+/// [MedicineListCard] / [MedicineGridCard] layout exactly — same bordered
+/// `surfaceContainer` container, same status pill, category pill, info cards,
+/// and stock progress bar — so the shimmer reads as the real widget mid-load
+/// rather than a generic stack of bars. The whole grid is wrapped in a single
+/// [ShimmerScope] so the sweep animates as one unit.
 class InventoryShimmer extends StatelessWidget {
   const InventoryShimmer({super.key, required this.viewMode});
 
@@ -12,105 +19,40 @@ class InventoryShimmer extends StatelessWidget {
     final isList = viewMode == ViewMode.list;
     final itemCount = isList ? 6 : 8;
 
-    return isList
-        ? ListView.separated(
-            physics: const AlwaysScrollableScrollPhysics(),
-            padding: context.pHorizontal,
-            itemCount: itemCount,
-            separatorBuilder: (context, index) => context.vMd,
-            itemBuilder: (context, index) => const _ShimmerListCard(),
-          )
-        : GridView.builder(
-            physics: const AlwaysScrollableScrollPhysics(),
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            itemCount: itemCount,
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: context.gridColumns,
-              childAspectRatio: context.gridAspectRatio(
-                columns: context.gridColumns,
-                spacing: context.sMd,
+    return ShimmerScope(
+      child: isList
+          ? ListView.separated(
+              physics: const AlwaysScrollableScrollPhysics(),
+              padding: context.pHorizontal,
+              itemCount: itemCount,
+              separatorBuilder: (context, index) => context.vMd,
+              itemBuilder: (context, index) => const _ShimmerListCard(),
+            )
+          : GridView.builder(
+              physics: const AlwaysScrollableScrollPhysics(),
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              itemCount: itemCount,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: context.gridColumns,
+                childAspectRatio: context.gridAspectRatio(
+                  columns: context.gridColumns,
+                  spacing: context.sMd,
+                ),
+              ),
+              itemBuilder: (context, index) => const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: _ShimmerGridCard(),
               ),
             ),
-            itemBuilder: (context, index) => const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: _ShimmerGridCard(),
-            ),
-          );
-  }
-}
-
-class _ShimmerSurface extends StatefulWidget {
-  const _ShimmerSurface({required this.height});
-
-  final double height;
-
-  @override
-  State<_ShimmerSurface> createState() => _ShimmerSurfaceState();
-}
-
-class _ShimmerSurfaceState extends State<_ShimmerSurface>
-    with SingleTickerProviderStateMixin {
-  late final AnimationController _controller;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 1400),
-    )..repeat();
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final base = Theme.of(context).colorScheme.surfaceContainerHighest;
-    final highlight = Theme.of(context).colorScheme.surface;
-
-    return AnimatedBuilder(
-      animation: _controller,
-      builder: (context, child) {
-        return ShaderMask(
-          shaderCallback: (rect) {
-            return LinearGradient(
-              begin: Alignment(-1.0 + (_controller.value * 2), -0.3),
-              end: Alignment(1.0 + (_controller.value * 2), 0.3),
-              colors: [base, highlight, base],
-              stops: const [0.35, 0.5, 0.65],
-            ).createShader(rect);
-          },
-          blendMode: BlendMode.srcATop,
-          child: child,
-        );
-      },
-      child: Container(height: widget.height, color: base),
     );
   }
 }
 
-class _ShimmerBox extends StatelessWidget {
-  const _ShimmerBox({required this.width, required this.height});
+// Mirrors the real card container: 16-radius border + surfaceContainer.
+class _ShimmerCardShell extends StatelessWidget {
+  const _ShimmerCardShell({required this.child});
 
-  final double width;
-  final double height;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: width,
-      height: height,
-      child: _ShimmerSurface(height: height),
-    );
-  }
-}
-
-class _ShimmerListCard extends StatelessWidget {
-  const _ShimmerListCard();
+  final Widget child;
 
   @override
   Widget build(BuildContext context) {
@@ -118,32 +60,71 @@ class _ShimmerListCard extends StatelessWidget {
       padding: context.pAllMd,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
-        color: Theme.of(context).colorScheme.surfaceContainer,
+        border: Border.all(
+          width: 1.5,
+          color: Theme.of(context).colorScheme.outline.withAlpha(170),
+        ),
+        color: context.colors.surfaceContainer,
       ),
+      child: child,
+    );
+  }
+}
+
+// Pill shapes used by the real status badge + category chip (rLg / rMd).
+const _pillRadius = 100.0;
+
+class _ShimmerListCard extends StatelessWidget {
+  const _ShimmerListCard();
+
+  @override
+  Widget build(BuildContext context) {
+    return _ShimmerCardShell(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // Name (left) + status pill (right) — mirrors MedicineListCard row.
           Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: const [
-              Expanded(child: _ShimmerBox(width: double.infinity, height: 18)),
-              SizedBox(width: 12),
-              _ShimmerBox(width: 74, height: 26),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ShimmerFill(width: double.infinity, height: 18),
+                    SizedBox(height: 6),
+                    ShimmerFill(width: 120, height: 14),
+                  ],
+                ),
+              ),
+              ShimmerFill(width: 74, height: 26, radius: _pillRadius),
             ],
           ),
           const SizedBox(height: 12),
-          const _ShimmerBox(width: 110, height: 24),
+          // Category pill.
+          const ShimmerFill(width: 110, height: 22, radius: _pillRadius),
           const SizedBox(height: 16),
-          Row(
-            children: const [
-              Expanded(child: _ShimmerBox(width: double.infinity, height: 52)),
-              SizedBox(width: 12),
-              Expanded(child: _ShimmerBox(width: double.infinity, height: 52)),
-              SizedBox(width: 12),
-              Expanded(child: _ShimmerBox(width: double.infinity, height: 52)),
+          // Three 100px info cards — mirrors MedicineInfoCard (rLg, highest).
+          const Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              ShimmerFill(width: 100, height: 64, radius: 16),
+              ShimmerFill(width: 100, height: 64, radius: 16),
+              ShimmerFill(width: 100, height: 64, radius: 16),
             ],
           ),
           const SizedBox(height: 16),
-          const _ShimmerBox(width: double.infinity, height: 10),
+          // Stock-level line.
+          const Row(
+            children: [
+              ShimmerFill(width: 90, height: 12),
+              Spacer(),
+              ShimmerFill(width: 60, height: 12),
+            ],
+          ),
+          const SizedBox(height: 12),
+          // 10px stock progress bar.
+          const ShimmerFill(width: double.infinity, height: 10, radius: 5),
         ],
       ),
     );
@@ -155,24 +136,49 @@ class _ShimmerGridCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: context.pAllMd,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16),
-        color: Theme.of(context).colorScheme.surfaceContainer,
-      ),
+    return _ShimmerCardShell(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: const [
-          _ShimmerBox(width: double.infinity, height: 18),
-          SizedBox(height: 12),
-          _ShimmerBox(width: 150, height: 24),
-          SizedBox(height: 18),
-          _ShimmerBox(width: 110, height: 20),
-          SizedBox(height: 14),
-          _ShimmerBox(width: double.infinity, height: 56),
-          SizedBox(height: 12),
-          _ShimmerBox(width: double.infinity, height: 28),
+        children: [
+          // Header: dot (left) + status pill (right) — mirrors grid header.
+          Row(
+            children: const [
+              ShimmerDot(size: 10),
+              Spacer(),
+              ShimmerFill(width: 74, height: 26, radius: _pillRadius),
+            ],
+          ),
+          const SizedBox(height: 12),
+          // Name + ar name.
+          const ShimmerFill(width: double.infinity, height: 18),
+          const SizedBox(height: 6),
+          const ShimmerFill(width: 110, height: 14),
+          const SizedBox(height: 12),
+          // Category pill.
+          const ShimmerFill(width: 110, height: 22, radius: _pillRadius),
+          const SizedBox(height: 16),
+          // Stock (left) + price (right) — mirrors grid card bottom row.
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: const [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ShimmerFill(width: 50, height: 18),
+                  SizedBox(height: 4),
+                  ShimmerFill(width: 40, height: 12),
+                ],
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ShimmerFill(width: 50, height: 18),
+                  SizedBox(height: 4),
+                  ShimmerFill(width: 40, height: 12),
+                ],
+              ),
+            ],
+          ),
         ],
       ),
     );

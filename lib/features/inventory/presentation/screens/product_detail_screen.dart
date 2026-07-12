@@ -8,7 +8,7 @@ import 'package:pharmacy_app/core/router/app_routes_keys.dart';
 import 'package:pharmacy_app/core/utils/messages/snackbar.dart';
 import 'package:pharmacy_app/features/inventory/cubit/product_detail/product_detail_cubit.dart';
 import 'package:pharmacy_app/features/inventory/cubit/product_detail/product_detail_state.dart';
-import 'package:pharmacy_app/features/inventory/presentation/widgets/product_detail/add_batch_bottom_sheet.dart';
+import 'package:pharmacy_app/features/inventory/presentation/screens/add_batch_screen.dart';
 import 'package:pharmacy_app/features/inventory/presentation/widgets/product_detail/batches_tab.dart';
 import 'package:pharmacy_app/features/inventory/presentation/widgets/product_detail/medical_info_tab.dart';
 import 'package:pharmacy_app/features/inventory/presentation/widgets/product_detail/overview_tab.dart';
@@ -44,11 +44,13 @@ class _ProductDetailScreenState extends State<ProductDetailScreen>
   ProductDetailCubit get _cubit => context.read<ProductDetailCubit>();
 
   void _openAddBatchSheet(int productId) {
-    showAddBatchBottomSheet(
-      context,
-      productId: productId,
-      cubit: _cubit,
-      onSubmit: (body) => _cubit.addBatch(body),
+    Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        builder: (_) => BlocProvider<ProductDetailCubit>.value(
+          value: _cubit,
+          child: AddBatchScreen(productId: productId),
+        ),
+      ),
     );
   }
 
