@@ -6,7 +6,7 @@ import 'package:pharmacy_app/core/extensions/failure_message_localization_ext.da
 import 'package:pharmacy_app/core/extensions/localization_ext.dart';
 import 'package:pharmacy_app/core/theme/app_colors.dart';
 import 'package:pharmacy_app/core/widgets/shimmer_box.dart';
-import 'package:pharmacy_app/features/shared/widgets/status_pill.dart';
+import 'package:pharmacy_app/core/widgets/status_pill.dart';
 import 'package:pharmacy_app/features/supplier_debts/cubit/supplier_debt_detail_cubit.dart';
 import 'package:pharmacy_app/features/supplier_debts/cubit/supplier_debt_detail_state.dart';
 import 'package:pharmacy_app/features/supplier_debts/data/models/supplier_debt_model.dart';
@@ -23,9 +23,9 @@ class SupplierDebtDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => SupplierDebtDetailCubit(
-        repository: sl<SupplierDebtRepository>(),
-      )..loadDebt(debtId),
+      create: (context) =>
+          SupplierDebtDetailCubit(repository: sl<SupplierDebtRepository>())
+            ..loadDebt(debtId),
       child: Scaffold(
         appBar: AppBar(title: Text(context.tr.debts_title)),
         body: SafeArea(
@@ -78,7 +78,10 @@ class _DebtHeaderCard extends StatelessWidget {
       padding: context.pAllMd,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(width: 1.5, color: context.colors.outline.withAlpha(170)),
+        border: Border.all(
+          width: 1.5,
+          color: context.colors.outline.withAlpha(170),
+        ),
         color: context.colors.surfaceContainer,
       ),
       child: Column(
@@ -86,7 +89,11 @@ class _DebtHeaderCard extends StatelessWidget {
         children: [
           Row(
             children: [
-              Icon(Icons.business_outlined, size: context.iSm, color: context.muted),
+              Icon(
+                Icons.business_outlined,
+                size: context.iSm,
+                color: context.muted,
+              ),
               SizedBox(width: context.sXs),
               Expanded(
                 child: Text(
@@ -106,11 +113,17 @@ class _DebtHeaderCard extends StatelessWidget {
             context.vSm,
             Row(
               children: [
-                Icon(Icons.event_rounded, size: context.iXs, color: context.muted),
+                Icon(
+                  Icons.event_rounded,
+                  size: context.iXs,
+                  color: context.muted,
+                ),
                 SizedBox(width: context.sXs),
                 Text(
                   '${tr.debt_due_date}: ${debt.dueDate}',
-                  style: context.text.bodyMedium?.copyWith(color: context.muted),
+                  style: context.text.bodyMedium?.copyWith(
+                    color: context.muted,
+                  ),
                 ),
               ],
             ),
@@ -133,7 +146,10 @@ class _AmountsCard extends StatelessWidget {
       padding: context.pAllMd,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(width: 1.5, color: context.colors.outline.withAlpha(170)),
+        border: Border.all(
+          width: 1.5,
+          color: context.colors.outline.withAlpha(170),
+        ),
         color: context.colors.surfaceContainer,
       ),
       child: Column(
@@ -181,18 +197,20 @@ class _AmountRow extends StatelessWidget {
           Expanded(
             child: Text(
               label,
-              style: (prominent
-                      ? context.text.titleSmall
-                      : context.text.bodyMedium)
-                  ?.copyWith(fontWeight: prominent ? FontWeight.bold : null),
+              style:
+                  (prominent
+                          ? context.text.titleSmall
+                          : context.text.bodyMedium)
+                      ?.copyWith(
+                        fontWeight: prominent ? FontWeight.bold : null,
+                      ),
             ),
           ),
           Text(
             value,
-            style: (prominent
-                    ? context.text.titleMedium
-                    : context.text.titleSmall)
-                ?.copyWith(fontWeight: FontWeight.bold, color: color),
+            style:
+                (prominent ? context.text.titleMedium : context.text.titleSmall)
+                    ?.copyWith(fontWeight: FontWeight.bold, color: color),
           ),
         ],
       ),
@@ -213,7 +231,10 @@ class _PaymentsCard extends StatelessWidget {
       padding: context.pAllMd,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(width: 1.5, color: context.colors.outline.withAlpha(170)),
+        border: Border.all(
+          width: 1.5,
+          color: context.colors.outline.withAlpha(170),
+        ),
         color: context.colors.surfaceContainer,
       ),
       child: Column(
@@ -221,7 +242,9 @@ class _PaymentsCard extends StatelessWidget {
         children: [
           Text(
             tr.debt_payments_title,
-            style: context.text.titleSmall?.copyWith(fontWeight: FontWeight.bold),
+            style: context.text.titleSmall?.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
           ),
           context.vMd,
           if (payments.isEmpty)
@@ -259,7 +282,9 @@ class _PaymentsCard extends StatelessWidget {
                   subtitle: Text(
                     '${tr.debt_payment_date}: ${p.paymentDate}'
                     '${p.createdBy != null && p.createdBy!.displayName.isNotEmpty ? ' • ${p.createdBy!.displayName}' : ''}',
-                    style: context.text.labelSmall?.copyWith(color: context.muted),
+                    style: context.text.labelSmall?.copyWith(
+                      color: context.muted,
+                    ),
                   ),
                 );
               },
@@ -278,17 +303,9 @@ class _Loading extends StatelessWidget {
         padding: context.pHorizontal,
         children: [
           context.vSm,
-          ShimmerFill(
-            width: double.infinity,
-            height: context.sXxl,
-            radius: 16,
-          ),
+          ShimmerFill(width: double.infinity, height: context.sXxl, radius: 16),
           context.vMd,
-          ShimmerFill(
-            width: double.infinity,
-            height: context.sXxl,
-            radius: 16,
-          ),
+          ShimmerFill(width: double.infinity, height: context.sXxl, radius: 16),
           context.vMd,
           ShimmerFill(
             width: double.infinity,

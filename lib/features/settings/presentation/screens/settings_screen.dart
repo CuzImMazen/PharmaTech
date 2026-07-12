@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:pharmacy_app/core/app/auth/sign_out_cubit.dart';
 import 'package:pharmacy_app/core/app/auth/sign_out_state.dart';
 import 'package:pharmacy_app/core/app/settings/locale_cubit.dart';
@@ -45,7 +46,15 @@ class _SettingsView extends StatelessWidget {
         }
       },
       child: Scaffold(
-        appBar: AppBar(title: Text(tr.settings)),
+        appBar: AppBar(
+          toolbarHeight: 80,
+          title: Text(
+            tr.settings,
+            style: context.text.headlineLarge?.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
         body: SafeArea(
           child: ListView(
             padding: context.pScreen,
@@ -72,6 +81,26 @@ class _SettingsView extends StatelessWidget {
               ),
 
               // Account section.
+              context.vLg,
+
+              SectionHeader(label: tr.settings_inventory),
+              SettingsSection(
+                children: [
+                  SettingsRow(
+                    icon: LucideIcons.slidersHorizontal,
+                    iconColor: AppColorsHelper.adjustment(context),
+                    label: tr.settings_stock_adjustments,
+                    onTap: () => context.push(AppRoutesKeys.adjustmentsList),
+                  ),
+                  SettingsRow(
+                    icon: LucideIcons.layers,
+                    iconColor: AppColorsHelper.adjustment(context),
+                    label: tr.settings_bulk_adjustment,
+                    onTap: () =>
+                        context.push(AppRoutesKeys.bulkStockAdjustment),
+                  ),
+                ],
+              ),
               context.vLg,
               SectionHeader(label: tr.settings_account),
               SettingsSection(
@@ -124,12 +153,21 @@ class _SettingsView extends StatelessWidget {
       builder: (_) => _SettingsChoiceSheet(
         title: tr.settings_theme,
         options: [
-          _Choice(tr.theme_system, cubit.state == ThemeMode.system,
-              cubit.useSystemTheme),
-          _Choice(tr.theme_light, cubit.state == ThemeMode.light,
-              cubit.useLightTheme),
-          _Choice(tr.theme_dark, cubit.state == ThemeMode.dark,
-              cubit.useDarkTheme),
+          _Choice(
+            tr.theme_system,
+            cubit.state == ThemeMode.system,
+            cubit.useSystemTheme,
+          ),
+          _Choice(
+            tr.theme_light,
+            cubit.state == ThemeMode.light,
+            cubit.useLightTheme,
+          ),
+          _Choice(
+            tr.theme_dark,
+            cubit.state == ThemeMode.dark,
+            cubit.useDarkTheme,
+          ),
         ],
       ),
     );
@@ -147,12 +185,21 @@ class _SettingsView extends StatelessWidget {
       builder: (_) => _SettingsChoiceSheet(
         title: tr.settings_language,
         options: [
-          _Choice(tr.language_system, cubit.state == null,
-              cubit.useSystemLocale),
-          _Choice(tr.language_english, cubit.state?.languageCode == 'en',
-              cubit.useEnglish),
-          _Choice(tr.language_arabic, cubit.state?.languageCode == 'ar',
-              cubit.useArabic),
+          _Choice(
+            tr.language_system,
+            cubit.state == null,
+            cubit.useSystemLocale,
+          ),
+          _Choice(
+            tr.language_english,
+            cubit.state?.languageCode == 'en',
+            cubit.useEnglish,
+          ),
+          _Choice(
+            tr.language_arabic,
+            cubit.state?.languageCode == 'ar',
+            cubit.useArabic,
+          ),
         ],
       ),
     );
@@ -310,7 +357,11 @@ class _ChoiceTile extends StatelessWidget {
                 ),
               ),
               if (option.isSelected)
-                Icon(Icons.check_rounded, color: context.primary, size: context.iMd),
+                Icon(
+                  Icons.check_rounded,
+                  color: context.primary,
+                  size: context.iMd,
+                ),
             ],
           ),
         ),

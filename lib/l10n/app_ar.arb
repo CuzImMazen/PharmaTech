@@ -141,7 +141,7 @@
   ,"email_already_verified": "تم تأكيد هذا البريد الإلكتروني بالفعل. يرجى تسجيل الدخول."
   ,"invalid_link": "الرابط غير صالح أو انتهت صلاحيته، يرجى المحاولة مرة أخرى برابط جديد.",
   "dashboard" : "الرئيسية"
-  ,"sales" : "المبيعات"
+  ,"finance" : "المالية"
   ,"inventory" : "المخزون"
   ,"reports" : "التقارير"
   ,"settings" : "الإعدادات"
@@ -388,6 +388,7 @@
   "settings_theme": "السمة",
   "settings_language": "اللغة",
   "settings_account": "الحساب",
+  "settings_inventory": "المخزون",
   "theme_system": "النظام",
   "theme_light": "فاتح",
   "theme_dark": "داكن",
@@ -404,10 +405,10 @@
 
   "field_required": "هذا الحقل مطلوب",
 
-  "settings_operations": "العمليات",
+  "settings_finance": "العمليات",
   "settings_purchase_invoices": "فواتير الشراء",
   "settings_supplier_debts": "ديون الموردين",
-  "settings_cash_box": "الصندوق",
+  "settings_cash_box": "الصندوق النقدي",
   "settings_stock_adjustments": "تعديلات المخزون",
   "settings_bulk_adjustment": "تعديل مخزون متعدد",
 
@@ -583,10 +584,10 @@
   "scan_camera_permission_denied": "تم رفض إذن الكاميرا. يمكنك إدخال الباركود يدويًا.",
   "scan_looking_up": "جارٍ البحث عن المنتج…",
 
-  "operations_title": "العمليات",
-  "operations_sales": "المبيعات",
-  "operations_purchasing": "المشتريات",
-  "operations_cash_and_stock": "الصندوق والمخزون",
+  "finance_title": "المالية",
+  "finance_sales": "المبيعات",
+  "finance_purchasing": "المشتريات",
+  "finance_cash_box": "الصندوق النقدي",
   "settings_customers": "العملاء",
   "settings_sales_invoices": "فواتير البيع",
 

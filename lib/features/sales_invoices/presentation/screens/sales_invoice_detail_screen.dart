@@ -13,7 +13,7 @@ import 'package:pharmacy_app/features/sales_invoices/cubit/sales_invoice_detail_
 import 'package:pharmacy_app/features/sales_invoices/data/models/sales_invoice_model.dart';
 import 'package:pharmacy_app/features/sales_invoices/data/repo/sales_invoice_repository.dart';
 import 'package:pharmacy_app/features/sales_invoices/presentation/widgets/sales_invoice_card.dart';
-import 'package:pharmacy_app/features/shared/widgets/status_pill.dart';
+import 'package:pharmacy_app/core/widgets/status_pill.dart';
 import 'package:pharmacy_app/features/supplier_debts/presentation/widgets/supplier_debt_card.dart';
 
 /// Read-only detail for a sales invoice: header (number, date, customer,
@@ -34,9 +34,9 @@ class _SalesInvoiceDetailScreenState extends State<SalesInvoiceDetailScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => SalesInvoiceDetailCubit(
-        repository: sl<SalesInvoiceRepository>(),
-      )..loadSalesInvoice(widget.invoiceId),
+      create: (context) =>
+          SalesInvoiceDetailCubit(repository: sl<SalesInvoiceRepository>())
+            ..loadSalesInvoice(widget.invoiceId),
       child: _Body(invoiceId: widget.invoiceId),
     );
   }
@@ -67,15 +67,16 @@ class _Body extends StatelessWidget {
           return;
         }
         if (state.failure != null) {
-          AppSnackbar.failure(message: state.failure!.localizedMessage(context));
+          AppSnackbar.failure(
+            message: state.failure!.localizedMessage(context),
+          );
           cubit.clearAction();
         }
       },
       child: Scaffold(
         appBar: AppBar(title: Text(tr.invoice_invoice_number)),
         body: SafeArea(
-          child: BlocBuilder<SalesInvoiceDetailCubit,
-              SalesInvoiceDetailState>(
+          child: BlocBuilder<SalesInvoiceDetailCubit, SalesInvoiceDetailState>(
             builder: (context, state) {
               if (state.isLoading && state.invoice == null) {
                 return _Loading();
@@ -225,7 +226,8 @@ class _HeaderCard extends StatelessWidget {
             context.vXs,
             _MetaRow(
               icon: Icons.person_outline_rounded,
-              text: '${tr.sales_invoice_customer}: ${invoice.customer!.fullName}',
+              text:
+                  '${tr.sales_invoice_customer}: ${invoice.customer!.fullName}',
             ),
           ],
           context.vXs,
@@ -262,8 +264,14 @@ class _TotalsCard extends StatelessWidget {
       decoration: _cardDecoration(context),
       child: Column(
         children: [
-          _Row(label: tr.invoice_subtotal, value: _money(invoice.subtotal, tr.sp)),
-          _Row(label: tr.invoice_tax_total, value: _money(invoice.taxTotal, tr.sp)),
+          _Row(
+            label: tr.invoice_subtotal,
+            value: _money(invoice.subtotal, tr.sp),
+          ),
+          _Row(
+            label: tr.invoice_tax_total,
+            value: _money(invoice.taxTotal, tr.sp),
+          ),
           _Row(
             label: tr.invoice_discount_total,
             value: _money(invoice.discountTotal, tr.sp),
@@ -331,7 +339,9 @@ class _ItemsCard extends StatelessWidget {
                 final item = items[index];
                 final name = item.product?.brandName ?? '#${item.productId}';
                 final lineTotal =
-                    (item.sellingPrice * item.quantity) + item.tax - item.discount;
+                    (item.sellingPrice * item.quantity) +
+                    item.tax -
+                    item.discount;
                 return ListTile(
                   contentPadding: EdgeInsets.zero,
                   title: Text(
@@ -344,7 +354,9 @@ class _ItemsCard extends StatelessWidget {
                     '${item.quantity} × ${_money(item.sellingPrice, tr.sp)}'
                     '${item.tax != 0 ? ' + ${_money(item.tax, tr.sp)}' : ''}'
                     '${item.discount != 0 ? ' − ${_money(item.discount, tr.sp)}' : ''}',
-                    style: context.text.labelSmall?.copyWith(color: context.muted),
+                    style: context.text.labelSmall?.copyWith(
+                      color: context.muted,
+                    ),
                   ),
                   trailing: Text(
                     _money(lineTotal, tr.sp),
@@ -378,8 +390,11 @@ class _DebtSection extends StatelessWidget {
         children: [
           Row(
             children: [
-              Icon(Icons.account_balance_outlined,
-                  size: context.iSm, color: context.primary),
+              Icon(
+                Icons.account_balance_outlined,
+                size: context.iSm,
+                color: context.primary,
+              ),
               SizedBox(width: context.sXs),
               Text(
                 tr.sales_invoice_customer_debt,
@@ -395,8 +410,14 @@ class _DebtSection extends StatelessWidget {
             ],
           ),
           context.vMd,
-          _Row(label: tr.debt_total_amount, value: _money(debt.totalAmount, tr.sp)),
-          _Row(label: tr.debt_paid_amount, value: _money(debt.paidAmount, tr.sp)),
+          _Row(
+            label: tr.debt_total_amount,
+            value: _money(debt.totalAmount, tr.sp),
+          ),
+          _Row(
+            label: tr.debt_paid_amount,
+            value: _money(debt.paidAmount, tr.sp),
+          ),
           _Row(
             label: tr.debt_remaining_amount,
             value: _money(debt.remainingAmount, tr.sp),
@@ -450,13 +471,9 @@ class _NotesCard extends StatelessWidget {
           ),
           context.vSm,
           Text(
-            invoice.notes?.isNotEmpty == true
-                ? invoice.notes!
-                : '—',
+            invoice.notes?.isNotEmpty == true ? invoice.notes! : '—',
             style: context.text.bodyMedium?.copyWith(
-              color: invoice.notes?.isNotEmpty == true
-                  ? null
-                  : context.muted,
+              color: invoice.notes?.isNotEmpty == true ? null : context.muted,
             ),
           ),
         ],
@@ -533,18 +550,20 @@ class _Row extends StatelessWidget {
           Expanded(
             child: Text(
               label,
-              style: (prominent
-                      ? context.text.titleSmall
-                      : context.text.bodyMedium)
-                  ?.copyWith(fontWeight: prominent ? FontWeight.bold : null),
+              style:
+                  (prominent
+                          ? context.text.titleSmall
+                          : context.text.bodyMedium)
+                      ?.copyWith(
+                        fontWeight: prominent ? FontWeight.bold : null,
+                      ),
             ),
           ),
           Text(
             value,
-            style: (prominent
-                    ? context.text.titleMedium
-                    : context.text.titleSmall)
-                ?.copyWith(fontWeight: FontWeight.bold, color: color),
+            style:
+                (prominent ? context.text.titleMedium : context.text.titleSmall)
+                    ?.copyWith(fontWeight: FontWeight.bold, color: color),
           ),
         ],
       ),
@@ -587,7 +606,11 @@ class _Loading extends StatelessWidget {
           context.vMd,
           ShimmerFill(width: double.infinity, height: context.sXxl, radius: 16),
           context.vMd,
-          ShimmerFill(width: double.infinity, height: context.sMassive, radius: 16),
+          ShimmerFill(
+            width: double.infinity,
+            height: context.sMassive,
+            radius: 16,
+          ),
         ],
       ),
     );
@@ -623,13 +646,10 @@ class _Error extends StatelessWidget {
 }
 
 BoxDecoration _cardDecoration(BuildContext context) => BoxDecoration(
-      borderRadius: BorderRadius.circular(16),
-      border: Border.all(
-        width: 1.5,
-        color: context.colors.outline.withAlpha(170),
-      ),
-      color: context.colors.surfaceContainer,
-    );
+  borderRadius: BorderRadius.circular(16),
+  border: Border.all(width: 1.5, color: context.colors.outline.withAlpha(170)),
+  color: context.colors.surfaceContainer,
+);
 
 String _money(double amount, String currency) {
   final sign = amount.isNegative ? '-' : '';

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pharmacy_app/core/extensions/app_design_system_ext.dart';
 import 'package:pharmacy_app/core/extensions/localization_ext.dart';
 import 'package:pharmacy_app/features/purchase_invoices/data/models/purchase_invoice_model.dart';
-import 'package:pharmacy_app/features/shared/widgets/status_pill.dart';
+import 'package:pharmacy_app/core/widgets/status_pill.dart';
 import 'package:pharmacy_app/l10n/app_localizations.dart';
 
 /// A single row in the Purchase Invoices list: invoice number, date, supplier
@@ -156,7 +156,10 @@ StatusPillTone invoiceStatusTone(InvoiceStatus status) {
 }
 
 /// Localized label for a payment status.
-String invoicePaymentStatusLabel(InvoicePaymentStatus status, AppLocalizations tr) {
+String invoicePaymentStatusLabel(
+  InvoicePaymentStatus status,
+  AppLocalizations tr,
+) {
   return switch (status) {
     InvoicePaymentStatus.paid => tr.invoice_payment_status_paid,
     InvoicePaymentStatus.partial => tr.invoice_payment_status_partial,
@@ -174,7 +177,10 @@ StatusPillTone paymentStatusTone(InvoicePaymentStatus status) {
 }
 
 /// Localized label for a payment method.
-String invoicePaymentMethodLabel(InvoicePaymentMethod method, AppLocalizations tr) {
+String invoicePaymentMethodLabel(
+  InvoicePaymentMethod method,
+  AppLocalizations tr,
+) {
   return switch (method) {
     InvoicePaymentMethod.cash => tr.invoice_payment_method_cash,
     InvoicePaymentMethod.credit => tr.invoice_payment_method_credit,

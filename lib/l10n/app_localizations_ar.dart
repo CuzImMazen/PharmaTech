@@ -358,7 +358,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get dashboard => 'الرئيسية';
 
   @override
-  String get sales => 'المبيعات';
+  String get finance => 'المالية';
 
   @override
   String get inventory => 'المخزون';
@@ -1028,6 +1028,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get settings_account => 'الحساب';
 
   @override
+  String get settings_inventory => 'المخزون';
+
+  @override
   String get theme_system => 'النظام';
 
   @override
@@ -1070,7 +1073,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get field_required => 'هذا الحقل مطلوب';
 
   @override
-  String get settings_operations => 'العمليات';
+  String get settings_finance => 'العمليات';
 
   @override
   String get settings_purchase_invoices => 'فواتير الشراء';
@@ -1079,7 +1082,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get settings_supplier_debts => 'ديون الموردين';
 
   @override
-  String get settings_cash_box => 'الصندوق';
+  String get settings_cash_box => 'الصندوق النقدي';
 
   @override
   String get settings_stock_adjustments => 'تعديلات المخزون';
@@ -1586,16 +1589,16 @@ class AppLocalizationsAr extends AppLocalizations {
   String get scan_looking_up => 'جارٍ البحث عن المنتج…';
 
   @override
-  String get operations_title => 'العمليات';
+  String get finance_title => 'المالية';
 
   @override
-  String get operations_sales => 'المبيعات';
+  String get finance_sales => 'المبيعات';
 
   @override
-  String get operations_purchasing => 'المشتريات';
+  String get finance_purchasing => 'المشتريات';
 
   @override
-  String get operations_cash_and_stock => 'الصندوق والمخزون';
+  String get finance_cash_box => 'الصندوق النقدي';
 
   @override
   String get settings_customers => 'العملاء';

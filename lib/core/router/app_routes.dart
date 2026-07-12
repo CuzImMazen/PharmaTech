@@ -94,7 +94,7 @@ import 'package:pharmacy_app/features/sales_invoices/presentation/screens/sales_
 import 'package:pharmacy_app/features/sales_invoices/presentation/screens/sales_invoice_form_screen.dart';
 import 'package:pharmacy_app/features/sales_invoices/presentation/screens/sales_invoices_screen.dart';
 
-import 'package:pharmacy_app/features/operations/presentation/screens/operations_hub_screen.dart';
+import 'package:pharmacy_app/features/finance/presentation/screens/finance_screen.dart';
 
 class AppRoutes {
   AppRoutes._();
@@ -243,8 +243,9 @@ class AppRoutes {
       path: AppRoutesKeys.productAdd,
       builder: (context, state) {
         final extra = state.extra;
-        final initialBarcode =
-            extra is Map<String, dynamic> ? extra['barcode'] as String? : null;
+        final initialBarcode = extra is Map<String, dynamic>
+            ? extra['barcode'] as String?
+            : null;
         return BlocProvider(
           create: (context) => ProductFormCubit(
             productDetailRepository: sl<ProductDetailRepository>(),
@@ -285,10 +286,7 @@ class AppRoutes {
             productDetailRepository: sl<ProductDetailRepository>(),
             inventoryRepository: sl(),
           )..loadOptions(),
-          child: ProductFormScreen(
-            productId: productId,
-            existing: existing,
-          ),
+          child: ProductFormScreen(productId: productId, existing: existing),
         );
       },
     ),
@@ -298,9 +296,9 @@ class AppRoutes {
       builder: (context, state) {
         final productId = int.tryParse(state.pathParameters['id'] ?? '') ?? 0;
         return BlocProvider(
-          create: (context) => ProductDetailCubit(
-            repository: sl<ProductDetailRepository>(),
-          )..loadAll(productId),
+          create: (context) =>
+              ProductDetailCubit(repository: sl<ProductDetailRepository>())
+                ..loadAll(productId),
           child: ProductDetailScreen(productId: productId),
         );
       },
@@ -316,7 +314,8 @@ class AppRoutes {
       path: AppRoutesKeys.suppliersList,
       builder: (context, state) => BlocProvider(
         create: (context) =>
-            SupplierCubit(repository: sl<SupplierRepository>())..loadSuppliers(),
+            SupplierCubit(repository: sl<SupplierRepository>())
+              ..loadSuppliers(),
         child: const SuppliersScreen(),
       ),
     ),
@@ -337,18 +336,14 @@ class AppRoutes {
     GoRoute(
       path: AppRoutesKeys.supplierEdit,
       builder: (context, state) {
-        final supplierId =
-            int.tryParse(state.pathParameters['id'] ?? '') ?? 0;
+        final supplierId = int.tryParse(state.pathParameters['id'] ?? '') ?? 0;
         final existing = state.extra as SupplierModel?;
         return BlocProvider(
           create: (context) => SupplierFormCubit(
             supplierRepository: sl<SupplierRepository>(),
             inventoryRepository: sl<InventoryRepository>(),
           )..loadOptions(),
-          child: SupplierFormScreen(
-            supplierId: supplierId,
-            existing: existing,
-          ),
+          child: SupplierFormScreen(supplierId: supplierId, existing: existing),
         );
       },
     ),
@@ -356,7 +351,6 @@ class AppRoutes {
     // =========================================================================
     // 3.7. CASH BOX (pushed over the nav shell; no bottom nav)
     // =========================================================================
-
     GoRoute(
       path: AppRoutesKeys.cashBox,
       builder: (context, state) => BlocProvider(
@@ -369,7 +363,6 @@ class AppRoutes {
     // =========================================================================
     // 3.7.1 PROFILE (pushed over the nav shell; no bottom nav)
     // =========================================================================
-
     GoRoute(
       path: AppRoutesKeys.profile,
       builder: (context, state) => BlocProvider(
@@ -463,8 +456,7 @@ class AppRoutes {
     GoRoute(
       path: AppRoutesKeys.invoiceDetail,
       builder: (context, state) {
-        final invoiceId =
-            int.tryParse(state.pathParameters['id'] ?? '') ?? 0;
+        final invoiceId = int.tryParse(state.pathParameters['id'] ?? '') ?? 0;
         return PurchaseInvoiceDetailScreen(invoiceId: invoiceId);
       },
     ),
@@ -478,7 +470,8 @@ class AppRoutes {
       path: AppRoutesKeys.customersList,
       builder: (context, state) => BlocProvider(
         create: (context) =>
-            CustomerCubit(repository: sl<CustomerRepository>())..loadCustomers(),
+            CustomerCubit(repository: sl<CustomerRepository>())
+              ..loadCustomers(),
         child: const CustomersScreen(),
       ),
     ),
@@ -497,16 +490,12 @@ class AppRoutes {
     GoRoute(
       path: AppRoutesKeys.customerEdit,
       builder: (context, state) {
-        final customerId =
-            int.tryParse(state.pathParameters['id'] ?? '') ?? 0;
+        final customerId = int.tryParse(state.pathParameters['id'] ?? '') ?? 0;
         final existing = state.extra as CustomerModel?;
         return BlocProvider(
           create: (context) =>
               CustomerFormCubit(customerRepository: sl<CustomerRepository>()),
-          child: CustomerFormScreen(
-            customerId: customerId,
-            existing: existing,
-          ),
+          child: CustomerFormScreen(customerId: customerId, existing: existing),
         );
       },
     ),
@@ -543,8 +532,7 @@ class AppRoutes {
     GoRoute(
       path: AppRoutesKeys.salesInvoiceDetail,
       builder: (context, state) {
-        final invoiceId =
-            int.tryParse(state.pathParameters['id'] ?? '') ?? 0;
+        final invoiceId = int.tryParse(state.pathParameters['id'] ?? '') ?? 0;
         return SalesInvoiceDetailScreen(invoiceId: invoiceId);
       },
     ),
@@ -564,9 +552,8 @@ class AppRoutes {
             GoRoute(
               path: AppRoutesKeys.dashboard,
               builder: (context, state) => BlocProvider(
-                create: (context) => DashboardCubit(
-                  inventoryRepository: sl(),
-                )..loadLowStock(),
+                create: (context) =>
+                    DashboardCubit(inventoryRepository: sl())..loadLowStock(),
                 child: const DashboardScreen(),
               ),
               routes: const [
@@ -608,7 +595,7 @@ class AppRoutes {
           routes: [
             GoRoute(
               path: AppRoutesKeys.sales,
-              builder: (context, state) => const OperationsHubScreen(),
+              builder: (context, state) => const FinanceScreen(),
             ),
           ],
         ),

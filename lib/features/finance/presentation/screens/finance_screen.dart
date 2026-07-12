@@ -6,25 +6,34 @@ import 'package:pharmacy_app/core/extensions/localization_ext.dart';
 import 'package:pharmacy_app/core/router/app_routes_keys.dart';
 import 'package:pharmacy_app/core/widgets/settings_section.dart';
 
-/// The Operations hub — the Sales nav tab. A grouped list of every
+/// The finance hub — the Sales nav tab. A grouped list of every
 /// day-to-day operation (sales, purchasing, cash & stock), each row pushing
 /// its screen over the nav shell. Mirrors the Settings screen's section style
 /// via the shared [SettingsSection] / [SettingsRow] / [SectionHeader] widgets.
-class OperationsHubScreen extends StatelessWidget {
-  const OperationsHubScreen({super.key});
+class FinanceScreen extends StatelessWidget {
+  const FinanceScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     final tr = context.tr;
 
     return Scaffold(
-      appBar: AppBar(title: Text(tr.operations_title)),
+      appBar: AppBar(
+        centerTitle: true,
+        toolbarHeight: 80,
+        title: Text(
+          tr.finance_title,
+          style: context.text.headlineLarge?.copyWith(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
       body: SafeArea(
         child: ListView(
           padding: context.pScreen,
           children: [
             // Sales section.
-            _SectionHeader(label: tr.operations_sales),
+            _SectionHeader(label: tr.finance_sales),
             SettingsSection(
               children: [
                 SettingsRow(
@@ -44,7 +53,7 @@ class OperationsHubScreen extends StatelessWidget {
 
             // Purchasing section.
             context.vLg,
-            _SectionHeader(label: tr.operations_purchasing),
+            _SectionHeader(label: tr.finance_purchasing),
             SettingsSection(
               children: [
                 SettingsRow(
@@ -70,7 +79,7 @@ class OperationsHubScreen extends StatelessWidget {
 
             // Cash & Stock section.
             context.vLg,
-            _SectionHeader(label: tr.operations_cash_and_stock),
+            _SectionHeader(label: tr.finance_cash_box),
             SettingsSection(
               children: [
                 SettingsRow(
@@ -78,18 +87,6 @@ class OperationsHubScreen extends StatelessWidget {
                   iconColor: AppColorsHelper.cashBox(context),
                   label: tr.settings_cash_box,
                   onTap: () => context.push(AppRoutesKeys.cashBox),
-                ),
-                SettingsRow(
-                  icon: LucideIcons.slidersHorizontal,
-                  iconColor: AppColorsHelper.adjustment(context),
-                  label: tr.settings_stock_adjustments,
-                  onTap: () => context.push(AppRoutesKeys.adjustmentsList),
-                ),
-                SettingsRow(
-                  icon: LucideIcons.layers,
-                  iconColor: AppColorsHelper.adjustment(context),
-                  label: tr.settings_bulk_adjustment,
-                  onTap: () => context.push(AppRoutesKeys.bulkStockAdjustment),
                 ),
               ],
             ),

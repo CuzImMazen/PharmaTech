@@ -3,7 +3,7 @@ import 'package:pharmacy_app/core/extensions/app_design_system_ext.dart';
 import 'package:pharmacy_app/core/extensions/localization_ext.dart';
 import 'package:pharmacy_app/features/purchase_invoices/presentation/widgets/purchase_invoice_card.dart';
 import 'package:pharmacy_app/features/sales_invoices/data/models/sales_invoice_model.dart';
-import 'package:pharmacy_app/features/shared/widgets/status_pill.dart';
+import 'package:pharmacy_app/core/widgets/status_pill.dart';
 
 // Re-export the shared invoice label/tone helpers (the enums are shared, so
 // these work unchanged for sales invoices). Callers should import them from

@@ -358,7 +358,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get dashboard => 'Dashboard';
 
   @override
-  String get sales => 'Sales';
+  String get finance => 'Finance';
 
   @override
   String get inventory => 'Inventory';
@@ -1028,6 +1028,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settings_account => 'Account';
 
   @override
+  String get settings_inventory => 'Inventory';
+
+  @override
   String get theme_system => 'System';
 
   @override
@@ -1070,7 +1073,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get field_required => 'This field is required';
 
   @override
-  String get settings_operations => 'Operations';
+  String get settings_finance => 'finance';
 
   @override
   String get settings_purchase_invoices => 'Purchase Invoices';
@@ -1586,16 +1589,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get scan_looking_up => 'Looking up product…';
 
   @override
-  String get operations_title => 'Operations';
+  String get finance_title => 'Finance';
 
   @override
-  String get operations_sales => 'Sales';
+  String get finance_sales => 'Sales';
 
   @override
-  String get operations_purchasing => 'Purchasing';
+  String get finance_purchasing => 'Purchasing';
 
   @override
-  String get operations_cash_and_stock => 'Cash & Stock';
+  String get finance_cash_box => 'Cash Box';
 
   @override
   String get settings_customers => 'Customers';

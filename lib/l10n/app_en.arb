@@ -144,7 +144,7 @@
   ,"email_already_verified": "This email address has already been verified. Please log in."
   ,"invalid_link": "The link is invalid or has expired please try again with new Link."
   ,"dashboard" : "Dashboard"
-  ,"sales" : "Sales"
+  ,"finance" : "Finance"
   ,"inventory" : "Inventory"
   ,"reports" : "Reports"
   ,"settings" : "Settings"
@@ -391,6 +391,7 @@
   "settings_theme": "Theme",
   "settings_language": "Language",
   "settings_account": "Account",
+  "settings_inventory": "Inventory",
   "theme_system": "System",
   "theme_light": "Light",
   "theme_dark": "Dark",
@@ -407,7 +408,7 @@
 
   "field_required": "This field is required",
 
-  "settings_operations": "Operations",
+  "settings_finance": "finance",
   "settings_purchase_invoices": "Purchase Invoices",
   "settings_supplier_debts": "Supplier Debts",
   "settings_cash_box": "Cash Box",
@@ -586,10 +587,10 @@
   "scan_camera_permission_denied": "Camera permission was denied. You can enter the barcode manually.",
   "scan_looking_up": "Looking up product…",
 
-  "operations_title": "Operations",
-  "operations_sales": "Sales",
-  "operations_purchasing": "Purchasing",
-  "operations_cash_and_stock": "Cash & Stock",
+  "finance_title": "Finance",
+  "finance_sales": "Sales",
+  "finance_purchasing": "Purchasing",
+  "finance_cash_box": "Cash Box",
   "settings_customers": "Customers",
   "settings_sales_invoices": "Sales Invoices",
 

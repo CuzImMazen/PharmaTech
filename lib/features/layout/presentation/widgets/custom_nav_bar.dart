@@ -42,8 +42,8 @@ class CustomNavBar extends StatelessWidget {
               ),
             ),
             NavBarItem(
-              icon: LucideIcons.shoppingCart,
-              label: context.tr.sales,
+              icon: LucideIcons.landmark,
+              label: context.tr.finance,
               isActive: navigationShell.currentIndex == 2,
               onTap: () => navigationShell.goBranch(
                 2,

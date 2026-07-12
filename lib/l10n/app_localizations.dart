@@ -785,11 +785,11 @@ abstract class AppLocalizations {
   /// **'Dashboard'**
   String get dashboard;
 
-  /// No description provided for @sales.
+  /// No description provided for @finance.
   ///
   /// In en, this message translates to:
-  /// **'Sales'**
-  String get sales;
+  /// **'Finance'**
+  String get finance;
 
   /// No description provided for @inventory.
   ///
@@ -2117,6 +2117,12 @@ abstract class AppLocalizations {
   /// **'Account'**
   String get settings_account;
 
+  /// No description provided for @settings_inventory.
+  ///
+  /// In en, this message translates to:
+  /// **'Inventory'**
+  String get settings_inventory;
+
   /// No description provided for @theme_system.
   ///
   /// In en, this message translates to:
@@ -2201,11 +2207,11 @@ abstract class AppLocalizations {
   /// **'This field is required'**
   String get field_required;
 
-  /// No description provided for @settings_operations.
+  /// No description provided for @settings_finance.
   ///
   /// In en, this message translates to:
-  /// **'Operations'**
-  String get settings_operations;
+  /// **'finance'**
+  String get settings_finance;
 
   /// No description provided for @settings_purchase_invoices.
   ///
@@ -3233,29 +3239,29 @@ abstract class AppLocalizations {
   /// **'Looking up product…'**
   String get scan_looking_up;
 
-  /// No description provided for @operations_title.
+  /// No description provided for @finance_title.
   ///
   /// In en, this message translates to:
-  /// **'Operations'**
-  String get operations_title;
+  /// **'Finance'**
+  String get finance_title;
 
-  /// No description provided for @operations_sales.
+  /// No description provided for @finance_sales.
   ///
   /// In en, this message translates to:
   /// **'Sales'**
-  String get operations_sales;
+  String get finance_sales;
 
-  /// No description provided for @operations_purchasing.
+  /// No description provided for @finance_purchasing.
   ///
   /// In en, this message translates to:
   /// **'Purchasing'**
-  String get operations_purchasing;
+  String get finance_purchasing;
 
-  /// No description provided for @operations_cash_and_stock.
+  /// No description provided for @finance_cash_box.
   ///
   /// In en, this message translates to:
-  /// **'Cash & Stock'**
-  String get operations_cash_and_stock;
+  /// **'Cash Box'**
+  String get finance_cash_box;
 
   /// No description provided for @settings_customers.
   ///

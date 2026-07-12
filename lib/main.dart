@@ -70,7 +70,7 @@ void main() async {
         BlocProvider.value(value: localeCubit),
       ],
       child: DevicePreview(
-        enabled: true,
+        enabled: false,
         builder: (context) => const PharmacyApp(),
       ),
     ),

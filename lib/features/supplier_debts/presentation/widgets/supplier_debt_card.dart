@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/core/extensions/app_design_system_ext.dart';
 import 'package:pharmacy_app/core/extensions/localization_ext.dart';
-import 'package:pharmacy_app/features/shared/widgets/status_pill.dart';
+import 'package:pharmacy_app/core/widgets/status_pill.dart';
 import 'package:pharmacy_app/features/supplier_debts/data/models/supplier_debt_model.dart';
 import 'package:pharmacy_app/l10n/app_localizations.dart';
 
@@ -9,11 +9,7 @@ import 'package:pharmacy_app/l10n/app_localizations.dart';
 /// amount (prominent), total/paid figures, the status pill, and an optional
 /// due date. Mirrors the app's card style (16-radius bordered surfaceContainer).
 class SupplierDebtCard extends StatelessWidget {
-  const SupplierDebtCard({
-    super.key,
-    required this.debt,
-    this.onTap,
-  });
+  const SupplierDebtCard({super.key, required this.debt, this.onTap});
 
   final SupplierDebtModel debt;
   final VoidCallback? onTap;
@@ -158,13 +154,14 @@ class _AmountCell extends StatelessWidget {
             fit: BoxFit.scaleDown,
             child: Text(
               value,
-              style: (prominent
-                      ? context.text.titleMedium
-                      : context.text.titleSmall)
-                  ?.copyWith(
-                fontWeight: FontWeight.bold,
-                color: prominent ? context.colors.error : null,
-              ),
+              style:
+                  (prominent
+                          ? context.text.titleMedium
+                          : context.text.titleSmall)
+                      ?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: prominent ? context.colors.error : null,
+                      ),
             ),
           ),
         ],
