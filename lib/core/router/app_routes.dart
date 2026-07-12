@@ -36,13 +36,37 @@ import 'package:pharmacy_app/features/inventory/cubit/view_mode_cubit.dart';
 import 'package:pharmacy_app/features/inventory/data/models/product_detail_model.dart';
 import 'package:pharmacy_app/features/inventory/data/models/product_medical_info_model.dart';
 import 'package:pharmacy_app/features/inventory/data/repo/product_detail_repository.dart';
+import 'package:pharmacy_app/features/inventory/data/repo/inventory_repository.dart';
 import 'package:pharmacy_app/features/inventory/presentation/screens/inventory_screen.dart';
 import 'package:pharmacy_app/features/inventory/presentation/screens/medical_info_form_screen.dart';
 import 'package:pharmacy_app/features/inventory/presentation/screens/product_detail_screen.dart';
 import 'package:pharmacy_app/features/inventory/presentation/screens/product_form_screen.dart';
 import 'package:pharmacy_app/features/layout/presentation/screen/layout_screen.dart';
 import 'package:pharmacy_app/features/onboarding/presentation/screens/onboarding_screen.dart';
+import 'package:pharmacy_app/features/settings/presentation/screens/settings_screen.dart';
 import 'package:pharmacy_app/features/splash/presentation/screens/splash_screen.dart';
+import 'package:pharmacy_app/features/suppliers/cubit/supplier_cubit.dart';
+import 'package:pharmacy_app/features/suppliers/cubit/supplier_form_cubit.dart';
+import 'package:pharmacy_app/features/suppliers/data/models/supplier_model.dart';
+import 'package:pharmacy_app/features/suppliers/data/repo/supplier_repository.dart';
+import 'package:pharmacy_app/features/suppliers/presentation/screens/supplier_form_screen.dart';
+import 'package:pharmacy_app/features/suppliers/presentation/screens/suppliers_screen.dart';
+
+import 'package:pharmacy_app/features/cash_boxes/cubit/cash_box_cubit.dart';
+import 'package:pharmacy_app/features/cash_boxes/data/repo/cash_box_repository.dart';
+import 'package:pharmacy_app/features/cash_boxes/presentation/screens/cash_box_screen.dart';
+
+import 'package:pharmacy_app/features/supplier_debts/cubit/supplier_debt_cubit.dart';
+import 'package:pharmacy_app/features/supplier_debts/data/repo/supplier_debt_repository.dart';
+import 'package:pharmacy_app/features/supplier_debts/presentation/screens/supplier_debt_detail_screen.dart';
+import 'package:pharmacy_app/features/supplier_debts/presentation/screens/supplier_debts_screen.dart';
+
+import 'package:pharmacy_app/features/purchase_invoices/cubit/purchase_invoice_cubit.dart';
+import 'package:pharmacy_app/features/purchase_invoices/cubit/purchase_invoice_form_cubit.dart';
+import 'package:pharmacy_app/features/purchase_invoices/data/repo/purchase_invoice_repository.dart';
+import 'package:pharmacy_app/features/purchase_invoices/presentation/screens/purchase_invoice_detail_screen.dart';
+import 'package:pharmacy_app/features/purchase_invoices/presentation/screens/purchase_invoice_form_screen.dart';
+import 'package:pharmacy_app/features/purchase_invoices/presentation/screens/purchase_invoices_screen.dart';
 
 class AppRoutes {
   AppRoutes._();
@@ -250,6 +274,128 @@ class AppRoutes {
     ),
 
     // =========================================================================
+    // 3.6. SUPPLIERS (pushed over the nav shell; no bottom nav)
+    // =========================================================================
+
+    // Suppliers list — must precede /suppliers/:id/edit so "add" isn't matched
+    // as an id.
+    GoRoute(
+      path: AppRoutesKeys.suppliersList,
+      builder: (context, state) => BlocProvider(
+        create: (context) =>
+            SupplierCubit(repository: sl<SupplierRepository>())..loadSuppliers(),
+        child: const SuppliersScreen(),
+      ),
+    ),
+
+    // Add supplier — placed before the :id edit route.
+    GoRoute(
+      path: AppRoutesKeys.supplierAdd,
+      builder: (context, state) => BlocProvider(
+        create: (context) => SupplierFormCubit(
+          supplierRepository: sl<SupplierRepository>(),
+          inventoryRepository: sl<InventoryRepository>(),
+        )..loadOptions(),
+        child: const SupplierFormScreen(),
+      ),
+    ),
+
+    // Edit supplier — pre-fills from the passed SupplierModel.
+    GoRoute(
+      path: AppRoutesKeys.supplierEdit,
+      builder: (context, state) {
+        final supplierId =
+            int.tryParse(state.pathParameters['id'] ?? '') ?? 0;
+        final existing = state.extra as SupplierModel?;
+        return BlocProvider(
+          create: (context) => SupplierFormCubit(
+            supplierRepository: sl<SupplierRepository>(),
+            inventoryRepository: sl<InventoryRepository>(),
+          )..loadOptions(),
+          child: SupplierFormScreen(
+            supplierId: supplierId,
+            existing: existing,
+          ),
+        );
+      },
+    ),
+
+    // =========================================================================
+    // 3.7. CASH BOX (pushed over the nav shell; no bottom nav)
+    // =========================================================================
+
+    GoRoute(
+      path: AppRoutesKeys.cashBox,
+      builder: (context, state) => BlocProvider(
+        create: (context) =>
+            CashBoxCubit(repository: sl<CashBoxRepository>())..loadCashBox(),
+        child: const CashBoxScreen(),
+      ),
+    ),
+
+    // =========================================================================
+    // 3.8. SUPPLIER DEBTS (pushed over the nav shell; no bottom nav)
+    // =========================================================================
+
+    // Debts list (read-only).
+    GoRoute(
+      path: AppRoutesKeys.debtsList,
+      builder: (context, state) => BlocProvider(
+        create: (context) =>
+            SupplierDebtCubit(repository: sl<SupplierDebtRepository>())
+              ..loadDebts(),
+        child: const SupplierDebtsScreen(),
+      ),
+    ),
+
+    // Debt detail (with payments).
+    GoRoute(
+      path: AppRoutesKeys.debtDetail,
+      builder: (context, state) {
+        final debtId = int.tryParse(state.pathParameters['id'] ?? '') ?? 0;
+        return SupplierDebtDetailScreen(debtId: debtId);
+      },
+    ),
+
+    // =========================================================================
+    // 3.9. PURCHASE INVOICES (pushed over the nav shell; no bottom nav)
+    // =========================================================================
+
+    // Invoices list — must precede /purchase-invoices/:id so "add" isn't an id.
+    GoRoute(
+      path: AppRoutesKeys.invoicesList,
+      builder: (context, state) => BlocProvider(
+        create: (context) =>
+            PurchaseInvoiceCubit(repository: sl<PurchaseInvoiceRepository>())
+              ..loadInvoices(),
+        child: const PurchaseInvoicesScreen(),
+      ),
+    ),
+
+    // Add invoice — placed before the :id detail route.
+    GoRoute(
+      path: AppRoutesKeys.invoiceAdd,
+      builder: (context, state) => BlocProvider(
+        create: (context) => PurchaseInvoiceFormCubit(
+          invoiceRepository: sl<PurchaseInvoiceRepository>(),
+          supplierRepository: sl<SupplierRepository>(),
+          inventoryRepository: sl<InventoryRepository>(),
+        ),
+        child: const PurchaseInvoiceFormScreen(),
+      ),
+    ),
+
+    // Invoice detail (with items + debt + payments).
+    GoRoute(
+      path: AppRoutesKeys.invoiceDetail,
+      builder: (context, state) {
+        final invoiceId =
+            int.tryParse(state.pathParameters['id'] ?? '') ?? 0;
+        return PurchaseInvoiceDetailScreen(invoiceId: invoiceId);
+      },
+    ),
+
+    // =========================================================================
     // 4. MAIN APPLICATION CORE (PERSISTENT NAV BAR SHELL)
     // =========================================================================
     StatefulShellRoute.indexedStack(
@@ -325,8 +471,7 @@ class AppRoutes {
           routes: [
             GoRoute(
               path: AppRoutesKeys.settings,
-              builder: (context, state) =>
-                  const Scaffold(body: Center(child: Text('Settings Screen'))),
+              builder: (context, state) => const SettingsScreen(),
             ),
           ],
         ),

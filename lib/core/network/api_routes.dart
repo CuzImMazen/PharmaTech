@@ -50,4 +50,28 @@ class ApiRoutes {
   static const String forgotPassword = '/password/forgot';
 
   static const String resetPassword = '/password/reset';
+
+  // ================= SUPPLIERS ================= //
+
+  static const String suppliers = '/suppliers';
+  static String supplierDetail(int id) => '$suppliers/$id';
+  static String supplierRestore(int id) => '$suppliers/$id/restore';
+
+  // ================= PURCHASE INVOICES ================= //
+
+  static const String purchaseInvoices = '/purchase-invoices';
+  static String purchaseInvoiceDetail(int id) => '$purchaseInvoices/$id';
+  static String purchaseInvoiceCancel(int id) =>
+      '$purchaseInvoices/$id/cancel';
+
+  // ================= SUPPLIER DEBTS ================= //
+
+  static const String supplierDebts = '/supplier-debts';
+  static String supplierDebtDetail(int id) => '$supplierDebts/$id';
+
+  // ================= CASH BOXES ================= //
+
+  /// Singular — the pharmacy's single cash box (404 when none exists yet).
+  static const String cashBoxes = '/cash-boxes';
+  static const String cashBoxTransactions = '/cash-boxes/transactions';
 }

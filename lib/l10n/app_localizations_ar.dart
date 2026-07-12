@@ -935,5 +935,437 @@ class AppLocalizationsAr extends AppLocalizations {
   String get medical_info_delete_confirm => 'هل أنت متأكد من حذف المعلومات الطبية لهذا المنتج؟';
 
   @override
+  String get settings_pharmacy => 'الصيدلية';
+
+  @override
+  String get settings_suppliers => 'الموردون';
+
+  @override
+  String get suppliers_title => 'الموردون';
+
+  @override
+  String get suppliers_search_hint => 'ابحث عن الموردين';
+
+  @override
+  String get suppliers_show_deleted => 'عرض المحذوفين';
+
+  @override
+  String get suppliers_empty => 'لا يوجد موردون بعد.';
+
+  @override
+  String get suppliers_empty_hint => 'أضف أول مورد لبدء عمليات الشراء.';
+
+  @override
+  String get suppliers_add => 'إضافة مورد';
+
+  @override
+  String get suppliers_load_error => 'تعذّر تحميل الموردين حالياً.';
+
+  @override
+  String get supplier_add_title => 'إضافة مورد';
+
+  @override
+  String get supplier_edit_title => 'تعديل المورد';
+
+  @override
+  String get supplier_section => 'تفاصيل المورد';
+
+  @override
+  String get supplier_section_sub => 'الاسم والشركة ومعلومات التواصل';
+
+  @override
+  String get supplier_name => 'اسم المورد';
+
+  @override
+  String get supplier_company => 'الشركة';
+
+  @override
+  String get supplier_phone => 'الهاتف';
+
+  @override
+  String get supplier_email => 'البريد الإلكتروني';
+
+  @override
+  String get supplier_address => 'العنوان';
+
+  @override
+  String get supplier_notes => 'ملاحظات';
+
+  @override
+  String get supplier_created => 'تم إنشاء المورد بنجاح.';
+
+  @override
+  String get supplier_updated => 'تم تحديث المورد بنجاح.';
+
+  @override
+  String get supplier_deleted => 'تم حذف المورد بنجاح.';
+
+  @override
+  String get supplier_restored => 'تمت استعادة المورد بنجاح.';
+
+  @override
+  String get supplier_restore => 'استعادة';
+
+  @override
+  String get supplier_delete_title => 'حذف المورد';
+
+  @override
+  String get supplier_delete_confirm => 'هل أنت متأكد من حذف هذا المورد؟';
+
+  @override
+  String get settings_appearance => 'المظهر';
+
+  @override
+  String get settings_theme => 'السمة';
+
+  @override
+  String get settings_language => 'اللغة';
+
+  @override
+  String get settings_account => 'الحساب';
+
+  @override
+  String get theme_system => 'النظام';
+
+  @override
+  String get theme_light => 'فاتح';
+
+  @override
+  String get theme_dark => 'داكن';
+
+  @override
+  String get language_system => 'النظام';
+
+  @override
+  String get language_english => 'الإنجليزية';
+
+  @override
+  String get language_arabic => 'العربية';
+
+  @override
+  String get sign_out => 'تسجيل الخروج';
+
+  @override
+  String get sign_out_confirm_title => 'تسجيل الخروج؟';
+
+  @override
+  String get sign_out_confirm => 'هل أنت متأكد من تسجيل الخروج؟';
+
+  @override
+  String get sign_out_failed => 'فشل تسجيل الخروج. حاول مرة أخرى.';
+
+  @override
   String get field_required => 'هذا الحقل مطلوب';
+
+  @override
+  String get settings_operations => 'العمليات';
+
+  @override
+  String get settings_purchase_invoices => 'فواتير الشراء';
+
+  @override
+  String get settings_supplier_debts => 'ديون الموردين';
+
+  @override
+  String get settings_cash_box => 'الصندوق';
+
+  @override
+  String get cash_box_title => 'الصندوق النقدي';
+
+  @override
+  String get cash_box_current_balance => 'الرصيد الحالي';
+
+  @override
+  String get cash_box_opening_balance => 'رصيد الافتتاح';
+
+  @override
+  String get cash_box_net_change => 'صافي التغير';
+
+  @override
+  String get cash_box_create => 'إنشاء الصندوق';
+
+  @override
+  String get cash_box_created => 'تم إنشاء الصندوق بنجاح.';
+
+  @override
+  String get cash_box_opening_balance_invalid => 'أدخل رصيد افتتاح صحيح (صفر أو أكثر).';
+
+  @override
+  String get cash_box_no_box_title => 'لا يوجد صندوق بعد';
+
+  @override
+  String get cash_box_no_box_hint => 'أنشئ صندوق الصيدلية لبدء تتبع الحركات النقدية.';
+
+  @override
+  String get cash_box_no_transactions => 'لا توجد حركات بعد.';
+
+  @override
+  String get cash_box_all_types => 'الكل';
+
+  @override
+  String get cash_tx_purchase_out => 'شراء إخراج';
+
+  @override
+  String get cash_tx_sale_in => 'بيع إدخال';
+
+  @override
+  String get cash_tx_customer_return_out => 'إرجاع عميل إخراج';
+
+  @override
+  String get cash_tx_supplier_return_in => 'إرجاع مورد إدخال';
+
+  @override
+  String get cash_tx_customer_debt_payment_in => 'سداد دين عميل إدخال';
+
+  @override
+  String get cash_tx_supplier_debt_payment_out => 'سداد دين مورد إخراج';
+
+  @override
+  String get cash_tx_manual_in => 'إدخال يدوي';
+
+  @override
+  String get cash_tx_manual_out => 'إخراج يدوي';
+
+  @override
+  String get debts_title => 'ديون الموردين';
+
+  @override
+  String get debts_empty => 'لا توجد ديون للموردين.';
+
+  @override
+  String get debts_empty_hint => 'تظهر الديون عند تسجيل فاتورة شراء بالأجل.';
+
+  @override
+  String get debts_load_error => 'تعذّر تحميل ديون الموردين حالياً.';
+
+  @override
+  String get debts_filter_supplier => 'المورد';
+
+  @override
+  String get debts_filter_status => 'الحالة';
+
+  @override
+  String get debt_total_amount => 'إجمالي المبلغ';
+
+  @override
+  String get debt_paid_amount => 'المدفوع';
+
+  @override
+  String get debt_remaining_amount => 'المتبقي';
+
+  @override
+  String get debt_due_date => 'تاريخ الاستحقاق';
+
+  @override
+  String get debt_no_due_date => 'بدون تاريخ استحقاق';
+
+  @override
+  String get debt_status_open => 'مفتوح';
+
+  @override
+  String get debt_status_partial => 'جزئي';
+
+  @override
+  String get debt_status_paid => 'مدفوع';
+
+  @override
+  String get debt_status_overdue => 'متأخر';
+
+  @override
+  String get debt_status_cancelled => 'ملغى';
+
+  @override
+  String get debt_payments_title => 'الدفعات';
+
+  @override
+  String get debt_no_payments => 'لا توجد دفعات مسجلة بعد.';
+
+  @override
+  String get debt_payment_date => 'تاريخ الدفعة';
+
+  @override
+  String get debt_payment_amount => 'المبلغ';
+
+  @override
+  String get invoices_title => 'فواتير الشراء';
+
+  @override
+  String get invoices_empty => 'لا توجد فواتير شراء بعد.';
+
+  @override
+  String get invoices_empty_hint => 'سجّل أول عملية شراء لبدء تتبع المخزون والتكاليف.';
+
+  @override
+  String get invoices_load_error => 'تعذّر تحميل فواتير الشراء حالياً.';
+
+  @override
+  String get invoices_search_hint => 'ابحث عن فواتير';
+
+  @override
+  String get invoices_add => 'إضافة فاتورة';
+
+  @override
+  String get invoice_invoice_number => 'رقم الفاتورة';
+
+  @override
+  String get invoice_date => 'تاريخ الفاتورة';
+
+  @override
+  String get invoice_supplier => 'المورد';
+
+  @override
+  String get invoice_subtotal => 'المجموع الفرعي';
+
+  @override
+  String get invoice_tax_total => 'الضريبة';
+
+  @override
+  String get invoice_discount_total => 'الخصم';
+
+  @override
+  String get invoice_grand_total => 'الإجمالي';
+
+  @override
+  String get invoice_amount_paid => 'المبلغ المدفوع';
+
+  @override
+  String get invoice_amount_due => 'المبلغ المستحق';
+
+  @override
+  String get invoice_payment_method => 'طريقة الدفع';
+
+  @override
+  String get invoice_payment_status => 'حالة الدفع';
+
+  @override
+  String get invoice_status => 'الحالة';
+
+  @override
+  String get invoice_items => 'العناصر';
+
+  @override
+  String get invoice_no_items => 'لا توجد عناصر.';
+
+  @override
+  String get invoice_notes => 'ملاحظات';
+
+  @override
+  String get invoice_cancel => 'إلغاء الفاتورة';
+
+  @override
+  String get invoice_cancel_title => 'إلغاء الفاتورة؟';
+
+  @override
+  String get invoice_cancel_confirm => 'إلغاء هذه الفاتورة يعكس دفعات المخزون ويعيد أي مبلغ نقدي مدفوع. لا يمكن التراجع عن هذا الإجراء.';
+
+  @override
+  String get invoice_cancelled => 'تم إلغاء الفاتورة بنجاح.';
+
+  @override
+  String get invoice_already_cancelled => 'هذه الفاتورة ملغاة بالفعل.';
+
+  @override
+  String get invoice_status_completed => 'مكتملة';
+
+  @override
+  String get invoice_status_cancelled => 'ملغاة';
+
+  @override
+  String get invoice_status_pending => 'قيد الانتظار';
+
+  @override
+  String get invoice_payment_status_paid => 'مدفوعة';
+
+  @override
+  String get invoice_payment_status_partial => 'جزئية';
+
+  @override
+  String get invoice_payment_status_unpaid => 'غير مدفوعة';
+
+  @override
+  String get invoice_payment_method_cash => 'نقدي';
+
+  @override
+  String get invoice_payment_method_credit => 'آجل';
+
+  @override
+  String get invoice_payment_method_debt => 'دين';
+
+  @override
+  String get invoice_add_title => 'فاتورة شراء جديدة';
+
+  @override
+  String get invoice_section_main => 'تفاصيل الفاتورة';
+
+  @override
+  String get invoice_section_main_sub => 'المورد والتاريخ والدفع';
+
+  @override
+  String get invoice_section_items => 'العناصر';
+
+  @override
+  String get invoice_section_items_sub => 'المنتجات والكميات والتسعير';
+
+  @override
+  String get invoice_select_supplier => 'اختر مورداً';
+
+  @override
+  String get invoice_item_product => 'المنتج';
+
+  @override
+  String get invoice_item_quantity => 'الكمية';
+
+  @override
+  String get invoice_item_wholesale_price => 'سعر الجملة';
+
+  @override
+  String get invoice_item_tax => 'الضريبة';
+
+  @override
+  String get invoice_item_discount => 'الخصم';
+
+  @override
+  String get invoice_item_batch_number => 'رقم الدفعة';
+
+  @override
+  String get invoice_item_expiry_date => 'تاريخ الانتهاء';
+
+  @override
+  String get invoice_item_selling_price => 'سعر البيع';
+
+  @override
+  String get invoice_item_optional => 'اختياري';
+
+  @override
+  String get invoice_item_add => 'إضافة عنصر';
+
+  @override
+  String get invoice_item_remove => 'إزالة';
+
+  @override
+  String get invoice_totals_summary => 'الملخص';
+
+  @override
+  String get invoice_amount_paid_hint => 'المبلغ المدفوع الآن (لا يمكن تجاوز الإجمالي)';
+
+  @override
+  String get invoice_created => 'تم إنشاء فاتورة الشراء بنجاح.';
+
+  @override
+  String get invoice_amount_paid_invalid => 'أدخل مبلغاً مدفوعاً صحيحاً (صفر أو أكثر).';
+
+  @override
+  String get invoice_amount_paid_exceeds_total => 'المبلغ المدفوع لا يمكن أن يتجاوز الإجمالي.';
+
+  @override
+  String get invoice_no_items_added => 'أضف عنصراً واحداً على الأقل.';
+
+  @override
+  String get invoice_item_product_required => 'اختر منتجاً لكل عنصر.';
+
+  @override
+  String get invoice_item_quantity_required => 'الكمية يجب أن تكون 1 على الأقل.';
+
+  @override
+  String get invoice_item_price_required => 'سعر الجملة مطلوب.';
 }

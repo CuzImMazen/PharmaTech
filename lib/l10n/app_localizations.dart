@@ -1931,11 +1931,875 @@ abstract class AppLocalizations {
   /// **'Are you sure you want to delete the medical info for this product?'**
   String get medical_info_delete_confirm;
 
+  /// No description provided for @settings_pharmacy.
+  ///
+  /// In en, this message translates to:
+  /// **'Pharmacy'**
+  String get settings_pharmacy;
+
+  /// No description provided for @settings_suppliers.
+  ///
+  /// In en, this message translates to:
+  /// **'Suppliers'**
+  String get settings_suppliers;
+
+  /// No description provided for @suppliers_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Suppliers'**
+  String get suppliers_title;
+
+  /// No description provided for @suppliers_search_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'Search suppliers'**
+  String get suppliers_search_hint;
+
+  /// No description provided for @suppliers_show_deleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Show deleted'**
+  String get suppliers_show_deleted;
+
+  /// No description provided for @suppliers_empty.
+  ///
+  /// In en, this message translates to:
+  /// **'No suppliers yet.'**
+  String get suppliers_empty;
+
+  /// No description provided for @suppliers_empty_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'Add your first supplier to start purchasing.'**
+  String get suppliers_empty_hint;
+
+  /// No description provided for @suppliers_add.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Supplier'**
+  String get suppliers_add;
+
+  /// No description provided for @suppliers_load_error.
+  ///
+  /// In en, this message translates to:
+  /// **'Unable to load suppliers right now.'**
+  String get suppliers_load_error;
+
+  /// No description provided for @supplier_add_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Supplier'**
+  String get supplier_add_title;
+
+  /// No description provided for @supplier_edit_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Supplier'**
+  String get supplier_edit_title;
+
+  /// No description provided for @supplier_section.
+  ///
+  /// In en, this message translates to:
+  /// **'Supplier Details'**
+  String get supplier_section;
+
+  /// No description provided for @supplier_section_sub.
+  ///
+  /// In en, this message translates to:
+  /// **'Name, company, and contact info'**
+  String get supplier_section_sub;
+
+  /// No description provided for @supplier_name.
+  ///
+  /// In en, this message translates to:
+  /// **'Supplier Name'**
+  String get supplier_name;
+
+  /// No description provided for @supplier_company.
+  ///
+  /// In en, this message translates to:
+  /// **'Company'**
+  String get supplier_company;
+
+  /// No description provided for @supplier_phone.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone'**
+  String get supplier_phone;
+
+  /// No description provided for @supplier_email.
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get supplier_email;
+
+  /// No description provided for @supplier_address.
+  ///
+  /// In en, this message translates to:
+  /// **'Address'**
+  String get supplier_address;
+
+  /// No description provided for @supplier_notes.
+  ///
+  /// In en, this message translates to:
+  /// **'Notes'**
+  String get supplier_notes;
+
+  /// No description provided for @supplier_created.
+  ///
+  /// In en, this message translates to:
+  /// **'Supplier created successfully.'**
+  String get supplier_created;
+
+  /// No description provided for @supplier_updated.
+  ///
+  /// In en, this message translates to:
+  /// **'Supplier updated successfully.'**
+  String get supplier_updated;
+
+  /// No description provided for @supplier_deleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Supplier deleted successfully.'**
+  String get supplier_deleted;
+
+  /// No description provided for @supplier_restored.
+  ///
+  /// In en, this message translates to:
+  /// **'Supplier restored successfully.'**
+  String get supplier_restored;
+
+  /// No description provided for @supplier_restore.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore'**
+  String get supplier_restore;
+
+  /// No description provided for @supplier_delete_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Supplier'**
+  String get supplier_delete_title;
+
+  /// No description provided for @supplier_delete_confirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete this supplier?'**
+  String get supplier_delete_confirm;
+
+  /// No description provided for @settings_appearance.
+  ///
+  /// In en, this message translates to:
+  /// **'Appearance'**
+  String get settings_appearance;
+
+  /// No description provided for @settings_theme.
+  ///
+  /// In en, this message translates to:
+  /// **'Theme'**
+  String get settings_theme;
+
+  /// No description provided for @settings_language.
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get settings_language;
+
+  /// No description provided for @settings_account.
+  ///
+  /// In en, this message translates to:
+  /// **'Account'**
+  String get settings_account;
+
+  /// No description provided for @theme_system.
+  ///
+  /// In en, this message translates to:
+  /// **'System'**
+  String get theme_system;
+
+  /// No description provided for @theme_light.
+  ///
+  /// In en, this message translates to:
+  /// **'Light'**
+  String get theme_light;
+
+  /// No description provided for @theme_dark.
+  ///
+  /// In en, this message translates to:
+  /// **'Dark'**
+  String get theme_dark;
+
+  /// No description provided for @language_system.
+  ///
+  /// In en, this message translates to:
+  /// **'System'**
+  String get language_system;
+
+  /// No description provided for @language_english.
+  ///
+  /// In en, this message translates to:
+  /// **'English'**
+  String get language_english;
+
+  /// No description provided for @language_arabic.
+  ///
+  /// In en, this message translates to:
+  /// **'Arabic'**
+  String get language_arabic;
+
+  /// No description provided for @sign_out.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign Out'**
+  String get sign_out;
+
+  /// No description provided for @sign_out_confirm_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign Out?'**
+  String get sign_out_confirm_title;
+
+  /// No description provided for @sign_out_confirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to sign out?'**
+  String get sign_out_confirm;
+
+  /// No description provided for @sign_out_failed.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign out failed. Please try again.'**
+  String get sign_out_failed;
+
   /// No description provided for @field_required.
   ///
   /// In en, this message translates to:
   /// **'This field is required'**
   String get field_required;
+
+  /// No description provided for @settings_operations.
+  ///
+  /// In en, this message translates to:
+  /// **'Operations'**
+  String get settings_operations;
+
+  /// No description provided for @settings_purchase_invoices.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase Invoices'**
+  String get settings_purchase_invoices;
+
+  /// No description provided for @settings_supplier_debts.
+  ///
+  /// In en, this message translates to:
+  /// **'Supplier Debts'**
+  String get settings_supplier_debts;
+
+  /// No description provided for @settings_cash_box.
+  ///
+  /// In en, this message translates to:
+  /// **'Cash Box'**
+  String get settings_cash_box;
+
+  /// No description provided for @cash_box_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Cash Box'**
+  String get cash_box_title;
+
+  /// No description provided for @cash_box_current_balance.
+  ///
+  /// In en, this message translates to:
+  /// **'Current Balance'**
+  String get cash_box_current_balance;
+
+  /// No description provided for @cash_box_opening_balance.
+  ///
+  /// In en, this message translates to:
+  /// **'Opening Balance'**
+  String get cash_box_opening_balance;
+
+  /// No description provided for @cash_box_net_change.
+  ///
+  /// In en, this message translates to:
+  /// **'Net Change'**
+  String get cash_box_net_change;
+
+  /// No description provided for @cash_box_create.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Cash Box'**
+  String get cash_box_create;
+
+  /// No description provided for @cash_box_created.
+  ///
+  /// In en, this message translates to:
+  /// **'Cash box created successfully.'**
+  String get cash_box_created;
+
+  /// No description provided for @cash_box_opening_balance_invalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a valid opening balance (0 or more).'**
+  String get cash_box_opening_balance_invalid;
+
+  /// No description provided for @cash_box_no_box_title.
+  ///
+  /// In en, this message translates to:
+  /// **'No Cash Box Yet'**
+  String get cash_box_no_box_title;
+
+  /// No description provided for @cash_box_no_box_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'Create your pharmacy\'s cash box to start tracking cash movements.'**
+  String get cash_box_no_box_hint;
+
+  /// No description provided for @cash_box_no_transactions.
+  ///
+  /// In en, this message translates to:
+  /// **'No transactions yet.'**
+  String get cash_box_no_transactions;
+
+  /// No description provided for @cash_box_all_types.
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get cash_box_all_types;
+
+  /// No description provided for @cash_tx_purchase_out.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase Out'**
+  String get cash_tx_purchase_out;
+
+  /// No description provided for @cash_tx_sale_in.
+  ///
+  /// In en, this message translates to:
+  /// **'Sale In'**
+  String get cash_tx_sale_in;
+
+  /// No description provided for @cash_tx_customer_return_out.
+  ///
+  /// In en, this message translates to:
+  /// **'Customer Return Out'**
+  String get cash_tx_customer_return_out;
+
+  /// No description provided for @cash_tx_supplier_return_in.
+  ///
+  /// In en, this message translates to:
+  /// **'Supplier Return In'**
+  String get cash_tx_supplier_return_in;
+
+  /// No description provided for @cash_tx_customer_debt_payment_in.
+  ///
+  /// In en, this message translates to:
+  /// **'Customer Debt Payment In'**
+  String get cash_tx_customer_debt_payment_in;
+
+  /// No description provided for @cash_tx_supplier_debt_payment_out.
+  ///
+  /// In en, this message translates to:
+  /// **'Supplier Debt Payment Out'**
+  String get cash_tx_supplier_debt_payment_out;
+
+  /// No description provided for @cash_tx_manual_in.
+  ///
+  /// In en, this message translates to:
+  /// **'Manual In'**
+  String get cash_tx_manual_in;
+
+  /// No description provided for @cash_tx_manual_out.
+  ///
+  /// In en, this message translates to:
+  /// **'Manual Out'**
+  String get cash_tx_manual_out;
+
+  /// No description provided for @debts_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Supplier Debts'**
+  String get debts_title;
+
+  /// No description provided for @debts_empty.
+  ///
+  /// In en, this message translates to:
+  /// **'No supplier debts.'**
+  String get debts_empty;
+
+  /// No description provided for @debts_empty_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'Debts appear when you record a purchase invoice on credit.'**
+  String get debts_empty_hint;
+
+  /// No description provided for @debts_load_error.
+  ///
+  /// In en, this message translates to:
+  /// **'Unable to load supplier debts right now.'**
+  String get debts_load_error;
+
+  /// No description provided for @debts_filter_supplier.
+  ///
+  /// In en, this message translates to:
+  /// **'Supplier'**
+  String get debts_filter_supplier;
+
+  /// No description provided for @debts_filter_status.
+  ///
+  /// In en, this message translates to:
+  /// **'Status'**
+  String get debts_filter_status;
+
+  /// No description provided for @debt_total_amount.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Amount'**
+  String get debt_total_amount;
+
+  /// No description provided for @debt_paid_amount.
+  ///
+  /// In en, this message translates to:
+  /// **'Paid'**
+  String get debt_paid_amount;
+
+  /// No description provided for @debt_remaining_amount.
+  ///
+  /// In en, this message translates to:
+  /// **'Remaining'**
+  String get debt_remaining_amount;
+
+  /// No description provided for @debt_due_date.
+  ///
+  /// In en, this message translates to:
+  /// **'Due Date'**
+  String get debt_due_date;
+
+  /// No description provided for @debt_no_due_date.
+  ///
+  /// In en, this message translates to:
+  /// **'No due date'**
+  String get debt_no_due_date;
+
+  /// No description provided for @debt_status_open.
+  ///
+  /// In en, this message translates to:
+  /// **'Open'**
+  String get debt_status_open;
+
+  /// No description provided for @debt_status_partial.
+  ///
+  /// In en, this message translates to:
+  /// **'Partial'**
+  String get debt_status_partial;
+
+  /// No description provided for @debt_status_paid.
+  ///
+  /// In en, this message translates to:
+  /// **'Paid'**
+  String get debt_status_paid;
+
+  /// No description provided for @debt_status_overdue.
+  ///
+  /// In en, this message translates to:
+  /// **'Overdue'**
+  String get debt_status_overdue;
+
+  /// No description provided for @debt_status_cancelled.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancelled'**
+  String get debt_status_cancelled;
+
+  /// No description provided for @debt_payments_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Payments'**
+  String get debt_payments_title;
+
+  /// No description provided for @debt_no_payments.
+  ///
+  /// In en, this message translates to:
+  /// **'No payments recorded yet.'**
+  String get debt_no_payments;
+
+  /// No description provided for @debt_payment_date.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Date'**
+  String get debt_payment_date;
+
+  /// No description provided for @debt_payment_amount.
+  ///
+  /// In en, this message translates to:
+  /// **'Amount'**
+  String get debt_payment_amount;
+
+  /// No description provided for @invoices_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase Invoices'**
+  String get invoices_title;
+
+  /// No description provided for @invoices_empty.
+  ///
+  /// In en, this message translates to:
+  /// **'No purchase invoices yet.'**
+  String get invoices_empty;
+
+  /// No description provided for @invoices_empty_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'Record your first purchase to start tracking stock and costs.'**
+  String get invoices_empty_hint;
+
+  /// No description provided for @invoices_load_error.
+  ///
+  /// In en, this message translates to:
+  /// **'Unable to load purchase invoices right now.'**
+  String get invoices_load_error;
+
+  /// No description provided for @invoices_search_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'Search invoices'**
+  String get invoices_search_hint;
+
+  /// No description provided for @invoices_add.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Invoice'**
+  String get invoices_add;
+
+  /// No description provided for @invoice_invoice_number.
+  ///
+  /// In en, this message translates to:
+  /// **'Invoice No.'**
+  String get invoice_invoice_number;
+
+  /// No description provided for @invoice_date.
+  ///
+  /// In en, this message translates to:
+  /// **'Invoice Date'**
+  String get invoice_date;
+
+  /// No description provided for @invoice_supplier.
+  ///
+  /// In en, this message translates to:
+  /// **'Supplier'**
+  String get invoice_supplier;
+
+  /// No description provided for @invoice_subtotal.
+  ///
+  /// In en, this message translates to:
+  /// **'Subtotal'**
+  String get invoice_subtotal;
+
+  /// No description provided for @invoice_tax_total.
+  ///
+  /// In en, this message translates to:
+  /// **'Tax'**
+  String get invoice_tax_total;
+
+  /// No description provided for @invoice_discount_total.
+  ///
+  /// In en, this message translates to:
+  /// **'Discount'**
+  String get invoice_discount_total;
+
+  /// No description provided for @invoice_grand_total.
+  ///
+  /// In en, this message translates to:
+  /// **'Grand Total'**
+  String get invoice_grand_total;
+
+  /// No description provided for @invoice_amount_paid.
+  ///
+  /// In en, this message translates to:
+  /// **'Amount Paid'**
+  String get invoice_amount_paid;
+
+  /// No description provided for @invoice_amount_due.
+  ///
+  /// In en, this message translates to:
+  /// **'Amount Due'**
+  String get invoice_amount_due;
+
+  /// No description provided for @invoice_payment_method.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Method'**
+  String get invoice_payment_method;
+
+  /// No description provided for @invoice_payment_status.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Status'**
+  String get invoice_payment_status;
+
+  /// No description provided for @invoice_status.
+  ///
+  /// In en, this message translates to:
+  /// **'Status'**
+  String get invoice_status;
+
+  /// No description provided for @invoice_items.
+  ///
+  /// In en, this message translates to:
+  /// **'Items'**
+  String get invoice_items;
+
+  /// No description provided for @invoice_no_items.
+  ///
+  /// In en, this message translates to:
+  /// **'No items.'**
+  String get invoice_no_items;
+
+  /// No description provided for @invoice_notes.
+  ///
+  /// In en, this message translates to:
+  /// **'Notes'**
+  String get invoice_notes;
+
+  /// No description provided for @invoice_cancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel Invoice'**
+  String get invoice_cancel;
+
+  /// No description provided for @invoice_cancel_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel Invoice?'**
+  String get invoice_cancel_title;
+
+  /// No description provided for @invoice_cancel_confirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancelling this invoice reverses its stock batches and refunds any cash paid. This cannot be undone.'**
+  String get invoice_cancel_confirm;
+
+  /// No description provided for @invoice_cancelled.
+  ///
+  /// In en, this message translates to:
+  /// **'Invoice cancelled successfully.'**
+  String get invoice_cancelled;
+
+  /// No description provided for @invoice_already_cancelled.
+  ///
+  /// In en, this message translates to:
+  /// **'This invoice is already cancelled.'**
+  String get invoice_already_cancelled;
+
+  /// No description provided for @invoice_status_completed.
+  ///
+  /// In en, this message translates to:
+  /// **'Completed'**
+  String get invoice_status_completed;
+
+  /// No description provided for @invoice_status_cancelled.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancelled'**
+  String get invoice_status_cancelled;
+
+  /// No description provided for @invoice_status_pending.
+  ///
+  /// In en, this message translates to:
+  /// **'Pending'**
+  String get invoice_status_pending;
+
+  /// No description provided for @invoice_payment_status_paid.
+  ///
+  /// In en, this message translates to:
+  /// **'Paid'**
+  String get invoice_payment_status_paid;
+
+  /// No description provided for @invoice_payment_status_partial.
+  ///
+  /// In en, this message translates to:
+  /// **'Partial'**
+  String get invoice_payment_status_partial;
+
+  /// No description provided for @invoice_payment_status_unpaid.
+  ///
+  /// In en, this message translates to:
+  /// **'Unpaid'**
+  String get invoice_payment_status_unpaid;
+
+  /// No description provided for @invoice_payment_method_cash.
+  ///
+  /// In en, this message translates to:
+  /// **'Cash'**
+  String get invoice_payment_method_cash;
+
+  /// No description provided for @invoice_payment_method_credit.
+  ///
+  /// In en, this message translates to:
+  /// **'Credit'**
+  String get invoice_payment_method_credit;
+
+  /// No description provided for @invoice_payment_method_debt.
+  ///
+  /// In en, this message translates to:
+  /// **'Debt'**
+  String get invoice_payment_method_debt;
+
+  /// No description provided for @invoice_add_title.
+  ///
+  /// In en, this message translates to:
+  /// **'New Purchase Invoice'**
+  String get invoice_add_title;
+
+  /// No description provided for @invoice_section_main.
+  ///
+  /// In en, this message translates to:
+  /// **'Invoice Details'**
+  String get invoice_section_main;
+
+  /// No description provided for @invoice_section_main_sub.
+  ///
+  /// In en, this message translates to:
+  /// **'Supplier, date, and payment'**
+  String get invoice_section_main_sub;
+
+  /// No description provided for @invoice_section_items.
+  ///
+  /// In en, this message translates to:
+  /// **'Items'**
+  String get invoice_section_items;
+
+  /// No description provided for @invoice_section_items_sub.
+  ///
+  /// In en, this message translates to:
+  /// **'Products, quantities, and pricing'**
+  String get invoice_section_items_sub;
+
+  /// No description provided for @invoice_select_supplier.
+  ///
+  /// In en, this message translates to:
+  /// **'Select a supplier'**
+  String get invoice_select_supplier;
+
+  /// No description provided for @invoice_item_product.
+  ///
+  /// In en, this message translates to:
+  /// **'Product'**
+  String get invoice_item_product;
+
+  /// No description provided for @invoice_item_quantity.
+  ///
+  /// In en, this message translates to:
+  /// **'Quantity'**
+  String get invoice_item_quantity;
+
+  /// No description provided for @invoice_item_wholesale_price.
+  ///
+  /// In en, this message translates to:
+  /// **'Wholesale Price'**
+  String get invoice_item_wholesale_price;
+
+  /// No description provided for @invoice_item_tax.
+  ///
+  /// In en, this message translates to:
+  /// **'Tax'**
+  String get invoice_item_tax;
+
+  /// No description provided for @invoice_item_discount.
+  ///
+  /// In en, this message translates to:
+  /// **'Discount'**
+  String get invoice_item_discount;
+
+  /// No description provided for @invoice_item_batch_number.
+  ///
+  /// In en, this message translates to:
+  /// **'Batch No.'**
+  String get invoice_item_batch_number;
+
+  /// No description provided for @invoice_item_expiry_date.
+  ///
+  /// In en, this message translates to:
+  /// **'Expiry Date'**
+  String get invoice_item_expiry_date;
+
+  /// No description provided for @invoice_item_selling_price.
+  ///
+  /// In en, this message translates to:
+  /// **'Selling Price'**
+  String get invoice_item_selling_price;
+
+  /// No description provided for @invoice_item_optional.
+  ///
+  /// In en, this message translates to:
+  /// **'Optional'**
+  String get invoice_item_optional;
+
+  /// No description provided for @invoice_item_add.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Item'**
+  String get invoice_item_add;
+
+  /// No description provided for @invoice_item_remove.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove'**
+  String get invoice_item_remove;
+
+  /// No description provided for @invoice_totals_summary.
+  ///
+  /// In en, this message translates to:
+  /// **'Summary'**
+  String get invoice_totals_summary;
+
+  /// No description provided for @invoice_amount_paid_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'Amount paid now (cannot exceed grand total)'**
+  String get invoice_amount_paid_hint;
+
+  /// No description provided for @invoice_created.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase invoice created successfully.'**
+  String get invoice_created;
+
+  /// No description provided for @invoice_amount_paid_invalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a valid amount paid (0 or more).'**
+  String get invoice_amount_paid_invalid;
+
+  /// No description provided for @invoice_amount_paid_exceeds_total.
+  ///
+  /// In en, this message translates to:
+  /// **'Amount paid cannot exceed the grand total.'**
+  String get invoice_amount_paid_exceeds_total;
+
+  /// No description provided for @invoice_no_items_added.
+  ///
+  /// In en, this message translates to:
+  /// **'Add at least one item.'**
+  String get invoice_no_items_added;
+
+  /// No description provided for @invoice_item_product_required.
+  ///
+  /// In en, this message translates to:
+  /// **'Select a product for each item.'**
+  String get invoice_item_product_required;
+
+  /// No description provided for @invoice_item_quantity_required.
+  ///
+  /// In en, this message translates to:
+  /// **'Quantity must be at least 1.'**
+  String get invoice_item_quantity_required;
+
+  /// No description provided for @invoice_item_price_required.
+  ///
+  /// In en, this message translates to:
+  /// **'Wholesale price is required.'**
+  String get invoice_item_price_required;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

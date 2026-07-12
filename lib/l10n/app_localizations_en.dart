@@ -935,5 +935,437 @@ class AppLocalizationsEn extends AppLocalizations {
   String get medical_info_delete_confirm => 'Are you sure you want to delete the medical info for this product?';
 
   @override
+  String get settings_pharmacy => 'Pharmacy';
+
+  @override
+  String get settings_suppliers => 'Suppliers';
+
+  @override
+  String get suppliers_title => 'Suppliers';
+
+  @override
+  String get suppliers_search_hint => 'Search suppliers';
+
+  @override
+  String get suppliers_show_deleted => 'Show deleted';
+
+  @override
+  String get suppliers_empty => 'No suppliers yet.';
+
+  @override
+  String get suppliers_empty_hint => 'Add your first supplier to start purchasing.';
+
+  @override
+  String get suppliers_add => 'Add Supplier';
+
+  @override
+  String get suppliers_load_error => 'Unable to load suppliers right now.';
+
+  @override
+  String get supplier_add_title => 'Add Supplier';
+
+  @override
+  String get supplier_edit_title => 'Edit Supplier';
+
+  @override
+  String get supplier_section => 'Supplier Details';
+
+  @override
+  String get supplier_section_sub => 'Name, company, and contact info';
+
+  @override
+  String get supplier_name => 'Supplier Name';
+
+  @override
+  String get supplier_company => 'Company';
+
+  @override
+  String get supplier_phone => 'Phone';
+
+  @override
+  String get supplier_email => 'Email';
+
+  @override
+  String get supplier_address => 'Address';
+
+  @override
+  String get supplier_notes => 'Notes';
+
+  @override
+  String get supplier_created => 'Supplier created successfully.';
+
+  @override
+  String get supplier_updated => 'Supplier updated successfully.';
+
+  @override
+  String get supplier_deleted => 'Supplier deleted successfully.';
+
+  @override
+  String get supplier_restored => 'Supplier restored successfully.';
+
+  @override
+  String get supplier_restore => 'Restore';
+
+  @override
+  String get supplier_delete_title => 'Delete Supplier';
+
+  @override
+  String get supplier_delete_confirm => 'Are you sure you want to delete this supplier?';
+
+  @override
+  String get settings_appearance => 'Appearance';
+
+  @override
+  String get settings_theme => 'Theme';
+
+  @override
+  String get settings_language => 'Language';
+
+  @override
+  String get settings_account => 'Account';
+
+  @override
+  String get theme_system => 'System';
+
+  @override
+  String get theme_light => 'Light';
+
+  @override
+  String get theme_dark => 'Dark';
+
+  @override
+  String get language_system => 'System';
+
+  @override
+  String get language_english => 'English';
+
+  @override
+  String get language_arabic => 'Arabic';
+
+  @override
+  String get sign_out => 'Sign Out';
+
+  @override
+  String get sign_out_confirm_title => 'Sign Out?';
+
+  @override
+  String get sign_out_confirm => 'Are you sure you want to sign out?';
+
+  @override
+  String get sign_out_failed => 'Sign out failed. Please try again.';
+
+  @override
   String get field_required => 'This field is required';
+
+  @override
+  String get settings_operations => 'Operations';
+
+  @override
+  String get settings_purchase_invoices => 'Purchase Invoices';
+
+  @override
+  String get settings_supplier_debts => 'Supplier Debts';
+
+  @override
+  String get settings_cash_box => 'Cash Box';
+
+  @override
+  String get cash_box_title => 'Cash Box';
+
+  @override
+  String get cash_box_current_balance => 'Current Balance';
+
+  @override
+  String get cash_box_opening_balance => 'Opening Balance';
+
+  @override
+  String get cash_box_net_change => 'Net Change';
+
+  @override
+  String get cash_box_create => 'Create Cash Box';
+
+  @override
+  String get cash_box_created => 'Cash box created successfully.';
+
+  @override
+  String get cash_box_opening_balance_invalid => 'Enter a valid opening balance (0 or more).';
+
+  @override
+  String get cash_box_no_box_title => 'No Cash Box Yet';
+
+  @override
+  String get cash_box_no_box_hint => 'Create your pharmacy\'s cash box to start tracking cash movements.';
+
+  @override
+  String get cash_box_no_transactions => 'No transactions yet.';
+
+  @override
+  String get cash_box_all_types => 'All';
+
+  @override
+  String get cash_tx_purchase_out => 'Purchase Out';
+
+  @override
+  String get cash_tx_sale_in => 'Sale In';
+
+  @override
+  String get cash_tx_customer_return_out => 'Customer Return Out';
+
+  @override
+  String get cash_tx_supplier_return_in => 'Supplier Return In';
+
+  @override
+  String get cash_tx_customer_debt_payment_in => 'Customer Debt Payment In';
+
+  @override
+  String get cash_tx_supplier_debt_payment_out => 'Supplier Debt Payment Out';
+
+  @override
+  String get cash_tx_manual_in => 'Manual In';
+
+  @override
+  String get cash_tx_manual_out => 'Manual Out';
+
+  @override
+  String get debts_title => 'Supplier Debts';
+
+  @override
+  String get debts_empty => 'No supplier debts.';
+
+  @override
+  String get debts_empty_hint => 'Debts appear when you record a purchase invoice on credit.';
+
+  @override
+  String get debts_load_error => 'Unable to load supplier debts right now.';
+
+  @override
+  String get debts_filter_supplier => 'Supplier';
+
+  @override
+  String get debts_filter_status => 'Status';
+
+  @override
+  String get debt_total_amount => 'Total Amount';
+
+  @override
+  String get debt_paid_amount => 'Paid';
+
+  @override
+  String get debt_remaining_amount => 'Remaining';
+
+  @override
+  String get debt_due_date => 'Due Date';
+
+  @override
+  String get debt_no_due_date => 'No due date';
+
+  @override
+  String get debt_status_open => 'Open';
+
+  @override
+  String get debt_status_partial => 'Partial';
+
+  @override
+  String get debt_status_paid => 'Paid';
+
+  @override
+  String get debt_status_overdue => 'Overdue';
+
+  @override
+  String get debt_status_cancelled => 'Cancelled';
+
+  @override
+  String get debt_payments_title => 'Payments';
+
+  @override
+  String get debt_no_payments => 'No payments recorded yet.';
+
+  @override
+  String get debt_payment_date => 'Payment Date';
+
+  @override
+  String get debt_payment_amount => 'Amount';
+
+  @override
+  String get invoices_title => 'Purchase Invoices';
+
+  @override
+  String get invoices_empty => 'No purchase invoices yet.';
+
+  @override
+  String get invoices_empty_hint => 'Record your first purchase to start tracking stock and costs.';
+
+  @override
+  String get invoices_load_error => 'Unable to load purchase invoices right now.';
+
+  @override
+  String get invoices_search_hint => 'Search invoices';
+
+  @override
+  String get invoices_add => 'Add Invoice';
+
+  @override
+  String get invoice_invoice_number => 'Invoice No.';
+
+  @override
+  String get invoice_date => 'Invoice Date';
+
+  @override
+  String get invoice_supplier => 'Supplier';
+
+  @override
+  String get invoice_subtotal => 'Subtotal';
+
+  @override
+  String get invoice_tax_total => 'Tax';
+
+  @override
+  String get invoice_discount_total => 'Discount';
+
+  @override
+  String get invoice_grand_total => 'Grand Total';
+
+  @override
+  String get invoice_amount_paid => 'Amount Paid';
+
+  @override
+  String get invoice_amount_due => 'Amount Due';
+
+  @override
+  String get invoice_payment_method => 'Payment Method';
+
+  @override
+  String get invoice_payment_status => 'Payment Status';
+
+  @override
+  String get invoice_status => 'Status';
+
+  @override
+  String get invoice_items => 'Items';
+
+  @override
+  String get invoice_no_items => 'No items.';
+
+  @override
+  String get invoice_notes => 'Notes';
+
+  @override
+  String get invoice_cancel => 'Cancel Invoice';
+
+  @override
+  String get invoice_cancel_title => 'Cancel Invoice?';
+
+  @override
+  String get invoice_cancel_confirm => 'Cancelling this invoice reverses its stock batches and refunds any cash paid. This cannot be undone.';
+
+  @override
+  String get invoice_cancelled => 'Invoice cancelled successfully.';
+
+  @override
+  String get invoice_already_cancelled => 'This invoice is already cancelled.';
+
+  @override
+  String get invoice_status_completed => 'Completed';
+
+  @override
+  String get invoice_status_cancelled => 'Cancelled';
+
+  @override
+  String get invoice_status_pending => 'Pending';
+
+  @override
+  String get invoice_payment_status_paid => 'Paid';
+
+  @override
+  String get invoice_payment_status_partial => 'Partial';
+
+  @override
+  String get invoice_payment_status_unpaid => 'Unpaid';
+
+  @override
+  String get invoice_payment_method_cash => 'Cash';
+
+  @override
+  String get invoice_payment_method_credit => 'Credit';
+
+  @override
+  String get invoice_payment_method_debt => 'Debt';
+
+  @override
+  String get invoice_add_title => 'New Purchase Invoice';
+
+  @override
+  String get invoice_section_main => 'Invoice Details';
+
+  @override
+  String get invoice_section_main_sub => 'Supplier, date, and payment';
+
+  @override
+  String get invoice_section_items => 'Items';
+
+  @override
+  String get invoice_section_items_sub => 'Products, quantities, and pricing';
+
+  @override
+  String get invoice_select_supplier => 'Select a supplier';
+
+  @override
+  String get invoice_item_product => 'Product';
+
+  @override
+  String get invoice_item_quantity => 'Quantity';
+
+  @override
+  String get invoice_item_wholesale_price => 'Wholesale Price';
+
+  @override
+  String get invoice_item_tax => 'Tax';
+
+  @override
+  String get invoice_item_discount => 'Discount';
+
+  @override
+  String get invoice_item_batch_number => 'Batch No.';
+
+  @override
+  String get invoice_item_expiry_date => 'Expiry Date';
+
+  @override
+  String get invoice_item_selling_price => 'Selling Price';
+
+  @override
+  String get invoice_item_optional => 'Optional';
+
+  @override
+  String get invoice_item_add => 'Add Item';
+
+  @override
+  String get invoice_item_remove => 'Remove';
+
+  @override
+  String get invoice_totals_summary => 'Summary';
+
+  @override
+  String get invoice_amount_paid_hint => 'Amount paid now (cannot exceed grand total)';
+
+  @override
+  String get invoice_created => 'Purchase invoice created successfully.';
+
+  @override
+  String get invoice_amount_paid_invalid => 'Enter a valid amount paid (0 or more).';
+
+  @override
+  String get invoice_amount_paid_exceeds_total => 'Amount paid cannot exceed the grand total.';
+
+  @override
+  String get invoice_no_items_added => 'Add at least one item.';
+
+  @override
+  String get invoice_item_product_required => 'Select a product for each item.';
+
+  @override
+  String get invoice_item_quantity_required => 'Quantity must be at least 1.';
+
+  @override
+  String get invoice_item_price_required => 'Wholesale price is required.';
 }

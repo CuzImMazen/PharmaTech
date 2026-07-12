@@ -8,6 +8,8 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:pharmacy_app/core/app/app_keys.dart';
 import 'package:pharmacy_app/core/app/app_state_notifier.dart';
+import 'package:pharmacy_app/core/app/settings/locale_cubit.dart';
+import 'package:pharmacy_app/core/app/settings/theme_cubit.dart';
 import 'package:pharmacy_app/core/di/service_locator.dart';
 import 'package:pharmacy_app/core/router/app_router.dart';
 import 'package:pharmacy_app/core/app/session/session_cubit.dart';
@@ -27,6 +29,11 @@ void main() async {
   final authRepository = sl<AuthRepository>();
   final tokenStore = sl<TokenStore>();
   final sessionCubit = sl<SessionCubit>();
+  final themeCubit = sl<ThemeCubit>();
+  final localeCubit = sl<LocaleCubit>();
+
+  // Hydrate the persisted user prefs (theme + locale) before first paint.
+  await Future.wait([themeCubit.hydrate(), localeCubit.hydrate()]);
 
   /// 1: Restore BOTH tokens from storage (if user checked remember me)
   final accessToken = await authRepository.getAccessToken();
@@ -59,6 +66,8 @@ void main() async {
       providers: [
         ChangeNotifierProvider.value(value: appState),
         BlocProvider.value(value: sessionCubit),
+        BlocProvider.value(value: themeCubit),
+        BlocProvider.value(value: localeCubit),
       ],
       child: DevicePreview(
         enabled: true,
@@ -73,6 +82,11 @@ class PharmacyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // User's theme + locale choices win always (the settings switches drive
+    // these; DevicePreview no longer overrides locale).
+    final themeMode = context.watch<ThemeCubit>().state;
+    final locale = context.watch<LocaleCubit>().state;
+
     return MaterialApp.router(
       scaffoldMessengerKey: rootScaffoldMessengerKey,
       showPerformanceOverlay: false,
@@ -80,11 +94,13 @@ class PharmacyApp extends StatelessWidget {
       title: 'Pharmacy App',
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
+      themeMode: themeMode,
       routerConfig: AppRouter.router,
       builder: kReleaseMode ? null : DevicePreview.appBuilder,
 
       //********** Localization Section **********//
-      locale: kReleaseMode ? null : DevicePreview.locale(context),
+      // `null` (System) → resolve the device locale via the callback below.
+      locale: locale,
 
       localeResolutionCallback: (locale, supportedLocales) {
         for (var supportedLocale in supportedLocales) {

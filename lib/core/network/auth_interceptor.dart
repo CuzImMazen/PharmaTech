@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:pharmacy_app/core/app/session/session_cubit.dart';
+import 'package:pharmacy_app/core/app/settings/locale_cubit.dart';
 import 'package:pharmacy_app/core/di/service_locator.dart';
 import 'package:pharmacy_app/core/error/api_error_handler.dart';
 import 'package:pharmacy_app/core/error/app_dio_exception.dart';
@@ -41,7 +42,12 @@ class AuthInterceptor extends Interceptor {
       }
     }
 
-    options.headers['Accept-Language'] = 'en';
+    // Drive the backend locale from the user's language choice (read at request
+    // time since this interceptor is a lazy singleton). Falls back to 'en' when
+    // the LocaleCubit isn't ready (e.g. before app init) or when following the
+    // system locale with no explicit code.
+    final locale = sl.isRegistered<LocaleCubit>() ? sl<LocaleCubit>().state : null;
+    options.headers['Accept-Language'] = locale?.languageCode ?? 'en';
     handler.next(options);
   }
 
