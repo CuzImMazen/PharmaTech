@@ -76,6 +76,22 @@ import 'package:pharmacy_app/features/purchase_invoices/presentation/screens/pur
 import 'package:pharmacy_app/features/purchase_invoices/presentation/screens/purchase_invoice_form_screen.dart';
 import 'package:pharmacy_app/features/purchase_invoices/presentation/screens/purchase_invoices_screen.dart';
 
+import 'package:pharmacy_app/features/customers/cubit/customer_cubit.dart';
+import 'package:pharmacy_app/features/customers/cubit/customer_form_cubit.dart';
+import 'package:pharmacy_app/features/customers/data/models/customer_model.dart';
+import 'package:pharmacy_app/features/customers/data/repo/customer_repository.dart';
+import 'package:pharmacy_app/features/customers/presentation/screens/customer_form_screen.dart';
+import 'package:pharmacy_app/features/customers/presentation/screens/customers_screen.dart';
+
+import 'package:pharmacy_app/features/sales_invoices/cubit/sales_invoice_cubit.dart';
+import 'package:pharmacy_app/features/sales_invoices/cubit/sales_invoice_form_cubit.dart';
+import 'package:pharmacy_app/features/sales_invoices/data/repo/sales_invoice_repository.dart';
+import 'package:pharmacy_app/features/sales_invoices/presentation/screens/sales_invoice_detail_screen.dart';
+import 'package:pharmacy_app/features/sales_invoices/presentation/screens/sales_invoice_form_screen.dart';
+import 'package:pharmacy_app/features/sales_invoices/presentation/screens/sales_invoices_screen.dart';
+
+import 'package:pharmacy_app/features/operations/presentation/screens/operations_hub_screen.dart';
+
 class AppRoutes {
   AppRoutes._();
 
@@ -437,6 +453,86 @@ class AppRoutes {
     ),
 
     // =========================================================================
+    // 3.11. CUSTOMERS (pushed over the nav shell; no bottom nav)
+    // =========================================================================
+
+    // Customers list — must precede /customers/:id/edit so "add" isn't an id.
+    GoRoute(
+      path: AppRoutesKeys.customersList,
+      builder: (context, state) => BlocProvider(
+        create: (context) =>
+            CustomerCubit(repository: sl<CustomerRepository>())..loadCustomers(),
+        child: const CustomersScreen(),
+      ),
+    ),
+
+    // Add customer — placed before the :id edit route.
+    GoRoute(
+      path: AppRoutesKeys.customerAdd,
+      builder: (context, state) => BlocProvider(
+        create: (context) =>
+            CustomerFormCubit(customerRepository: sl<CustomerRepository>()),
+        child: const CustomerFormScreen(),
+      ),
+    ),
+
+    // Edit customer — pre-fills from the passed CustomerModel.
+    GoRoute(
+      path: AppRoutesKeys.customerEdit,
+      builder: (context, state) {
+        final customerId =
+            int.tryParse(state.pathParameters['id'] ?? '') ?? 0;
+        final existing = state.extra as CustomerModel?;
+        return BlocProvider(
+          create: (context) =>
+              CustomerFormCubit(customerRepository: sl<CustomerRepository>()),
+          child: CustomerFormScreen(
+            customerId: customerId,
+            existing: existing,
+          ),
+        );
+      },
+    ),
+
+    // =========================================================================
+    // 3.12. SALES INVOICES (pushed over the nav shell; no bottom nav)
+    // =========================================================================
+
+    // Sales invoices list — must precede /sales-invoices/:id so "add" isn't id.
+    GoRoute(
+      path: AppRoutesKeys.salesInvoicesList,
+      builder: (context, state) => BlocProvider(
+        create: (context) =>
+            SalesInvoiceCubit(repository: sl<SalesInvoiceRepository>())
+              ..loadSalesInvoices(),
+        child: const SalesInvoicesScreen(),
+      ),
+    ),
+
+    // Add sales invoice (New Sale).
+    GoRoute(
+      path: AppRoutesKeys.salesInvoiceAdd,
+      builder: (context, state) => BlocProvider(
+        create: (context) => SalesInvoiceFormCubit(
+          invoiceRepository: sl<SalesInvoiceRepository>(),
+          customerRepository: sl<CustomerRepository>(),
+          inventoryRepository: sl<InventoryRepository>(),
+        ),
+        child: const SalesInvoiceFormScreen(),
+      ),
+    ),
+
+    // Sales invoice detail (with items + customer debt).
+    GoRoute(
+      path: AppRoutesKeys.salesInvoiceDetail,
+      builder: (context, state) {
+        final invoiceId =
+            int.tryParse(state.pathParameters['id'] ?? '') ?? 0;
+        return SalesInvoiceDetailScreen(invoiceId: invoiceId);
+      },
+    ),
+
+    // =========================================================================
     // 4. MAIN APPLICATION CORE (PERSISTENT NAV BAR SHELL)
     // =========================================================================
     StatefulShellRoute.indexedStack(
@@ -489,13 +585,13 @@ class AppRoutes {
           ],
         ),
 
-        // --- Branch 3: Sales Tab ---
+        // --- Branch 3: Operations Hub (Sales tab) ---
+        // Groups all day-to-day operations (sales, purchasing, cash & stock).
         StatefulShellBranch(
           routes: [
             GoRoute(
               path: AppRoutesKeys.sales,
-              builder: (context, state) =>
-                  const Scaffold(body: Center(child: Text('Sales Screen'))),
+              builder: (context, state) => const OperationsHubScreen(),
             ),
           ],
         ),

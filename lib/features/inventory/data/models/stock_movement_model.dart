@@ -102,6 +102,7 @@ extension StockMovementTypeX on String {
   StockMovementDirection get direction => switch (this) {
         'purchase_in' ||
         'customer_return_in' ||
+        'sale_return_in' ||
         'adjustment_in' =>
           StockMovementDirection.in_,
         'sale_out' ||

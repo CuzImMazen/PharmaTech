@@ -72,6 +72,18 @@ class ApiRoutes {
   static const String supplierDebts = '/supplier-debts';
   static String supplierDebtDetail(int id) => '$supplierDebts/$id';
 
+  // ================= CUSTOMERS ================= //
+
+  static const String customers = '/customers';
+  static String customerDetail(int id) => '$customers/$id';
+  static String customerRestore(int id) => '$customers/$id/restore';
+
+  // ================= SALES INVOICES ================= //
+
+  static const String salesInvoices = '/sales-invoices';
+  static String salesInvoiceDetail(int id) => '$salesInvoices/$id';
+  static String salesInvoiceCancel(int id) => '$salesInvoices/$id/cancel';
+
   // ================= CASH BOXES ================= //
 
   /// Singular — the pharmacy's single cash box (404 when none exists yet).

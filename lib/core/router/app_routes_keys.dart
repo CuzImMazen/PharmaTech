@@ -41,11 +41,27 @@ class AppRoutesKeys {
   // Stock Adjustments log — pushed over the nav shell (no bottom nav).
   static const String adjustmentsList = '/stock-adjustments';
 
+  // Customers — pushed over the nav shell (no bottom nav).
+  static const String customersList = '/customers';
+  static const String customerAdd = '/customers/add';
+  static const String customerEdit = '/customers/:id/edit';
+
+  // Sales Invoices — pushed over the nav shell (no bottom nav).
+  static const String salesInvoicesList = '/sales-invoices';
+  static const String salesInvoiceAdd = '/sales-invoices/add';
+  static const String salesInvoiceDetail = '/sales-invoices/:id';
+
   /// Builds a detail route for a specific supplier debt id.
   static String debtDetailWith(int id) => '/supplier-debts/$id';
 
   /// Builds a detail route for a specific purchase invoice id.
   static String invoiceDetailWith(int id) => '/purchase-invoices/$id';
+
+  /// Builds an edit route for a specific customer id.
+  static String customerEditWith(int id) => '/customers/$id/edit';
+
+  /// Builds a detail route for a specific sales invoice id.
+  static String salesInvoiceDetailWith(int id) => '/sales-invoices/$id';
 
   /// Builds an edit route for a specific product id.
   static String productEditWith(int id) => '/product/$id/edit';

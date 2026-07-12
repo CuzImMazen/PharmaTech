@@ -37,6 +37,12 @@ import 'package:pharmacy_app/features/stock_adjustments/data/repo/stock_adjustme
 import 'package:pharmacy_app/features/purchase_invoices/data/repo/purchase_invoice_repository.dart';
 import 'package:pharmacy_app/features/purchase_invoices/data/repo/purchase_invoice_repository_impl.dart';
 
+import 'package:pharmacy_app/features/customers/data/repo/customer_repository.dart';
+import 'package:pharmacy_app/features/customers/data/repo/customer_repository_impl.dart';
+
+import 'package:pharmacy_app/features/sales_invoices/data/repo/sales_invoice_repository.dart';
+import 'package:pharmacy_app/features/sales_invoices/data/repo/sales_invoice_repository_impl.dart';
+
 final sl = GetIt.instance;
 
 Future<void> setupLocator() async {
@@ -118,6 +124,14 @@ Future<void> setupLocator() async {
 
   sl.registerLazySingleton<PurchaseInvoiceRepository>(
     () => PurchaseInvoiceRepositoryImpl(api: sl<DioApiHelper>()),
+  );
+
+  sl.registerLazySingleton<CustomerRepository>(
+    () => CustomerRepositoryImpl(api: sl<DioApiHelper>()),
+  );
+
+  sl.registerLazySingleton<SalesInvoiceRepository>(
+    () => SalesInvoiceRepositoryImpl(api: sl<DioApiHelper>()),
   );
 
   //Session Cubit

@@ -1553,6 +1553,12 @@ abstract class AppLocalizations {
   /// **'Adjustment In'**
   String get movement_adjustment_in;
 
+  /// No description provided for @movement_sale_return_in.
+  ///
+  /// In en, this message translates to:
+  /// **'Sale Return In'**
+  String get movement_sale_return_in;
+
   /// No description provided for @movement_sale_out.
   ///
   /// In en, this message translates to:
@@ -3046,6 +3052,324 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Looking up product…'**
   String get scan_looking_up;
+
+  /// No description provided for @operations_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Operations'**
+  String get operations_title;
+
+  /// No description provided for @operations_sales.
+  ///
+  /// In en, this message translates to:
+  /// **'Sales'**
+  String get operations_sales;
+
+  /// No description provided for @operations_purchasing.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchasing'**
+  String get operations_purchasing;
+
+  /// No description provided for @operations_cash_and_stock.
+  ///
+  /// In en, this message translates to:
+  /// **'Cash & Stock'**
+  String get operations_cash_and_stock;
+
+  /// No description provided for @settings_customers.
+  ///
+  /// In en, this message translates to:
+  /// **'Customers'**
+  String get settings_customers;
+
+  /// No description provided for @settings_sales_invoices.
+  ///
+  /// In en, this message translates to:
+  /// **'Sales Invoices'**
+  String get settings_sales_invoices;
+
+  /// No description provided for @customers_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Customers'**
+  String get customers_title;
+
+  /// No description provided for @customers_search_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'Search customers'**
+  String get customers_search_hint;
+
+  /// No description provided for @customers_show_deleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Show deleted'**
+  String get customers_show_deleted;
+
+  /// No description provided for @customers_empty.
+  ///
+  /// In en, this message translates to:
+  /// **'No customers yet.'**
+  String get customers_empty;
+
+  /// No description provided for @customers_empty_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'Add your first customer to start selling on credit.'**
+  String get customers_empty_hint;
+
+  /// No description provided for @customers_add.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Customer'**
+  String get customers_add;
+
+  /// No description provided for @customer_add_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Customer'**
+  String get customer_add_title;
+
+  /// No description provided for @customer_edit_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Customer'**
+  String get customer_edit_title;
+
+  /// No description provided for @customer_section.
+  ///
+  /// In en, this message translates to:
+  /// **'Customer Details'**
+  String get customer_section;
+
+  /// No description provided for @customer_section_sub.
+  ///
+  /// In en, this message translates to:
+  /// **'Name and contact info'**
+  String get customer_section_sub;
+
+  /// No description provided for @customer_name.
+  ///
+  /// In en, this message translates to:
+  /// **'Customer Name'**
+  String get customer_name;
+
+  /// No description provided for @customer_phone.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone'**
+  String get customer_phone;
+
+  /// No description provided for @customer_notes.
+  ///
+  /// In en, this message translates to:
+  /// **'Notes'**
+  String get customer_notes;
+
+  /// No description provided for @customer_created.
+  ///
+  /// In en, this message translates to:
+  /// **'Customer created successfully.'**
+  String get customer_created;
+
+  /// No description provided for @customer_updated.
+  ///
+  /// In en, this message translates to:
+  /// **'Customer updated successfully.'**
+  String get customer_updated;
+
+  /// No description provided for @customer_deleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Customer deleted successfully.'**
+  String get customer_deleted;
+
+  /// No description provided for @customer_restored.
+  ///
+  /// In en, this message translates to:
+  /// **'Customer restored successfully.'**
+  String get customer_restored;
+
+  /// No description provided for @customer_restore.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore'**
+  String get customer_restore;
+
+  /// No description provided for @customer_delete_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Customer'**
+  String get customer_delete_title;
+
+  /// No description provided for @customer_delete_confirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete this customer?'**
+  String get customer_delete_confirm;
+
+  /// No description provided for @sales_invoices_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Sales Invoices'**
+  String get sales_invoices_title;
+
+  /// No description provided for @sales_invoices_empty.
+  ///
+  /// In en, this message translates to:
+  /// **'No sales invoices yet.'**
+  String get sales_invoices_empty;
+
+  /// No description provided for @sales_invoices_empty_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'Record your first sale to start tracking revenue and stock.'**
+  String get sales_invoices_empty_hint;
+
+  /// No description provided for @sales_invoices_add.
+  ///
+  /// In en, this message translates to:
+  /// **'New Sale'**
+  String get sales_invoices_add;
+
+  /// No description provided for @sales_invoice_add_title.
+  ///
+  /// In en, this message translates to:
+  /// **'New Sale'**
+  String get sales_invoice_add_title;
+
+  /// No description provided for @sales_invoice_section_main.
+  ///
+  /// In en, this message translates to:
+  /// **'Sale Details'**
+  String get sales_invoice_section_main;
+
+  /// No description provided for @sales_invoice_section_main_sub.
+  ///
+  /// In en, this message translates to:
+  /// **'Customer, date, and payment'**
+  String get sales_invoice_section_main_sub;
+
+  /// No description provided for @sales_invoice_section_items_sub.
+  ///
+  /// In en, this message translates to:
+  /// **'Products, quantities, and pricing'**
+  String get sales_invoice_section_items_sub;
+
+  /// No description provided for @sales_invoice_customer.
+  ///
+  /// In en, this message translates to:
+  /// **'Customer'**
+  String get sales_invoice_customer;
+
+  /// No description provided for @sales_invoice_select_customer.
+  ///
+  /// In en, this message translates to:
+  /// **'Select a customer (required if not fully paid)'**
+  String get sales_invoice_select_customer;
+
+  /// No description provided for @sales_invoice_due_date.
+  ///
+  /// In en, this message translates to:
+  /// **'Due Date'**
+  String get sales_invoice_due_date;
+
+  /// No description provided for @sales_invoice_optional.
+  ///
+  /// In en, this message translates to:
+  /// **'Optional'**
+  String get sales_invoice_optional;
+
+  /// No description provided for @sales_invoice_customer_debt.
+  ///
+  /// In en, this message translates to:
+  /// **'Customer Debt'**
+  String get sales_invoice_customer_debt;
+
+  /// No description provided for @sales_invoice_cancelled.
+  ///
+  /// In en, this message translates to:
+  /// **'Invoice cancelled successfully.'**
+  String get sales_invoice_cancelled;
+
+  /// No description provided for @sales_invoice_already_cancelled.
+  ///
+  /// In en, this message translates to:
+  /// **'This invoice is already cancelled.'**
+  String get sales_invoice_already_cancelled;
+
+  /// No description provided for @sales_invoice_cancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel Invoice'**
+  String get sales_invoice_cancel;
+
+  /// No description provided for @sales_invoice_cancel_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel Invoice?'**
+  String get sales_invoice_cancel_title;
+
+  /// No description provided for @sales_invoice_cancel_confirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancelling this sale reverses its stock decrement and refunds any cash paid. This cannot be undone.'**
+  String get sales_invoice_cancel_confirm;
+
+  /// No description provided for @sales_invoice_created.
+  ///
+  /// In en, this message translates to:
+  /// **'Sale recorded successfully.'**
+  String get sales_invoice_created;
+
+  /// No description provided for @sales_invoice_item_selling_price.
+  ///
+  /// In en, this message translates to:
+  /// **'Selling Price'**
+  String get sales_invoice_item_selling_price;
+
+  /// No description provided for @sales_invoice_no_items_added.
+  ///
+  /// In en, this message translates to:
+  /// **'Add at least one item.'**
+  String get sales_invoice_no_items_added;
+
+  /// No description provided for @sales_invoice_item_product_required.
+  ///
+  /// In en, this message translates to:
+  /// **'Select a product for each item.'**
+  String get sales_invoice_item_product_required;
+
+  /// No description provided for @sales_invoice_item_quantity_required.
+  ///
+  /// In en, this message translates to:
+  /// **'Quantity must be at least 1.'**
+  String get sales_invoice_item_quantity_required;
+
+  /// No description provided for @sales_invoice_item_price_required.
+  ///
+  /// In en, this message translates to:
+  /// **'Selling price must be greater than 0.'**
+  String get sales_invoice_item_price_required;
+
+  /// No description provided for @sales_invoice_amount_paid_invalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a valid amount paid (0 or more).'**
+  String get sales_invoice_amount_paid_invalid;
+
+  /// No description provided for @sales_invoice_amount_paid_exceeds_total.
+  ///
+  /// In en, this message translates to:
+  /// **'Amount paid cannot exceed the grand total.'**
+  String get sales_invoice_amount_paid_exceeds_total;
+
+  /// No description provided for @sales_invoice_customer_required_unpaid.
+  ///
+  /// In en, this message translates to:
+  /// **'Select a customer — a customer is required when the sale isn\'t fully paid.'**
+  String get sales_invoice_customer_required_unpaid;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

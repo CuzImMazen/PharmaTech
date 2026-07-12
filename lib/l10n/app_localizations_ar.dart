@@ -744,6 +744,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get movement_adjustment_in => 'تسوية إدخال';
 
   @override
+  String get movement_sale_return_in => 'مرتجع بيع';
+
+  @override
   String get movement_sale_out => 'بيع';
 
   @override
@@ -1491,4 +1494,163 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get scan_looking_up => 'جارٍ البحث عن المنتج…';
+
+  @override
+  String get operations_title => 'العمليات';
+
+  @override
+  String get operations_sales => 'المبيعات';
+
+  @override
+  String get operations_purchasing => 'المشتريات';
+
+  @override
+  String get operations_cash_and_stock => 'الصندوق والمخزون';
+
+  @override
+  String get settings_customers => 'العملاء';
+
+  @override
+  String get settings_sales_invoices => 'فواتير البيع';
+
+  @override
+  String get customers_title => 'العملاء';
+
+  @override
+  String get customers_search_hint => 'ابحث عن العملاء';
+
+  @override
+  String get customers_show_deleted => 'إظهار المحذوفين';
+
+  @override
+  String get customers_empty => 'لا يوجد عملاء بعد.';
+
+  @override
+  String get customers_empty_hint => 'أضف أول عميل لبدء البيع بالأجل.';
+
+  @override
+  String get customers_add => 'إضافة عميل';
+
+  @override
+  String get customer_add_title => 'إضافة عميل';
+
+  @override
+  String get customer_edit_title => 'تعديل العميل';
+
+  @override
+  String get customer_section => 'تفاصيل العميل';
+
+  @override
+  String get customer_section_sub => 'الاسم ومعلومات التواصل';
+
+  @override
+  String get customer_name => 'اسم العميل';
+
+  @override
+  String get customer_phone => 'الهاتف';
+
+  @override
+  String get customer_notes => 'ملاحظات';
+
+  @override
+  String get customer_created => 'تم إنشاء العميل بنجاح.';
+
+  @override
+  String get customer_updated => 'تم تحديث العميل بنجاح.';
+
+  @override
+  String get customer_deleted => 'تم حذف العميل بنجاح.';
+
+  @override
+  String get customer_restored => 'تمت استعادة العميل بنجاح.';
+
+  @override
+  String get customer_restore => 'استعادة';
+
+  @override
+  String get customer_delete_title => 'حذف العميل';
+
+  @override
+  String get customer_delete_confirm => 'هل أنت متأكد من حذف هذا العميل؟';
+
+  @override
+  String get sales_invoices_title => 'فواتير البيع';
+
+  @override
+  String get sales_invoices_empty => 'لا توجد فواتير بيع بعد.';
+
+  @override
+  String get sales_invoices_empty_hint => 'سجّل أول عملية بيع لبدء تتبع الإيرادات والمخزون.';
+
+  @override
+  String get sales_invoices_add => 'بيع جديد';
+
+  @override
+  String get sales_invoice_add_title => 'بيع جديد';
+
+  @override
+  String get sales_invoice_section_main => 'تفاصيل البيع';
+
+  @override
+  String get sales_invoice_section_main_sub => 'العميل والتاريخ والدفع';
+
+  @override
+  String get sales_invoice_section_items_sub => 'المنتجات والكميات والتسعير';
+
+  @override
+  String get sales_invoice_customer => 'العميل';
+
+  @override
+  String get sales_invoice_select_customer => 'اختر عميلاً (مطلوب عند عدم الدفع كاملاً)';
+
+  @override
+  String get sales_invoice_due_date => 'تاريخ الاستحقاق';
+
+  @override
+  String get sales_invoice_optional => 'اختياري';
+
+  @override
+  String get sales_invoice_customer_debt => 'دين العميل';
+
+  @override
+  String get sales_invoice_cancelled => 'تم إلغاء الفاتورة بنجاح.';
+
+  @override
+  String get sales_invoice_already_cancelled => 'هذه الفاتورة ملغاة بالفعل.';
+
+  @override
+  String get sales_invoice_cancel => 'إلغاء الفاتورة';
+
+  @override
+  String get sales_invoice_cancel_title => 'إلغاء الفاتورة؟';
+
+  @override
+  String get sales_invoice_cancel_confirm => 'إلغاء هذه الفاتورة يعكس خصم المخزون ويعيد أي مبلغ نقدي مدفوع. لا يمكن التراجع عن هذا الإجراء.';
+
+  @override
+  String get sales_invoice_created => 'تم تسجيل البيع بنجاح.';
+
+  @override
+  String get sales_invoice_item_selling_price => 'سعر البيع';
+
+  @override
+  String get sales_invoice_no_items_added => 'أضف عنصراً واحداً على الأقل.';
+
+  @override
+  String get sales_invoice_item_product_required => 'اختر منتجاً لكل عنصر.';
+
+  @override
+  String get sales_invoice_item_quantity_required => 'الكمية يجب أن تكون 1 على الأقل.';
+
+  @override
+  String get sales_invoice_item_price_required => 'سعر البيع يجب أن يكون أكبر من 0.';
+
+  @override
+  String get sales_invoice_amount_paid_invalid => 'أدخل مبلغاً مدفوعاً صحيحاً (صفر أو أكثر).';
+
+  @override
+  String get sales_invoice_amount_paid_exceeds_total => 'المبلغ المدفوع لا يمكن أن يتجاوز الإجمالي.';
+
+  @override
+  String get sales_invoice_customer_required_unpaid => 'اختر عميلاً — العميل مطلوب عندما لا يكون البيع مدفوعاً بالكامل.';
 }

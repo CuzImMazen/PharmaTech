@@ -744,6 +744,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get movement_adjustment_in => 'Adjustment In';
 
   @override
+  String get movement_sale_return_in => 'Sale Return In';
+
+  @override
   String get movement_sale_out => 'Sale Out';
 
   @override
@@ -1491,4 +1494,163 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get scan_looking_up => 'Looking up product…';
+
+  @override
+  String get operations_title => 'Operations';
+
+  @override
+  String get operations_sales => 'Sales';
+
+  @override
+  String get operations_purchasing => 'Purchasing';
+
+  @override
+  String get operations_cash_and_stock => 'Cash & Stock';
+
+  @override
+  String get settings_customers => 'Customers';
+
+  @override
+  String get settings_sales_invoices => 'Sales Invoices';
+
+  @override
+  String get customers_title => 'Customers';
+
+  @override
+  String get customers_search_hint => 'Search customers';
+
+  @override
+  String get customers_show_deleted => 'Show deleted';
+
+  @override
+  String get customers_empty => 'No customers yet.';
+
+  @override
+  String get customers_empty_hint => 'Add your first customer to start selling on credit.';
+
+  @override
+  String get customers_add => 'Add Customer';
+
+  @override
+  String get customer_add_title => 'Add Customer';
+
+  @override
+  String get customer_edit_title => 'Edit Customer';
+
+  @override
+  String get customer_section => 'Customer Details';
+
+  @override
+  String get customer_section_sub => 'Name and contact info';
+
+  @override
+  String get customer_name => 'Customer Name';
+
+  @override
+  String get customer_phone => 'Phone';
+
+  @override
+  String get customer_notes => 'Notes';
+
+  @override
+  String get customer_created => 'Customer created successfully.';
+
+  @override
+  String get customer_updated => 'Customer updated successfully.';
+
+  @override
+  String get customer_deleted => 'Customer deleted successfully.';
+
+  @override
+  String get customer_restored => 'Customer restored successfully.';
+
+  @override
+  String get customer_restore => 'Restore';
+
+  @override
+  String get customer_delete_title => 'Delete Customer';
+
+  @override
+  String get customer_delete_confirm => 'Are you sure you want to delete this customer?';
+
+  @override
+  String get sales_invoices_title => 'Sales Invoices';
+
+  @override
+  String get sales_invoices_empty => 'No sales invoices yet.';
+
+  @override
+  String get sales_invoices_empty_hint => 'Record your first sale to start tracking revenue and stock.';
+
+  @override
+  String get sales_invoices_add => 'New Sale';
+
+  @override
+  String get sales_invoice_add_title => 'New Sale';
+
+  @override
+  String get sales_invoice_section_main => 'Sale Details';
+
+  @override
+  String get sales_invoice_section_main_sub => 'Customer, date, and payment';
+
+  @override
+  String get sales_invoice_section_items_sub => 'Products, quantities, and pricing';
+
+  @override
+  String get sales_invoice_customer => 'Customer';
+
+  @override
+  String get sales_invoice_select_customer => 'Select a customer (required if not fully paid)';
+
+  @override
+  String get sales_invoice_due_date => 'Due Date';
+
+  @override
+  String get sales_invoice_optional => 'Optional';
+
+  @override
+  String get sales_invoice_customer_debt => 'Customer Debt';
+
+  @override
+  String get sales_invoice_cancelled => 'Invoice cancelled successfully.';
+
+  @override
+  String get sales_invoice_already_cancelled => 'This invoice is already cancelled.';
+
+  @override
+  String get sales_invoice_cancel => 'Cancel Invoice';
+
+  @override
+  String get sales_invoice_cancel_title => 'Cancel Invoice?';
+
+  @override
+  String get sales_invoice_cancel_confirm => 'Cancelling this sale reverses its stock decrement and refunds any cash paid. This cannot be undone.';
+
+  @override
+  String get sales_invoice_created => 'Sale recorded successfully.';
+
+  @override
+  String get sales_invoice_item_selling_price => 'Selling Price';
+
+  @override
+  String get sales_invoice_no_items_added => 'Add at least one item.';
+
+  @override
+  String get sales_invoice_item_product_required => 'Select a product for each item.';
+
+  @override
+  String get sales_invoice_item_quantity_required => 'Quantity must be at least 1.';
+
+  @override
+  String get sales_invoice_item_price_required => 'Selling price must be greater than 0.';
+
+  @override
+  String get sales_invoice_amount_paid_invalid => 'Enter a valid amount paid (0 or more).';
+
+  @override
+  String get sales_invoice_amount_paid_exceeds_total => 'Amount paid cannot exceed the grand total.';
+
+  @override
+  String get sales_invoice_customer_required_unpaid => 'Select a customer — a customer is required when the sale isn\'t fully paid.';
 }
