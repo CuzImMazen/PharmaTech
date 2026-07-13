@@ -502,7 +502,7 @@
   "invoice_section_main_sub": "Supplier, date, and payment",
   "invoice_section_items": "Items",
   "invoice_section_items_sub": "Products, quantities, and pricing",
-  "invoice_select_supplier": "Select a supplier",
+  "invoice_select_supplier": "Select supplier",
   "invoice_item_product": "Product",
   "invoice_item_quantity": "Quantity",
   "invoice_item_wholesale_price": "Wholesale Price",
@@ -515,7 +515,7 @@
   "invoice_item_add": "Add Item",
   "invoice_item_remove": "Remove",
   "invoice_totals_summary": "Summary",
-  "invoice_amount_paid_hint": "Amount paid now (cannot exceed grand total)",
+  "invoice_amount_paid_hint": "Amount paid",
   "invoice_created": "Purchase invoice created successfully.",
   "invoice_amount_paid_invalid": "Enter a valid amount paid (0 or more).",
   "invoice_amount_paid_exceeds_total": "Amount paid cannot exceed the grand total.",
@@ -586,6 +586,16 @@
   "scan_enter_manually": "Enter manually",
   "scan_camera_permission_denied": "Camera permission was denied. You can enter the barcode manually.",
   "scan_looking_up": "Looking up product…",
+  "scan_action_title": "Scanned product",
+  "scan_action_view": "View product",
+  "scan_action_add_sale": "Add to sales invoice",
+  "scan_action_add_purchase": "Add to purchase invoice",
+  "scan_added_to_form": "Added: {name}",
+  "@scan_added_to_form": {
+    "placeholders": {
+      "name": { "type": "String" }
+    }
+  },
 
   "finance_title": "Finance",
   "finance_sales": "Sales",
@@ -624,7 +634,7 @@
   "sales_invoice_section_main_sub": "Customer, date, and payment",
   "sales_invoice_section_items_sub": "Products, quantities, and pricing",
   "sales_invoice_customer": "Customer",
-  "sales_invoice_select_customer": "Select a customer (required if not fully paid)",
+  "sales_invoice_select_customer": "Select customer",
   "sales_invoice_due_date": "Due Date",
   "sales_invoice_optional": "Optional",
   "sales_invoice_customer_debt": "Customer Debt",

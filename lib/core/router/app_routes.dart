@@ -442,14 +442,20 @@ class AppRoutes {
     // Add invoice — placed before the :id detail route.
     GoRoute(
       path: AppRoutesKeys.invoiceAdd,
-      builder: (context, state) => BlocProvider(
-        create: (context) => PurchaseInvoiceFormCubit(
-          invoiceRepository: sl<PurchaseInvoiceRepository>(),
-          supplierRepository: sl<SupplierRepository>(),
-          inventoryRepository: sl<InventoryRepository>(),
-        ),
-        child: const PurchaseInvoiceFormScreen(),
-      ),
+      builder: (context, state) {
+        final extra = state.extra;
+        final seedProduct = extra is Map<String, dynamic>
+            ? extra['product'] as ProductDetailModel?
+            : null;
+        return BlocProvider(
+          create: (context) => PurchaseInvoiceFormCubit(
+            invoiceRepository: sl<PurchaseInvoiceRepository>(),
+            supplierRepository: sl<SupplierRepository>(),
+            inventoryRepository: sl<InventoryRepository>(),
+          )..loadOptions(),
+          child: PurchaseInvoiceFormScreen(seedProduct: seedProduct),
+        );
+      },
     ),
 
     // Invoice detail (with items + debt + payments).
@@ -518,14 +524,20 @@ class AppRoutes {
     // Add sales invoice (New Sale).
     GoRoute(
       path: AppRoutesKeys.salesInvoiceAdd,
-      builder: (context, state) => BlocProvider(
-        create: (context) => SalesInvoiceFormCubit(
-          invoiceRepository: sl<SalesInvoiceRepository>(),
-          customerRepository: sl<CustomerRepository>(),
-          inventoryRepository: sl<InventoryRepository>(),
-        ),
-        child: const SalesInvoiceFormScreen(),
-      ),
+      builder: (context, state) {
+        final extra = state.extra;
+        final seedProduct = extra is Map<String, dynamic>
+            ? extra['product'] as ProductDetailModel?
+            : null;
+        return BlocProvider(
+          create: (context) => SalesInvoiceFormCubit(
+            invoiceRepository: sl<SalesInvoiceRepository>(),
+            customerRepository: sl<CustomerRepository>(),
+            inventoryRepository: sl<InventoryRepository>(),
+          )..loadOptions(),
+          child: SalesInvoiceFormScreen(seedProduct: seedProduct),
+        );
+      },
     ),
 
     // Sales invoice detail (with items + customer debt).

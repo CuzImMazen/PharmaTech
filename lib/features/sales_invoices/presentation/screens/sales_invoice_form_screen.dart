@@ -10,10 +10,12 @@ import 'package:pharmacy_app/core/widgets/custom_text_field.dart';
 import 'package:pharmacy_app/core/widgets/form_section_card.dart';
 import 'package:pharmacy_app/features/customers/data/models/customer_model.dart';
 import 'package:pharmacy_app/features/inventory/data/models/product_card_model.dart';
+import 'package:pharmacy_app/features/inventory/data/models/product_detail_model.dart';
 import 'package:pharmacy_app/features/purchase_invoices/data/models/purchase_invoice_model.dart';
 import 'package:pharmacy_app/features/sales_invoices/cubit/sales_invoice_form_cubit.dart';
 import 'package:pharmacy_app/features/sales_invoices/cubit/sales_invoice_form_state.dart';
 import 'package:pharmacy_app/features/sales_invoices/presentation/widgets/sales_invoice_card.dart';
+import 'package:pharmacy_app/features/shared/barcode/barcode_flow.dart';
 
 /// Full-screen "New Sale" form. Customer (optional) + date + payment method +
 /// amount-paid + due-date + notes live in controllers; the dynamic line-items
@@ -23,7 +25,11 @@ import 'package:pharmacy_app/features/sales_invoices/presentation/widgets/sales_
 /// A customer is required by the backend when the sale isn't fully paid (a
 /// debt is created in that case); the server enforces this and returns a 422.
 class SalesInvoiceFormScreen extends StatefulWidget {
-  const SalesInvoiceFormScreen({super.key});
+  const SalesInvoiceFormScreen({super.key, this.seedProduct});
+
+  /// Optional product to pre-fill as the first line item (from a dashboard
+  /// barcode scan choice). Seeded once via the cubit in didChangeDependencies.
+  final ProductDetailModel? seedProduct;
 
   @override
   State<SalesInvoiceFormScreen> createState() => _SalesInvoiceFormScreenState();
@@ -51,7 +57,10 @@ class _SalesInvoiceFormScreenState extends State<SalesInvoiceFormScreen> {
     super.didChangeDependencies();
     if (!_optionsSeeded) {
       _optionsSeeded = true;
-      context.read<SalesInvoiceFormCubit>().loadOptions();
+      final cubit = context.read<SalesInvoiceFormCubit>();
+      cubit.loadOptions();
+      final seed = widget.seedProduct;
+      if (seed != null) cubit.seedProduct(seed);
     }
   }
 
@@ -399,12 +408,35 @@ class _ItemRow extends StatelessWidget {
 
   final int index;
 
+  Future<void> _scanToAdd(
+    BuildContext context,
+    SalesInvoiceFormCubit cubit,
+  ) async {
+    final code = await BarcodeFlow.scanOnly(context);
+    if (code == null || code.isEmpty) return;
+    final result = await cubit.addScannedItem(code, targetIndex: index);
+    if (!context.mounted) return;
+    switch (result) {
+      case ScannedAdded(:final product):
+        AppSnackbar.success(message: context.tr.scan_added_to_form(product.name));
+      case ScannedNotFound():
+        AppSnackbar.failure(message: context.tr.scan_not_found);
+      case ScannedError(:final failure):
+        AppSnackbar.failure(message: failure.localizedMessage(context));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<SalesInvoiceFormCubit>();
     return BlocBuilder<SalesInvoiceFormCubit, SalesInvoiceFormState>(
       buildWhen: (p, c) {
         if (index >= p.items.length || index >= c.items.length) return true;
+        if (p.isScanning != c.isScanning) return true;
+        // Rebuild when the products list loads/changes so a seeded/scanned
+        // product (set before options finished loading) becomes matchable in
+        // the dropdown — otherwise the row keeps showing the placeholder.
+        if (p.products != c.products) return true;
         return p.items[index] != c.items[index];
       },
       builder: (context, state) {
@@ -421,7 +453,7 @@ class _ItemRow extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Header: product + remove.
+              // Header: product + scan + remove.
               Row(
                 children: [
                   Expanded(
@@ -436,6 +468,11 @@ class _ItemRow extends StatelessWidget {
                       hasError: state.hasOptionsError,
                       onRetry: cubit.reloadOptions,
                     ),
+                  ),
+                  context.hSm,
+                  _ItemScanButton(
+                    isScanning: state.isScanning,
+                    onScan: () => _scanToAdd(context, cubit),
                   ),
                   context.hSm,
                   IconButton(
@@ -713,6 +750,34 @@ class _StickySaveBar extends StatelessWidget {
                 ),
         ),
       ),
+    );
+  }
+}
+
+/// Scanner icon shown next to a line item's product dropdown. Scans a barcode
+/// and, on a match, appends the product as a new line. Shows a spinner while
+/// the lookup is in flight and is disabled for the duration.
+class _ItemScanButton extends StatelessWidget {
+  const _ItemScanButton({required this.isScanning, required this.onScan});
+
+  final bool isScanning;
+  final VoidCallback onScan;
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      tooltip: context.tr.scan_barcode,
+      icon: isScanning
+          ? SizedBox(
+              width: 20,
+              height: 20,
+              child: CircularProgressIndicator(
+                strokeWidth: 2,
+                color: context.primary,
+              ),
+            )
+          : Icon(Icons.qr_code_scanner_rounded, color: context.primary),
+      onPressed: isScanning ? null : onScan,
     );
   }
 }

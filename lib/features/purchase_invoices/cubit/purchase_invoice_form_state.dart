@@ -25,6 +25,9 @@ abstract class PurchaseInvoiceFormState with _$PurchaseInvoiceFormState {
     @Default(false) bool isSaving,
     Failure? failure,
     @Default(false) bool saved,
+
+    /// True while a barcode lookup is in flight from the in-form scanner.
+    @Default(false) bool isScanning,
   }) = _PurchaseInvoiceFormState;
 }
 

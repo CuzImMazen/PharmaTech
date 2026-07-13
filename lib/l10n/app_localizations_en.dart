@@ -1340,7 +1340,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get invoice_section_items_sub => 'Products, quantities, and pricing';
 
   @override
-  String get invoice_select_supplier => 'Select a supplier';
+  String get invoice_select_supplier => 'Select supplier';
 
   @override
   String get invoice_item_product => 'Product';
@@ -1379,7 +1379,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get invoice_totals_summary => 'Summary';
 
   @override
-  String get invoice_amount_paid_hint => 'Amount paid now (cannot exceed grand total)';
+  String get invoice_amount_paid_hint => 'Amount paid';
 
   @override
   String get invoice_created => 'Purchase invoice created successfully.';
@@ -1589,6 +1589,23 @@ class AppLocalizationsEn extends AppLocalizations {
   String get scan_looking_up => 'Looking up product…';
 
   @override
+  String get scan_action_title => 'Scanned product';
+
+  @override
+  String get scan_action_view => 'View product';
+
+  @override
+  String get scan_action_add_sale => 'Add to sales invoice';
+
+  @override
+  String get scan_action_add_purchase => 'Add to purchase invoice';
+
+  @override
+  String scan_added_to_form(String name) {
+    return 'Added: $name';
+  }
+
+  @override
   String get finance_title => 'Finance';
 
   @override
@@ -1694,7 +1711,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get sales_invoice_customer => 'Customer';
 
   @override
-  String get sales_invoice_select_customer => 'Select a customer (required if not fully paid)';
+  String get sales_invoice_select_customer => 'Select customer';
 
   @override
   String get sales_invoice_due_date => 'Due Date';

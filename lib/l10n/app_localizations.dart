@@ -2744,7 +2744,7 @@ abstract class AppLocalizations {
   /// No description provided for @invoice_select_supplier.
   ///
   /// In en, this message translates to:
-  /// **'Select a supplier'**
+  /// **'Select supplier'**
   String get invoice_select_supplier;
 
   /// No description provided for @invoice_item_product.
@@ -2822,7 +2822,7 @@ abstract class AppLocalizations {
   /// No description provided for @invoice_amount_paid_hint.
   ///
   /// In en, this message translates to:
-  /// **'Amount paid now (cannot exceed grand total)'**
+  /// **'Amount paid'**
   String get invoice_amount_paid_hint;
 
   /// No description provided for @invoice_created.
@@ -3239,6 +3239,36 @@ abstract class AppLocalizations {
   /// **'Looking up product…'**
   String get scan_looking_up;
 
+  /// No description provided for @scan_action_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Scanned product'**
+  String get scan_action_title;
+
+  /// No description provided for @scan_action_view.
+  ///
+  /// In en, this message translates to:
+  /// **'View product'**
+  String get scan_action_view;
+
+  /// No description provided for @scan_action_add_sale.
+  ///
+  /// In en, this message translates to:
+  /// **'Add to sales invoice'**
+  String get scan_action_add_sale;
+
+  /// No description provided for @scan_action_add_purchase.
+  ///
+  /// In en, this message translates to:
+  /// **'Add to purchase invoice'**
+  String get scan_action_add_purchase;
+
+  /// No description provided for @scan_added_to_form.
+  ///
+  /// In en, this message translates to:
+  /// **'Added: {name}'**
+  String scan_added_to_form(String name);
+
   /// No description provided for @finance_title.
   ///
   /// In en, this message translates to:
@@ -3452,7 +3482,7 @@ abstract class AppLocalizations {
   /// No description provided for @sales_invoice_select_customer.
   ///
   /// In en, this message translates to:
-  /// **'Select a customer (required if not fully paid)'**
+  /// **'Select customer'**
   String get sales_invoice_select_customer;
 
   /// No description provided for @sales_invoice_due_date.

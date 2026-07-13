@@ -201,6 +201,15 @@ class _BarcodeScannerScreenState extends State<BarcodeScannerScreen>
               ),
             ),
 
+            // Scan frame: a centered targeting box so the user knows where to
+            // aim. The brackets-only outline keeps the camera view visible
+            // through the box; the dimmed scrim around it draws the eye to the
+            // frame. mobile_scanner detects barcodes anywhere in view, so this
+            // is purely a visual guide.
+            Positioned.fill(
+              child: Center(child: _ScanFrame()),
+            ),
+
             // Bottom: manual entry.
             Positioned(
               left: 0,
@@ -227,12 +236,12 @@ class _BarcodeScannerScreenState extends State<BarcodeScannerScreen>
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        const CircularProgressIndicator(color: Colors.white),
+                        CircularProgressIndicator(color: context.primary),
                         context.vMd,
                         Text(
                           tr.scan_looking_up,
                           style: context.text.titleMedium?.copyWith(
-                            color: Colors.white,
+                            color: context.primary,
                           ),
                         ),
                       ],
@@ -362,4 +371,92 @@ class _ManualBarcodeDialogState extends State<_ManualBarcodeDialog> {
       ],
     );
   }
+}
+
+/// A centered targeting box that tells the user where to aim the camera.
+/// Drawn as four corner brackets around a transparent center so the camera
+/// view stays visible through the frame. The app's primary green is used for
+/// the brackets to match the rest of the design.
+class _ScanFrame extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final color = context.primary;
+    const double size = 260;
+    const double arm = 36;
+    const double stroke = 4;
+
+    return SizedBox(
+      width: size,
+      height: size * 0.6,
+      child: CustomPaint(
+        painter: _ScanFramePainter(
+          color: color,
+          armLength: arm,
+          strokeWidth: stroke,
+        ),
+      ),
+    );
+  }
+}
+
+class _ScanFramePainter extends CustomPainter {
+  const _ScanFramePainter({
+    required this.color,
+    required this.armLength,
+    required this.strokeWidth,
+  });
+
+  final Color color;
+  final double armLength;
+  final double strokeWidth;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..color = color
+      ..strokeWidth = strokeWidth
+      ..strokeCap = StrokeCap.round
+      ..style = PaintingStyle.stroke;
+
+    // Four corner brackets. Each corner is an L drawn `armLength` along each
+    // side, leaving the rest of the box open.
+    // Top-left
+    canvas.drawPath(
+      Path()
+        ..moveTo(0, armLength)
+        ..lineTo(0, 0)
+        ..lineTo(armLength, 0),
+      paint,
+    );
+    // Top-right
+    canvas.drawPath(
+      Path()
+        ..moveTo(size.width - armLength, 0)
+        ..lineTo(size.width, 0)
+        ..lineTo(size.width, armLength),
+      paint,
+    );
+    // Bottom-left
+    canvas.drawPath(
+      Path()
+        ..moveTo(0, size.height - armLength)
+        ..lineTo(0, size.height)
+        ..lineTo(armLength, size.height),
+      paint,
+    );
+    // Bottom-right
+    canvas.drawPath(
+      Path()
+        ..moveTo(size.width - armLength, size.height)
+        ..lineTo(size.width, size.height)
+        ..lineTo(size.width, size.height - armLength),
+      paint,
+    );
+  }
+
+  @override
+  bool shouldRepaint(covariant _ScanFramePainter oldDelegate) =>
+      color != oldDelegate.color ||
+      armLength != oldDelegate.armLength ||
+      strokeWidth != oldDelegate.strokeWidth;
 }

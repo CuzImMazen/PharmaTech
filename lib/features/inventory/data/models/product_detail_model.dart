@@ -2,6 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:pharmacy_app/core/enums/enums.dart';
 import 'package:pharmacy_app/features/inventory/data/models/base_unit_model.dart';
 import 'package:pharmacy_app/features/inventory/data/models/company_model.dart';
+import 'package:pharmacy_app/features/inventory/data/models/product_card_model.dart';
 import 'package:pharmacy_app/features/inventory/data/models/product_category.dart';
 import 'package:pharmacy_app/features/inventory/data/models/product_medical_info_model.dart';
 
@@ -121,4 +122,22 @@ class ProductDetailModel {
     }
     return MedicineStockStatus.available;
   }
+
+  /// Projects this detail into the lighter [ProductCardModel] used by the
+  /// invoice form line-item dropdowns. The invoice forms hold products as
+  /// `ProductCardModel`, but the barcode lookup returns this richer model —
+  /// this maps the overlapping fields so a scanned/seeded product can be
+  /// inserted as a line item without a second request.
+  ProductCardModel toProductCard() => ProductCardModel(
+        id: id,
+        name: brandName,
+        arName: arName ?? brandName,
+        category: category,
+        status: computedStatus,
+        price: sellingPrice,
+        quantity: totalQuantity,
+        minStock: minStock,
+        nearestExpiration: nearestExpiry,
+        baseUnit: baseUnit,
+      );
 }

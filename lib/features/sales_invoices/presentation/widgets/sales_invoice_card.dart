@@ -75,7 +75,9 @@ class SalesInvoiceCard extends StatelessWidget {
                           ),
                           SizedBox(width: context.sXs),
                           Text(
-                            invoice.invoiceDate,
+                            invoice.invoiceDate.length >= 10
+                                ? invoice.invoiceDate.substring(0, 10)
+                                : invoice.invoiceDate,
                             style: context.text.labelSmall?.copyWith(
                               color: context.muted,
                             ),

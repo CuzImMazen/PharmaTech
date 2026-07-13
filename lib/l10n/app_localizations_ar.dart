@@ -1379,7 +1379,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get invoice_totals_summary => 'الملخص';
 
   @override
-  String get invoice_amount_paid_hint => 'المبلغ المدفوع الآن (لا يمكن تجاوز الإجمالي)';
+  String get invoice_amount_paid_hint => 'المبلغ المدفوع';
 
   @override
   String get invoice_created => 'تم إنشاء فاتورة الشراء بنجاح.';
@@ -1589,6 +1589,23 @@ class AppLocalizationsAr extends AppLocalizations {
   String get scan_looking_up => 'جارٍ البحث عن المنتج…';
 
   @override
+  String get scan_action_title => 'المنتج الممسوح';
+
+  @override
+  String get scan_action_view => 'عرض المنتج';
+
+  @override
+  String get scan_action_add_sale => 'إضافة لفاتورة مبيعات';
+
+  @override
+  String get scan_action_add_purchase => 'إضافة لفاتورة مشتريات';
+
+  @override
+  String scan_added_to_form(String name) {
+    return 'تمت الإضافة: $name';
+  }
+
+  @override
   String get finance_title => 'المالية';
 
   @override
@@ -1694,7 +1711,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get sales_invoice_customer => 'العميل';
 
   @override
-  String get sales_invoice_select_customer => 'اختر عميلاً (مطلوب عند عدم الدفع كاملاً)';
+  String get sales_invoice_select_customer => 'اختر عميلاً';
 
   @override
   String get sales_invoice_due_date => 'تاريخ الاستحقاق';

@@ -512,7 +512,7 @@
   "invoice_item_add": "إضافة عنصر",
   "invoice_item_remove": "إزالة",
   "invoice_totals_summary": "الملخص",
-  "invoice_amount_paid_hint": "المبلغ المدفوع الآن (لا يمكن تجاوز الإجمالي)",
+  "invoice_amount_paid_hint": "المبلغ المدفوع",
   "invoice_created": "تم إنشاء فاتورة الشراء بنجاح.",
   "invoice_amount_paid_invalid": "أدخل مبلغاً مدفوعاً صحيحاً (صفر أو أكثر).",
   "invoice_amount_paid_exceeds_total": "المبلغ المدفوع لا يمكن أن يتجاوز الإجمالي.",
@@ -583,6 +583,16 @@
   "scan_enter_manually": "إدخال يدوي",
   "scan_camera_permission_denied": "تم رفض إذن الكاميرا. يمكنك إدخال الباركود يدويًا.",
   "scan_looking_up": "جارٍ البحث عن المنتج…",
+  "scan_action_title": "المنتج الممسوح",
+  "scan_action_view": "عرض المنتج",
+  "scan_action_add_sale": "إضافة لفاتورة مبيعات",
+  "scan_action_add_purchase": "إضافة لفاتورة مشتريات",
+  "scan_added_to_form": "تمت الإضافة: {name}",
+  "@scan_added_to_form": {
+    "placeholders": {
+      "name": { "type": "String" }
+    }
+  },
 
   "finance_title": "المالية",
   "finance_sales": "المبيعات",
@@ -621,7 +631,7 @@
   "sales_invoice_section_main_sub": "العميل والتاريخ والدفع",
   "sales_invoice_section_items_sub": "المنتجات والكميات والتسعير",
   "sales_invoice_customer": "العميل",
-  "sales_invoice_select_customer": "اختر عميلاً (مطلوب عند عدم الدفع كاملاً)",
+  "sales_invoice_select_customer": "اختر عميلاً",
   "sales_invoice_due_date": "تاريخ الاستحقاق",
   "sales_invoice_optional": "اختياري",
   "sales_invoice_customer_debt": "دين العميل",

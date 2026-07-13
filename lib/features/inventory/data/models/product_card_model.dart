@@ -56,4 +56,16 @@ class ProductCardModel {
       orElse: () => MedicineStockStatus.available,
     );
   }
+
+  /// Value equality by [id] so a freshly built instance (e.g. from
+  /// `ProductDetailModel.toProductCard()` for a seeded/scanned product) matches
+  /// the same product in the dropdown's `items` list — without this the
+  /// dropdown's `items.contains(value)` check falls back to identity and the
+  /// selected product wouldn't render.
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) || (other is ProductCardModel && other.id == id);
+
+  @override
+  int get hashCode => id.hashCode;
 }

@@ -5,6 +5,7 @@ import 'package:pharmacy_app/core/extensions/failure_message_localization_ext.da
 import 'package:pharmacy_app/core/extensions/localization_ext.dart';
 import 'package:pharmacy_app/core/router/app_routes_keys.dart';
 import 'package:pharmacy_app/core/utils/messages/snackbar.dart';
+import 'package:pharmacy_app/features/inventory/data/models/product_detail_model.dart';
 import 'package:pharmacy_app/features/inventory/data/repo/inventory_repository.dart';
 import 'package:pharmacy_app/features/shared/barcode/screens/barcode_scanner_screen.dart';
 
@@ -12,9 +13,10 @@ import 'package:pharmacy_app/features/shared/barcode/screens/barcode_scanner_scr
 sealed class BarcodeLookupResult {
   const BarcodeLookupResult();
 
-  /// A product matched — open its detail.
-  const factory BarcodeLookupResult.found(int productId) =
-      _BarcodeLookupFound;
+  /// A product matched — carry its full detail so callers can seed an invoice
+  /// line or open its detail. (The dashboard `start` flow surfaces a choice.)
+  const factory BarcodeLookupResult.foundProduct(ProductDetailModel product) =
+      _BarcodeLookupFoundProduct;
 
   /// No product matched — offer to create one with this barcode.
   const factory BarcodeLookupResult.create(String barcode) =
@@ -25,9 +27,9 @@ sealed class BarcodeLookupResult {
       _BarcodeLookupError;
 }
 
-class _BarcodeLookupFound extends BarcodeLookupResult {
-  const _BarcodeLookupFound(this.productId);
-  final int productId;
+class _BarcodeLookupFoundProduct extends BarcodeLookupResult {
+  const _BarcodeLookupFoundProduct(this.product);
+  final ProductDetailModel product;
 }
 
 class _BarcodeLookupCreate extends BarcodeLookupResult {
@@ -65,25 +67,28 @@ typedef BarcodeLookup = Future<BarcodeLookupResult> Function(
 class BarcodeFlow {
   const BarcodeFlow._();
 
-  /// Opens the scanner, looks up the scanned barcode, and either navigates to
-  /// the product detail (found) or offers to create a new product with the
-  /// barcode pre-filled (not found). Failures surface as a snackbar.
-  static Future<void> start(BuildContext context) async {
+  /// Opens the scanner, looks up the scanned barcode, and returns the
+  /// matched product (found), offers to create a new product with the barcode
+  /// pre-filled (not found), or surfaces a snackbar (failure).
+  ///
+  /// The caller decides what to do with a found product — e.g. the dashboard
+  /// surfaces a choice (view detail / add to sales / add to purchase). Returns
+  /// `null` when the user cancels, the product isn't found, or the lookup
+  /// fails (those paths handle their own UI).
+  static Future<ProductDetailModel?> start(BuildContext context) async {
     final result = await Navigator.of(context).push<BarcodeLookupResult>(
       MaterialPageRoute(
         builder: (_) => BarcodeScannerScreen(resolve: _resolve),
       ),
     );
-    if (!context.mounted || result == null) return;
+    if (!context.mounted || result == null) return null;
 
-    switch (result) {
-      case _BarcodeLookupFound(:final productId):
-        context.push(AppRoutesKeys.productDetailWith(productId));
-      case _BarcodeLookupCreate(:final barcode):
-        _offerCreate(context, barcode);
-      case _BarcodeLookupError(:final localizedMessage):
-        AppSnackbar.failure(message: localizedMessage);
-    }
+    return switch (result) {
+      _BarcodeLookupFoundProduct(:final product) => product,
+      _BarcodeLookupCreate(:final barcode) => _offerCreate(context, barcode),
+      _BarcodeLookupError(:final localizedMessage) =>
+        _showError(context, localizedMessage),
+    };
   }
 
   /// The lookup resolver handed to the scanner. Captures the caller's context
@@ -98,12 +103,21 @@ class BarcodeFlow {
       (failure) =>
           BarcodeLookupResult.error(failure.localizedMessage(context)),
       (product) => product != null
-          ? BarcodeLookupResult.found(product.id)
+          ? BarcodeLookupResult.foundProduct(product)
           : BarcodeLookupResult.create(code),
     );
   }
 
-  static void _offerCreate(BuildContext context, String barcode) {
+  /// Returns `null` — the error is shown as a snackbar; there's no product to
+  /// surface to the caller.
+  static ProductDetailModel? _showError(BuildContext context, String message) {
+    AppSnackbar.failure(message: message);
+    return null;
+  }
+
+  /// Returns `null` — the not-found path navigates to the add-product screen
+  /// (or the user cancels), so there's no product to surface to the caller.
+  static ProductDetailModel? _offerCreate(BuildContext context, String barcode) {
     final tr = context.tr;
     showDialog<void>(
       context: context,
@@ -125,6 +139,7 @@ class BarcodeFlow {
         ],
       ),
     );
+    return null;
   }
 
   /// Opens the scanner and returns the raw scanned/entered code without a

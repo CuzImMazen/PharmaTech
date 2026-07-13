@@ -1,11 +1,38 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pharmacy_app/core/error/failure.dart';
 import 'package:pharmacy_app/features/inventory/data/models/product_card_model.dart';
+import 'package:pharmacy_app/features/inventory/data/models/product_detail_model.dart';
 import 'package:pharmacy_app/features/inventory/data/repo/inventory_repository.dart';
 import 'package:pharmacy_app/features/purchase_invoices/cubit/purchase_invoice_form_state.dart';
 import 'package:pharmacy_app/features/purchase_invoices/data/models/purchase_invoice_model.dart';
 import 'package:pharmacy_app/features/purchase_invoices/data/repo/purchase_invoice_repository.dart';
 import 'package:pharmacy_app/features/suppliers/data/models/supplier_model.dart';
 import 'package:pharmacy_app/features/suppliers/data/repo/supplier_repository.dart';
+
+/// Result of resolving a scanned barcode into a line item, for the form to
+/// surface as UI (success / not-found / error). The cubit stays UI-free; the
+/// screen localizes the [Failure] via `failure.localizedMessage(context)`.
+sealed class ScannedProductResult {
+  const ScannedProductResult();
+  const factory ScannedProductResult.added(ProductCardModel product) =
+      ScannedAdded;
+  const factory ScannedProductResult.notFound() = ScannedNotFound;
+  const factory ScannedProductResult.error(Failure failure) = ScannedError;
+}
+
+class ScannedAdded extends ScannedProductResult {
+  const ScannedAdded(this.product);
+  final ProductCardModel product;
+}
+
+class ScannedNotFound extends ScannedProductResult {
+  const ScannedNotFound();
+}
+
+class ScannedError extends ScannedProductResult {
+  const ScannedError(this.failure);
+  final Failure failure;
+}
 
 /// Drives the Add Purchase Invoice form. Loads the supplier + product dropdown
 /// options and owns the dynamic line-items list. `submit()` builds the
@@ -22,6 +49,7 @@ class PurchaseInvoiceFormCubit extends Cubit<PurchaseInvoiceFormState> {
   final SupplierRepository supplierRepository;
   final InventoryRepository inventoryRepository;
 
+  bool _seeded = false;
   // ---- Options ---------------------------------------------------------- //
 
   Future<void> loadOptions() async {
@@ -79,6 +107,81 @@ class PurchaseInvoiceFormCubit extends Cubit<PurchaseInvoiceFormState> {
   void setItemProduct(int index, ProductCardModel? product) {
     if (index < 0 || index >= state.items.length) return;
     updateItem(index, state.items[index].copyWith(product: product));
+  }
+
+  // ---- Barcode seed / scan --------------------------------------------- //
+
+  /// Seeds the form with a single product (from a dashboard scan). Idempotent
+  /// — only the first call appends an item; later calls are no-ops so a
+  /// rebuilt subtree (e.g. on hot reload) doesn't double-add.
+  void seedProduct(ProductDetailModel detail) {
+    if (isClosed || _seeded) return;
+    _seeded = true;
+    _applyScannedProduct(detail);
+  }
+
+  /// Looks up the scanned barcode and replaces the product on the row at
+  /// [targetIndex] when a product matches; appends a new row only when no
+  /// target row is given (the dashboard-seed path). Returns a
+  /// [ScannedProductResult] for the screen to surface (not-found / error
+  /// snackbars); the cubit never touches BuildContext.
+  Future<ScannedProductResult> addScannedItem(
+    String barcode, {
+    int? targetIndex,
+  }) async {
+    if (isClosed) return const ScannedProductResult.notFound();
+    emit(state.copyWith(isScanning: true));
+    final result = await inventoryRepository.lookupByBarcode(barcode);
+    if (isClosed) return const ScannedProductResult.notFound();
+    emit(state.copyWith(isScanning: false));
+    return result.fold(
+      (failure) => ScannedProductResult.error(failure),
+      (detail) {
+        if (detail == null) return const ScannedProductResult.notFound();
+        _applyScannedProduct(detail, targetIndex: targetIndex);
+        return ScannedProductResult.added(detail.toProductCard());
+      },
+    );
+  }
+
+  /// Replaces the product on [targetIndex] when it's a valid row (whether or
+  /// not that row already had a product), else appends a new expanded item.
+  /// Pre-fills the wholesale price from the detail's buying price when the
+  /// row had no price yet (a nicety the manual `setItemProduct` path lacks —
+  /// a freshly added batch usually restocks at the known cost price) and
+  /// preserves any batch/quantity/tax/discount the user already typed.
+  void _applyScannedProduct(
+    ProductDetailModel detail, {
+    int? targetIndex,
+  }) {
+    final card = detail.toProductCard();
+    final items = [...state.items];
+    if (targetIndex != null &&
+        targetIndex >= 0 &&
+        targetIndex < items.length) {
+      final current = items[targetIndex];
+      items[targetIndex] = PurchaseInvoiceItemInput(
+        product: card,
+        quantity: current.quantity,
+        wholesalePrice: current.wholesalePrice.trim().isEmpty
+            ? detail.buyingPrice.toStringAsFixed(2)
+            : current.wholesalePrice,
+        tax: current.tax,
+        discount: current.discount,
+        batchNumber: current.batchNumber,
+        expiryDate: current.expiryDate,
+        sellingPrice: current.sellingPrice,
+        expanded: current.expanded,
+      );
+      emit(state.copyWith(items: items));
+      return;
+    }
+    final prefilled = PurchaseInvoiceItemInput(
+      product: card,
+      wholesalePrice: detail.buyingPrice.toStringAsFixed(2),
+      expanded: true,
+    );
+    emit(state.copyWith(items: [...items, prefilled]));
   }
 
   void toggleItemExpanded(int index) {

@@ -39,20 +39,12 @@ class CustomDropdownField<T> extends StatelessWidget {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
 
-    // Only honor [value] when it's actually present in [items]. A value that
-    // isn't in the list (e.g. a saved selection whose options haven't loaded
-    // yet, or a unit that no longer matches the list's type) would otherwise
-    // trip DropdownButton's "exactly one item with value" assertion.
-    final effectiveValue =
-        (value != null && items.contains(value)) ? value : null;
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(labelText, style: theme.textTheme.titleSmall),
         const SizedBox(height: 8),
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
+        DecoratedBox(
           decoration: ShapeDecoration(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(16),
@@ -65,69 +57,117 @@ class CustomDropdownField<T> extends StatelessWidget {
             ),
             color: colorScheme.surface,
           ),
-          child: DropdownButtonHideUnderline(
-            child: DropdownButton<T>(
-              value: effectiveValue,
-              isExpanded: true,
-              icon: Icon(
-                Icons.keyboard_arrow_down_rounded,
-                color: context.muted,
-              ),
-              hint: _buildHint(context),
-              items: items
-                  .map(
-                    (item) => DropdownMenuItem<T>(
-                      value: item,
-                      child: Text(
-                        itemLabel(item),
-                        style: theme.textTheme.bodyLarge,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                  )
-                  .toList(),
-              onChanged: items.isEmpty ? null : onChanged,
-            ),
-          ),
+          child: _buildFieldContent(context),
         ),
       ],
     );
   }
 
-  Widget _buildHint(BuildContext context) {
-    if (isLoading) {
-      return Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          SizedBox(
-            width: 16,
-            height: 16,
-            child: CircularProgressIndicator(
-              strokeWidth: 2,
-              color: context.muted,
-            ),
-          ),
-          const SizedBox(width: 8),
-          Text(
-            '...',
-            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                  color: context.muted.withValues(alpha: 0.5),
-                ),
-          ),
-        ],
-      );
+  /// Renders the dropdown itself, or a standalone loading/error state that
+  /// fills the same outlined box. Loading and error are drawn *outside* the
+  /// `DropdownButton` so a retry tap is reliably received — embedding the
+  /// retry `GestureDetector` inside a disabled `DropdownButton` (items empty
+  /// → onChanged null) silently swallowed the tap, leaving "Tap to retry"
+  /// non-functional.
+  /// Only honor [value] when it's actually present in [items]. A value that
+  /// isn't in the list (e.g. a saved selection whose options haven't loaded
+  /// yet, or a unit that no longer matches the list's type) would otherwise
+  /// trip DropdownButton's "exactly one item with value" assertion.
+  T? get _effectiveValue =>
+      (value != null && items.contains(value)) ? value : null;
+
+  Widget _buildFieldContent(BuildContext context) {
+    // While options are loading AND nothing is selected yet, show the
+    // spinner. Once a product is set (e.g. seeded/scanned), show the dropdown
+    // even mid-load so the selection is visible.
+    if (isLoading && value == null) {
+      return _buildStatusHint(context);
     }
-    if (hasError) {
-      return GestureDetector(
-        onTap: onRetry,
-        child: Text(
-          onRetry != null ? 'Tap to retry' : 'Failed to load',
-          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                color: Colors.redAccent,
+    if (hasError && items.isEmpty && value == null) {
+      return _buildStatusHint(context);
+    }
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: DropdownButtonHideUnderline(
+        child: DropdownButton<T>(
+          value: _effectiveValue,
+          isExpanded: true,
+          icon: Icon(
+            Icons.keyboard_arrow_down_rounded,
+            color: context.muted,
+          ),
+          hint: _buildPlaceholder(context),
+          items: items
+              .map(
+                (item) => DropdownMenuItem<T>(
+                  value: item,
+                  child: Text(
+                    itemLabel(item),
+                    style: Theme.of(context).textTheme.bodyLarge,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+              )
+              .toList(),
+          onChanged: items.isEmpty ? null : onChanged,
+        ),
+      ),
+    );
+  }
+
+  /// Loading spinner or tappable error, sized to match the dropdown's row.
+  Widget _buildStatusHint(BuildContext context) {
+    final theme = Theme.of(context);
+    if (isLoading) {
+      return Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 15),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            SizedBox(
+              width: 16,
+              height: 16,
+              child: CircularProgressIndicator(
+                strokeWidth: 2,
+                color: context.muted,
               ),
+            ),
+            const SizedBox(width: 8),
+            Text(
+              '...',
+              style: theme.textTheme.bodyLarge?.copyWith(
+                color: context.muted.withValues(alpha: 0.5),
+              ),
+            ),
+          ],
         ),
       );
     }
+    // Error state: tap anywhere in the box to retry.
+    return InkWell(
+      onTap: onRetry,
+      borderRadius: BorderRadius.circular(16),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 15),
+        child: Row(
+          children: [
+            Icon(Icons.error_outline_rounded, color: Colors.redAccent, size: 20),
+            const SizedBox(width: 8),
+            Expanded(
+              child: Text(
+                onRetry != null ? 'Tap to retry' : 'Failed to load',
+                style: theme.textTheme.bodyLarge?.copyWith(
+                  color: Colors.redAccent,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildPlaceholder(BuildContext context) {
     return Text(
       hintText ?? '',
       style: Theme.of(context).textTheme.bodyLarge?.copyWith(
