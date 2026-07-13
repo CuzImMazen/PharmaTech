@@ -48,6 +48,12 @@ class FinanceScreen extends StatelessWidget {
                   label: tr.settings_customers,
                   onTap: () => context.push(AppRoutesKeys.customersList),
                 ),
+                SettingsRow(
+                  icon: LucideIcons.handCoins,
+                  iconColor: AppColorsHelper.debt(context),
+                  label: tr.settings_customer_debts,
+                  onTap: () => context.push(AppRoutesKeys.customerDebtsList),
+                ),
               ],
             ),
 

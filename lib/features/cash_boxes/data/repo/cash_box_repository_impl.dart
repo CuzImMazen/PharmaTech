@@ -58,7 +58,7 @@ class CashBoxRepositoryImpl implements CashBoxRepository {
   }) async {
     try {
       final queryParameters = <String, dynamic>{
-        'transaction_type': transactionType?.name,
+        'transaction_type': transactionType?.backendValue,
         'page': page,
         'per_page': perPage,
       }..removeWhere((key, value) => value == null);

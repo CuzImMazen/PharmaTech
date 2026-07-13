@@ -5,7 +5,7 @@ part 'cash_box_model.g.dart';
 /// The pharmacy's single cash box. Mirrors the backend `CashBoxResource`
 /// (`GET /cash-boxes`, `POST /cash-boxes`). There is one box per pharmacy;
 /// `GET /cash-boxes` returns 404 when none exists yet.
-@JsonSerializable()
+@JsonSerializable(createToJson: false)
 class CashBoxModel {
   const CashBoxModel({
     required this.id,

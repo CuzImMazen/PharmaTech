@@ -75,6 +75,13 @@ class ApiRoutes {
 
   static const String supplierDebts = '/supplier-debts';
   static String supplierDebtDetail(int id) => '$supplierDebts/$id';
+  static String supplierDebtPay(int id) => '$supplierDebts/$id/pay';
+
+  // ================= CUSTOMER DEBTS ================= //
+
+  static const String customerDebts = '/customer-debts';
+  static String customerDebtDetail(int id) => '$customerDebts/$id';
+  static String customerDebtPay(int id) => '$customerDebts/$id/pay';
 
   // ================= CUSTOMERS ================= //
 
@@ -87,6 +94,22 @@ class ApiRoutes {
   static const String salesInvoices = '/sales-invoices';
   static String salesInvoiceDetail(int id) => '$salesInvoices/$id';
   static String salesInvoiceCancel(int id) => '$salesInvoices/$id/cancel';
+
+  // ================= CUSTOMER RETURN INVOICES ================= //
+
+  static const String customerReturnInvoices = '/customer-return-invoices';
+  static String customerReturnInvoiceDetail(int id) =>
+      '$customerReturnInvoices/$id';
+  static String customerReturnInvoiceCancel(int id) =>
+      '$customerReturnInvoices/$id/cancel';
+
+  // ================= SUPPLIER RETURN INVOICES ================= //
+
+  static const String supplierReturnInvoices = '/supplier-return-invoices';
+  static String supplierReturnInvoiceDetail(int id) =>
+      '$supplierReturnInvoices/$id';
+  static String supplierReturnInvoiceCancel(int id) =>
+      '$supplierReturnInvoices/$id/cancel';
 
   // ================= CASH BOXES ================= //
 

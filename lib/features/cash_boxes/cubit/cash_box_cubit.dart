@@ -123,7 +123,15 @@ class CashBoxCubit extends Cubit<CashBoxState> {
   /// Changes the transaction-type filter and reloads from page 1.
   Future<void> setTxFilter(CashTransactionType? type) async {
     if (isClosed) return;
-    emit(state.copyWith(txFilter: type));
+    emit(
+      state.copyWith(
+        txFilter: type,
+        areTransactionsLoading: state.transactions.isEmpty,
+        isLoadingMore: false,
+        failure: null,
+        currentPage: 1,
+      ),
+    );
     await _fetchTransactions(reset: true);
   }
 

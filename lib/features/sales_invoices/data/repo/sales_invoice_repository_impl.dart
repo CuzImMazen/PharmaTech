@@ -30,8 +30,8 @@ class SalesInvoiceRepositoryImpl implements SalesInvoiceRepository {
         'customer_id': customerId,
         'status': status?.name,
         'payment_status': paymentStatus?.name,
-        'from_date': fromDate,
-        'to_date': toDate,
+        'date_from': fromDate,
+        'date_to': toDate,
         'page': page,
         'per_page': perPage,
       }..removeWhere((key, value) => value == null);

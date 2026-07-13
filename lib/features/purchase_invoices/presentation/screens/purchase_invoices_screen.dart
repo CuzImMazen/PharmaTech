@@ -310,8 +310,10 @@ class _InvoiceFilterSheetState extends State<_InvoiceFilterSheet> {
             context.vLg,
             CustomButton(
               onTap: () {
-                cubit.setStatusFilter(_status);
-                cubit.setPaymentStatusFilter(_paymentStatus);
+                cubit.setFilters(
+                  status: _status,
+                  paymentStatus: _paymentStatus,
+                );
                 Navigator.of(context).pop();
               },
               child: Text(tr.filter_show_results),

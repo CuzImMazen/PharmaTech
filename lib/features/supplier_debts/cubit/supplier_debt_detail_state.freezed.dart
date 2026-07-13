@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$SupplierDebtDetailState {
 
- bool get isLoading; bool get isRefreshing; SupplierDebtModel? get debt; Failure? get failure;
+ bool get isLoading; bool get isRefreshing; bool get isPaying; SupplierDebtModel? get debt; Failure? get failure; bool get justPaid;
 /// Create a copy of SupplierDebtDetailState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -26,16 +26,16 @@ $SupplierDebtDetailStateCopyWith<SupplierDebtDetailState> get copyWith => _$Supp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SupplierDebtDetailState&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.isRefreshing, isRefreshing) || other.isRefreshing == isRefreshing)&&(identical(other.debt, debt) || other.debt == debt)&&(identical(other.failure, failure) || other.failure == failure));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SupplierDebtDetailState&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.isRefreshing, isRefreshing) || other.isRefreshing == isRefreshing)&&(identical(other.isPaying, isPaying) || other.isPaying == isPaying)&&(identical(other.debt, debt) || other.debt == debt)&&(identical(other.failure, failure) || other.failure == failure)&&(identical(other.justPaid, justPaid) || other.justPaid == justPaid));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,isLoading,isRefreshing,debt,failure);
+int get hashCode => Object.hash(runtimeType,isLoading,isRefreshing,isPaying,debt,failure,justPaid);
 
 @override
 String toString() {
-  return 'SupplierDebtDetailState(isLoading: $isLoading, isRefreshing: $isRefreshing, debt: $debt, failure: $failure)';
+  return 'SupplierDebtDetailState(isLoading: $isLoading, isRefreshing: $isRefreshing, isPaying: $isPaying, debt: $debt, failure: $failure, justPaid: $justPaid)';
 }
 
 
@@ -46,7 +46,7 @@ abstract mixin class $SupplierDebtDetailStateCopyWith<$Res>  {
   factory $SupplierDebtDetailStateCopyWith(SupplierDebtDetailState value, $Res Function(SupplierDebtDetailState) _then) = _$SupplierDebtDetailStateCopyWithImpl;
 @useResult
 $Res call({
- bool isLoading, bool isRefreshing, SupplierDebtModel? debt, Failure? failure
+ bool isLoading, bool isRefreshing, bool isPaying, SupplierDebtModel? debt, Failure? failure, bool justPaid
 });
 
 
@@ -63,13 +63,15 @@ class _$SupplierDebtDetailStateCopyWithImpl<$Res>
 
 /// Create a copy of SupplierDebtDetailState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? isLoading = null,Object? isRefreshing = null,Object? debt = freezed,Object? failure = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? isLoading = null,Object? isRefreshing = null,Object? isPaying = null,Object? debt = freezed,Object? failure = freezed,Object? justPaid = null,}) {
   return _then(SupplierDebtDetailState(
 isLoading: null == isLoading ? _self.isLoading : isLoading // ignore: cast_nullable_to_non_nullable
 as bool,isRefreshing: null == isRefreshing ? _self.isRefreshing : isRefreshing // ignore: cast_nullable_to_non_nullable
+as bool,isPaying: null == isPaying ? _self.isPaying : isPaying // ignore: cast_nullable_to_non_nullable
 as bool,debt: freezed == debt ? _self.debt : debt // ignore: cast_nullable_to_non_nullable
 as SupplierDebtModel?,failure: freezed == failure ? _self.failure : failure // ignore: cast_nullable_to_non_nullable
-as Failure?,
+as Failure?,justPaid: null == justPaid ? _self.justPaid : justPaid // ignore: cast_nullable_to_non_nullable
+as bool,
   ));
 }
 
@@ -151,10 +153,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool isLoading,  bool isRefreshing,  SupplierDebtModel? debt,  Failure? failure)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool isLoading,  bool isRefreshing,  bool isPaying,  SupplierDebtModel? debt,  Failure? failure,  bool justPaid)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _SupplierDebtDetailState() when $default != null:
-return $default(_that.isLoading,_that.isRefreshing,_that.debt,_that.failure);case _:
+return $default(_that.isLoading,_that.isRefreshing,_that.isPaying,_that.debt,_that.failure,_that.justPaid);case _:
   return orElse();
 
 }
@@ -172,10 +174,10 @@ return $default(_that.isLoading,_that.isRefreshing,_that.debt,_that.failure);cas
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool isLoading,  bool isRefreshing,  SupplierDebtModel? debt,  Failure? failure)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool isLoading,  bool isRefreshing,  bool isPaying,  SupplierDebtModel? debt,  Failure? failure,  bool justPaid)  $default,) {final _that = this;
 switch (_that) {
 case _SupplierDebtDetailState():
-return $default(_that.isLoading,_that.isRefreshing,_that.debt,_that.failure);}
+return $default(_that.isLoading,_that.isRefreshing,_that.isPaying,_that.debt,_that.failure,_that.justPaid);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -189,10 +191,10 @@ return $default(_that.isLoading,_that.isRefreshing,_that.debt,_that.failure);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool isLoading,  bool isRefreshing,  SupplierDebtModel? debt,  Failure? failure)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool isLoading,  bool isRefreshing,  bool isPaying,  SupplierDebtModel? debt,  Failure? failure,  bool justPaid)?  $default,) {final _that = this;
 switch (_that) {
 case _SupplierDebtDetailState() when $default != null:
-return $default(_that.isLoading,_that.isRefreshing,_that.debt,_that.failure);case _:
+return $default(_that.isLoading,_that.isRefreshing,_that.isPaying,_that.debt,_that.failure,_that.justPaid);case _:
   return null;
 
 }
@@ -204,13 +206,15 @@ return $default(_that.isLoading,_that.isRefreshing,_that.debt,_that.failure);cas
 
 
 class _SupplierDebtDetailState implements SupplierDebtDetailState {
-  const _SupplierDebtDetailState({this.isLoading = false, this.isRefreshing = false, this.debt, this.failure});
+  const _SupplierDebtDetailState({this.isLoading = false, this.isRefreshing = false, this.isPaying = false, this.debt, this.failure, this.justPaid = false});
   
 
 @override@JsonKey() final  bool isLoading;
 @override@JsonKey() final  bool isRefreshing;
+@override@JsonKey() final  bool isPaying;
 @override final  SupplierDebtModel? debt;
 @override final  Failure? failure;
+@override@JsonKey() final  bool justPaid;
 
 /// Create a copy of SupplierDebtDetailState
 /// with the given fields replaced by the non-null parameter values.
@@ -222,16 +226,16 @@ _$SupplierDebtDetailStateCopyWith<_SupplierDebtDetailState> get copyWith => __$S
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SupplierDebtDetailState&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.isRefreshing, isRefreshing) || other.isRefreshing == isRefreshing)&&(identical(other.debt, debt) || other.debt == debt)&&(identical(other.failure, failure) || other.failure == failure));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SupplierDebtDetailState&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.isRefreshing, isRefreshing) || other.isRefreshing == isRefreshing)&&(identical(other.isPaying, isPaying) || other.isPaying == isPaying)&&(identical(other.debt, debt) || other.debt == debt)&&(identical(other.failure, failure) || other.failure == failure)&&(identical(other.justPaid, justPaid) || other.justPaid == justPaid));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,isLoading,isRefreshing,debt,failure);
+int get hashCode => Object.hash(runtimeType,isLoading,isRefreshing,isPaying,debt,failure,justPaid);
 
 @override
 String toString() {
-  return 'SupplierDebtDetailState(isLoading: $isLoading, isRefreshing: $isRefreshing, debt: $debt, failure: $failure)';
+  return 'SupplierDebtDetailState(isLoading: $isLoading, isRefreshing: $isRefreshing, isPaying: $isPaying, debt: $debt, failure: $failure, justPaid: $justPaid)';
 }
 
 
@@ -242,7 +246,7 @@ abstract mixin class _$SupplierDebtDetailStateCopyWith<$Res> implements $Supplie
   factory _$SupplierDebtDetailStateCopyWith(_SupplierDebtDetailState value, $Res Function(_SupplierDebtDetailState) _then) = __$SupplierDebtDetailStateCopyWithImpl;
 @override @useResult
 $Res call({
- bool isLoading, bool isRefreshing, SupplierDebtModel? debt, Failure? failure
+ bool isLoading, bool isRefreshing, bool isPaying, SupplierDebtModel? debt, Failure? failure, bool justPaid
 });
 
 
@@ -259,13 +263,15 @@ class __$SupplierDebtDetailStateCopyWithImpl<$Res>
 
 /// Create a copy of SupplierDebtDetailState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? isLoading = null,Object? isRefreshing = null,Object? debt = freezed,Object? failure = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? isLoading = null,Object? isRefreshing = null,Object? isPaying = null,Object? debt = freezed,Object? failure = freezed,Object? justPaid = null,}) {
   return _then(_SupplierDebtDetailState(
 isLoading: null == isLoading ? _self.isLoading : isLoading // ignore: cast_nullable_to_non_nullable
 as bool,isRefreshing: null == isRefreshing ? _self.isRefreshing : isRefreshing // ignore: cast_nullable_to_non_nullable
+as bool,isPaying: null == isPaying ? _self.isPaying : isPaying // ignore: cast_nullable_to_non_nullable
 as bool,debt: freezed == debt ? _self.debt : debt // ignore: cast_nullable_to_non_nullable
 as SupplierDebtModel?,failure: freezed == failure ? _self.failure : failure // ignore: cast_nullable_to_non_nullable
-as Failure?,
+as Failure?,justPaid: null == justPaid ? _self.justPaid : justPaid // ignore: cast_nullable_to_non_nullable
+as bool,
   ));
 }
 

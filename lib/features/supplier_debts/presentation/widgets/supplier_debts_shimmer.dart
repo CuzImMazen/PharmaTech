@@ -47,11 +47,7 @@ class _ShimmerDebtCard extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 14),
-          ShimmerFill(
-            width: double.infinity,
-            height: context.iLg,
-            radius: 12,
-          ),
+          ShimmerFill(width: double.infinity, height: context.iLg, radius: 12),
         ],
       ),
     );

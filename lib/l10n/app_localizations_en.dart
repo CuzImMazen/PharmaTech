@@ -1082,6 +1082,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settings_supplier_debts => 'Supplier Debts';
 
   @override
+  String get settings_customer_debts => 'Customer Debts';
+
+  @override
   String get settings_cash_box => 'Cash Box';
 
   @override
@@ -1763,4 +1766,136 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get sales_invoice_customer_required_unpaid => 'Select a customer — a customer is required when the sale isn\'t fully paid.';
+
+  @override
+  String get debt_pay => 'Record Payment';
+
+  @override
+  String get debt_pay_title => 'Record Payment';
+
+  @override
+  String get debt_pay_amount => 'Amount';
+
+  @override
+  String get debt_pay_amount_hint => 'Enter amount';
+
+  @override
+  String get debt_pay_date => 'Payment Date';
+
+  @override
+  String get debt_pay_notes => 'Notes';
+
+  @override
+  String get debt_pay_notes_hint => 'Optional';
+
+  @override
+  String get debt_pay_success => 'Payment recorded.';
+
+  @override
+  String get debt_pay_exceeds_remaining => 'Amount cannot exceed the remaining debt.';
+
+  @override
+  String get debt_pay_invalid_amount => 'Enter a valid amount.';
+
+  @override
+  String get debt_pay_cannot => 'This debt cannot receive payments.';
+
+  @override
+  String get customer_debts_title => 'Customer Debts';
+
+  @override
+  String get customer_debts_empty => 'No customer debts.';
+
+  @override
+  String get customer_debts_empty_hint => 'Debts appear when you record a sale on credit.';
+
+  @override
+  String get customer_debts_load_error => 'Unable to load customer debts right now.';
+
+  @override
+  String get customer_debts_filter_customer => 'Customer';
+
+  @override
+  String get return_invoice_add_sale => 'Add to Sales Return';
+
+  @override
+  String get return_invoice_add_purchase => 'Add to Purchase Return';
+
+  @override
+  String get return_customer_title => 'Customer Return Invoice';
+
+  @override
+  String get return_customer_add_title => 'New Customer Return';
+
+  @override
+  String get return_supplier_title => 'Supplier Return Invoice';
+
+  @override
+  String get return_supplier_add_title => 'New Supplier Return';
+
+  @override
+  String get return_invoices_empty => 'No return invoices.';
+
+  @override
+  String get return_invoice_number => 'Return No.';
+
+  @override
+  String get return_invoice_reason => 'Reason';
+
+  @override
+  String get return_invoice_reason_hint => 'Why is this being returned?';
+
+  @override
+  String get return_invoice_refund_method => 'Refund Method';
+
+  @override
+  String get return_invoice_refund_cash => 'Cash';
+
+  @override
+  String get return_invoice_refund_credit => 'Credit';
+
+  @override
+  String get return_invoice_subtotal => 'Subtotal';
+
+  @override
+  String get return_invoice_refund_total => 'Refund Total';
+
+  @override
+  String get return_invoice_items => 'Returned Items';
+
+  @override
+  String get return_invoice_item_unit_price => 'Unit Price';
+
+  @override
+  String get return_invoice_created => 'Return invoice created.';
+
+  @override
+  String get return_invoice_cancelled => 'Return invoice cancelled.';
+
+  @override
+  String get return_invoice_cancel_title => 'Cancel Return';
+
+  @override
+  String get return_invoice_cancel_confirm => 'Cancel this return invoice? This reverses its stock effect.';
+
+  @override
+  String get return_invoice_original => 'Original Invoice';
+
+  @override
+  String get return_invoice_no_items => 'Add at least one item.';
+
+  @override
+  String get return_invoice_item_qty_required => 'Quantity must be at least 1.';
+
+  @override
+  String get return_invoice_item_price_required => 'Unit price must be greater than 0.';
+
+  @override
+  String get return_invoice_supplier_required => 'Select a supplier.';
+
+  @override
+  String get return_invoice_action_return => 'Return';
+
+  @override
+  String get return_invoice_product_not_allowed => 'This product is not part of the original invoice.';
 }

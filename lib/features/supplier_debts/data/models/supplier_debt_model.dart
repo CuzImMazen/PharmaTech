@@ -129,7 +129,11 @@ class SupplierDebtPaymentModel {
 /// Minimal user view of who recorded the payment.
 @JsonSerializable(createToJson: false)
 class SupplierDebtPaymentUser {
-  const SupplierDebtPaymentUser({required this.id, this.firstName, this.lastName});
+  const SupplierDebtPaymentUser({
+    required this.id,
+    this.firstName,
+    this.lastName,
+  });
 
   final int id;
 
@@ -139,10 +143,10 @@ class SupplierDebtPaymentUser {
   @JsonKey(name: 'last_name')
   final String? lastName;
 
-  String get displayName => [firstName, lastName]
-      .whereType<String>()
-      .where((s) => s.isNotEmpty)
-      .join(' ');
+  String get displayName => [
+    firstName,
+    lastName,
+  ].whereType<String>().where((s) => s.isNotEmpty).join(' ');
 
   factory SupplierDebtPaymentUser.fromJson(Map<String, dynamic> json) =>
       _$SupplierDebtPaymentUserFromJson(json);

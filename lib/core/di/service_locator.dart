@@ -30,6 +30,8 @@ import 'package:pharmacy_app/features/cash_boxes/data/repo/cash_box_repository_i
 
 import 'package:pharmacy_app/features/supplier_debts/data/repo/supplier_debt_repository.dart';
 import 'package:pharmacy_app/features/supplier_debts/data/repo/supplier_debt_repository_impl.dart';
+import 'package:pharmacy_app/features/customer_debts/data/repo/customer_debt_repository.dart';
+import 'package:pharmacy_app/features/customer_debts/data/repo/customer_debt_repository_impl.dart';
 
 import 'package:pharmacy_app/features/stock_adjustments/data/repo/stock_adjustment_repository.dart';
 import 'package:pharmacy_app/features/stock_adjustments/data/repo/stock_adjustment_repository_impl.dart';
@@ -45,6 +47,12 @@ import 'package:pharmacy_app/features/customers/data/repo/customer_repository_im
 
 import 'package:pharmacy_app/features/sales_invoices/data/repo/sales_invoice_repository.dart';
 import 'package:pharmacy_app/features/sales_invoices/data/repo/sales_invoice_repository_impl.dart';
+
+import 'package:pharmacy_app/features/customer_return_invoices/data/repo/customer_return_invoice_repository.dart';
+import 'package:pharmacy_app/features/customer_return_invoices/data/repo/customer_return_invoice_repository_impl.dart';
+
+import 'package:pharmacy_app/features/supplier_return_invoices/data/repo/supplier_return_invoice_repository.dart';
+import 'package:pharmacy_app/features/supplier_return_invoices/data/repo/supplier_return_invoice_repository_impl.dart';
 
 final sl = GetIt.instance;
 
@@ -121,6 +129,10 @@ Future<void> setupLocator() async {
     () => SupplierDebtRepositoryImpl(api: sl<DioApiHelper>()),
   );
 
+  sl.registerLazySingleton<CustomerDebtRepository>(
+    () => CustomerDebtRepositoryImpl(api: sl<DioApiHelper>()),
+  );
+
   sl.registerLazySingleton<StockAdjustmentRepository>(
     () => StockAdjustmentRepositoryImpl(api: sl<DioApiHelper>()),
   );
@@ -139,6 +151,14 @@ Future<void> setupLocator() async {
 
   sl.registerLazySingleton<SalesInvoiceRepository>(
     () => SalesInvoiceRepositoryImpl(api: sl<DioApiHelper>()),
+  );
+
+  sl.registerLazySingleton<CustomerReturnInvoiceRepository>(
+    () => CustomerReturnInvoiceRepositoryImpl(api: sl<DioApiHelper>()),
+  );
+
+  sl.registerLazySingleton<SupplierReturnInvoiceRepository>(
+    () => SupplierReturnInvoiceRepositoryImpl(api: sl<DioApiHelper>()),
   );
 
   //Session Cubit

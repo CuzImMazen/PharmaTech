@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/core/extensions/app_design_system_ext.dart';
 import 'package:pharmacy_app/core/extensions/localization_ext.dart';
+import 'package:pharmacy_app/core/utils/helpers/date_formatter.dart';
 import 'package:pharmacy_app/core/widgets/status_pill.dart';
 import 'package:pharmacy_app/features/supplier_debts/data/models/supplier_debt_model.dart';
 import 'package:pharmacy_app/l10n/app_localizations.dart';
@@ -58,7 +59,7 @@ class SupplierDebtCard extends StatelessWidget {
                             ),
                             SizedBox(width: context.sXs),
                             Text(
-                              '${tr.debt_due_date}: ${debt.dueDate}',
+                              '${tr.debt_due_date}: ${DateFormatter.toDateOnly(debt.dueDate) ?? debt.dueDate}',
                               style: context.text.labelSmall?.copyWith(
                                 color: context.muted,
                               ),

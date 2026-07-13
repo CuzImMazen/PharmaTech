@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:pharmacy_app/core/di/service_locator.dart';
 import 'package:pharmacy_app/core/extensions/app_design_system_ext.dart';
 import 'package:pharmacy_app/core/extensions/failure_message_localization_ext.dart';
 import 'package:pharmacy_app/core/extensions/localization_ext.dart';
+import 'package:pharmacy_app/core/router/app_routes_keys.dart';
 import 'package:pharmacy_app/core/theme/app_colors.dart';
+import 'package:pharmacy_app/core/utils/helpers/date_formatter.dart';
 import 'package:pharmacy_app/core/utils/messages/snackbar.dart';
 import 'package:pharmacy_app/core/widgets/custom_button.dart';
 import 'package:pharmacy_app/core/widgets/shimmer_box.dart';
@@ -114,6 +117,11 @@ class _Body extends StatelessWidget {
                           invoice: invoice,
                           onEdit: () => _editNotes(context, invoice),
                         ),
+                        if (!invoice.isCancelled &&
+                            invoice.status == InvoiceStatus.completed) ...[
+                          context.vMd,
+                          _ReturnAction(invoice: invoice),
+                        ],
                         context.vMd,
                         _CancelAction(
                           invoice: invoice,
@@ -225,7 +233,7 @@ class _HeaderCard extends StatelessWidget {
           context.vSm,
           _MetaRow(
             icon: Icons.calendar_today_outlined,
-            text: '${tr.invoice_date}: ${invoice.invoiceDate}',
+            text: '${tr.invoice_date}: ${DateFormatter.toDateOnly(invoice.invoiceDate) ?? invoice.invoiceDate}',
           ),
           if (invoice.supplier != null) ...[
             context.vXs,
@@ -432,7 +440,7 @@ class _DebtSection extends StatelessWidget {
             context.vSm,
             _MetaRow(
               icon: Icons.event_rounded,
-              text: '${tr.debt_due_date}: ${debt.dueDate}',
+              text: '${tr.debt_due_date}: ${DateFormatter.toDateOnly(debt.dueDate) ?? debt.dueDate}',
             ),
           ],
         ],
@@ -480,6 +488,32 @@ class _NotesCard extends StatelessWidget {
               color: invoice.notes?.isNotEmpty == true ? null : context.muted,
             ),
           ),
+        ],
+      ),
+    );
+  }
+}
+
+class _ReturnAction extends StatelessWidget {
+  const _ReturnAction({required this.invoice});
+
+  final PurchaseInvoiceModel invoice;
+
+  @override
+  Widget build(BuildContext context) {
+    final tr = context.tr;
+    return CustomButton(
+      onTap: () => context.push(
+        AppRoutesKeys.supplierReturnInvoiceAdd,
+        extra: {'purchaseInvoice': invoice},
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Icon(Icons.undo_rounded, color: Colors.white),
+          SizedBox(width: context.sSm),
+          Text(tr.return_invoice_action_return),
         ],
       ),
     );

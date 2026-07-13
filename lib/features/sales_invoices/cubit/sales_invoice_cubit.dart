@@ -30,6 +30,23 @@ class SalesInvoiceCubit extends Cubit<SalesInvoiceState> {
     await _fetch(reset: true);
   }
 
+  Future<void> setFilters({
+    InvoiceStatus? status,
+    InvoicePaymentStatus? paymentStatus,
+    String? fromDate,
+    String? toDate,
+  }) async {
+    emit(
+      state.copyWith(
+        statusFilter: status,
+        paymentStatusFilter: paymentStatus,
+        fromDate: fromDate,
+        toDate: toDate,
+      ),
+    );
+    await _fetch(reset: true);
+  }
+
   Future<void> setStatusFilter(InvoiceStatus? status) async {
     emit(state.copyWith(statusFilter: status));
     await _fetch(reset: true);

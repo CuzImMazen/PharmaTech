@@ -80,6 +80,20 @@ extension CashTransactionTypeX on CashTransactionType {
 
   /// `true` when this movement decreases the box balance.
   bool get isOut => !isIn;
+
+  /// Backend value stored in the `transaction_type` enum column (snake_case).
+  String get backendValue {
+    return switch (this) {
+      CashTransactionType.purchaseOut => 'purchase_out',
+      CashTransactionType.saleIn => 'sale_in',
+      CashTransactionType.customerReturnOut => 'customer_return_out',
+      CashTransactionType.supplierReturnIn => 'supplier_return_in',
+      CashTransactionType.customerDebtPaymentIn => 'customer_debt_payment_in',
+      CashTransactionType.supplierDebtPaymentOut => 'supplier_debt_payment_out',
+      CashTransactionType.manualIn => 'manual_in',
+      CashTransactionType.manualOut => 'manual_out',
+    };
+  }
 }
 
 /// A minimal view of the user who recorded a transaction (the backend
@@ -97,10 +111,10 @@ class CashTransactionUser {
   final String? lastName;
 
   /// Best-effort display name.
-  String get displayName => [firstName, lastName]
-      .whereType<String>()
-      .where((s) => s.isNotEmpty)
-      .join(' ');
+  String get displayName => [
+    firstName,
+    lastName,
+  ].whereType<String>().where((s) => s.isNotEmpty).join(' ');
 
   factory CashTransactionUser.fromJson(Map<String, dynamic> json) =>
       _$CashTransactionUserFromJson(json);

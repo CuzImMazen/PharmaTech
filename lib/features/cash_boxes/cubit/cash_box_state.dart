@@ -22,8 +22,7 @@ sealed class CashBoxState with _$CashBoxState {
     @Default(false) bool isRefreshing,
 
     /// Transactions list + its pagination state.
-    @Default(<CashTransactionModel>[])
-    List<CashTransactionModel> transactions,
+    @Default(<CashTransactionModel>[]) List<CashTransactionModel> transactions,
     @Default(1) int currentPage,
     @Default(1) int lastPage,
     @Default(true) bool hasMore,

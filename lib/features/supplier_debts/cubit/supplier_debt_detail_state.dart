@@ -9,7 +9,9 @@ sealed class SupplierDebtDetailState with _$SupplierDebtDetailState {
   const factory SupplierDebtDetailState({
     @Default(false) bool isLoading,
     @Default(false) bool isRefreshing,
+    @Default(false) bool isPaying,
     SupplierDebtModel? debt,
     Failure? failure,
+    @Default(false) bool justPaid,
   }) = _SupplierDebtDetailState;
 }

@@ -2225,6 +2225,12 @@ abstract class AppLocalizations {
   /// **'Supplier Debts'**
   String get settings_supplier_debts;
 
+  /// No description provided for @settings_customer_debts.
+  ///
+  /// In en, this message translates to:
+  /// **'Customer Debts'**
+  String get settings_customer_debts;
+
   /// No description provided for @settings_cash_box.
   ///
   /// In en, this message translates to:
@@ -3586,6 +3592,270 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Select a customer — a customer is required when the sale isn\'t fully paid.'**
   String get sales_invoice_customer_required_unpaid;
+
+  /// No description provided for @debt_pay.
+  ///
+  /// In en, this message translates to:
+  /// **'Record Payment'**
+  String get debt_pay;
+
+  /// No description provided for @debt_pay_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Record Payment'**
+  String get debt_pay_title;
+
+  /// No description provided for @debt_pay_amount.
+  ///
+  /// In en, this message translates to:
+  /// **'Amount'**
+  String get debt_pay_amount;
+
+  /// No description provided for @debt_pay_amount_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter amount'**
+  String get debt_pay_amount_hint;
+
+  /// No description provided for @debt_pay_date.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Date'**
+  String get debt_pay_date;
+
+  /// No description provided for @debt_pay_notes.
+  ///
+  /// In en, this message translates to:
+  /// **'Notes'**
+  String get debt_pay_notes;
+
+  /// No description provided for @debt_pay_notes_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'Optional'**
+  String get debt_pay_notes_hint;
+
+  /// No description provided for @debt_pay_success.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment recorded.'**
+  String get debt_pay_success;
+
+  /// No description provided for @debt_pay_exceeds_remaining.
+  ///
+  /// In en, this message translates to:
+  /// **'Amount cannot exceed the remaining debt.'**
+  String get debt_pay_exceeds_remaining;
+
+  /// No description provided for @debt_pay_invalid_amount.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a valid amount.'**
+  String get debt_pay_invalid_amount;
+
+  /// No description provided for @debt_pay_cannot.
+  ///
+  /// In en, this message translates to:
+  /// **'This debt cannot receive payments.'**
+  String get debt_pay_cannot;
+
+  /// No description provided for @customer_debts_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Customer Debts'**
+  String get customer_debts_title;
+
+  /// No description provided for @customer_debts_empty.
+  ///
+  /// In en, this message translates to:
+  /// **'No customer debts.'**
+  String get customer_debts_empty;
+
+  /// No description provided for @customer_debts_empty_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'Debts appear when you record a sale on credit.'**
+  String get customer_debts_empty_hint;
+
+  /// No description provided for @customer_debts_load_error.
+  ///
+  /// In en, this message translates to:
+  /// **'Unable to load customer debts right now.'**
+  String get customer_debts_load_error;
+
+  /// No description provided for @customer_debts_filter_customer.
+  ///
+  /// In en, this message translates to:
+  /// **'Customer'**
+  String get customer_debts_filter_customer;
+
+  /// No description provided for @return_invoice_add_sale.
+  ///
+  /// In en, this message translates to:
+  /// **'Add to Sales Return'**
+  String get return_invoice_add_sale;
+
+  /// No description provided for @return_invoice_add_purchase.
+  ///
+  /// In en, this message translates to:
+  /// **'Add to Purchase Return'**
+  String get return_invoice_add_purchase;
+
+  /// No description provided for @return_customer_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Customer Return Invoice'**
+  String get return_customer_title;
+
+  /// No description provided for @return_customer_add_title.
+  ///
+  /// In en, this message translates to:
+  /// **'New Customer Return'**
+  String get return_customer_add_title;
+
+  /// No description provided for @return_supplier_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Supplier Return Invoice'**
+  String get return_supplier_title;
+
+  /// No description provided for @return_supplier_add_title.
+  ///
+  /// In en, this message translates to:
+  /// **'New Supplier Return'**
+  String get return_supplier_add_title;
+
+  /// No description provided for @return_invoices_empty.
+  ///
+  /// In en, this message translates to:
+  /// **'No return invoices.'**
+  String get return_invoices_empty;
+
+  /// No description provided for @return_invoice_number.
+  ///
+  /// In en, this message translates to:
+  /// **'Return No.'**
+  String get return_invoice_number;
+
+  /// No description provided for @return_invoice_reason.
+  ///
+  /// In en, this message translates to:
+  /// **'Reason'**
+  String get return_invoice_reason;
+
+  /// No description provided for @return_invoice_reason_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'Why is this being returned?'**
+  String get return_invoice_reason_hint;
+
+  /// No description provided for @return_invoice_refund_method.
+  ///
+  /// In en, this message translates to:
+  /// **'Refund Method'**
+  String get return_invoice_refund_method;
+
+  /// No description provided for @return_invoice_refund_cash.
+  ///
+  /// In en, this message translates to:
+  /// **'Cash'**
+  String get return_invoice_refund_cash;
+
+  /// No description provided for @return_invoice_refund_credit.
+  ///
+  /// In en, this message translates to:
+  /// **'Credit'**
+  String get return_invoice_refund_credit;
+
+  /// No description provided for @return_invoice_subtotal.
+  ///
+  /// In en, this message translates to:
+  /// **'Subtotal'**
+  String get return_invoice_subtotal;
+
+  /// No description provided for @return_invoice_refund_total.
+  ///
+  /// In en, this message translates to:
+  /// **'Refund Total'**
+  String get return_invoice_refund_total;
+
+  /// No description provided for @return_invoice_items.
+  ///
+  /// In en, this message translates to:
+  /// **'Returned Items'**
+  String get return_invoice_items;
+
+  /// No description provided for @return_invoice_item_unit_price.
+  ///
+  /// In en, this message translates to:
+  /// **'Unit Price'**
+  String get return_invoice_item_unit_price;
+
+  /// No description provided for @return_invoice_created.
+  ///
+  /// In en, this message translates to:
+  /// **'Return invoice created.'**
+  String get return_invoice_created;
+
+  /// No description provided for @return_invoice_cancelled.
+  ///
+  /// In en, this message translates to:
+  /// **'Return invoice cancelled.'**
+  String get return_invoice_cancelled;
+
+  /// No description provided for @return_invoice_cancel_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel Return'**
+  String get return_invoice_cancel_title;
+
+  /// No description provided for @return_invoice_cancel_confirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel this return invoice? This reverses its stock effect.'**
+  String get return_invoice_cancel_confirm;
+
+  /// No description provided for @return_invoice_original.
+  ///
+  /// In en, this message translates to:
+  /// **'Original Invoice'**
+  String get return_invoice_original;
+
+  /// No description provided for @return_invoice_no_items.
+  ///
+  /// In en, this message translates to:
+  /// **'Add at least one item.'**
+  String get return_invoice_no_items;
+
+  /// No description provided for @return_invoice_item_qty_required.
+  ///
+  /// In en, this message translates to:
+  /// **'Quantity must be at least 1.'**
+  String get return_invoice_item_qty_required;
+
+  /// No description provided for @return_invoice_item_price_required.
+  ///
+  /// In en, this message translates to:
+  /// **'Unit price must be greater than 0.'**
+  String get return_invoice_item_price_required;
+
+  /// No description provided for @return_invoice_supplier_required.
+  ///
+  /// In en, this message translates to:
+  /// **'Select a supplier.'**
+  String get return_invoice_supplier_required;
+
+  /// No description provided for @return_invoice_action_return.
+  ///
+  /// In en, this message translates to:
+  /// **'Return'**
+  String get return_invoice_action_return;
+
+  /// No description provided for @return_invoice_product_not_allowed.
+  ///
+  /// In en, this message translates to:
+  /// **'This product is not part of the original invoice.'**
+  String get return_invoice_product_not_allowed;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

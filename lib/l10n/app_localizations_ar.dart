@@ -1082,6 +1082,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get settings_supplier_debts => 'ديون الموردين';
 
   @override
+  String get settings_customer_debts => 'ديون العملاء';
+
+  @override
   String get settings_cash_box => 'الصندوق النقدي';
 
   @override
@@ -1763,4 +1766,136 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get sales_invoice_customer_required_unpaid => 'اختر عميلاً — العميل مطلوب عندما لا يكون البيع مدفوعاً بالكامل.';
+
+  @override
+  String get debt_pay => 'تسجيل دفعة';
+
+  @override
+  String get debt_pay_title => 'تسجيل دفعة';
+
+  @override
+  String get debt_pay_amount => 'المبلغ';
+
+  @override
+  String get debt_pay_amount_hint => 'أدخل المبلغ';
+
+  @override
+  String get debt_pay_date => 'تاريخ الدفعة';
+
+  @override
+  String get debt_pay_notes => 'ملاحظات';
+
+  @override
+  String get debt_pay_notes_hint => 'اختياري';
+
+  @override
+  String get debt_pay_success => 'تم تسجيل الدفعة.';
+
+  @override
+  String get debt_pay_exceeds_remaining => 'المبلغ لا يمكن أن يتجاوز المبلغ المتبقي.';
+
+  @override
+  String get debt_pay_invalid_amount => 'أدخل مبلغاً صحيحاً.';
+
+  @override
+  String get debt_pay_cannot => 'هذا الدين لا يمكنه استقبال دفعات.';
+
+  @override
+  String get customer_debts_title => 'ديون العملاء';
+
+  @override
+  String get customer_debts_empty => 'لا توجد ديون عملاء.';
+
+  @override
+  String get customer_debts_empty_hint => 'تظهر الديون عند تسجيل بيع بالآجل.';
+
+  @override
+  String get customer_debts_load_error => 'تعذّر تحميل ديون العملاء الآن.';
+
+  @override
+  String get customer_debts_filter_customer => 'العميل';
+
+  @override
+  String get return_invoice_add_sale => 'إضافة لمرتجع مبيعات';
+
+  @override
+  String get return_invoice_add_purchase => 'إضافة لمرتجع مشتريات';
+
+  @override
+  String get return_customer_title => 'فاتورة مرتجع عميل';
+
+  @override
+  String get return_customer_add_title => 'مرتجع عميل جديد';
+
+  @override
+  String get return_supplier_title => 'فاتورة مرتجع مورّد';
+
+  @override
+  String get return_supplier_add_title => 'مرتجع مورّد جديد';
+
+  @override
+  String get return_invoices_empty => 'لا توجد فواتير مرتجع.';
+
+  @override
+  String get return_invoice_number => 'رقم المرتجع';
+
+  @override
+  String get return_invoice_reason => 'السبب';
+
+  @override
+  String get return_invoice_reason_hint => 'ما سبب الإرجاع؟';
+
+  @override
+  String get return_invoice_refund_method => 'طريقة الاسترداد';
+
+  @override
+  String get return_invoice_refund_cash => 'نقدي';
+
+  @override
+  String get return_invoice_refund_credit => 'آجل';
+
+  @override
+  String get return_invoice_subtotal => 'المجموع الفرعي';
+
+  @override
+  String get return_invoice_refund_total => 'إجمالي الاسترداد';
+
+  @override
+  String get return_invoice_items => 'الأصناف المُرجعة';
+
+  @override
+  String get return_invoice_item_unit_price => 'سعر الوحدة';
+
+  @override
+  String get return_invoice_created => 'تم إنشاء فاتورة المرتجع.';
+
+  @override
+  String get return_invoice_cancelled => 'تم إلغاء فاتورة المرتجع.';
+
+  @override
+  String get return_invoice_cancel_title => 'إلغاء المرتجع';
+
+  @override
+  String get return_invoice_cancel_confirm => 'إلغاء فاتورة المرتجع؟ سيؤثر ذلك على المخزون.';
+
+  @override
+  String get return_invoice_original => 'الفاتورة الأصلية';
+
+  @override
+  String get return_invoice_no_items => 'أضف صنفاً واحداً على الأقل.';
+
+  @override
+  String get return_invoice_item_qty_required => 'الكمية يجب أن تكون 1 على الأقل.';
+
+  @override
+  String get return_invoice_item_price_required => 'سعر الوحدة يجب أن يكون أكبر من 0.';
+
+  @override
+  String get return_invoice_supplier_required => 'اختر مورّداً.';
+
+  @override
+  String get return_invoice_action_return => 'إرجاع';
+
+  @override
+  String get return_invoice_product_not_allowed => 'هذا المنتج ليس ضمن الفاتورة الأصلية.';
 }

@@ -6,7 +6,8 @@ import 'package:pharmacy_app/features/supplier_debts/data/repo/supplier_debt_rep
 /// Drives the Supplier Debts list screen: paginated fetch with supplier +
 /// status filters. Read-only — no mutations.
 class SupplierDebtCubit extends Cubit<SupplierDebtState> {
-  SupplierDebtCubit({required this.repository}) : super(const SupplierDebtState());
+  SupplierDebtCubit({required this.repository})
+    : super(const SupplierDebtState());
 
   final SupplierDebtRepository repository;
 
@@ -80,8 +81,9 @@ class SupplierDebtCubit extends Cubit<SupplierDebtState> {
         ),
       ),
       (pageResult) {
-        final list =
-            append ? [...state.debts, ...pageResult.debts] : pageResult.debts;
+        final list = append
+            ? [...state.debts, ...pageResult.debts]
+            : pageResult.debts;
         emit(
           state.copyWith(
             isInitialLoading: false,

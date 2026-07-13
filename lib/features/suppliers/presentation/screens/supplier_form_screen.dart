@@ -74,7 +74,7 @@ class _SupplierFormScreenState extends State<SupplierFormScreen> {
   Map<String, dynamic> _buildBody(int? companyId) {
     final body = <String, dynamic>{
       'name': _name.text.trim(),
-      if (companyId != null) 'company_id': companyId,
+      'company_id': ?companyId,
       if (_phone.text.trim().isNotEmpty) 'phone': _phone.text.trim(),
       if (_email.text.trim().isNotEmpty) 'email': _email.text.trim(),
       if (_address.text.trim().isNotEmpty) 'address': _address.text.trim(),
@@ -94,8 +94,7 @@ class _SupplierFormScreenState extends State<SupplierFormScreen> {
     final isEdit = widget.supplierId != null;
 
     return BlocListener<SupplierFormCubit, SupplierFormState>(
-      listenWhen: (p, c) =>
-          p.failure != c.failure || (!p.saved && c.saved),
+      listenWhen: (p, c) => p.failure != c.failure || (!p.saved && c.saved),
       listener: (context, state) {
         if (state.saved) {
           AppSnackbar.success(
@@ -134,67 +133,70 @@ class _SupplierFormScreenState extends State<SupplierFormScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             FormSectionCard(
-                          title: tr.supplier_section,
-                          subtitle: tr.supplier_section_sub,
-                          icon: Icons.contact_page_outlined,
-                          children: [
-                            CustomTextField(
-                              controller: _name,
-                              labelText: tr.supplier_name,
-                              hintText: tr.supplier_name,
-                              prefixIcon: Icons.business_outlined,
-                              validator: (v) => (v == null || v.trim().isEmpty)
-                                  ? tr.field_required
-                                  : null,
-                            ),
-                            context.vMd,
-                            CustomDropdownField(
-                              labelText: tr.supplier_company,
-                              hintText: tr.product_form_optional_hint,
-                              items: state.companies,
-                              itemLabel: (c) => c.name,
-                              value: state.selectedCompany,
-                              onChanged:
-                                  context.read<SupplierFormCubit>().selectCompany,
-                              isLoading: state.isOptionsLoading,
-                              hasError: state.hasCompaniesError,
-                              onRetry:
-                                  context.read<SupplierFormCubit>().reloadCompanies,
-                            ),
-                            context.vMd,
-                            CustomTextField(
-                              controller: _phone,
-                              labelText: tr.supplier_phone,
-                              hintText: tr.product_form_optional_hint,
-                              prefixIcon: Icons.phone_outlined,
-                              keyboardType: TextInputType.phone,
-                              onlyDigits: true,
-                            ),
-                            context.vMd,
-                            CustomTextField(
-                              controller: _email,
-                              labelText: tr.supplier_email,
-                              hintText: tr.product_form_optional_hint,
-                              prefixIcon: Icons.mail_outline,
-                              isEmail: true,
-                            ),
-                            context.vMd,
-                            CustomTextField(
-                              controller: _address,
-                              labelText: tr.supplier_address,
-                              hintText: tr.product_form_optional_hint,
-                              prefixIcon: Icons.location_on_outlined,
-                              height: 80,
-                            ),
-                            context.vMd,
-                            CustomTextField(
-                              controller: _notes,
-                              labelText: tr.supplier_notes,
-                              hintText: tr.product_form_optional_hint,
-                              prefixIcon: Icons.notes_outlined,
-                              height: 100,
-                            ),
-                          ],
+                              title: tr.supplier_section,
+                              subtitle: tr.supplier_section_sub,
+                              icon: Icons.contact_page_outlined,
+                              children: [
+                                CustomTextField(
+                                  controller: _name,
+                                  labelText: tr.supplier_name,
+                                  hintText: tr.supplier_name,
+                                  prefixIcon: Icons.business_outlined,
+                                  validator: (v) =>
+                                      (v == null || v.trim().isEmpty)
+                                      ? tr.field_required
+                                      : null,
+                                ),
+                                context.vMd,
+                                CustomDropdownField(
+                                  labelText: tr.supplier_company,
+                                  hintText: tr.product_form_optional_hint,
+                                  items: state.companies,
+                                  itemLabel: (c) => c.name,
+                                  value: state.selectedCompany,
+                                  onChanged: context
+                                      .read<SupplierFormCubit>()
+                                      .selectCompany,
+                                  isLoading: state.isOptionsLoading,
+                                  hasError: state.hasCompaniesError,
+                                  onRetry: context
+                                      .read<SupplierFormCubit>()
+                                      .reloadCompanies,
+                                ),
+                                context.vMd,
+                                CustomTextField(
+                                  controller: _phone,
+                                  labelText: tr.supplier_phone,
+                                  hintText: tr.product_form_optional_hint,
+                                  prefixIcon: Icons.phone_outlined,
+                                  keyboardType: TextInputType.phone,
+                                  onlyDigits: true,
+                                ),
+                                context.vMd,
+                                CustomTextField(
+                                  controller: _email,
+                                  labelText: tr.supplier_email,
+                                  hintText: tr.product_form_optional_hint,
+                                  prefixIcon: Icons.mail_outline,
+                                  isEmail: true,
+                                ),
+                                context.vMd,
+                                CustomTextField(
+                                  controller: _address,
+                                  labelText: tr.supplier_address,
+                                  hintText: tr.product_form_optional_hint,
+                                  prefixIcon: Icons.location_on_outlined,
+                                  height: 80,
+                                ),
+                                context.vMd,
+                                CustomTextField(
+                                  controller: _notes,
+                                  labelText: tr.supplier_notes,
+                                  hintText: tr.product_form_optional_hint,
+                                  prefixIcon: Icons.notes_outlined,
+                                  height: 100,
+                                ),
+                              ],
                             ),
                             // Bottom spacing so the sticky bar doesn't cover.
                             SizedBox(height: context.sXxl + context.btnLg),
@@ -269,7 +271,11 @@ class _StickySaveBar extends StatelessWidget {
                   children: [
                     const Icon(Icons.check_rounded, color: Colors.white),
                     SizedBox(width: context.sSm),
-                    Text(isEdit ? context.tr.detail_save : context.tr.product_create),
+                    Text(
+                      isEdit
+                          ? context.tr.detail_save
+                          : context.tr.product_create,
+                    ),
                   ],
                 ),
         ),

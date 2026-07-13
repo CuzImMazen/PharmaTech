@@ -64,6 +64,10 @@ import 'package:pharmacy_app/features/supplier_debts/cubit/supplier_debt_cubit.d
 import 'package:pharmacy_app/features/supplier_debts/data/repo/supplier_debt_repository.dart';
 import 'package:pharmacy_app/features/supplier_debts/presentation/screens/supplier_debt_detail_screen.dart';
 import 'package:pharmacy_app/features/supplier_debts/presentation/screens/supplier_debts_screen.dart';
+import 'package:pharmacy_app/features/customer_debts/cubit/customer_debt_cubit.dart';
+import 'package:pharmacy_app/features/customer_debts/data/repo/customer_debt_repository.dart';
+import 'package:pharmacy_app/features/customer_debts/presentation/screens/customer_debt_detail_screen.dart';
+import 'package:pharmacy_app/features/customer_debts/presentation/screens/customer_debts_screen.dart';
 
 import 'package:pharmacy_app/features/stock_adjustments/cubit/stock_adjustment_cubit.dart';
 import 'package:pharmacy_app/features/stock_adjustments/data/repo/stock_adjustment_repository.dart';
@@ -75,6 +79,7 @@ import 'package:pharmacy_app/features/bulk_stock_adjustment/presentation/screens
 
 import 'package:pharmacy_app/features/purchase_invoices/cubit/purchase_invoice_cubit.dart';
 import 'package:pharmacy_app/features/purchase_invoices/cubit/purchase_invoice_form_cubit.dart';
+import 'package:pharmacy_app/features/purchase_invoices/data/models/purchase_invoice_model.dart';
 import 'package:pharmacy_app/features/purchase_invoices/data/repo/purchase_invoice_repository.dart';
 import 'package:pharmacy_app/features/purchase_invoices/presentation/screens/purchase_invoice_detail_screen.dart';
 import 'package:pharmacy_app/features/purchase_invoices/presentation/screens/purchase_invoice_form_screen.dart';
@@ -89,10 +94,25 @@ import 'package:pharmacy_app/features/customers/presentation/screens/customers_s
 
 import 'package:pharmacy_app/features/sales_invoices/cubit/sales_invoice_cubit.dart';
 import 'package:pharmacy_app/features/sales_invoices/cubit/sales_invoice_form_cubit.dart';
+import 'package:pharmacy_app/features/sales_invoices/data/models/sales_invoice_model.dart';
 import 'package:pharmacy_app/features/sales_invoices/data/repo/sales_invoice_repository.dart';
 import 'package:pharmacy_app/features/sales_invoices/presentation/screens/sales_invoice_detail_screen.dart';
 import 'package:pharmacy_app/features/sales_invoices/presentation/screens/sales_invoice_form_screen.dart';
 import 'package:pharmacy_app/features/sales_invoices/presentation/screens/sales_invoices_screen.dart';
+
+import 'package:pharmacy_app/features/customer_return_invoices/cubit/customer_return_invoice_cubit.dart';
+import 'package:pharmacy_app/features/customer_return_invoices/cubit/customer_return_invoice_form_cubit.dart';
+import 'package:pharmacy_app/features/customer_return_invoices/data/repo/customer_return_invoice_repository.dart';
+import 'package:pharmacy_app/features/customer_return_invoices/presentation/screens/customer_return_invoice_detail_screen.dart';
+import 'package:pharmacy_app/features/customer_return_invoices/presentation/screens/customer_return_invoice_form_screen.dart';
+import 'package:pharmacy_app/features/customer_return_invoices/presentation/screens/customer_return_invoices_screen.dart';
+
+import 'package:pharmacy_app/features/supplier_return_invoices/cubit/supplier_return_invoice_cubit.dart';
+import 'package:pharmacy_app/features/supplier_return_invoices/cubit/supplier_return_invoice_form_cubit.dart';
+import 'package:pharmacy_app/features/supplier_return_invoices/data/repo/supplier_return_invoice_repository.dart';
+import 'package:pharmacy_app/features/supplier_return_invoices/presentation/screens/supplier_return_invoice_detail_screen.dart';
+import 'package:pharmacy_app/features/supplier_return_invoices/presentation/screens/supplier_return_invoice_form_screen.dart';
+import 'package:pharmacy_app/features/supplier_return_invoices/presentation/screens/supplier_return_invoices_screen.dart';
 
 import 'package:pharmacy_app/features/finance/presentation/screens/finance_screen.dart';
 
@@ -396,6 +416,26 @@ class AppRoutes {
       },
     ),
 
+    // Customer Debts list.
+    GoRoute(
+      path: AppRoutesKeys.customerDebtsList,
+      builder: (context, state) => BlocProvider(
+        create: (context) =>
+            CustomerDebtCubit(repository: sl<CustomerDebtRepository>())
+              ..loadDebts(),
+        child: const CustomerDebtsScreen(),
+      ),
+    ),
+
+    // Customer debt detail (with payments).
+    GoRoute(
+      path: AppRoutesKeys.customerDebtDetail,
+      builder: (context, state) {
+        final debtId = int.tryParse(state.pathParameters['id'] ?? '') ?? 0;
+        return CustomerDebtDetailScreen(debtId: debtId);
+      },
+    ),
+
     // =========================================================================
     // 3.9. STOCK ADJUSTMENTS LOG (pushed over the nav shell; no bottom nav)
     // =========================================================================
@@ -546,6 +586,104 @@ class AppRoutes {
       builder: (context, state) {
         final invoiceId = int.tryParse(state.pathParameters['id'] ?? '') ?? 0;
         return SalesInvoiceDetailScreen(invoiceId: invoiceId);
+      },
+    ),
+
+    // =========================================================================
+    // 3.13. CUSTOMER RETURN INVOICES (pushed over the nav shell; no bottom nav)
+    // =========================================================================
+
+    // Returns list — must precede /customer-return-invoices/:id so "add" isn't id.
+    GoRoute(
+      path: AppRoutesKeys.customerReturnInvoicesList,
+      builder: (context, state) => BlocProvider(
+        create: (context) => CustomerReturnInvoiceCubit(
+          repository: sl<CustomerReturnInvoiceRepository>(),
+        )..loadReturns(),
+        child: const CustomerReturnInvoicesScreen(),
+      ),
+    ),
+
+    // Add customer return invoice — placed before the :id detail route.
+    GoRoute(
+      path: AppRoutesKeys.customerReturnInvoiceAdd,
+      builder: (context, state) {
+        final extra = state.extra;
+        SalesInvoiceModel? seedSalesInvoice;
+        int? seedCustomerId;
+        if (extra is Map<String, dynamic>) {
+          seedSalesInvoice =
+              extra['salesInvoice'] as SalesInvoiceModel?;
+          seedCustomerId = extra['customerId'] as int?;
+        }
+        return BlocProvider(
+          create: (context) => CustomerReturnInvoiceFormCubit(
+            returnRepository: sl<CustomerReturnInvoiceRepository>(),
+            customerRepository: sl<CustomerRepository>(),
+            inventoryRepository: sl<InventoryRepository>(),
+          )..loadOptions(),
+          child: CustomerReturnInvoiceFormScreen(
+            seedSalesInvoice: seedSalesInvoice,
+            seedCustomerId: seedCustomerId,
+          ),
+        );
+      },
+    ),
+
+    // Return invoice detail (with items).
+    GoRoute(
+      path: AppRoutesKeys.customerReturnInvoiceDetail,
+      builder: (context, state) {
+        final invoiceId = int.tryParse(state.pathParameters['id'] ?? '') ?? 0;
+        return CustomerReturnInvoiceDetailScreen(invoiceId: invoiceId);
+      },
+    ),
+
+    // =========================================================================
+    // 3.14. SUPPLIER RETURN INVOICES (pushed over the nav shell; no bottom nav)
+    // =========================================================================
+
+    // Supplier returns list — must precede /supplier-return-invoices/:id so
+    // "add" isn't matched as an id.
+    GoRoute(
+      path: AppRoutesKeys.supplierReturnInvoicesList,
+      builder: (context, state) => BlocProvider(
+        create: (context) => SupplierReturnInvoiceCubit(
+          repository: sl<SupplierReturnInvoiceRepository>(),
+        )..loadReturns(),
+        child: const SupplierReturnInvoicesScreen(),
+      ),
+    ),
+
+    // Add supplier return invoice — placed before the :id detail route.
+    GoRoute(
+      path: AppRoutesKeys.supplierReturnInvoiceAdd,
+      builder: (context, state) {
+        final extra = state.extra;
+        PurchaseInvoiceModel? seedPurchaseInvoice;
+        if (extra is Map<String, dynamic>) {
+          seedPurchaseInvoice =
+              extra['purchaseInvoice'] as PurchaseInvoiceModel?;
+        }
+        return BlocProvider(
+          create: (context) => SupplierReturnInvoiceFormCubit(
+            returnRepository: sl<SupplierReturnInvoiceRepository>(),
+            supplierRepository: sl<SupplierRepository>(),
+            inventoryRepository: sl<InventoryRepository>(),
+          )..loadOptions(),
+          child: SupplierReturnInvoiceFormScreen(
+            seedPurchaseInvoice: seedPurchaseInvoice,
+          ),
+        );
+      },
+    ),
+
+    // Supplier return invoice detail (with items).
+    GoRoute(
+      path: AppRoutesKeys.supplierReturnInvoiceDetail,
+      builder: (context, state) {
+        final invoiceId = int.tryParse(state.pathParameters['id'] ?? '') ?? 0;
+        return SupplierReturnInvoiceDetailScreen(invoiceId: invoiceId);
       },
     ),
 

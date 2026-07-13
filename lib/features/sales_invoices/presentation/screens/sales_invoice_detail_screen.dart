@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:pharmacy_app/core/di/service_locator.dart';
 import 'package:pharmacy_app/core/extensions/app_design_system_ext.dart';
 import 'package:pharmacy_app/core/extensions/failure_message_localization_ext.dart';
 import 'package:pharmacy_app/core/extensions/localization_ext.dart';
+import 'package:pharmacy_app/core/router/app_routes_keys.dart';
 import 'package:pharmacy_app/core/theme/app_colors.dart';
+import 'package:pharmacy_app/core/utils/helpers/date_formatter.dart';
 import 'package:pharmacy_app/core/utils/messages/snackbar.dart';
 import 'package:pharmacy_app/core/widgets/custom_button.dart';
 import 'package:pharmacy_app/core/widgets/shimmer_box.dart';
+import 'package:pharmacy_app/features/purchase_invoices/data/models/purchase_invoice_model.dart';
 import 'package:pharmacy_app/features/sales_invoices/cubit/sales_invoice_detail_cubit.dart';
 import 'package:pharmacy_app/features/sales_invoices/cubit/sales_invoice_detail_state.dart';
 import 'package:pharmacy_app/features/sales_invoices/data/models/sales_invoice_model.dart';
@@ -109,6 +113,11 @@ class _Body extends StatelessWidget {
                       invoice: invoice,
                       onEdit: () => _editNotes(context, invoice),
                     ),
+                    context.vMd,
+                    // Return action: only on a completed, non-cancelled sale.
+                    if (!invoice.isCancelled &&
+                        invoice.status == InvoiceStatus.completed)
+                      _ReturnAction(invoice: invoice),
                     context.vMd,
                     _CancelAction(
                       invoice: invoice,
@@ -220,7 +229,7 @@ class _HeaderCard extends StatelessWidget {
           context.vSm,
           _MetaRow(
             icon: Icons.calendar_today_outlined,
-            text: '${tr.invoice_date}: ${invoice.invoiceDate}',
+            text: '${tr.invoice_date}: ${DateFormatter.toDateOnly(invoice.invoiceDate) ?? invoice.invoiceDate}',
           ),
           if (invoice.customer != null) ...[
             context.vXs,
@@ -428,7 +437,7 @@ class _DebtSection extends StatelessWidget {
             context.vSm,
             _MetaRow(
               icon: Icons.event_rounded,
-              text: '${tr.debt_due_date}: ${debt.dueDate}',
+              text: '${tr.debt_due_date}: ${DateFormatter.toDateOnly(debt.dueDate) ?? debt.dueDate}',
             ),
           ],
         ],
@@ -477,6 +486,31 @@ class _NotesCard extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+/// "Return" action shown on a completed, non-cancelled sales invoice. Pushes
+/// the New Customer Return form pre-seeded with this invoice's customer +
+/// original invoice id + one line per sale item.
+class _ReturnAction extends StatelessWidget {
+  const _ReturnAction({required this.invoice});
+
+  final SalesInvoiceModel invoice;
+
+  @override
+  Widget build(BuildContext context) {
+    return OutlinedButton.icon(
+      onPressed: () => context.push(
+        AppRoutesKeys.customerReturnInvoiceAddWith(),
+        extra: {'salesInvoice': invoice},
+      ),
+      icon: Icon(Icons.replay_rounded, size: context.iSm),
+      label: Text(context.tr.return_invoice_action_return),
+      style: OutlinedButton.styleFrom(
+        foregroundColor: context.primary,
+        side: BorderSide(color: context.primary.withAlpha(160)),
       ),
     );
   }

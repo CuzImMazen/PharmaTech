@@ -40,9 +40,9 @@ class CashTransactionCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Title + amount on the same line; the amount sits opposite the
-                // label so the footer below gets the full card width for the
-                // time + recorder metadata (no truncation competition).
+                // Title + amount on the same line; the title is allowed to wrap
+                // freely so nothing gets ellipsed. The amount is short and stays
+                // pinned to the trailing edge.
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -55,8 +55,6 @@ class CashTransactionCard extends StatelessWidget {
                         style: context.text.titleSmall?.copyWith(
                           fontWeight: FontWeight.bold,
                         ),
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
                       ),
                     ),
                     context.hSm,
@@ -85,8 +83,6 @@ class CashTransactionCard extends StatelessWidget {
                     style: context.text.bodySmall?.copyWith(
                       color: context.muted,
                     ),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
                   ),
                 ],
                 // Single compact footer line: timestamp + recorder separated by
@@ -94,35 +90,28 @@ class CashTransactionCard extends StatelessWidget {
                 // stacked rows. The recorder (when present) gets a Flexible
                 // wrapper so a long name ellipses instead of overflowing.
                 context.vXs,
-                Row(
+                Wrap(
+                  spacing: context.sXs,
+                  runSpacing: context.sXs,
+                  crossAxisAlignment: WrapCrossAlignment.center,
                   children: [
                     Icon(
                       Icons.schedule_rounded,
                       size: context.iXs,
                       color: context.muted,
                     ),
-                    SizedBox(width: context.sXs),
-                    Flexible(
-                      child: Text(
-                        _formatDateTime(transaction.transactionTime),
-                        style: context.text.labelSmall?.copyWith(
-                          color: context.muted,
-                        ),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
+                    Text(
+                      _formatDateTime(transaction.transactionTime),
+                      style: context.text.labelSmall?.copyWith(
+                        color: context.muted,
                       ),
                     ),
                     if (transaction.createdBy != null &&
                         transaction.createdBy!.displayName.isNotEmpty) ...[
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: context.sXs,
-                        ),
-                        child: Text(
-                          '·',
-                          style: context.text.labelSmall?.copyWith(
-                            color: context.muted,
-                          ),
+                      Text(
+                        '·',
+                        style: context.text.labelSmall?.copyWith(
+                          color: context.muted,
                         ),
                       ),
                       Icon(
@@ -130,15 +119,10 @@ class CashTransactionCard extends StatelessWidget {
                         size: context.iXs,
                         color: context.muted,
                       ),
-                      SizedBox(width: context.sXs),
-                      Flexible(
-                        child: Text(
-                          transaction.createdBy!.displayName,
-                          style: context.text.labelSmall?.copyWith(
-                            color: context.muted,
-                          ),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
+                      Text(
+                        transaction.createdBy!.displayName,
+                        style: context.text.labelSmall?.copyWith(
+                          color: context.muted,
                         ),
                       ),
                     ],

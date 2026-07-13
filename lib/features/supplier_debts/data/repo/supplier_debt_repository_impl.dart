@@ -71,4 +71,32 @@ class SupplierDebtRepositoryImpl implements SupplierDebtRepository {
       return Left(ApiErrorHandler.handle(e));
     }
   }
+
+  @override
+  Future<Either<Failure, SupplierDebtModel>> payDebt(
+    int id, {
+    required double amount,
+    required String paymentDate,
+    String? notes,
+  }) async {
+    try {
+      final body = <String, dynamic>{
+        'amount': amount,
+        'payment_date': paymentDate,
+        if (notes != null && notes.trim().isNotEmpty) 'notes': notes.trim(),
+      };
+      final response = await api.post(
+        ApiRoutes.supplierDebtPay(id),
+        data: body,
+      );
+      final debt = ApiParser.parseWrapped(
+        response.data,
+        'data',
+        SupplierDebtModel.fromJson,
+      );
+      return Right(debt);
+    } catch (e) {
+      return Left(ApiErrorHandler.handle(e));
+    }
+  }
 }

@@ -13,12 +13,3 @@ CashBoxModel _$CashBoxModelFromJson(Map<String, dynamic> json) => CashBoxModel(
   createdAt: json['created_at'] as String?,
   updatedAt: json['updated_at'] as String?,
 );
-
-Map<String, dynamic> _$CashBoxModelToJson(CashBoxModel instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'opening_balance': instance.openingBalance,
-      'current_balance': instance.currentBalance,
-      'created_at': instance.createdAt,
-      'updated_at': instance.updatedAt,
-    };

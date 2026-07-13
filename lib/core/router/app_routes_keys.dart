@@ -33,6 +33,10 @@ class AppRoutesKeys {
   static const String debtsList = '/supplier-debts';
   static const String debtDetail = '/supplier-debts/:id';
 
+  // Customer Debts — pushed over the nav shell (no bottom nav).
+  static const String customerDebtsList = '/customer-debts';
+  static const String customerDebtDetail = '/customer-debts/:id';
+
   // Purchase Invoices — pushed over the nav shell (no bottom nav).
   static const String invoicesList = '/purchase-invoices';
   static const String invoiceAdd = '/purchase-invoices/add';
@@ -54,8 +58,21 @@ class AppRoutesKeys {
   static const String salesInvoiceAdd = '/sales-invoices/add';
   static const String salesInvoiceDetail = '/sales-invoices/:id';
 
+  // Customer Return Invoices — pushed over the nav shell (no bottom nav).
+  static const String customerReturnInvoicesList = '/customer-return-invoices';
+  static const String customerReturnInvoiceAdd = '/customer-return-invoices/add';
+  static const String customerReturnInvoiceDetail = '/customer-return-invoices/:id';
+
+  // Supplier Return Invoices — pushed over the nav shell (no bottom nav).
+  static const String supplierReturnInvoicesList = '/supplier-return-invoices';
+  static const String supplierReturnInvoiceAdd = '/supplier-return-invoices/add';
+  static const String supplierReturnInvoiceDetail = '/supplier-return-invoices/:id';
+
   /// Builds a detail route for a specific supplier debt id.
   static String debtDetailWith(int id) => '/supplier-debts/$id';
+
+  /// Builds a detail route for a specific customer debt id.
+  static String customerDebtDetailWith(int id) => '/customer-debts/$id';
 
   /// Builds a detail route for a specific purchase invoice id.
   static String invoiceDetailWith(int id) => '/purchase-invoices/$id';
@@ -65,6 +82,21 @@ class AppRoutesKeys {
 
   /// Builds a detail route for a specific sales invoice id.
   static String salesInvoiceDetailWith(int id) => '/sales-invoices/$id';
+
+  /// Builds a detail route for a specific customer return invoice id.
+  static String customerReturnInvoiceDetailWith(int id) =>
+      '/customer-return-invoices/$id';
+
+  /// Builds the add route for a new customer return invoice.
+  static String customerReturnInvoiceAddWith() =>
+      customerReturnInvoiceAdd;
+
+  /// Builds a detail route for a specific supplier return invoice id.
+  static String supplierReturnInvoiceDetailWith(int id) =>
+      '/supplier-return-invoices/$id';
+
+  /// Builds the add route for a new supplier return invoice.
+  static String supplierReturnInvoiceAddWith() => supplierReturnInvoiceAdd;
 
   /// Builds an edit route for a specific product id.
   static String productEditWith(int id) => '/product/$id/edit';
