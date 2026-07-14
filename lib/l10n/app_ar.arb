@@ -696,5 +696,6 @@
   "return_invoice_item_price_required": "سعر الوحدة يجب أن يكون أكبر من 0.",
   "return_invoice_supplier_required": "اختر مورّداً.",
   "return_invoice_action_return": "إرجاع",
-  "return_invoice_product_not_allowed": "هذا المنتج ليس ضمن الفاتورة الأصلية."
+  "return_invoice_product_not_allowed": "هذا المنتج ليس ضمن الفاتورة الأصلية.",
+  "return_invoice_qty_exceeds_original": "كمية الاسترجاع تتجاوز الكمية الأصلية لهذا المنتج في الفاتورة."
 }

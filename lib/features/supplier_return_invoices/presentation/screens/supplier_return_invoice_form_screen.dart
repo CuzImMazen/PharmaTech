@@ -111,6 +111,15 @@ class _SupplierReturnInvoiceFormScreenState
         );
         return;
       }
+      final originalQty = cubit.state.originalInvoiceQuantities[i.product!.id];
+      if (cubit.state.originalPurchaseInvoiceId != null &&
+          originalQty != null &&
+          qty > originalQty) {
+        AppSnackbar.failure(
+          message: context.tr.return_invoice_qty_exceeds_original,
+        );
+        return;
+      }
     }
     if (!(_formKey.currentState?.validate() ?? false)) return;
 
@@ -226,7 +235,10 @@ class _SupplierReturnInvoiceFormScreenState
                                   ),
                                 ),
                               context.vSm,
-                              _AddItemButton(onTap: cubit.addItem),
+                              _AddItemButton(
+                                onTap: cubit.addItem,
+                                disabled: cubit.allAllowedProductsUsed,
+                              ),
                             ],
                           ),
                           context.vMd,
@@ -547,14 +559,15 @@ class _ItemNumberFieldState extends State<_ItemNumberField> {
 }
 
 class _AddItemButton extends StatelessWidget {
-  const _AddItemButton({required this.onTap});
+  const _AddItemButton({required this.onTap, this.disabled = false});
 
   final VoidCallback onTap;
+  final bool disabled;
 
   @override
   Widget build(BuildContext context) {
     return OutlinedButton.icon(
-      onPressed: onTap,
+      onPressed: disabled ? null : onTap,
       icon: Icon(Icons.add_rounded, size: context.iSm),
       label: Text(context.tr.invoice_item_add),
     );

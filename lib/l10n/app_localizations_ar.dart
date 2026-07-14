@@ -1898,4 +1898,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get return_invoice_product_not_allowed => 'هذا المنتج ليس ضمن الفاتورة الأصلية.';
+
+  @override
+  String get return_invoice_qty_exceeds_original => 'كمية الاسترجاع تتجاوز الكمية الأصلية لهذا المنتج في الفاتورة.';
 }

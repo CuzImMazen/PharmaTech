@@ -1898,4 +1898,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get return_invoice_product_not_allowed => 'This product is not part of the original invoice.';
+
+  @override
+  String get return_invoice_qty_exceeds_original => 'Return quantity exceeds the original invoice quantity for this product.';
 }

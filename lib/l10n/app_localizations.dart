@@ -3856,6 +3856,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'This product is not part of the original invoice.'**
   String get return_invoice_product_not_allowed;
+
+  /// No description provided for @return_invoice_qty_exceeds_original.
+  ///
+  /// In en, this message translates to:
+  /// **'Return quantity exceeds the original invoice quantity for this product.'**
+  String get return_invoice_qty_exceeds_original;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

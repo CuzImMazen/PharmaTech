@@ -120,13 +120,23 @@ class _CustomerReturnInvoiceFormScreenState
         AppSnackbar.failure(message: context.tr.invoice_item_product_required);
         return;
       }
-      if ((int.tryParse(i.quantity.trim()) ?? 0) < 1) {
+      final qty = int.tryParse(i.quantity.trim()) ?? 0;
+      if (qty < 1) {
         AppSnackbar.failure(message: context.tr.return_invoice_item_qty_required);
         return;
       }
       if (_num(i.unitPrice) <= 0) {
         AppSnackbar.failure(
           message: context.tr.return_invoice_item_price_required,
+        );
+        return;
+      }
+      final originalQty = cubit.state.originalInvoiceQuantities[i.product!.id];
+      if (cubit.state.originalSalesInvoiceId != null &&
+          originalQty != null &&
+          qty > originalQty) {
+        AppSnackbar.failure(
+          message: context.tr.return_invoice_qty_exceeds_original,
         );
         return;
       }
@@ -246,7 +256,10 @@ class _CustomerReturnInvoiceFormScreenState
                                   ),
                                 ),
                               context.vSm,
-                              _AddItemButton(onTap: cubit.addItem),
+                              _AddItemButton(
+                                onTap: cubit.addItem,
+                                disabled: cubit.allAllowedProductsUsed,
+                              ),
                             ],
                           ),
                           context.vMd,
@@ -572,14 +585,15 @@ class _ItemNumberFieldState extends State<_ItemNumberField> {
 }
 
 class _AddItemButton extends StatelessWidget {
-  const _AddItemButton({required this.onTap});
+  const _AddItemButton({required this.onTap, this.disabled = false});
 
   final VoidCallback onTap;
+  final bool disabled;
 
   @override
   Widget build(BuildContext context) {
     return OutlinedButton.icon(
-      onPressed: onTap,
+      onPressed: disabled ? null : onTap,
       icon: Icon(Icons.add_rounded, size: context.iSm),
       label: Text(context.tr.invoice_item_add),
     );

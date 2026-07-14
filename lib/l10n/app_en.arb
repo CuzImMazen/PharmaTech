@@ -699,5 +699,6 @@
   "return_invoice_item_price_required": "Unit price must be greater than 0.",
   "return_invoice_supplier_required": "Select a supplier.",
   "return_invoice_action_return": "Return",
-  "return_invoice_product_not_allowed": "This product is not part of the original invoice."
+  "return_invoice_product_not_allowed": "This product is not part of the original invoice.",
+  "return_invoice_qty_exceeds_original": "Return quantity exceeds the original invoice quantity for this product."
 }

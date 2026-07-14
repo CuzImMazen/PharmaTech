@@ -29,6 +29,10 @@ abstract class CustomerReturnInvoiceFormState
     /// no restriction (standalone return). Used to filter the product dropdown.
     @Default(<int>{}) Set<int> allowedProductIds,
 
+    /// Maps each original invoice product id to its sold quantity for seeded
+    /// returns, so the form can cap return quantities per product.
+    @Default(<int, int>{}) Map<int, int> originalInvoiceQuantities,
+
     @Default(<CustomerReturnItemInput>[])
     List<CustomerReturnItemInput> items,
 
@@ -48,6 +52,10 @@ abstract class CustomerReturnInvoiceFormState
 abstract class CustomerReturnItemInput with _$CustomerReturnItemInput {
   const factory CustomerReturnItemInput({
     ProductCardModel? product,
+
+    /// The original sale product id on seeded returns, kept so the row can be
+    /// matched to a product once the dropdown options load.
+    int? originalProductId,
     @Default('') String quantity,
     @Default('') String unitPrice,
     @Default('') String tax,

@@ -83,14 +83,39 @@ class CustomerReturnInvoiceFormCubit
         customersResult.fold((_) => <CustomerModel>[], (p) => p.customers);
     final products =
         productsResult.fold((_) => <ProductCardModel>[], (p) => p.products);
+
+    final autoFilledItems = _autoFillSeededItems(state.items, products);
+
     emit(
       state.copyWith(
         isOptionsLoading: false,
         hasOptionsError: false,
         customers: customers,
         products: products,
+        items: autoFilledItems,
       ),
     );
+  }
+
+  /// Matches seeded rows that only have an [originalProductId] (because the
+  /// dropdown was still loading) to their real [ProductCardModel] now that
+  /// options are available.
+  List<CustomerReturnItemInput> _autoFillSeededItems(
+    List<CustomerReturnItemInput> items,
+    List<ProductCardModel> products,
+  ) {
+    if (items.every((i) => i.product != null || i.originalProductId == null)) {
+      return items;
+    }
+    final byId = <int, ProductCardModel>{
+      for (final p in products) p.id: p,
+    };
+    return items.map((item) {
+      if (item.product != null || item.originalProductId == null) return item;
+      final match = byId[item.originalProductId];
+      if (match == null) return item;
+      return item.copyWith(product: match);
+    }).toList();
   }
 
   Future<void> reloadOptions() => loadOptions();
@@ -117,8 +142,18 @@ class CustomerReturnInvoiceFormCubit
 
   /// Selects a product for a line item and pre-fills the unit price from the
   /// product's stored selling price — the cashier can still override it.
+  ///
+  /// If the selected product already appears in another row, the change is
+  /// rejected so the same product can't be returned twice in one invoice.
   void setItemProduct(int index, ProductCardModel? product) {
     if (index < 0 || index >= state.items.length) return;
+    if (product != null) {
+      final productId = product.id;
+      final alreadyUsed = state.items.indexed.any(
+        (entry) => entry.$1 != index && entry.$2.product?.id == productId,
+      );
+      if (alreadyUsed) return;
+    }
     final current = state.items[index];
     // Only pre-fill when the line has no unit price yet, so we don't clobber a
     // value the user already typed.
@@ -129,6 +164,18 @@ class CustomerReturnInvoiceFormCubit
       index,
       current.copyWith(product: product, unitPrice: prefilled),
     );
+  }
+
+  /// Whether every product allowed on a seeded return is already assigned to a
+  /// row, so the "Add item" button can be disabled.
+  bool get allAllowedProductsUsed {
+    final allowed = state.allowedProductIds;
+    if (allowed.isEmpty) return false;
+    final usedProductIds = state.items
+        .where((i) => i.product != null)
+        .map((i) => i.product!.id)
+        .toSet();
+    return allowed.difference(usedProductIds).isEmpty;
   }
 
   // ---- Sales-invoice seed ---------------------------------------------- //
@@ -144,10 +191,14 @@ class CustomerReturnInvoiceFormCubit
     final allowedProductIds = <int>{
       for (final saleItem in invoiceItems) saleItem.productId,
     };
+    final originalQuantities = <int, int>{
+      for (final saleItem in invoiceItems) saleItem.productId: saleItem.quantity,
+    };
     final items = <CustomerReturnItemInput>[
       for (final saleItem in invoiceItems)
         CustomerReturnItemInput(
           product: null,
+          originalProductId: saleItem.productId,
           quantity: saleItem.quantity.toString(),
           unitPrice: saleItem.sellingPrice.toStringAsFixed(2),
           tax: saleItem.tax == 0 ? '' : saleItem.tax.toStringAsFixed(2),
@@ -160,12 +211,26 @@ class CustomerReturnInvoiceFormCubit
         selectedCustomer: invoice.customer,
         originalSalesInvoiceId: invoice.id,
         allowedProductIds: allowedProductIds,
+        originalInvoiceQuantities: originalQuantities,
         items: items,
       ),
     );
   }
 
   // ---- Barcode scan ----------------------------------------------------- //
+
+  /// Whether a new product could be added before all allowed products are used.
+  bool canAddProduct(int? productId) {
+    final allowed = state.allowedProductIds;
+    if (allowed.isEmpty) return true;
+    final used = state.items
+        .where((i) => i.product != null)
+        .map((i) => i.product!.id)
+        .toSet();
+    if (productId == null) return used.length < allowed.length;
+    if (used.contains(productId)) return true;
+    return used.length < allowed.length;
+  }
 
   /// Looks up the scanned barcode and replaces the product on the row at
   /// [targetIndex] when a product matches; appends a new row only when no
@@ -197,7 +262,8 @@ class CustomerReturnInvoiceFormCubit
   }
 
   /// Replaces the product on [targetIndex] when it's a valid row (whether or
-  /// not that row already had a product), else appends a new item. Reuses
+  /// not that row already had a product), else appends a new item only when
+  /// the allowed-product limit hasn't been reached. Reuses
   /// [setItemProduct]'s unit-price pre-fill nicety.
   void _applyScannedProduct(
     ProductCardModel product, {
@@ -268,11 +334,31 @@ class CustomerReturnInvoiceFormCubit
     if (isClosed) return;
     emit(state.copyWith(isSaving: true, failure: null, saved: false));
 
+    final originalQtyByProductId = <int, int>{};
     final itemsJson = <Map<String, dynamic>>[];
     for (final i in state.items) {
+      final productId = i.product?.id;
+      final returnQty = int.tryParse(i.quantity.trim()) ?? 0;
+      if (productId != null && state.originalSalesInvoiceId != null) {
+        final preceding = originalQtyByProductId[productId] ?? 0;
+        final original = state.originalInvoiceQuantities[productId];
+        if (original != null && preceding + returnQty > original) {
+          emit(
+            state.copyWith(
+              isSaving: false,
+              failure: const ValidationFailure(
+                message: 'Return quantity exceeds original invoice quantity',
+                errors: {},
+              ),
+            ),
+          );
+          return;
+        }
+        originalQtyByProductId[productId] = preceding + returnQty;
+      }
       itemsJson.add(<String, dynamic>{
-        'product_id': i.product?.id,
-        'quantity': int.tryParse(i.quantity.trim()) ?? 0,
+        'product_id': productId,
+        'quantity': returnQty,
         'unit_price': _num(i.unitPrice),
         if (i.tax.trim().isNotEmpty) 'tax': _num(i.tax),
         if (i.discount.trim().isNotEmpty) 'discount': _num(i.discount),
