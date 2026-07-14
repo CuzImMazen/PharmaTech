@@ -7,9 +7,15 @@ class TodayRevenueStatsContainer extends StatelessWidget {
   const TodayRevenueStatsContainer({
     super.key,
     required this.currencyFormatter,
+    required this.invoiceCount,
+    required this.avgInvoiceValue,
+    required this.unitsSold,
   });
 
   final NumberFormat currencyFormatter;
+  final int invoiceCount;
+  final num avgInvoiceValue;
+  final int unitsSold;
 
   @override
   Widget build(BuildContext context) {
@@ -23,19 +29,17 @@ class TodayRevenueStatsContainer extends StatelessWidget {
         child: Row(
           children: [
             _StatItem(
-              value: currencyFormatter.format(23),
+              value: currencyFormatter.format(invoiceCount),
               label: context.tr.invoice,
             ),
             _Divider(),
-
             _StatItem(
-              value: currencyFormatter.format(1200),
+              value: currencyFormatter.format(avgInvoiceValue),
               label: context.tr.avg_invoice_value,
             ),
-
             _Divider(),
             _StatItem(
-              value: currencyFormatter.format(600),
+              value: currencyFormatter.format(unitsSold),
               label: context.tr.units_sold,
             ),
           ],

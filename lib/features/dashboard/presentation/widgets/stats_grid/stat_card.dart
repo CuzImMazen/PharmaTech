@@ -61,12 +61,15 @@ class StatCard extends StatelessWidget {
                 ),
               ),
               context.vXs,
-              Text(
-                label,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: context.text.bodyMedium?.copyWith(
-                  color: context.colors.onSurface.withAlpha(140),
+              FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(
+                  label,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: context.text.bodyMedium?.copyWith(
+                    color: context.colors.onSurface.withAlpha(140),
+                  ),
                 ),
               ),
             ],
@@ -98,7 +101,8 @@ class StatCard extends StatelessWidget {
 
               const SizedBox(width: 4),
 
-              Expanded(
+              FittedBox(
+                fit: BoxFit.scaleDown,
                 child: Text(
                   infoLabel,
                   maxLines: 1,
@@ -106,7 +110,7 @@ class StatCard extends StatelessWidget {
                   style: TextStyle(
                     color: color,
                     fontWeight: FontWeight.w500,
-                    fontSize: 13,
+                    fontSize: 12,
                   ),
                 ),
               ),

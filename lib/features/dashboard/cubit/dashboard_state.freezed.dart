@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$DashboardState {
 
- List<ProductCardModel> get lowStockProducts; bool get isInitialLoading; bool get isRefreshing; Failure? get failure;
+ DashboardHeaderModel? get header; DashboardCardsModel? get cards; List<WeeklyRevenuePointModel> get weeklyRevenue; List<DashboardTransactionModel> get recentTransactions; List<ProductCardModel> get lowStockProducts; bool get isInitialLoading; bool get isRefreshing; Failure? get failure;
 /// Create a copy of DashboardState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -26,16 +26,16 @@ $DashboardStateCopyWith<DashboardState> get copyWith => _$DashboardStateCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DashboardState&&const DeepCollectionEquality().equals(other.lowStockProducts, lowStockProducts)&&(identical(other.isInitialLoading, isInitialLoading) || other.isInitialLoading == isInitialLoading)&&(identical(other.isRefreshing, isRefreshing) || other.isRefreshing == isRefreshing)&&(identical(other.failure, failure) || other.failure == failure));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DashboardState&&(identical(other.header, header) || other.header == header)&&(identical(other.cards, cards) || other.cards == cards)&&const DeepCollectionEquality().equals(other.weeklyRevenue, weeklyRevenue)&&const DeepCollectionEquality().equals(other.recentTransactions, recentTransactions)&&const DeepCollectionEquality().equals(other.lowStockProducts, lowStockProducts)&&(identical(other.isInitialLoading, isInitialLoading) || other.isInitialLoading == isInitialLoading)&&(identical(other.isRefreshing, isRefreshing) || other.isRefreshing == isRefreshing)&&(identical(other.failure, failure) || other.failure == failure));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(lowStockProducts),isInitialLoading,isRefreshing,failure);
+int get hashCode => Object.hash(runtimeType,header,cards,const DeepCollectionEquality().hash(weeklyRevenue),const DeepCollectionEquality().hash(recentTransactions),const DeepCollectionEquality().hash(lowStockProducts),isInitialLoading,isRefreshing,failure);
 
 @override
 String toString() {
-  return 'DashboardState(lowStockProducts: $lowStockProducts, isInitialLoading: $isInitialLoading, isRefreshing: $isRefreshing, failure: $failure)';
+  return 'DashboardState(header: $header, cards: $cards, weeklyRevenue: $weeklyRevenue, recentTransactions: $recentTransactions, lowStockProducts: $lowStockProducts, isInitialLoading: $isInitialLoading, isRefreshing: $isRefreshing, failure: $failure)';
 }
 
 
@@ -46,7 +46,7 @@ abstract mixin class $DashboardStateCopyWith<$Res>  {
   factory $DashboardStateCopyWith(DashboardState value, $Res Function(DashboardState) _then) = _$DashboardStateCopyWithImpl;
 @useResult
 $Res call({
- List<ProductCardModel> lowStockProducts, bool isInitialLoading, bool isRefreshing, Failure? failure
+ DashboardHeaderModel? header, DashboardCardsModel? cards, List<WeeklyRevenuePointModel> weeklyRevenue, List<DashboardTransactionModel> recentTransactions, List<ProductCardModel> lowStockProducts, bool isInitialLoading, bool isRefreshing, Failure? failure
 });
 
 
@@ -63,9 +63,13 @@ class _$DashboardStateCopyWithImpl<$Res>
 
 /// Create a copy of DashboardState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? lowStockProducts = null,Object? isInitialLoading = null,Object? isRefreshing = null,Object? failure = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? header = freezed,Object? cards = freezed,Object? weeklyRevenue = null,Object? recentTransactions = null,Object? lowStockProducts = null,Object? isInitialLoading = null,Object? isRefreshing = null,Object? failure = freezed,}) {
   return _then(DashboardState(
-lowStockProducts: null == lowStockProducts ? _self.lowStockProducts : lowStockProducts // ignore: cast_nullable_to_non_nullable
+header: freezed == header ? _self.header : header // ignore: cast_nullable_to_non_nullable
+as DashboardHeaderModel?,cards: freezed == cards ? _self.cards : cards // ignore: cast_nullable_to_non_nullable
+as DashboardCardsModel?,weeklyRevenue: null == weeklyRevenue ? _self.weeklyRevenue : weeklyRevenue // ignore: cast_nullable_to_non_nullable
+as List<WeeklyRevenuePointModel>,recentTransactions: null == recentTransactions ? _self.recentTransactions : recentTransactions // ignore: cast_nullable_to_non_nullable
+as List<DashboardTransactionModel>,lowStockProducts: null == lowStockProducts ? _self.lowStockProducts : lowStockProducts // ignore: cast_nullable_to_non_nullable
 as List<ProductCardModel>,isInitialLoading: null == isInitialLoading ? _self.isInitialLoading : isInitialLoading // ignore: cast_nullable_to_non_nullable
 as bool,isRefreshing: null == isRefreshing ? _self.isRefreshing : isRefreshing // ignore: cast_nullable_to_non_nullable
 as bool,failure: freezed == failure ? _self.failure : failure // ignore: cast_nullable_to_non_nullable
@@ -154,10 +158,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<ProductCardModel> lowStockProducts,  bool isInitialLoading,  bool isRefreshing,  Failure? failure)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( DashboardHeaderModel? header,  DashboardCardsModel? cards,  List<WeeklyRevenuePointModel> weeklyRevenue,  List<DashboardTransactionModel> recentTransactions,  List<ProductCardModel> lowStockProducts,  bool isInitialLoading,  bool isRefreshing,  Failure? failure)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _DashboardState() when $default != null:
-return $default(_that.lowStockProducts,_that.isInitialLoading,_that.isRefreshing,_that.failure);case _:
+return $default(_that.header,_that.cards,_that.weeklyRevenue,_that.recentTransactions,_that.lowStockProducts,_that.isInitialLoading,_that.isRefreshing,_that.failure);case _:
   return orElse();
 
 }
@@ -175,10 +179,10 @@ return $default(_that.lowStockProducts,_that.isInitialLoading,_that.isRefreshing
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<ProductCardModel> lowStockProducts,  bool isInitialLoading,  bool isRefreshing,  Failure? failure)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( DashboardHeaderModel? header,  DashboardCardsModel? cards,  List<WeeklyRevenuePointModel> weeklyRevenue,  List<DashboardTransactionModel> recentTransactions,  List<ProductCardModel> lowStockProducts,  bool isInitialLoading,  bool isRefreshing,  Failure? failure)  $default,) {final _that = this;
 switch (_that) {
 case _DashboardState():
-return $default(_that.lowStockProducts,_that.isInitialLoading,_that.isRefreshing,_that.failure);case _:
+return $default(_that.header,_that.cards,_that.weeklyRevenue,_that.recentTransactions,_that.lowStockProducts,_that.isInitialLoading,_that.isRefreshing,_that.failure);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -195,10 +199,10 @@ return $default(_that.lowStockProducts,_that.isInitialLoading,_that.isRefreshing
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<ProductCardModel> lowStockProducts,  bool isInitialLoading,  bool isRefreshing,  Failure? failure)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( DashboardHeaderModel? header,  DashboardCardsModel? cards,  List<WeeklyRevenuePointModel> weeklyRevenue,  List<DashboardTransactionModel> recentTransactions,  List<ProductCardModel> lowStockProducts,  bool isInitialLoading,  bool isRefreshing,  Failure? failure)?  $default,) {final _that = this;
 switch (_that) {
 case _DashboardState() when $default != null:
-return $default(_that.lowStockProducts,_that.isInitialLoading,_that.isRefreshing,_that.failure);case _:
+return $default(_that.header,_that.cards,_that.weeklyRevenue,_that.recentTransactions,_that.lowStockProducts,_that.isInitialLoading,_that.isRefreshing,_that.failure);case _:
   return null;
 
 }
@@ -210,8 +214,24 @@ return $default(_that.lowStockProducts,_that.isInitialLoading,_that.isRefreshing
 
 
 class _DashboardState implements DashboardState {
-  const _DashboardState({ List<ProductCardModel> lowStockProducts = const <ProductCardModel>[], this.isInitialLoading = false, this.isRefreshing = false, this.failure}): _lowStockProducts = lowStockProducts;
+  const _DashboardState({this.header, this.cards,  List<WeeklyRevenuePointModel> weeklyRevenue = const <WeeklyRevenuePointModel>[],  List<DashboardTransactionModel> recentTransactions = const <DashboardTransactionModel>[],  List<ProductCardModel> lowStockProducts = const <ProductCardModel>[], this.isInitialLoading = false, this.isRefreshing = false, this.failure}): _weeklyRevenue = weeklyRevenue,_recentTransactions = recentTransactions,_lowStockProducts = lowStockProducts;
   
+
+@override final  DashboardHeaderModel? header;
+@override final  DashboardCardsModel? cards;
+ final  List<WeeklyRevenuePointModel> _weeklyRevenue;
+@override@JsonKey() List<WeeklyRevenuePointModel> get weeklyRevenue {
+  if (_weeklyRevenue is EqualUnmodifiableListView) return _weeklyRevenue;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_weeklyRevenue);
+}
+
+ final  List<DashboardTransactionModel> _recentTransactions;
+@override@JsonKey() List<DashboardTransactionModel> get recentTransactions {
+  if (_recentTransactions is EqualUnmodifiableListView) return _recentTransactions;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_recentTransactions);
+}
 
  final  List<ProductCardModel> _lowStockProducts;
 @override@JsonKey() List<ProductCardModel> get lowStockProducts {
@@ -234,16 +254,16 @@ _$DashboardStateCopyWith<_DashboardState> get copyWith => __$DashboardStateCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _DashboardState&&const DeepCollectionEquality().equals(other._lowStockProducts, _lowStockProducts)&&(identical(other.isInitialLoading, isInitialLoading) || other.isInitialLoading == isInitialLoading)&&(identical(other.isRefreshing, isRefreshing) || other.isRefreshing == isRefreshing)&&(identical(other.failure, failure) || other.failure == failure));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _DashboardState&&(identical(other.header, header) || other.header == header)&&(identical(other.cards, cards) || other.cards == cards)&&const DeepCollectionEquality().equals(other._weeklyRevenue, _weeklyRevenue)&&const DeepCollectionEquality().equals(other._recentTransactions, _recentTransactions)&&const DeepCollectionEquality().equals(other._lowStockProducts, _lowStockProducts)&&(identical(other.isInitialLoading, isInitialLoading) || other.isInitialLoading == isInitialLoading)&&(identical(other.isRefreshing, isRefreshing) || other.isRefreshing == isRefreshing)&&(identical(other.failure, failure) || other.failure == failure));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_lowStockProducts),isInitialLoading,isRefreshing,failure);
+int get hashCode => Object.hash(runtimeType,header,cards,const DeepCollectionEquality().hash(_weeklyRevenue),const DeepCollectionEquality().hash(_recentTransactions),const DeepCollectionEquality().hash(_lowStockProducts),isInitialLoading,isRefreshing,failure);
 
 @override
 String toString() {
-  return 'DashboardState(lowStockProducts: $lowStockProducts, isInitialLoading: $isInitialLoading, isRefreshing: $isRefreshing, failure: $failure)';
+  return 'DashboardState(header: $header, cards: $cards, weeklyRevenue: $weeklyRevenue, recentTransactions: $recentTransactions, lowStockProducts: $lowStockProducts, isInitialLoading: $isInitialLoading, isRefreshing: $isRefreshing, failure: $failure)';
 }
 
 
@@ -254,7 +274,7 @@ abstract mixin class _$DashboardStateCopyWith<$Res> implements $DashboardStateCo
   factory _$DashboardStateCopyWith(_DashboardState value, $Res Function(_DashboardState) _then) = __$DashboardStateCopyWithImpl;
 @override @useResult
 $Res call({
- List<ProductCardModel> lowStockProducts, bool isInitialLoading, bool isRefreshing, Failure? failure
+ DashboardHeaderModel? header, DashboardCardsModel? cards, List<WeeklyRevenuePointModel> weeklyRevenue, List<DashboardTransactionModel> recentTransactions, List<ProductCardModel> lowStockProducts, bool isInitialLoading, bool isRefreshing, Failure? failure
 });
 
 
@@ -271,9 +291,13 @@ class __$DashboardStateCopyWithImpl<$Res>
 
 /// Create a copy of DashboardState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? lowStockProducts = null,Object? isInitialLoading = null,Object? isRefreshing = null,Object? failure = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? header = freezed,Object? cards = freezed,Object? weeklyRevenue = null,Object? recentTransactions = null,Object? lowStockProducts = null,Object? isInitialLoading = null,Object? isRefreshing = null,Object? failure = freezed,}) {
   return _then(_DashboardState(
-lowStockProducts: null == lowStockProducts ? _self._lowStockProducts : lowStockProducts // ignore: cast_nullable_to_non_nullable
+header: freezed == header ? _self.header : header // ignore: cast_nullable_to_non_nullable
+as DashboardHeaderModel?,cards: freezed == cards ? _self.cards : cards // ignore: cast_nullable_to_non_nullable
+as DashboardCardsModel?,weeklyRevenue: null == weeklyRevenue ? _self._weeklyRevenue : weeklyRevenue // ignore: cast_nullable_to_non_nullable
+as List<WeeklyRevenuePointModel>,recentTransactions: null == recentTransactions ? _self._recentTransactions : recentTransactions // ignore: cast_nullable_to_non_nullable
+as List<DashboardTransactionModel>,lowStockProducts: null == lowStockProducts ? _self._lowStockProducts : lowStockProducts // ignore: cast_nullable_to_non_nullable
 as List<ProductCardModel>,isInitialLoading: null == isInitialLoading ? _self.isInitialLoading : isInitialLoading // ignore: cast_nullable_to_non_nullable
 as bool,isRefreshing: null == isRefreshing ? _self.isRefreshing : isRefreshing // ignore: cast_nullable_to_non_nullable
 as bool,failure: freezed == failure ? _self.failure : failure // ignore: cast_nullable_to_non_nullable

@@ -11,8 +11,11 @@ import 'package:pharmacy_app/features/inventory/data/models/product_card_model.d
 
 /// Real low-stock alerts driven by [DashboardCubit]. Maps each low-stock
 /// [ProductCardModel] to a [StockAlertItem] (deriving severity client-side),
-/// with loading / error / empty states. Tapping an item opens its product
-/// detail screen.
+/// with empty/error states. Tapping an item opens its product detail screen.
+///
+/// This widget does not show a loading indicator because the dashboard screen
+/// already shows a unified shimmer while [DashboardState.isInitialLoading] is
+/// true.
 class StockAlertsSection extends StatelessWidget {
   const StockAlertsSection({super.key});
 
@@ -20,29 +23,19 @@ class StockAlertsSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<DashboardCubit, DashboardState>(
       buildWhen: (p, c) =>
-          p.isInitialLoading != c.isInitialLoading ||
           p.lowStockProducts != c.lowStockProducts ||
-          p.failure != c.failure,
+          (p.failure != c.failure && c.lowStockProducts.isEmpty),
       builder: (context, state) {
-        if (state.isInitialLoading) {
-          return const SliverToBoxAdapter(
-            child: Padding(
-              padding: EdgeInsets.symmetric(vertical: 24, horizontal: 16),
-              child: Center(child: CircularProgressIndicator()),
-            ),
-          );
-        }
+        final products = state.lowStockProducts;
 
-        if (state.failure != null && state.lowStockProducts.isEmpty) {
+        if (products.isEmpty && state.failure != null) {
           return SliverToBoxAdapter(
             child: _StockAlertsError(
-              onRetry: () =>
-                  context.read<DashboardCubit>().loadLowStock(),
+              onRetry: () => context.read<DashboardCubit>().refreshLowStock(),
             ),
           );
         }
 
-        final products = state.lowStockProducts;
         if (products.isEmpty) {
           return const SliverToBoxAdapter(child: _StockAlertsEmpty());
         }
@@ -76,8 +69,7 @@ class StockAlertsSection extends StatelessWidget {
       name: name,
       quantity: '${product.quantity}/${product.minStock}',
       type: cubit.severityFor(product),
-      onTap: () =>
-          context.push(AppRoutesKeys.productDetailWith(product.id)),
+      onTap: () => context.push(AppRoutesKeys.productDetailWith(product.id)),
     );
   }
 }
@@ -100,7 +92,10 @@ class _StockAlertsError extends StatelessWidget {
             style: context.text.bodyMedium?.copyWith(color: context.muted),
           ),
           const SizedBox(height: 12),
-          OutlinedButton(onPressed: onRetry, child: Text(context.tr.inventory_retry)),
+          OutlinedButton(
+            onPressed: onRetry,
+            child: Text(context.tr.inventory_retry),
+          ),
         ],
       ),
     );

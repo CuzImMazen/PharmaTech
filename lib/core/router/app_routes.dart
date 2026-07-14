@@ -27,6 +27,7 @@ import 'package:pharmacy_app/features/authentication/presentation/screens/regist
 import 'package:pharmacy_app/features/authentication/presentation/screens/password_recovery/reset_password_screen.dart';
 import 'package:pharmacy_app/features/authentication/presentation/screens/email_verification/email_verification_sent_screen.dart';
 import 'package:pharmacy_app/features/dashboard/cubit/dashboard_cubit.dart';
+import 'package:pharmacy_app/features/dashboard/data/repo/dashboard_repository.dart';
 import 'package:pharmacy_app/features/dashboard/presentation/screens/dashboard_screen.dart';
 import 'package:pharmacy_app/features/inventory/cubit/inventory_cubit.dart';
 import 'package:pharmacy_app/features/inventory/cubit/medical_info_form/medical_info_form_cubit.dart';
@@ -702,8 +703,10 @@ class AppRoutes {
             GoRoute(
               path: AppRoutesKeys.dashboard,
               builder: (context, state) => BlocProvider(
-                create: (context) =>
-                    DashboardCubit(inventoryRepository: sl())..loadLowStock(),
+                create: (context) => DashboardCubit(
+                  dashboardRepository: sl<DashboardRepository>(),
+                  inventoryRepository: sl<InventoryRepository>(),
+                )..loadDashboard(),
                 child: const DashboardScreen(),
               ),
               routes: const [

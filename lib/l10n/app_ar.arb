@@ -168,6 +168,10 @@
   ,"view_all" : "عرض الكل"
   ,"stock_alerts_title" : "تنبيهات المخزون"
   ,"manage_inventory" : "إدارة المخزون"
+  ,"dashboard_tx_sale": "بيع"
+  ,"dashboard_tx_purchase": "شراء"
+  ,"dashboard_tx_customer_return": "مرتجع عميل"
+  ,"dashboard_tx_supplier_return": "مرتجع مورد"
   ,"low": "منخفض",
   "critical": "حرج",
   "out": "نفاذ",
@@ -287,6 +291,7 @@
   "movement_supplier_return_out": "إرجاع مورد",
   "movement_adjustment_out": "تعديل إخراج",
   "movement_expiry_out": "إخراج انتهاء",
+  "no_recent_transactions": "لا توجد معاملات حديثة بعد.",
   "stock_alerts_loading": "جارٍ تحميل تنبيهات المخزون…",
   "stock_alerts_error": "تعذّر تحميل تنبيهات المخزون.",
   "stock_alerts_empty": "جميع المنتجات مخزّنة بشكل جيد.",

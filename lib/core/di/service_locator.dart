@@ -14,6 +14,9 @@ import 'package:pharmacy_app/core/token/token_store.dart';
 import 'package:pharmacy_app/features/authentication/data/repo/auth_repository.dart';
 import 'package:pharmacy_app/features/authentication/data/repo/auth_repository_impl.dart';
 
+import 'package:pharmacy_app/features/dashboard/data/repo/dashboard_repository.dart';
+import 'package:pharmacy_app/features/dashboard/data/repo/dashboard_repository_impl.dart';
+
 import 'package:pharmacy_app/features/inventory/data/repo/inventory_repository.dart';
 import 'package:pharmacy_app/features/inventory/data/repo/inventory_repository_impl.dart';
 import 'package:pharmacy_app/features/inventory/data/repo/product_detail_repository.dart';
@@ -107,6 +110,10 @@ Future<void> setupLocator() async {
   sl.registerLazySingleton<OnboardingRepository>(
     () =>
         OnboardingRepositoryImpl(sharedPrefsService: sl<SharedPrefsService>()),
+  );
+
+  sl.registerLazySingleton<DashboardRepository>(
+    () => DashboardRepositoryImpl(api: sl<DioApiHelper>()),
   );
 
   sl.registerLazySingleton<InventoryRepository>(

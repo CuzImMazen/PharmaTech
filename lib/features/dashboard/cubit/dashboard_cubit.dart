@@ -1,23 +1,48 @@
+import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pharmacy_app/core/enums/enums.dart';
+import 'package:pharmacy_app/core/error/failure.dart';
 import 'package:pharmacy_app/features/dashboard/cubit/dashboard_state.dart';
+import 'package:pharmacy_app/features/dashboard/data/models/dashboard_cards_model.dart';
+import 'package:pharmacy_app/features/dashboard/data/models/dashboard_header_model.dart';
+import 'package:pharmacy_app/features/dashboard/data/models/dashboard_transaction_model.dart';
+import 'package:pharmacy_app/features/dashboard/data/models/dashboard_transactions_page.dart';
+import 'package:pharmacy_app/features/dashboard/data/models/weekly_revenue_point_model.dart';
+import 'package:pharmacy_app/features/dashboard/data/repo/dashboard_repository.dart';
 import 'package:pharmacy_app/features/inventory/data/models/product_card_model.dart';
 import 'package:pharmacy_app/features/inventory/data/repo/inventory_repository.dart';
 
-/// Drives the Dashboard. Currently owns the low-stock alerts section: loads
-/// products at or below their min-stock threshold via
-/// `GET /products/low-stock`.
+/// Drives the Dashboard by aggregating real backend data:
+/// - today's header stats via `GET /dashboard/header`
+/// - summary cards via `GET /dashboard/cards`
+/// - weekly revenue chart via `GET /dashboard/weekly-revenue`
+/// - recent transactions via `GET /dashboard/transactions`
+/// - low-stock alerts via `GET /products/low-stock`
 class DashboardCubit extends Cubit<DashboardState> {
-  DashboardCubit({required this.inventoryRepository})
-    : super(const DashboardState());
+  DashboardCubit({
+    required this.dashboardRepository,
+    required this.inventoryRepository,
+  }) : super(const DashboardState());
 
+  final DashboardRepository dashboardRepository;
   final InventoryRepository inventoryRepository;
 
-  /// Loads the low-stock products. A failure is surfaced via [failure] without
-  /// clearing any previously-loaded list (so a refresh error keeps old data).
-  Future<void> loadLowStock() async {
+  /// Loads all dashboard sections in parallel.
+  ///
+  /// - On first load, shows the shimmer via [isInitialLoading].
+  /// - On refresh, keeps existing data visible via [isRefreshing].
+  /// - If some endpoints fail, whatever succeeded is preserved and the first
+  ///   failure is surfaced in [failure]. This prevents the "error-first"
+  ///   flash when a transient error resolves on the next poll/pull.
+  Future<void> loadDashboard() async {
     if (isClosed) return;
-    final isFirstLoad = state.lowStockProducts.isEmpty;
+
+    final isFirstLoad =
+        state.header == null &&
+        state.cards == null &&
+        state.weeklyRevenue.isEmpty &&
+        state.recentTransactions.isEmpty;
+
     emit(
       state.copyWith(
         isInitialLoading: isFirstLoad,
@@ -26,26 +51,114 @@ class DashboardCubit extends Cubit<DashboardState> {
       ),
     );
 
+    final results = await Future.wait([
+      dashboardRepository.fetchHeader(),
+      dashboardRepository.fetchCards(),
+      dashboardRepository.fetchWeeklyRevenue(),
+      dashboardRepository.fetchTransactions(perPage: 5),
+      inventoryRepository.fetchLowStock(perPage: 100),
+    ]);
+
+    if (isClosed) return;
+
+    final headerResult = results[0] as Either<Failure, DashboardHeaderModel>;
+    final cardsResult = results[1] as Either<Failure, DashboardCardsModel>;
+    final weeklyRevenueResult =
+        results[2] as Either<Failure, List<WeeklyRevenuePointModel>>;
+    final transactionsPageResult =
+        results[3] as Either<Failure, DashboardTransactionsPage>;
+    final lowStockResult =
+        results[4] as Either<Failure, List<ProductCardModel>>;
+
+    headerResult.fold(
+      (f) => print('❌ Header Failed: $f'),
+      (_) => print('✅ Header Success'),
+    );
+    cardsResult.fold(
+      (f) => print('❌ Cards Failed: $f'),
+      (_) => print('✅ Cards Success'),
+    );
+    weeklyRevenueResult.fold(
+      (f) => print('❌ Weekly Revenue Failed: $f'),
+      (_) => print('✅ Weekly Revenue Success'),
+    );
+    transactionsPageResult.fold(
+      (f) => print('❌ Transactions Failed: $f'),
+      (_) => print('✅ Transactions Success'),
+    );
+    lowStockResult.fold(
+      (f) => print('❌ Low Stock Failed: $f'),
+      (_) => print('✅ Low Stock Success'),
+    );
+
+    final firstFailure = _firstFailure([
+      headerResult,
+      cardsResult,
+      weeklyRevenueResult,
+      transactionsPageResult,
+      lowStockResult,
+    ]);
+
+    emit(
+      state.copyWith(
+        isInitialLoading: false,
+        isRefreshing: false,
+        header: _rightOrNull(headerResult) ?? state.header,
+        cards: _rightOrNull(cardsResult) ?? state.cards,
+        weeklyRevenue: _rightOrEmpty(weeklyRevenueResult, state.weeklyRevenue),
+        recentTransactions: _pageTransactionsOrEmpty(
+          transactionsPageResult,
+          state.recentTransactions,
+        ),
+        lowStockProducts: _rightOrEmpty(lowStockResult, state.lowStockProducts),
+        failure: firstFailure,
+      ),
+    );
+    print(
+      'DashboardCubit: loadDashboard completed with failure: $firstFailure',
+    );
+    print(firstFailure.hashCode);
+  }
+
+  /// Alias for [loadDashboard] to use in pull-to-refresh contexts.
+  Future<void> refresh() => loadDashboard();
+
+  /// Refreshes only the low-stock alerts section without disturbing the rest of
+  /// the dashboard.
+  Future<void> refreshLowStock() async {
+    if (isClosed) return;
     final result = await inventoryRepository.fetchLowStock(perPage: 100);
     if (isClosed) return;
 
     result.fold(
-      (failure) => emit(
-        state.copyWith(
-          isInitialLoading: false,
-          isRefreshing: false,
-          failure: failure,
-        ),
-      ),
+      (failure) => emit(state.copyWith(failure: state.failure ?? failure)),
       (products) => emit(
-        state.copyWith(
-          isInitialLoading: false,
-          isRefreshing: false,
-          lowStockProducts: products,
-          failure: null,
-        ),
+        state.copyWith(lowStockProducts: products, failure: state.failure),
       ),
     );
+  }
+
+  Failure? _firstFailure(List<Either<Failure, dynamic>> results) {
+    for (final result in results) {
+      final failure = result.fold((f) => f, (_) => null);
+      if (failure != null) return failure;
+    }
+    return null;
+  }
+
+  T? _rightOrNull<T>(Either<Failure, T> result) {
+    return result.fold((_) => null, (data) => data);
+  }
+
+  List<T> _rightOrEmpty<T>(Either<Failure, List<T>> result, List<T> fallback) {
+    return result.fold((_) => fallback, (data) => data);
+  }
+
+  List<DashboardTransactionModel> _pageTransactionsOrEmpty(
+    Either<Failure, DashboardTransactionsPage> result,
+    List<DashboardTransactionModel> fallback,
+  ) {
+    return result.fold((_) => fallback, (page) => page.transactions);
   }
 
   /// Derives a [StockAlertType] from a product's quantities, mirroring the

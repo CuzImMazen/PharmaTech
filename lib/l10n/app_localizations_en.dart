@@ -439,6 +439,18 @@ class AppLocalizationsEn extends AppLocalizations {
   String get manage_inventory => 'Manage Inventory';
 
   @override
+  String get dashboard_tx_sale => 'Sale';
+
+  @override
+  String get dashboard_tx_purchase => 'Purchase';
+
+  @override
+  String get dashboard_tx_customer_return => 'Customer Return';
+
+  @override
+  String get dashboard_tx_supplier_return => 'Supplier Return';
+
+  @override
   String get low => 'Low';
 
   @override
@@ -757,6 +769,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get movement_expiry_out => 'Expiry Out';
+
+  @override
+  String get no_recent_transactions => 'No recent transactions yet.';
 
   @override
   String get stock_alerts_loading => 'Loading stock alerts…';

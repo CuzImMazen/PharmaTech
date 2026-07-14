@@ -947,6 +947,30 @@ abstract class AppLocalizations {
   /// **'Manage Inventory'**
   String get manage_inventory;
 
+  /// No description provided for @dashboard_tx_sale.
+  ///
+  /// In en, this message translates to:
+  /// **'Sale'**
+  String get dashboard_tx_sale;
+
+  /// No description provided for @dashboard_tx_purchase.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase'**
+  String get dashboard_tx_purchase;
+
+  /// No description provided for @dashboard_tx_customer_return.
+  ///
+  /// In en, this message translates to:
+  /// **'Customer Return'**
+  String get dashboard_tx_customer_return;
+
+  /// No description provided for @dashboard_tx_supplier_return.
+  ///
+  /// In en, this message translates to:
+  /// **'Supplier Return'**
+  String get dashboard_tx_supplier_return;
+
   /// No description provided for @low.
   ///
   /// In en, this message translates to:
@@ -1582,6 +1606,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Expiry Out'**
   String get movement_expiry_out;
+
+  /// No description provided for @no_recent_transactions.
+  ///
+  /// In en, this message translates to:
+  /// **'No recent transactions yet.'**
+  String get no_recent_transactions;
 
   /// No description provided for @stock_alerts_loading.
   ///

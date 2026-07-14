@@ -171,6 +171,10 @@
   ,"view_all" : "View All"
   ,"stock_alerts_title" : "Stock Alerts"
   ,"manage_inventory" : "Manage Inventory"
+  ,"dashboard_tx_sale": "Sale"
+  ,"dashboard_tx_purchase": "Purchase"
+  ,"dashboard_tx_customer_return": "Customer Return"
+  ,"dashboard_tx_supplier_return": "Supplier Return"
   ,"low": "Low",
   "critical": "Critical",
   "out": "Out",
@@ -290,6 +294,7 @@
   "movement_supplier_return_out": "Supplier Return Out",
   "movement_adjustment_out": "Adjustment Out",
   "movement_expiry_out": "Expiry Out",
+  "no_recent_transactions": "No recent transactions yet.",
   "stock_alerts_loading": "Loading stock alerts…",
   "stock_alerts_error": "Couldn't load stock alerts.",
   "stock_alerts_empty": "All products are well stocked.",

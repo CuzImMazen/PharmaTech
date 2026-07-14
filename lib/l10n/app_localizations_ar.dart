@@ -439,6 +439,18 @@ class AppLocalizationsAr extends AppLocalizations {
   String get manage_inventory => 'إدارة المخزون';
 
   @override
+  String get dashboard_tx_sale => 'بيع';
+
+  @override
+  String get dashboard_tx_purchase => 'شراء';
+
+  @override
+  String get dashboard_tx_customer_return => 'مرتجع عميل';
+
+  @override
+  String get dashboard_tx_supplier_return => 'مرتجع مورد';
+
+  @override
   String get low => 'منخفض';
 
   @override
@@ -757,6 +769,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get movement_expiry_out => 'إخراج انتهاء';
+
+  @override
+  String get no_recent_transactions => 'لا توجد معاملات حديثة بعد.';
 
   @override
   String get stock_alerts_loading => 'جارٍ تحميل تنبيهات المخزون…';

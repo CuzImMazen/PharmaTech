@@ -117,4 +117,11 @@ class ApiRoutes {
   static const String cashBoxes = '/cash-boxes';
   static const String cashBoxTransactions = '/cash-boxes/transactions';
   static const String cashBoxStatistics = '/cash-boxes/statistics';
+
+  // ================= DASHBOARD ================= //
+
+  static const String dashboardHeader = '/dashboard/header';
+  static const String dashboardCards = '/dashboard/cards';
+  static const String dashboardWeeklyRevenue = '/dashboard/weekly-revenue';
+  static const String dashboardTransactions = '/dashboard/transactions';
 }
