@@ -47,7 +47,10 @@ class CashBoxCubit extends Cubit<CashBoxState> {
             failure: null,
           ),
         );
-        await _fetchTransactions(reset: true);
+        await Future.wait<void>([
+          _fetchTransactions(reset: true),
+          _fetchStatistics(),
+        ]);
       },
     );
   }
@@ -82,7 +85,10 @@ class CashBoxCubit extends Cubit<CashBoxState> {
             failure: null,
           ),
         );
-        await _fetchTransactions(reset: true);
+        await Future.wait<void>([
+          _fetchTransactions(reset: true),
+          _fetchStatistics(),
+        ]);
       },
     );
   }
@@ -104,7 +110,10 @@ class CashBoxCubit extends Cubit<CashBoxState> {
             lastAction: CashBoxAction.created,
           ),
         );
-        await _fetchTransactions(reset: true);
+        await Future.wait<void>([
+          _fetchTransactions(reset: true),
+          _fetchStatistics(),
+        ]);
       },
     );
   }
@@ -135,6 +144,39 @@ class CashBoxCubit extends Cubit<CashBoxState> {
     await _fetchTransactions(reset: true);
   }
 
+  /// Changes the date-range filter and reloads from page 1.
+  Future<void> setDateRange({String? from, String? to}) async {
+    if (isClosed) return;
+    emit(
+      state.copyWith(
+        fromDate: from,
+        toDate: to,
+        areTransactionsLoading: state.transactions.isEmpty,
+        isLoadingMore: false,
+        failure: null,
+        currentPage: 1,
+      ),
+    );
+    await _fetchTransactions(reset: true);
+  }
+
+  /// Clears transaction-type and date-range filters.
+  Future<void> clearFilters() async {
+    if (isClosed) return;
+    emit(
+      state.copyWith(
+        txFilter: null,
+        fromDate: null,
+        toDate: null,
+        areTransactionsLoading: state.transactions.isEmpty,
+        isLoadingMore: false,
+        failure: null,
+        currentPage: 1,
+      ),
+    );
+    await _fetchTransactions(reset: true);
+  }
+
   Future<void> _fetchTransactions({
     bool reset = false,
     int page = 1,
@@ -156,6 +198,8 @@ class CashBoxCubit extends Cubit<CashBoxState> {
 
     final result = await repository.fetchTransactions(
       transactionType: state.txFilter,
+      fromDate: state.fromDate,
+      toDate: state.toDate,
       page: reset ? 1 : page,
     );
     if (isClosed) return;
@@ -186,6 +230,30 @@ class CashBoxCubit extends Cubit<CashBoxState> {
           ),
         );
       },
+    );
+  }
+
+  // ---- Statistics ------------------------------------------------------- //
+
+  Future<void> _fetchStatistics() async {
+    if (isClosed || state.hasNoBox) return;
+    emit(state.copyWith(isLoadingStatistics: true, failure: null));
+    final result = await repository.fetchStatistics();
+    if (isClosed) return;
+    result.fold(
+      (failure) => emit(
+        state.copyWith(
+          isLoadingStatistics: false,
+          failure: failure,
+        ),
+      ),
+      (statistics) => emit(
+        state.copyWith(
+          isLoadingStatistics: false,
+          statistics: statistics,
+          failure: null,
+        ),
+      ),
     );
   }
 

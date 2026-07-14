@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:pharmacy_app/core/error/failure.dart';
 import 'package:pharmacy_app/features/cash_boxes/data/models/cash_box_model.dart';
+import 'package:pharmacy_app/features/cash_boxes/data/models/cash_box_statistics_model.dart';
 import 'package:pharmacy_app/features/cash_boxes/data/models/cash_transaction_model.dart';
 import 'package:pharmacy_app/features/cash_boxes/data/models/cash_transactions_page.dart';
 
@@ -17,10 +18,16 @@ abstract class CashBoxRepository {
   /// already exists (enforced per-pharmacy on the backend).
   Future<Either<Failure, CashBoxModel>> createCashBox(double openingBalance);
 
+  /// Fetches income/outcome totals for today, week and month.
+  Future<Either<Failure, CashBoxStatisticsModel>> fetchStatistics();
+
   /// Paginated list of the box's transactions. `transactionType` filters by
-  /// one of the 8 movement types.
+  /// one of the 8 movement types; `fromDate`/`toDate` are inclusive ISO date
+  /// strings (`YYYY-MM-DD`) sent as `date_from`/`date_to`.
   Future<Either<Failure, CashTransactionsPage>> fetchTransactions({
     CashTransactionType? transactionType,
+    String? fromDate,
+    String? toDate,
     int page = 1,
     int perPage = 15,
   });

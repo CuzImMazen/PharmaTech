@@ -2315,52 +2315,76 @@ abstract class AppLocalizations {
   /// **'All'**
   String get cash_box_all_types;
 
+  /// No description provided for @cash_box_statistics.
+  ///
+  /// In en, this message translates to:
+  /// **'Statistics'**
+  String get cash_box_statistics;
+
+  /// No description provided for @cash_box_in.
+  ///
+  /// In en, this message translates to:
+  /// **'In'**
+  String get cash_box_in;
+
+  /// No description provided for @cash_box_out.
+  ///
+  /// In en, this message translates to:
+  /// **'Out'**
+  String get cash_box_out;
+
+  /// No description provided for @cash_box_month.
+  ///
+  /// In en, this message translates to:
+  /// **'Month'**
+  String get cash_box_month;
+
   /// No description provided for @cash_tx_purchase_out.
   ///
   /// In en, this message translates to:
-  /// **'Purchase Out'**
+  /// **'Purchase Payment'**
   String get cash_tx_purchase_out;
 
   /// No description provided for @cash_tx_sale_in.
   ///
   /// In en, this message translates to:
-  /// **'Sale In'**
+  /// **'Sale Collection'**
   String get cash_tx_sale_in;
 
   /// No description provided for @cash_tx_customer_return_out.
   ///
   /// In en, this message translates to:
-  /// **'Customer Return Out'**
+  /// **'Customer Refund'**
   String get cash_tx_customer_return_out;
 
   /// No description provided for @cash_tx_supplier_return_in.
   ///
   /// In en, this message translates to:
-  /// **'Supplier Return In'**
+  /// **'Supplier Refund'**
   String get cash_tx_supplier_return_in;
 
   /// No description provided for @cash_tx_customer_debt_payment_in.
   ///
   /// In en, this message translates to:
-  /// **'Customer Debt Payment In'**
+  /// **'Debt Collection'**
   String get cash_tx_customer_debt_payment_in;
 
   /// No description provided for @cash_tx_supplier_debt_payment_out.
   ///
   /// In en, this message translates to:
-  /// **'Supplier Debt Payment Out'**
+  /// **'Debt Payment'**
   String get cash_tx_supplier_debt_payment_out;
 
   /// No description provided for @cash_tx_manual_in.
   ///
   /// In en, this message translates to:
-  /// **'Manual In'**
+  /// **'Manual Deposit'**
   String get cash_tx_manual_in;
 
   /// No description provided for @cash_tx_manual_out.
   ///
   /// In en, this message translates to:
-  /// **'Manual Out'**
+  /// **'Manual Withdrawal'**
   String get cash_tx_manual_out;
 
   /// No description provided for @debts_title.

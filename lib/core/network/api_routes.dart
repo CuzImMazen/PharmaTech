@@ -116,4 +116,5 @@ class ApiRoutes {
   /// Singular — the pharmacy's single cash box (404 when none exists yet).
   static const String cashBoxes = '/cash-boxes';
   static const String cashBoxTransactions = '/cash-boxes/transactions';
+  static const String cashBoxStatistics = '/cash-boxes/statistics';
 }

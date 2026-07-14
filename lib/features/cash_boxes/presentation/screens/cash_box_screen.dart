@@ -5,19 +5,21 @@ import 'package:pharmacy_app/core/extensions/app_design_system_ext.dart';
 import 'package:pharmacy_app/core/extensions/failure_message_localization_ext.dart';
 import 'package:pharmacy_app/core/extensions/localization_ext.dart';
 import 'package:pharmacy_app/core/theme/app_colors.dart';
+import 'package:pharmacy_app/core/utils/helpers/date_formatter.dart';
 import 'package:pharmacy_app/core/utils/messages/snackbar.dart';
 import 'package:pharmacy_app/core/widgets/custom_button.dart';
 import 'package:pharmacy_app/features/cash_boxes/cubit/cash_box_cubit.dart';
 import 'package:pharmacy_app/features/cash_boxes/cubit/cash_box_state.dart';
 import 'package:pharmacy_app/features/cash_boxes/data/models/cash_box_model.dart';
+import 'package:pharmacy_app/features/cash_boxes/data/models/cash_box_statistics_model.dart';
 import 'package:pharmacy_app/features/cash_boxes/data/models/cash_transaction_model.dart';
 import 'package:pharmacy_app/features/cash_boxes/presentation/widgets/cash_box_shimmer.dart';
 import 'package:pharmacy_app/features/cash_boxes/presentation/widgets/cash_transaction_card.dart';
 
 /// Cash Box screen: the pharmacy's single cash drawer + its transaction log.
 /// When no box exists yet (backend 404), shows a one-time "Create cash box"
-/// setup card; otherwise shows the balance summary and a filterable,
-/// paginated transaction history.
+/// setup card; otherwise shows the balance summary, income/outcome statistics,
+/// a compact filter bar, and a paginated transaction history.
 class CashBoxScreen extends StatefulWidget {
   const CashBoxScreen({super.key});
 
@@ -100,18 +102,53 @@ class _CashBoxScreenState extends State<CashBoxScreen> {
 
               return Column(
                 children: [
-                  _BoxSummaryCard(box: state.cashBox!),
-                  context.vMd,
-                  _TxFilterRow(
-                    selected: state.txFilter,
-                    onSelect: cubit.setTxFilter,
-                  ),
-                  context.vMd,
                   Expanded(
-                    child: _TransactionsList(
-                      state: state,
-                      scrollController: _scrollController,
-                      onRetry: cubit.refresh,
+                    child: RefreshIndicator(
+                      onRefresh: () => cubit.refresh(),
+                      child: CustomScrollView(
+                        controller: _scrollController,
+                        physics: const AlwaysScrollableScrollPhysics(),
+                        slivers: [
+                          SliverPadding(
+                            padding: context.pHorizontal,
+                            sliver: SliverToBoxAdapter(
+                              child: _BoxSummaryCard(box: state.cashBox!),
+                            ),
+                          ),
+                          SliverToBoxAdapter(child: context.vMd),
+                          SliverPadding(
+                            padding: context.pHorizontal,
+                            sliver: SliverToBoxAdapter(
+                              child: _StatisticsCard(
+                                statistics: state.statistics,
+                                isLoading: state.isLoadingStatistics,
+                              ),
+                            ),
+                          ),
+                          SliverToBoxAdapter(child: context.vMd),
+                          SliverPadding(
+                            padding: context.pHorizontal,
+                            sliver: SliverToBoxAdapter(
+                              child: _FilterBar(
+                                selectedType: state.txFilter,
+                                fromDate: state.fromDate,
+                                toDate: state.toDate,
+                                onTapFilters: () => _openFilters(context),
+                                onClearType: () => cubit.setTxFilter(null),
+                                onClearDateRange: () =>
+                                    cubit.setDateRange(from: null, to: null),
+                              ),
+                            ),
+                          ),
+                          SliverToBoxAdapter(child: context.vMd),
+                          if (state.areTransactionsLoading &&
+                              state.transactions.isNotEmpty)
+                            const SliverToBoxAdapter(
+                              child: LinearProgressIndicator(minHeight: 2),
+                            ),
+                          _TransactionsSliver(state: state),
+                        ],
+                      ),
                     ),
                   ),
                 ],
@@ -133,6 +170,22 @@ class _CashBoxScreenState extends State<CashBoxScreen> {
     }
     cubit.createCashBox(value);
   }
+
+  Future<void> _openFilters(BuildContext context) async {
+    final cubit = context.read<CashBoxCubit>();
+    await showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: context.colors.surface,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(context.sXl)),
+      ),
+      builder: (sheetContext) => BlocProvider.value(
+        value: cubit,
+        child: const _TxFilterSheet(),
+      ),
+    );
+  }
 }
 
 class _BoxSummaryCard extends StatelessWidget {
@@ -145,7 +198,6 @@ class _BoxSummaryCard extends StatelessWidget {
     final tr = context.tr;
     return Container(
       width: double.infinity,
-      margin: context.pHorizontal,
       padding: context.pAllLg,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
@@ -262,99 +314,554 @@ class _BalanceField extends StatelessWidget {
   }
 }
 
-class _TxFilterRow extends StatelessWidget {
-  const _TxFilterRow({required this.selected, required this.onSelect});
+enum _StatisticsPeriod { today, week, month }
 
-  final CashTransactionType? selected;
-  final ValueChanged<CashTransactionType?> onSelect;
+class _StatisticsCard extends StatefulWidget {
+  const _StatisticsCard({
+    required this.statistics,
+    required this.isLoading,
+  });
+
+  final CashBoxStatisticsModel? statistics;
+  final bool isLoading;
+
+  @override
+  State<_StatisticsCard> createState() => _StatisticsCardState();
+}
+
+class _StatisticsCardState extends State<_StatisticsCard> {
+  _StatisticsPeriod _period = _StatisticsPeriod.today;
+
+  CashBoxPeriodStatistics? get _currentPeriod {
+    final stats = widget.statistics;
+    if (stats == null) return null;
+    return switch (_period) {
+      _StatisticsPeriod.today => stats.today,
+      _StatisticsPeriod.week => stats.week,
+      _StatisticsPeriod.month => stats.month,
+    };
+  }
 
   @override
   Widget build(BuildContext context) {
     final tr = context.tr;
-    final chips = <_FilterChipData>[
-      _FilterChipData(null, tr.cash_box_all_types),
-      for (final type in CashTransactionType.values)
-        _FilterChipData(type, cashTransactionTypeLabel(type, context.tr)),
-    ];
+    final period = _currentPeriod;
 
-    return SizedBox(
-      height: context.iLg,
-      child: ListView.separated(
-        scrollDirection: Axis.horizontal,
-        padding: context.pHorizontal,
-        itemCount: chips.length,
-        separatorBuilder: (context, index) => context.hXs,
-        itemBuilder: (context, index) {
-          final chip = chips[index];
-          final active = selected == chip.type;
-          return FilterChip(
-            label: Text(chip.label),
-            selected: active,
-            onSelected: (_) => onSelect(active ? null : chip.type),
-            showCheckmark: false,
-          );
-        },
+    return Container(
+      width: double.infinity,
+      padding: context.pAllLg,
+      decoration: BoxDecoration(
+        color: context.colors.surfaceContainer,
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(
+          color: context.colors.outline.withAlpha(170),
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                tr.cash_box_statistics,
+                style: context.text.titleSmall?.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              if (widget.isLoading)
+                SizedBox(
+                  width: context.iSm,
+                  height: context.iSm,
+                  child: CircularProgressIndicator(strokeWidth: 2),
+                ),
+            ],
+          ),
+          context.vMd,
+          Row(
+            children: [
+              _PeriodChip(
+                label: tr.today,
+                selected: _period == _StatisticsPeriod.today,
+                onTap: () => setState(
+                  () => _period = _StatisticsPeriod.today,
+                ),
+              ),
+              context.hSm,
+              _PeriodChip(
+                label: tr.this_week,
+                selected: _period == _StatisticsPeriod.week,
+                onTap: () => setState(
+                  () => _period = _StatisticsPeriod.week,
+                ),
+              ),
+              context.hSm,
+              _PeriodChip(
+                label: tr.cash_box_month,
+                selected: _period == _StatisticsPeriod.month,
+                onTap: () => setState(
+                  () => _period = _StatisticsPeriod.month,
+                ),
+              ),
+            ],
+          ),
+          context.vMd,
+          if (period != null)
+            Row(
+              children: [
+                Expanded(
+                  child: _PeriodStat(
+                    label: tr.cash_box_in,
+                    amount: period.inAmount,
+                    currency: tr.sp,
+                    isIn: true,
+                  ),
+                ),
+                context.hSm,
+                Expanded(
+                  child: _PeriodStat(
+                    label: tr.cash_box_out,
+                    amount: period.outAmount,
+                    currency: tr.sp,
+                    isIn: false,
+                  ),
+                ),
+              ],
+            )
+          else
+            SizedBox(
+              height: context.iLg,
+              child: Center(
+                child: Text(
+                  '—',
+                  style: context.text.bodyMedium?.copyWith(
+                    color: context.muted,
+                  ),
+                ),
+              ),
+            ),
+        ],
       ),
     );
   }
 }
 
-class _TransactionsList extends StatelessWidget {
-  const _TransactionsList({
-    required this.state,
-    required this.scrollController,
-    required this.onRetry,
+class _PeriodChip extends StatelessWidget {
+  const _PeriodChip({
+    required this.label,
+    required this.selected,
+    required this.onTap,
   });
 
-  final CashBoxState state;
-  final ScrollController scrollController;
-  final VoidCallback onRetry;
+  final String label;
+  final bool selected;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return ChoiceChip(
+      label: Text(label),
+      selected: selected,
+      onSelected: (_) => onTap(),
+    );
+  }
+}
+
+class _PeriodStat extends StatelessWidget {
+  const _PeriodStat({
+    required this.label,
+    required this.amount,
+    required this.currency,
+    required this.isIn,
+  });
+
+  final String label;
+  final double amount;
+  final String currency;
+  final bool isIn;
+
+  @override
+  Widget build(BuildContext context) {
+    final color = isIn ? AppColors.cozyEmerald : AppColors.destructive;
+    return Container(
+      padding: context.pAllMd,
+      decoration: BoxDecoration(
+        color: color.withAlpha(25),
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            label,
+            style: context.text.labelSmall?.copyWith(color: color),
+          ),
+          context.vXs,
+          FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Text(
+              '${isIn ? '+' : '-'}${_formatMoney(amount, currency)}',
+              style: context.text.titleMedium?.copyWith(
+                color: color,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _FilterBar extends StatelessWidget {
+  const _FilterBar({
+    required this.selectedType,
+    required this.fromDate,
+    required this.toDate,
+    required this.onTapFilters,
+    required this.onClearType,
+    required this.onClearDateRange,
+  });
+
+  final CashTransactionType? selectedType;
+  final String? fromDate;
+  final String? toDate;
+  final VoidCallback onTapFilters;
+  final VoidCallback onClearType;
+  final VoidCallback onClearDateRange;
 
   @override
   Widget build(BuildContext context) {
     final tr = context.tr;
+    final active =
+        selectedType != null || fromDate != null || toDate != null;
 
-    if (state.areTransactionsLoading && state.transactions.isEmpty) {
-      return const CashBoxShimmer();
-    }
-
-    if (state.failure != null && state.transactions.isEmpty) {
-      return _ErrorState(
-        message: state.failure!.localizedMessage(context),
-        onRetry: onRetry,
-      );
-    }
-
-    if (state.transactions.isEmpty) {
-      return _EmptyState(message: tr.cash_box_no_transactions);
-    }
-
-    return Column(
+    return Row(
       children: [
-        if (state.isRefreshing && state.transactions.isNotEmpty)
-          const LinearProgressIndicator(),
+        OutlinedButton.icon(
+          onPressed: onTapFilters,
+          icon: Icon(Icons.filter_list_rounded, size: context.iSm),
+          label: Text(tr.filter_filters_and_sort),
+          style: OutlinedButton.styleFrom(
+            foregroundColor:
+                active ? context.primary : context.colors.onSurface,
+            side: BorderSide(
+              color: active ? context.primary : context.muted.withAlpha(120),
+            ),
+          ),
+        ),
+        context.hSm,
         Expanded(
-          child: RefreshIndicator(
-            onRefresh: () => context.read<CashBoxCubit>().refreshTransactions(),
-            child: ListView.separated(
-              controller: scrollController,
-              physics: const AlwaysScrollableScrollPhysics(),
-              padding: context.pHorizontal,
-              itemCount:
-                  state.transactions.length + (state.isLoadingMore ? 1 : 0),
-              separatorBuilder: (context, index) => context.vMd,
-              itemBuilder: (context, index) {
-                if (index >= state.transactions.length) {
-                  return const Center(child: CircularProgressIndicator());
-                }
-                return CashTransactionCard(
-                  transaction: state.transactions[index],
-                );
-              },
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: [
+                if (selectedType != null)
+                  _ActiveFilterChip(
+                    label: cashTransactionTypeLabel(selectedType!, tr),
+                    onClear: onClearType,
+                  ),
+                if (fromDate != null || toDate != null)
+                  _ActiveFilterChip(
+                    label: _formatDateRange(fromDate, toDate),
+                    onClear: onClearDateRange,
+                  ),
+              ],
             ),
           ),
         ),
       ],
+    );
+  }
+
+  String _formatDateRange(String? from, String? to) {
+    final f = DateFormatter.toDateOnly(from);
+    final t = DateFormatter.toDateOnly(to);
+    if (f != null && t != null && f == t) return f;
+    if (f != null && t != null) return '$f → $t';
+    return f ?? t ?? '';
+  }
+}
+
+class _ActiveFilterChip extends StatelessWidget {
+  const _ActiveFilterChip({required this.label, required this.onClear});
+
+  final String label;
+  final VoidCallback onClear;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(right: context.sSm),
+      child: Chip(
+        label: Text(label),
+        labelStyle: context.text.labelSmall?.copyWith(
+          color: context.primary,
+          fontWeight: FontWeight.w600,
+        ),
+        backgroundColor: context.primary.withAlpha(25),
+        side: BorderSide(color: context.primary.withAlpha(80)),
+        visualDensity: VisualDensity.compact,
+        deleteIcon: Icon(Icons.close_rounded, size: context.iXs),
+        onDeleted: onClear,
+        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+      ),
+    );
+  }
+}
+
+class _TxFilterSheet extends StatefulWidget {
+  const _TxFilterSheet();
+
+  @override
+  State<_TxFilterSheet> createState() => _TxFilterSheetState();
+}
+
+class _TxFilterSheetState extends State<_TxFilterSheet> {
+  CashTransactionType? _type;
+  DateTime? _from;
+  DateTime? _to;
+
+  @override
+  void initState() {
+    super.initState();
+    final cubit = context.read<CashBoxCubit>();
+    _type = cubit.state.txFilter;
+    _from = _parse(cubit.state.fromDate);
+    _to = _parse(cubit.state.toDate);
+  }
+
+  DateTime? _parse(String? iso) {
+    if (iso == null || iso.isEmpty) return null;
+    return DateTime.tryParse(iso);
+  }
+
+  String? _format(DateTime? date) {
+    if (date == null) return null;
+    return '${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}';
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final tr = context.tr;
+    final cubit = context.read<CashBoxCubit>();
+
+    return SafeArea(
+      child: Padding(
+        padding: context.pAllLg,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              tr.filter_filters,
+              style: context.text.titleMedium?.copyWith(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            context.vMd,
+            Text(tr.cash_box_all_types, style: context.text.titleSmall),
+            context.vSm,
+            Wrap(
+              spacing: context.sSm,
+              runSpacing: context.sSm,
+              children: [
+                _Chip(
+                  label: tr.filter_all,
+                  selected: _type == null,
+                  onTap: () => setState(() => _type = null),
+                ),
+                for (final type in CashTransactionType.values)
+                  _Chip(
+                    label: cashTransactionTypeLabel(type, tr),
+                    selected: _type == type,
+                    onTap: () => setState(() => _type = type),
+                  ),
+              ],
+            ),
+            context.vMd,
+            Text(tr.filter_expiry_date, style: context.text.titleSmall),
+            context.vSm,
+            Row(
+              children: [
+                Expanded(
+                  child: _DateField(
+                    hint: tr.filter_from,
+                    date: _from,
+                    onTap: () => _pickDate(isFrom: true),
+                  ),
+                ),
+                context.hSm,
+                Expanded(
+                  child: _DateField(
+                    hint: tr.filter_to,
+                    date: _to,
+                    onTap: () => _pickDate(isFrom: false),
+                  ),
+                ),
+              ],
+            ),
+            context.vLg,
+            Row(
+              children: [
+                Expanded(
+                  child: TextButton(
+                    onPressed: () {
+                      cubit.clearFilters();
+                      Navigator.of(context).pop();
+                    },
+                    child: Text(tr.filter_reset),
+                  ),
+                ),
+                context.hSm,
+                Expanded(
+                  flex: 2,
+                  child: CustomButton(
+                    onTap: () {
+                      cubit.setTxFilter(_type);
+                      cubit.setDateRange(
+                        from: _format(_from),
+                        to: _format(_to),
+                      );
+                      Navigator.of(context).pop();
+                    },
+                    child: Text(tr.filter_show_results),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Future<void> _pickDate({required bool isFrom}) async {
+    final initial = isFrom ? _from : _to;
+    final picked = await showDatePicker(
+      context: context,
+      initialDate: initial ?? DateTime.now(),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2100),
+    );
+    if (picked == null) return;
+    setState(() {
+      if (isFrom) {
+        _from = picked;
+        if (_to != null && _to!.isBefore(_from!)) _to = _from;
+      } else {
+        _to = picked;
+        if (_from != null && _from!.isAfter(_to!)) _from = _to;
+      }
+    });
+  }
+}
+
+class _DateField extends StatelessWidget {
+  const _DateField({
+    required this.hint,
+    required this.date,
+    required this.onTap,
+  });
+
+  final String hint;
+  final DateTime? date;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final value = date == null
+        ? hint
+        : '${date!.year}-${date!.month.toString().padLeft(2, '0')}-${date!.day.toString().padLeft(2, '0')}';
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(12),
+      child: InputDecorator(
+        decoration: InputDecoration(
+          hintText: hint,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          contentPadding: EdgeInsets.symmetric(
+            horizontal: context.sMd,
+            vertical: context.sSm,
+          ),
+        ),
+        child: Text(
+          value,
+          style: context.text.bodyMedium?.copyWith(
+            color: date == null ? context.muted : null,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _Chip extends StatelessWidget {
+  const _Chip({
+    required this.label,
+    required this.selected,
+    required this.onTap,
+  });
+
+  final String label;
+  final bool selected;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return ChoiceChip(
+      label: Text(label),
+      selected: selected,
+      onSelected: (_) => onTap(),
+    );
+  }
+}
+
+class _TransactionsSliver extends StatelessWidget {
+  const _TransactionsSliver({required this.state});
+
+  final CashBoxState state;
+
+  @override
+  Widget build(BuildContext context) {
+    final tr = context.tr;
+    final cubit = context.read<CashBoxCubit>();
+
+    if (state.areTransactionsLoading && state.transactions.isEmpty) {
+      return const SliverFillRemaining(child: CashBoxShimmer());
+    }
+
+    if (state.failure != null && state.transactions.isEmpty) {
+      return SliverFillRemaining(
+        child: _ErrorState(
+          message: state.failure!.localizedMessage(context),
+          onRetry: cubit.refreshTransactions,
+        ),
+      );
+    }
+
+    if (state.transactions.isEmpty) {
+      return SliverFillRemaining(
+        child: _EmptyState(message: tr.cash_box_no_transactions),
+      );
+    }
+
+    return SliverPadding(
+      padding: context.pHorizontal,
+      sliver: SliverList.separated(
+        itemCount: state.transactions.length + (state.isLoadingMore ? 1 : 0),
+        separatorBuilder: (context, index) => context.vMd,
+        itemBuilder: (context, index) {
+          if (index >= state.transactions.length) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          return CashTransactionCard(
+            transaction: state.transactions[index],
+          );
+        },
+      ),
     );
   }
 }
@@ -530,12 +1037,6 @@ class _ErrorState extends StatelessWidget {
       ),
     );
   }
-}
-
-class _FilterChipData {
-  const _FilterChipData(this.type, this.label);
-  final CashTransactionType? type;
-  final String label;
 }
 
 /// Formats a monetary amount with two decimals + the given currency suffix.

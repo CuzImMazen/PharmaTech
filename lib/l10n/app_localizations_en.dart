@@ -1127,28 +1127,40 @@ class AppLocalizationsEn extends AppLocalizations {
   String get cash_box_all_types => 'All';
 
   @override
-  String get cash_tx_purchase_out => 'Purchase Out';
+  String get cash_box_statistics => 'Statistics';
 
   @override
-  String get cash_tx_sale_in => 'Sale In';
+  String get cash_box_in => 'In';
 
   @override
-  String get cash_tx_customer_return_out => 'Customer Return Out';
+  String get cash_box_out => 'Out';
 
   @override
-  String get cash_tx_supplier_return_in => 'Supplier Return In';
+  String get cash_box_month => 'Month';
 
   @override
-  String get cash_tx_customer_debt_payment_in => 'Customer Debt Payment In';
+  String get cash_tx_purchase_out => 'Purchase Payment';
 
   @override
-  String get cash_tx_supplier_debt_payment_out => 'Supplier Debt Payment Out';
+  String get cash_tx_sale_in => 'Sale Collection';
 
   @override
-  String get cash_tx_manual_in => 'Manual In';
+  String get cash_tx_customer_return_out => 'Customer Refund';
 
   @override
-  String get cash_tx_manual_out => 'Manual Out';
+  String get cash_tx_supplier_return_in => 'Supplier Refund';
+
+  @override
+  String get cash_tx_customer_debt_payment_in => 'Debt Collection';
+
+  @override
+  String get cash_tx_supplier_debt_payment_out => 'Debt Payment';
+
+  @override
+  String get cash_tx_manual_in => 'Manual Deposit';
+
+  @override
+  String get cash_tx_manual_out => 'Manual Withdrawal';
 
   @override
   String get debts_title => 'Supplier Debts';

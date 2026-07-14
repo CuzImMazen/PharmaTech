@@ -5,6 +5,7 @@ import 'package:pharmacy_app/core/network/api_parser.dart';
 import 'package:pharmacy_app/core/network/api_routes.dart';
 import 'package:pharmacy_app/core/network/dio_helper.dart';
 import 'package:pharmacy_app/features/cash_boxes/data/models/cash_box_model.dart';
+import 'package:pharmacy_app/features/cash_boxes/data/models/cash_box_statistics_model.dart';
 import 'package:pharmacy_app/features/cash_boxes/data/models/cash_transaction_model.dart';
 import 'package:pharmacy_app/features/cash_boxes/data/models/cash_transactions_page.dart';
 
@@ -51,14 +52,32 @@ class CashBoxRepositoryImpl implements CashBoxRepository {
   }
 
   @override
+  Future<Either<Failure, CashBoxStatisticsModel>> fetchStatistics() async {
+    try {
+      final response = await api.get(ApiRoutes.cashBoxStatistics);
+      final statistics = ApiParser.parse(
+        response.data,
+        CashBoxStatisticsModel.fromJson,
+      );
+      return Right(statistics);
+    } catch (e) {
+      return Left(ApiErrorHandler.handle(e));
+    }
+  }
+
+  @override
   Future<Either<Failure, CashTransactionsPage>> fetchTransactions({
     CashTransactionType? transactionType,
+    String? fromDate,
+    String? toDate,
     int page = 1,
     int perPage = 15,
   }) async {
     try {
       final queryParameters = <String, dynamic>{
         'transaction_type': transactionType?.backendValue,
+        'date_from': fromDate,
+        'date_to': toDate,
         'page': page,
         'per_page': perPage,
       }..removeWhere((key, value) => value == null);

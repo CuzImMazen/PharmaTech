@@ -1127,28 +1127,40 @@ class AppLocalizationsAr extends AppLocalizations {
   String get cash_box_all_types => 'الكل';
 
   @override
-  String get cash_tx_purchase_out => 'شراء إخراج';
+  String get cash_box_statistics => 'إحصائيات';
 
   @override
-  String get cash_tx_sale_in => 'بيع إدخال';
+  String get cash_box_in => 'وارد';
 
   @override
-  String get cash_tx_customer_return_out => 'إرجاع عميل إخراج';
+  String get cash_box_out => 'منصرف';
 
   @override
-  String get cash_tx_supplier_return_in => 'إرجاع مورد إدخال';
+  String get cash_box_month => 'الشهر';
 
   @override
-  String get cash_tx_customer_debt_payment_in => 'سداد دين عميل إدخال';
+  String get cash_tx_purchase_out => 'دفع مشتريات';
 
   @override
-  String get cash_tx_supplier_debt_payment_out => 'سداد دين مورد إخراج';
+  String get cash_tx_sale_in => 'تحصيل مبيعات';
 
   @override
-  String get cash_tx_manual_in => 'إدخال يدوي';
+  String get cash_tx_customer_return_out => 'مرتجع عميل (دفع)';
 
   @override
-  String get cash_tx_manual_out => 'إخراج يدوي';
+  String get cash_tx_supplier_return_in => 'مرتجع مورد (استرداد)';
+
+  @override
+  String get cash_tx_customer_debt_payment_in => 'تحصيل دين عميل';
+
+  @override
+  String get cash_tx_supplier_debt_payment_out => 'سداد دين مورد';
+
+  @override
+  String get cash_tx_manual_in => 'إيداع يدوي';
+
+  @override
+  String get cash_tx_manual_out => 'سحب يدوي';
 
   @override
   String get debts_title => 'ديون الموردين';
