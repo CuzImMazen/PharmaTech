@@ -12,10 +12,3 @@ BaseUnitModel _$BaseUnitModelFromJson(Map<String, dynamic> json) =>
       name: json['name'] as String,
       type: json['type'] as String,
     );
-
-Map<String, dynamic> _$BaseUnitModelToJson(BaseUnitModel instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'name': instance.name,
-      'type': instance.type,
-    };

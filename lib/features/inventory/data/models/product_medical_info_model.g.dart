@@ -20,18 +20,3 @@ ProductMedicalInfoModel _$ProductMedicalInfoModelFromJson(
   drugInteractions: json['drug_interactions'] as String?,
   doseInfo: json['dose_info'] as String?,
 );
-
-Map<String, dynamic> _$ProductMedicalInfoModelToJson(
-  ProductMedicalInfoModel instance,
-) => <String, dynamic>{
-  'id': instance.id,
-  'indications': instance.indications,
-  'contraindications': instance.contraindications,
-  'overdose': instance.overdose,
-  'pregnancy_safety': instance.pregnancySafety,
-  'lactation_safety': instance.lactationSafety,
-  'warnings': instance.warnings,
-  'side_effects': instance.sideEffects,
-  'drug_interactions': instance.drugInteractions,
-  'dose_info': instance.doseInfo,
-};

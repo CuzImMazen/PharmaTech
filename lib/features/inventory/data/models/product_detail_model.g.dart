@@ -42,30 +42,3 @@ ProductDetailModel _$ProductDetailModelFromJson(Map<String, dynamic> json) =>
       medicalInfo: ProductMedicalInfoModel.fromJsonOrNull(json['medical_info']),
       deletedAt: json['deleted_at'] as String?,
     );
-
-Map<String, dynamic> _$ProductDetailModelToJson(ProductDetailModel instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'barcode': instance.barcode,
-      'brand_name': instance.brandName,
-      'scientific_name': instance.scientificName,
-      'ar_name': instance.arName,
-      'strength': instance.strength,
-      'prescription_required': instance.prescriptionRequired,
-      'buying_price': instance.buyingPrice,
-      'selling_price': instance.sellingPrice,
-      'total_quantity': instance.totalQuantity,
-      'tax_rate': instance.taxRate,
-      'discount_rate': instance.discountRate,
-      'min_stock': instance.minStock,
-      'units_per_base': instance.unitsPerBase,
-      'allow_partial_selling': instance.allowPartialSelling,
-      'nearest_expiry': instance.nearestExpiry,
-      'shelf': instance.shelf,
-      'base_unit': instance.baseUnit,
-      'selling_unit': instance.sellingUnit,
-      'company': instance.company,
-      'medical_info': instance.medicalInfo,
-      'category': instance.category,
-      'deleted_at': instance.deletedAt,
-    };

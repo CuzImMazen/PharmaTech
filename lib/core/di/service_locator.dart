@@ -57,6 +57,9 @@ import 'package:pharmacy_app/features/customer_return_invoices/data/repo/custome
 import 'package:pharmacy_app/features/supplier_return_invoices/data/repo/supplier_return_invoice_repository.dart';
 import 'package:pharmacy_app/features/supplier_return_invoices/data/repo/supplier_return_invoice_repository_impl.dart';
 
+import 'package:pharmacy_app/features/reports/data/repo/reports_repository.dart';
+import 'package:pharmacy_app/features/reports/data/repo/reports_repository_impl.dart';
+
 final sl = GetIt.instance;
 
 Future<void> setupLocator() async {
@@ -166,6 +169,10 @@ Future<void> setupLocator() async {
 
   sl.registerLazySingleton<SupplierReturnInvoiceRepository>(
     () => SupplierReturnInvoiceRepositoryImpl(api: sl<DioApiHelper>()),
+  );
+
+  sl.registerLazySingleton<ReportsRepository>(
+    () => ReportsRepositoryImpl(api: sl<DioApiHelper>()),
   );
 
   //Session Cubit

@@ -1940,4 +1940,139 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get return_invoice_qty_exceeds_original => 'كمية الاسترجاع تتجاوز الكمية الأصلية لهذا المنتج في الفاتورة.';
+
+  @override
+  String get reports_title => 'التقارير';
+
+  @override
+  String get reports_sales => 'المبيعات';
+
+  @override
+  String get reports_top_products => 'المنتجات الأكثر مبيعاً';
+
+  @override
+  String get reports_profit => 'الأرباح';
+
+  @override
+  String get reports_supplier_prices => 'أسعار الموردين';
+
+  @override
+  String get reports_inventory_value => 'قيمة المخزون';
+
+  @override
+  String get reports_stock_health => 'صحة المخزون';
+
+  @override
+  String get reports_period => 'الفترة';
+
+  @override
+  String get reports_period_daily => 'يومي';
+
+  @override
+  String get reports_period_weekly => 'أسبوعي';
+
+  @override
+  String get reports_period_monthly => 'شهري';
+
+  @override
+  String get reports_date_range => 'نطاق التاريخ';
+
+  @override
+  String get reports_date_from => 'من';
+
+  @override
+  String get reports_date_to => 'إلى';
+
+  @override
+  String get reports_limit => 'الحد';
+
+  @override
+  String get reports_select_product => 'اختر منتجاً';
+
+  @override
+  String get reports_no_product_selected => 'اختر منتجاً لعرض أسعار الموردين.';
+
+  @override
+  String get reports_expiry_days => 'أيام الصلاحية';
+
+  @override
+  String get reports_expiring_soon => 'تنتهي قريباً';
+
+  @override
+  String get reports_low_stock => 'مخزون منخفض';
+
+  @override
+  String get reports_dead_stock => 'مخزون راكد';
+
+  @override
+  String get reports_total_revenue => 'إجمالي الإيرادات';
+
+  @override
+  String get reports_total_invoices => 'إجمالي الفواتير';
+
+  @override
+  String get reports_units_sold => 'الوحدات المباعة';
+
+  @override
+  String get reports_avg_invoice => 'متوسط الفاتورة';
+
+  @override
+  String get reports_total_collected => 'المحصل';
+
+  @override
+  String get reports_total_outstanding => 'المستحق';
+
+  @override
+  String get reports_total_cost => 'إجمالي التكلفة';
+
+  @override
+  String get reports_total_profit => 'إجمالي الربح';
+
+  @override
+  String get reports_overall_margin => 'هامش الربح الإجمالي';
+
+  @override
+  String get reports_buying_price => 'سعر الشراء';
+
+  @override
+  String get reports_selling_price => 'سعر البيع';
+
+  @override
+  String get reports_margin => 'الهامش';
+
+  @override
+  String get reports_rank => 'الترتيب';
+
+  @override
+  String get reports_category => 'الفئة';
+
+  @override
+  String get reports_batch_number => 'رقم الدفعة';
+
+  @override
+  String get reports_invoice_date => 'تاريخ الفاتورة';
+
+  @override
+  String get reports_supplier => 'المورد';
+
+  @override
+  String get reports_cost_value => 'التكلفة';
+
+  @override
+  String get reports_selling_value => 'قيمة البيع';
+
+  @override
+  String get reports_potential_profit => 'الربح المتوقع';
+
+  @override
+  String get reports_quantity => 'الكمية';
+
+  @override
+  String get reports_no_data_hint => 'لا توجد بيانات. اسحب للأسفل أو اضغط إعادة المحاولة للتحديث.';
+
+  @override
+  String get reports_load_error => 'تعذّر تحميل التقرير الآن.';
+
+  @override
+  String get reports_empty_hint => 'لا توجد نتائج تطابق الفلاتر المختارة.';
 }

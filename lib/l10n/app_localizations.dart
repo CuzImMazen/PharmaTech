@@ -3940,6 +3940,276 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Return quantity exceeds the original invoice quantity for this product.'**
   String get return_invoice_qty_exceeds_original;
+
+  /// No description provided for @reports_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Reports'**
+  String get reports_title;
+
+  /// No description provided for @reports_sales.
+  ///
+  /// In en, this message translates to:
+  /// **'Sales'**
+  String get reports_sales;
+
+  /// No description provided for @reports_top_products.
+  ///
+  /// In en, this message translates to:
+  /// **'Top Products'**
+  String get reports_top_products;
+
+  /// No description provided for @reports_profit.
+  ///
+  /// In en, this message translates to:
+  /// **'Profit'**
+  String get reports_profit;
+
+  /// No description provided for @reports_supplier_prices.
+  ///
+  /// In en, this message translates to:
+  /// **'Supplier Prices'**
+  String get reports_supplier_prices;
+
+  /// No description provided for @reports_inventory_value.
+  ///
+  /// In en, this message translates to:
+  /// **'Inventory Value'**
+  String get reports_inventory_value;
+
+  /// No description provided for @reports_stock_health.
+  ///
+  /// In en, this message translates to:
+  /// **'Stock Health'**
+  String get reports_stock_health;
+
+  /// No description provided for @reports_period.
+  ///
+  /// In en, this message translates to:
+  /// **'Period'**
+  String get reports_period;
+
+  /// No description provided for @reports_period_daily.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily'**
+  String get reports_period_daily;
+
+  /// No description provided for @reports_period_weekly.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly'**
+  String get reports_period_weekly;
+
+  /// No description provided for @reports_period_monthly.
+  ///
+  /// In en, this message translates to:
+  /// **'Monthly'**
+  String get reports_period_monthly;
+
+  /// No description provided for @reports_date_range.
+  ///
+  /// In en, this message translates to:
+  /// **'Date Range'**
+  String get reports_date_range;
+
+  /// No description provided for @reports_date_from.
+  ///
+  /// In en, this message translates to:
+  /// **'From'**
+  String get reports_date_from;
+
+  /// No description provided for @reports_date_to.
+  ///
+  /// In en, this message translates to:
+  /// **'To'**
+  String get reports_date_to;
+
+  /// No description provided for @reports_limit.
+  ///
+  /// In en, this message translates to:
+  /// **'Limit'**
+  String get reports_limit;
+
+  /// No description provided for @reports_select_product.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Product'**
+  String get reports_select_product;
+
+  /// No description provided for @reports_no_product_selected.
+  ///
+  /// In en, this message translates to:
+  /// **'Select a product to view supplier prices.'**
+  String get reports_no_product_selected;
+
+  /// No description provided for @reports_expiry_days.
+  ///
+  /// In en, this message translates to:
+  /// **'Expiry Days'**
+  String get reports_expiry_days;
+
+  /// No description provided for @reports_expiring_soon.
+  ///
+  /// In en, this message translates to:
+  /// **'Expiring Soon'**
+  String get reports_expiring_soon;
+
+  /// No description provided for @reports_low_stock.
+  ///
+  /// In en, this message translates to:
+  /// **'Low Stock'**
+  String get reports_low_stock;
+
+  /// No description provided for @reports_dead_stock.
+  ///
+  /// In en, this message translates to:
+  /// **'Dead Stock'**
+  String get reports_dead_stock;
+
+  /// No description provided for @reports_total_revenue.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Revenue'**
+  String get reports_total_revenue;
+
+  /// No description provided for @reports_total_invoices.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Invoices'**
+  String get reports_total_invoices;
+
+  /// No description provided for @reports_units_sold.
+  ///
+  /// In en, this message translates to:
+  /// **'Units Sold'**
+  String get reports_units_sold;
+
+  /// No description provided for @reports_avg_invoice.
+  ///
+  /// In en, this message translates to:
+  /// **'Avg. Invoice'**
+  String get reports_avg_invoice;
+
+  /// No description provided for @reports_total_collected.
+  ///
+  /// In en, this message translates to:
+  /// **'Collected'**
+  String get reports_total_collected;
+
+  /// No description provided for @reports_total_outstanding.
+  ///
+  /// In en, this message translates to:
+  /// **'Outstanding'**
+  String get reports_total_outstanding;
+
+  /// No description provided for @reports_total_cost.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Cost'**
+  String get reports_total_cost;
+
+  /// No description provided for @reports_total_profit.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Profit'**
+  String get reports_total_profit;
+
+  /// No description provided for @reports_overall_margin.
+  ///
+  /// In en, this message translates to:
+  /// **'Overall Margin'**
+  String get reports_overall_margin;
+
+  /// No description provided for @reports_buying_price.
+  ///
+  /// In en, this message translates to:
+  /// **'Buying Price'**
+  String get reports_buying_price;
+
+  /// No description provided for @reports_selling_price.
+  ///
+  /// In en, this message translates to:
+  /// **'Selling Price'**
+  String get reports_selling_price;
+
+  /// No description provided for @reports_margin.
+  ///
+  /// In en, this message translates to:
+  /// **'Margin'**
+  String get reports_margin;
+
+  /// No description provided for @reports_rank.
+  ///
+  /// In en, this message translates to:
+  /// **'Rank'**
+  String get reports_rank;
+
+  /// No description provided for @reports_category.
+  ///
+  /// In en, this message translates to:
+  /// **'Category'**
+  String get reports_category;
+
+  /// No description provided for @reports_batch_number.
+  ///
+  /// In en, this message translates to:
+  /// **'Batch No.'**
+  String get reports_batch_number;
+
+  /// No description provided for @reports_invoice_date.
+  ///
+  /// In en, this message translates to:
+  /// **'Invoice Date'**
+  String get reports_invoice_date;
+
+  /// No description provided for @reports_supplier.
+  ///
+  /// In en, this message translates to:
+  /// **'Supplier'**
+  String get reports_supplier;
+
+  /// No description provided for @reports_cost_value.
+  ///
+  /// In en, this message translates to:
+  /// **'Cost Value'**
+  String get reports_cost_value;
+
+  /// No description provided for @reports_selling_value.
+  ///
+  /// In en, this message translates to:
+  /// **'Selling Value'**
+  String get reports_selling_value;
+
+  /// No description provided for @reports_potential_profit.
+  ///
+  /// In en, this message translates to:
+  /// **'Potential Profit'**
+  String get reports_potential_profit;
+
+  /// No description provided for @reports_quantity.
+  ///
+  /// In en, this message translates to:
+  /// **'Quantity'**
+  String get reports_quantity;
+
+  /// No description provided for @reports_no_data_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'No data available. Pull down or tap retry to refresh.'**
+  String get reports_no_data_hint;
+
+  /// No description provided for @reports_load_error.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t load report right now.'**
+  String get reports_load_error;
+
+  /// No description provided for @reports_empty_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'No records match the selected filters.'**
+  String get reports_empty_hint;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pharmacy_app/core/di/service_locator.dart';
@@ -44,6 +43,9 @@ import 'package:pharmacy_app/features/inventory/presentation/screens/product_det
 import 'package:pharmacy_app/features/inventory/presentation/screens/product_form_screen.dart';
 import 'package:pharmacy_app/features/layout/presentation/screen/layout_screen.dart';
 import 'package:pharmacy_app/features/onboarding/presentation/screens/onboarding_screen.dart';
+import 'package:pharmacy_app/features/reports/cubit/reports_cubit.dart';
+import 'package:pharmacy_app/features/reports/data/repo/reports_repository.dart';
+import 'package:pharmacy_app/features/reports/presentation/screens/reports_screen.dart';
 import 'package:pharmacy_app/features/settings/presentation/screens/settings_screen.dart';
 import 'package:pharmacy_app/features/splash/presentation/screens/splash_screen.dart';
 import 'package:pharmacy_app/features/suppliers/cubit/supplier_cubit.dart';
@@ -756,8 +758,13 @@ class AppRoutes {
           routes: [
             GoRoute(
               path: AppRoutesKeys.reports,
-              builder: (context, state) =>
-                  const Scaffold(body: Center(child: Text('Reports Screen'))),
+              builder: (context, state) => BlocProvider(
+                create: (context) => ReportsCubit(
+                  reportsRepository: sl<ReportsRepository>(),
+                  inventoryRepository: sl<InventoryRepository>(),
+                )..loadSelectedReport(),
+                child: const ReportsScreen(),
+              ),
             ),
           ],
         ),

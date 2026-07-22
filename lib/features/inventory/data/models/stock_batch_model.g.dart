@@ -21,19 +21,6 @@ StockBatchModel _$StockBatchModelFromJson(Map<String, dynamic> json) =>
           StockBatchStatus.active,
     );
 
-Map<String, dynamic> _$StockBatchModelToJson(StockBatchModel instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'product_id': instance.productId,
-      'batch_number': instance.batchNumber,
-      'expiry_date': instance.expiryDate,
-      'purchase_price': instance.purchasePrice,
-      'selling_price': instance.sellingPrice,
-      'quantity_on_hand': instance.quantityOnHand,
-      'received_at': instance.receivedAt,
-      'status': _$StockBatchStatusEnumMap[instance.status]!,
-    };
-
 const _$StockBatchStatusEnumMap = {
   StockBatchStatus.active: 'active',
   StockBatchStatus.expired: 'expired',

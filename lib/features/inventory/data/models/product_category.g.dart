@@ -13,11 +13,3 @@ ProductCategoryModel _$ProductCategoryModelFromJson(
   json['name'] as String,
   json['description'] as String?,
 );
-
-Map<String, dynamic> _$ProductCategoryModelToJson(
-  ProductCategoryModel instance,
-) => <String, dynamic>{
-  'id': instance.id,
-  'name': instance.name,
-  'description': instance.description,
-};

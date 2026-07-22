@@ -124,4 +124,13 @@ class ApiRoutes {
   static const String dashboardCards = '/dashboard/cards';
   static const String dashboardWeeklyRevenue = '/dashboard/weekly-revenue';
   static const String dashboardTransactions = '/dashboard/transactions';
+
+  // ================= REPORTS =================
+
+  static const String reportsSales = '/reports/sales';
+  static const String reportsTopProducts = '/reports/top-products';
+  static const String reportsProfit = '/reports/profit';
+  static const String reportsSupplierPrices = '/reports/supplier-prices';
+  static const String reportsInventoryValue = '/reports/inventory-value';
+  static const String reportsStockHealth = '/reports/stock-health';
 }

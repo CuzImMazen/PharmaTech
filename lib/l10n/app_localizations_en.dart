@@ -1940,4 +1940,139 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get return_invoice_qty_exceeds_original => 'Return quantity exceeds the original invoice quantity for this product.';
+
+  @override
+  String get reports_title => 'Reports';
+
+  @override
+  String get reports_sales => 'Sales';
+
+  @override
+  String get reports_top_products => 'Top Products';
+
+  @override
+  String get reports_profit => 'Profit';
+
+  @override
+  String get reports_supplier_prices => 'Supplier Prices';
+
+  @override
+  String get reports_inventory_value => 'Inventory Value';
+
+  @override
+  String get reports_stock_health => 'Stock Health';
+
+  @override
+  String get reports_period => 'Period';
+
+  @override
+  String get reports_period_daily => 'Daily';
+
+  @override
+  String get reports_period_weekly => 'Weekly';
+
+  @override
+  String get reports_period_monthly => 'Monthly';
+
+  @override
+  String get reports_date_range => 'Date Range';
+
+  @override
+  String get reports_date_from => 'From';
+
+  @override
+  String get reports_date_to => 'To';
+
+  @override
+  String get reports_limit => 'Limit';
+
+  @override
+  String get reports_select_product => 'Select Product';
+
+  @override
+  String get reports_no_product_selected => 'Select a product to view supplier prices.';
+
+  @override
+  String get reports_expiry_days => 'Expiry Days';
+
+  @override
+  String get reports_expiring_soon => 'Expiring Soon';
+
+  @override
+  String get reports_low_stock => 'Low Stock';
+
+  @override
+  String get reports_dead_stock => 'Dead Stock';
+
+  @override
+  String get reports_total_revenue => 'Total Revenue';
+
+  @override
+  String get reports_total_invoices => 'Total Invoices';
+
+  @override
+  String get reports_units_sold => 'Units Sold';
+
+  @override
+  String get reports_avg_invoice => 'Avg. Invoice';
+
+  @override
+  String get reports_total_collected => 'Collected';
+
+  @override
+  String get reports_total_outstanding => 'Outstanding';
+
+  @override
+  String get reports_total_cost => 'Total Cost';
+
+  @override
+  String get reports_total_profit => 'Total Profit';
+
+  @override
+  String get reports_overall_margin => 'Overall Margin';
+
+  @override
+  String get reports_buying_price => 'Buying Price';
+
+  @override
+  String get reports_selling_price => 'Selling Price';
+
+  @override
+  String get reports_margin => 'Margin';
+
+  @override
+  String get reports_rank => 'Rank';
+
+  @override
+  String get reports_category => 'Category';
+
+  @override
+  String get reports_batch_number => 'Batch No.';
+
+  @override
+  String get reports_invoice_date => 'Invoice Date';
+
+  @override
+  String get reports_supplier => 'Supplier';
+
+  @override
+  String get reports_cost_value => 'Cost Value';
+
+  @override
+  String get reports_selling_value => 'Selling Value';
+
+  @override
+  String get reports_potential_profit => 'Potential Profit';
+
+  @override
+  String get reports_quantity => 'Quantity';
+
+  @override
+  String get reports_no_data_hint => 'No data available. Pull down or tap retry to refresh.';
+
+  @override
+  String get reports_load_error => 'Couldn\'t load report right now.';
+
+  @override
+  String get reports_empty_hint => 'No records match the selected filters.';
 }

@@ -21,17 +21,3 @@ SupplierModel _$SupplierModelFromJson(Map<String, dynamic> json) =>
       createdAt: json['created_at'] as String?,
       updatedAt: json['updated_at'] as String?,
     );
-
-Map<String, dynamic> _$SupplierModelToJson(SupplierModel instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'name': instance.name,
-      'phone': instance.phone,
-      'email': instance.email,
-      'address': instance.address,
-      'notes': instance.notes,
-      'deleted_at': instance.deletedAt,
-      'company': instance.company,
-      'created_at': instance.createdAt,
-      'updated_at': instance.updatedAt,
-    };
