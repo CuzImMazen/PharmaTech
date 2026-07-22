@@ -18,6 +18,7 @@ abstract class CustomerReturnInvoiceFormState
     @Default(<ProductCardModel>[]) List<ProductCardModel> products,
     @Default(false) bool isOptionsLoading,
     @Default(false) bool hasOptionsError,
+    Failure? optionsFailure,
 
     CustomerModel? selectedCustomer,
 

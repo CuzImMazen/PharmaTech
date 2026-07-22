@@ -451,6 +451,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get dashboard_tx_supplier_return => 'Supplier Return';
 
   @override
+  String get dashboard_no_data_hint => 'No data available. Pull down or tap retry to refresh.';
+
+  @override
   String get low => 'Low';
 
   @override
@@ -1374,6 +1377,15 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get invoice_item_product => 'Product';
+
+  @override
+  String get dropdown_loading => 'Loading…';
+
+  @override
+  String get dropdown_failed => 'Failed to load';
+
+  @override
+  String get dropdown_tap_to_retry => 'Tap to retry';
 
   @override
   String get invoice_item_quantity => 'Quantity';

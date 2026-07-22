@@ -26,16 +26,26 @@ class TodayRevenueSection extends StatelessWidget {
         final invoiceCount = header?.todayInvoiceCount ?? 0;
         final avgInvoice = header?.todayAvgInvoice ?? 0;
         final unitsSold = header?.todayUnitsSold ?? 0;
+        final hasHeader = header != null;
 
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              context.tr.today_revenue,
-              style: context.text.titleSmall?.copyWith(
-                fontSize: 14,
-                color: Colors.white.withAlpha(153),
-              ),
+            Row(
+              children: [
+                Text(
+                  context.tr.today_revenue,
+                  style: context.text.titleSmall?.copyWith(
+                    fontSize: 14,
+                    color: Colors.white.withAlpha(153),
+                  ),
+                ),
+                const Spacer(),
+                if (!hasHeader)
+                  _HeaderRetryButton(
+                    onTap: () => context.read<DashboardCubit>().refreshHeader(),
+                  ),
+              ],
             ),
             context.vSm,
             Row(
@@ -97,6 +107,15 @@ class TodayRevenueSection extends StatelessWidget {
                 ),
               ],
             ),
+            if (!hasHeader) ...[
+              context.vSm,
+              Text(
+                context.tr.dashboard_no_data_hint,
+                style: context.text.bodySmall?.copyWith(
+                  color: Colors.white.withAlpha(180),
+                ),
+              ),
+            ],
             context.vLg,
             TodayRevenueStatsContainer(
               invoiceCount: invoiceCount,
@@ -107,6 +126,40 @@ class TodayRevenueSection extends StatelessWidget {
           ],
         );
       },
+    );
+  }
+}
+
+class _HeaderRetryButton extends StatelessWidget {
+  const _HeaderRetryButton({required this.onTap});
+
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(8),
+      child: Padding(
+        padding: const EdgeInsets.all(4.0),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(
+              Icons.refresh_rounded,
+              color: Colors.white.withAlpha(200),
+              size: 16,
+            ),
+            const SizedBox(width: 4),
+            Text(
+              context.tr.inventory_retry,
+              style: context.text.labelSmall?.copyWith(
+                color: Colors.white.withAlpha(200),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

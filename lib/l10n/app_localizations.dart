@@ -971,6 +971,12 @@ abstract class AppLocalizations {
   /// **'Supplier Return'**
   String get dashboard_tx_supplier_return;
 
+  /// No description provided for @dashboard_no_data_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'No data available. Pull down or tap retry to refresh.'**
+  String get dashboard_no_data_hint;
+
   /// No description provided for @low.
   ///
   /// In en, this message translates to:
@@ -2812,6 +2818,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Product'**
   String get invoice_item_product;
+
+  /// No description provided for @dropdown_loading.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading…'**
+  String get dropdown_loading;
+
+  /// No description provided for @dropdown_failed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load'**
+  String get dropdown_failed;
+
+  /// No description provided for @dropdown_tap_to_retry.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to retry'**
+  String get dropdown_tap_to_retry;
 
   /// No description provided for @invoice_item_quantity.
   ///

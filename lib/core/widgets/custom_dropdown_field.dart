@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/core/extensions/app_design_system_ext.dart';
+import 'package:pharmacy_app/core/extensions/localization_ext.dart';
 
 /// A labeled outlined dropdown that visually matches [CustomTextField].
 ///
@@ -118,6 +119,7 @@ class CustomDropdownField<T> extends StatelessWidget {
   /// Loading spinner or tappable error, sized to match the dropdown's row.
   Widget _buildStatusHint(BuildContext context) {
     final theme = Theme.of(context);
+    final tr = context.tr;
     if (isLoading) {
       return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 15),
@@ -134,7 +136,7 @@ class CustomDropdownField<T> extends StatelessWidget {
             ),
             const SizedBox(width: 8),
             Text(
-              '...',
+              tr.dropdown_loading,
               style: theme.textTheme.bodyLarge?.copyWith(
                 color: context.muted.withValues(alpha: 0.5),
               ),
@@ -155,7 +157,7 @@ class CustomDropdownField<T> extends StatelessWidget {
             const SizedBox(width: 8),
             Expanded(
               child: Text(
-                onRetry != null ? 'Tap to retry' : 'Failed to load',
+                onRetry != null ? tr.dropdown_tap_to_retry : tr.dropdown_failed,
                 style: theme.textTheme.bodyLarge?.copyWith(
                   color: Colors.redAccent,
                 ),

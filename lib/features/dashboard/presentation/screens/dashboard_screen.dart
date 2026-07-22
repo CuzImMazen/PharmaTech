@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pharmacy_app/core/extensions/failure_message_localization_ext.dart';
 import 'package:pharmacy_app/core/extensions/localization_ext.dart';
+import 'package:pharmacy_app/core/utils/messages/snackbar.dart';
 import 'package:pharmacy_app/features/dashboard/cubit/dashboard_cubit.dart';
 import 'package:pharmacy_app/features/dashboard/cubit/dashboard_state.dart';
 import 'package:pharmacy_app/features/dashboard/presentation/widgets/dashboard_shimmer.dart';
@@ -19,93 +20,73 @@ class DashboardScreen extends StatelessWidget {
     await context.read<DashboardCubit>().refresh();
   }
 
+  void _showFailureSnackbar(BuildContext context, DashboardState state) {
+    final failure = state.failure;
+    if (failure == null) return;
+    AppSnackbar.failure(message: failure.localizedMessage(context));
+    context.read<DashboardCubit>().clearFailure();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
         top: false,
-        child: BlocBuilder<DashboardCubit, DashboardState>(
-          buildWhen: (p, c) =>
-              p.isInitialLoading != c.isInitialLoading ||
-              p.isRefreshing != c.isRefreshing || // Add this line!
-              p.failure != c.failure,
-          builder: (context, state) {
-            if (state.isInitialLoading) {
-              return const DashboardShimmer();
-            }
+        child: BlocListener<DashboardCubit, DashboardState>(
+          listenWhen: (p, c) => p.failure != c.failure && c.failure != null,
+          listener: _showFailureSnackbar,
+          child: BlocBuilder<DashboardCubit, DashboardState>(
+            buildWhen: (p, c) =>
+                p.isInitialLoading != c.isInitialLoading ||
+                p.isRefreshing != c.isRefreshing,
+            builder: (context, state) {
+              if (state.isInitialLoading) {
+                return const DashboardShimmer();
+              }
 
-            return RefreshIndicator(
-              onRefresh: () => _onRefresh(context),
-              child: CustomScrollView(
-                physics: const AlwaysScrollableScrollPhysics(),
-                slivers: [
-                  if (state.failure != null)
-                    _DashboardErrorBanner(
-                      message: state.failure!.localizedMessage(context),
-                      onRetry: () => _onRefresh(context),
-                    ),
-                  const DashboardHeader(),
-                  const StatsSliverGrid(),
-                  const WeeklyRevenueCard(),
-                  TitleRow(
-                    title: context.tr.recent_transactions,
-                    actionText: context.tr.view_all,
-                  ),
-                  const RecentTransactionsCard(),
-                  TitleRow(
-                    title: context.tr.stock_alerts_title,
-                    actionText: context.tr.manage_inventory,
-                  ),
-                  const StockAlertsSection(),
-                ],
-              ),
-            );
-          },
+              return RefreshIndicator(
+                onRefresh: () => _onRefresh(context),
+                child: CustomScrollView(
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  slivers: const [
+                    DashboardHeader(),
+                    StatsSliverGrid(),
+                    WeeklyRevenueCard(),
+                    _RecentTransactionsTitle(),
+                    RecentTransactionsCard(),
+                    _StockAlertsTitle(),
+                    StockAlertsSection(),
+                  ],
+                ),
+              );
+            },
+          ),
         ),
       ),
     );
   }
 }
 
-class _DashboardErrorBanner extends StatelessWidget {
-  const _DashboardErrorBanner({required this.message, required this.onRetry});
-
-  final String message;
-  final VoidCallback onRetry;
+class _RecentTransactionsTitle extends StatelessWidget {
+  const _RecentTransactionsTitle();
 
   @override
   Widget build(BuildContext context) {
-    return SliverToBoxAdapter(
-      child: Container(
-        margin: const EdgeInsets.only(top: 12, left: 16, right: 16),
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.errorContainer,
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Row(
-          children: [
-            Icon(
-              Icons.error_outline,
-              color: Theme.of(context).colorScheme.onErrorContainer,
-              size: 20,
-            ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Text(
-                message,
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.onErrorContainer,
-                ),
-              ),
-            ),
-            TextButton(
-              onPressed: onRetry,
-              child: Text(context.tr.inventory_retry),
-            ),
-          ],
-        ),
-      ),
+    return TitleRow(
+      title: context.tr.recent_transactions,
+      actionText: context.tr.view_all,
+    );
+  }
+}
+
+class _StockAlertsTitle extends StatelessWidget {
+  const _StockAlertsTitle();
+
+  @override
+  Widget build(BuildContext context) {
+    return TitleRow(
+      title: context.tr.stock_alerts_title,
+      actionText: context.tr.manage_inventory,
     );
   }
 }

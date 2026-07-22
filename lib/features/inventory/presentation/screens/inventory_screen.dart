@@ -3,7 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pharmacy_app/core/enums/enums.dart';
 import 'package:pharmacy_app/core/extensions/app_design_system_ext.dart';
+import 'package:pharmacy_app/core/extensions/failure_message_localization_ext.dart';
 import 'package:pharmacy_app/core/extensions/localization_ext.dart';
+import 'package:pharmacy_app/core/utils/messages/snackbar.dart';
 import 'package:pharmacy_app/features/inventory/cubit/inventory_cubit.dart';
 import 'package:pharmacy_app/features/inventory/cubit/inventory_state.dart';
 import 'package:pharmacy_app/features/inventory/cubit/view_mode_cubit.dart';
@@ -68,158 +70,164 @@ class _InventoryScreenState extends State<InventoryScreen> {
               );
             }
           },
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              InventoryHeader(
-                onAdd: () async {
-                  await context.push('/product/add');
-                  if (context.mounted) {
-                    inventoryCubit.refreshProducts();
-                  }
-                },
-              ),
-              context.vMd,
-              SearchTextField(
-                controller: _searchController,
-                onChanged: inventoryCubit.updateSearchQuery,
-              ),
-              context.vSm,
-              // Show-deleted toggle.
-              Padding(
-                padding: context.pHorizontal,
-                child: BlocBuilder<InventoryCubit, InventoryState>(
-                  buildWhen: (p, c) => p.showDeleted != c.showDeleted,
-                  builder: (context, state) {
-                    return _ShowDeletedToggle(
-                      value: state.showDeleted,
-                      onChanged: (_) => inventoryCubit.toggleShowDeleted(),
-                    );
+          child: BlocListener<InventoryCubit, InventoryState>(
+            listenWhen: (previous, current) =>
+                previous.failure != current.failure && current.failure != null,
+            listener: (context, state) {
+              AppSnackbar.failure(
+                message: state.failure!.localizedMessage(context),
+              );
+              inventoryCubit.clearFailure();
+            },
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                InventoryHeader(
+                  onAdd: () async {
+                    await context.push('/product/add');
+                    if (context.mounted) {
+                      inventoryCubit.refreshProducts();
+                    }
                   },
                 ),
-              ),
-              context.vLg,
-              FiltersRow(),
-              context.vMd,
-              Expanded(
-                child: BlocBuilder<InventoryCubit, InventoryState>(
-                  builder: (context, state) {
-                    final showInlineLoading =
-                        state.isRefreshing && state.products.isNotEmpty;
-
-                    if (state.isInitialLoading && state.products.isEmpty) {
-                      return BlocBuilder<ViewModeCubit, ViewMode>(
-                        builder: (context, viewMode) {
-                          return InventoryShimmer(viewMode: viewMode);
-                        },
+                context.vMd,
+                SearchTextField(
+                  controller: _searchController,
+                  onChanged: inventoryCubit.updateSearchQuery,
+                ),
+                context.vSm,
+                Padding(
+                  padding: context.pHorizontal,
+                  child: BlocBuilder<InventoryCubit, InventoryState>(
+                    buildWhen: (p, c) => p.showDeleted != c.showDeleted,
+                    builder: (context, state) {
+                      return _ShowDeletedToggle(
+                        value: state.showDeleted,
+                        onChanged: (_) => inventoryCubit.toggleShowDeleted(),
                       );
-                    }
+                    },
+                  ),
+                ),
+                context.vLg,
+                FiltersRow(),
+                context.vMd,
+                Expanded(
+                  child: BlocBuilder<InventoryCubit, InventoryState>(
+                    builder: (context, state) {
+                      final showInlineLoading =
+                          state.isRefreshing && state.products.isNotEmpty;
 
-                    if (state.failure != null && state.products.isEmpty) {
-                      return _InventoryErrorState(
-                        message: context.tr.inventory_load_error,
-                        onRetry: inventoryCubit.refreshProducts,
-                      );
-                    }
+                      if (state.isInitialLoading && state.products.isEmpty) {
+                        return BlocBuilder<ViewModeCubit, ViewMode>(
+                          builder: (context, viewMode) {
+                            return InventoryShimmer(viewMode: viewMode);
+                          },
+                        );
+                      }
 
-                    if (state.products.isEmpty) {
-                      return _InventoryEmptyState();
-                    }
+                      if (state.failure != null && state.products.isEmpty) {
+                        return _InventoryErrorState(
+                          message: context.tr.inventory_load_error,
+                          onRetry: inventoryCubit.refreshProducts,
+                        );
+                      }
 
-                    return Column(
-                      children: [
-                        if (showInlineLoading) const LinearProgressIndicator(),
-                        Expanded(
-                          child: RefreshIndicator(
-                            onRefresh: () => inventoryCubit.refreshProducts(),
-                            child: BlocBuilder<ViewModeCubit, ViewMode>(
-                              builder: (context, viewMode) {
-                                if (viewMode == ViewMode.list) {
-                                  return ListView.separated(
+                      if (state.products.isEmpty) {
+                        return _InventoryEmptyState();
+                      }
+
+                      return Column(
+                        children: [
+                          if (showInlineLoading) const LinearProgressIndicator(),
+                          Expanded(
+                            child: RefreshIndicator(
+                              onRefresh: () => inventoryCubit.refreshProducts(),
+                              child: BlocBuilder<ViewModeCubit, ViewMode>(
+                                builder: (context, viewMode) {
+                                  if (viewMode == ViewMode.list) {
+                                    return ListView.separated(
+                                      controller: _scrollController,
+                                      physics:
+                                          const AlwaysScrollableScrollPhysics(),
+                                      itemCount: state.products.length +
+                                          (state.isLoadingMore ? 1 : 0),
+                                      itemBuilder: (context, index) {
+                                        if (index >= state.products.length) {
+                                          return const _BottomLoader();
+                                        }
+
+                                        return ListMedicines(
+                                          product: state.products[index],
+                                          onTap: () async {
+                                            await context.push(
+                                              '/product/${state.products[index].id}',
+                                              extra: state.products[index],
+                                            );
+                                            if (context.mounted) {
+                                              inventoryCubit.refreshProducts();
+                                            }
+                                          },
+                                        );
+                                      },
+                                      separatorBuilder: (context, index) {
+                                        return context.vMd;
+                                      },
+                                    );
+                                  }
+
+                                  return GridView.builder(
                                     controller: _scrollController,
                                     physics:
                                         const AlwaysScrollableScrollPhysics(),
-                                    itemCount:
-                                        state.products.length +
+                                    itemCount: state.products.length +
                                         (state.isLoadingMore ? 1 : 0),
+                                    gridDelegate:
+                                        SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: context.gridColumns,
+                                      childAspectRatio: context.gridAspectRatio(
+                                        columns: context.gridColumns,
+                                        spacing: context.sMd,
+                                      ),
+                                    ),
                                     itemBuilder: (context, index) {
                                       if (index >= state.products.length) {
-                                        return const _BottomLoader();
+                                        return const Padding(
+                                          padding: EdgeInsets.all(8.0),
+                                          child: _BottomLoader(),
+                                        );
                                       }
 
-                                      return ListMedicines(
-                                        product: state.products[index],
-                                        onTap: () async {
-                                          await context.push(
-                                            '/product/${state.products[index].id}',
-                                            extra: state.products[index],
-                                          );
-                                          if (context.mounted) {
-                                            inventoryCubit.refreshProducts();
-                                          }
-                                        },
+                                      return Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 8.0,
+                                          vertical: 8.0,
+                                        ),
+                                        child: GridMedicines(
+                                          product: state.products[index],
+                                          onTap: () async {
+                                            await context.push(
+                                              '/product/${state.products[index].id}',
+                                              extra: state.products[index],
+                                            );
+                                            if (context.mounted) {
+                                              inventoryCubit.refreshProducts();
+                                            }
+                                          },
+                                        ),
                                       );
-                                    },
-                                    separatorBuilder: (context, index) {
-                                      return context.vMd;
                                     },
                                   );
-                                }
-
-                                return GridView.builder(
-                                  controller: _scrollController,
-                                  physics:
-                                      const AlwaysScrollableScrollPhysics(),
-                                  itemCount:
-                                      state.products.length +
-                                      (state.isLoadingMore ? 1 : 0),
-                                  gridDelegate:
-                                      SliverGridDelegateWithFixedCrossAxisCount(
-                                        crossAxisCount: context.gridColumns,
-                                        childAspectRatio: context
-                                            .gridAspectRatio(
-                                              columns: context.gridColumns,
-                                              spacing: context.sMd,
-                                            ),
-                                      ),
-                                  itemBuilder: (context, index) {
-                                    if (index >= state.products.length) {
-                                      return const Padding(
-                                        padding: EdgeInsets.all(8.0),
-                                        child: _BottomLoader(),
-                                      );
-                                    }
-
-                                    return Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                        horizontal: 8.0,
-                                        vertical: 8.0,
-                                      ),
-                                      child: GridMedicines(
-                                        product: state.products[index],
-                                        onTap: () async {
-                                          await context.push(
-                                            '/product/${state.products[index].id}',
-                                            extra: state.products[index],
-                                          );
-                                          if (context.mounted) {
-                                            inventoryCubit.refreshProducts();
-                                          }
-                                        },
-                                      ),
-                                    );
-                                  },
-                                );
-                              },
+                                },
+                              ),
                             ),
                           ),
-                        ),
-                      ],
-                    );
-                  },
+                        ],
+                      );
+                    },
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
@@ -293,7 +301,6 @@ class _InventoryEmptyState extends StatelessWidget {
   }
 }
 
-/// A "Show deleted" row with a trailing switch (mirrors the suppliers screen).
 class _ShowDeletedToggle extends StatelessWidget {
   const _ShowDeletedToggle({required this.value, required this.onChanged});
 

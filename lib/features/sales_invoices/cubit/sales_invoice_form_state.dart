@@ -16,6 +16,7 @@ abstract class SalesInvoiceFormState with _$SalesInvoiceFormState {
     @Default(<ProductCardModel>[]) List<ProductCardModel> products,
     @Default(false) bool isOptionsLoading,
     @Default(false) bool hasOptionsError,
+    Failure? optionsFailure,
 
     CustomerModel? selectedCustomer,
 

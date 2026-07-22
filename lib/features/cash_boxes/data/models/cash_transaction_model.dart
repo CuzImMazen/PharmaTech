@@ -49,7 +49,7 @@ class CashTransactionModel {
 
   static CashTransactionType _parseTransactionType(dynamic value) {
     return CashTransactionType.values.firstWhere(
-      (e) => e.name == value.toString(),
+      (e) => e.backendValue == value.toString(),
       orElse: () => CashTransactionType.manualIn,
     );
   }

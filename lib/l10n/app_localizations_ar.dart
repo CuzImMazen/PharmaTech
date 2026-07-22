@@ -451,6 +451,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get dashboard_tx_supplier_return => 'مرتجع مورد';
 
   @override
+  String get dashboard_no_data_hint => 'لا توجد بيانات. اسحب للأسفل أو اضغط إعادة المحاولة للتحديث.';
+
+  @override
   String get low => 'منخفض';
 
   @override
@@ -1374,6 +1377,15 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get invoice_item_product => 'المنتج';
+
+  @override
+  String get dropdown_loading => 'جاري التحميل…';
+
+  @override
+  String get dropdown_failed => 'فشل التحميل';
+
+  @override
+  String get dropdown_tap_to_retry => 'اضغط لإعادة المحاولة';
 
   @override
   String get invoice_item_quantity => 'الكمية';

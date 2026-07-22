@@ -172,6 +172,7 @@
   ,"dashboard_tx_purchase": "شراء"
   ,"dashboard_tx_customer_return": "مرتجع عميل"
   ,"dashboard_tx_supplier_return": "مرتجع مورد"
+  ,"dashboard_no_data_hint": "لا توجد بيانات. اسحب للأسفل أو اضغط إعادة المحاولة للتحديث."
   ,"low": "منخفض",
   "critical": "حرج",
   "out": "نفاذ",
@@ -511,6 +512,9 @@
   "invoice_section_items_sub": "المنتجات والكميات والتسعير",
   "invoice_select_supplier": "اختر مورداً",
   "invoice_item_product": "المنتج",
+  "dropdown_loading": "جاري التحميل…",
+  "dropdown_failed": "فشل التحميل",
+  "dropdown_tap_to_retry": "اضغط لإعادة المحاولة",
   "invoice_item_quantity": "الكمية",
   "invoice_item_wholesale_price": "سعر الجملة",
   "invoice_item_tax": "الضريبة",

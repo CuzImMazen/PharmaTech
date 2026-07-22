@@ -175,6 +175,7 @@
   ,"dashboard_tx_purchase": "Purchase"
   ,"dashboard_tx_customer_return": "Customer Return"
   ,"dashboard_tx_supplier_return": "Supplier Return"
+  ,"dashboard_no_data_hint": "No data available. Pull down or tap retry to refresh."
   ,"low": "Low",
   "critical": "Critical",
   "out": "Out",
@@ -514,6 +515,9 @@
   "invoice_section_items_sub": "Products, quantities, and pricing",
   "invoice_select_supplier": "Select supplier",
   "invoice_item_product": "Product",
+  "dropdown_loading": "Loading…",
+  "dropdown_failed": "Failed to load",
+  "dropdown_tap_to_retry": "Tap to retry",
   "invoice_item_quantity": "Quantity",
   "invoice_item_wholesale_price": "Wholesale Price",
   "invoice_item_tax": "Tax",

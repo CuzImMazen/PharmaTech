@@ -160,7 +160,9 @@ class _CustomerReturnInvoiceFormScreenState
     return BlocListener<CustomerReturnInvoiceFormCubit,
         CustomerReturnInvoiceFormState>(
       listenWhen: (p, c) =>
-          p.failure != c.failure || (!p.saved && c.saved),
+          p.failure != c.failure ||
+          p.optionsFailure != c.optionsFailure ||
+          (!p.saved && c.saved),
       listener: (context, state) {
         if (state.saved) {
           AppSnackbar.success(message: tr.return_invoice_created);
@@ -172,6 +174,13 @@ class _CustomerReturnInvoiceFormScreenState
             message: state.failure!.localizedMessage(context),
           );
           cubit.clearFailure();
+          return;
+        }
+        if (state.optionsFailure != null) {
+          AppSnackbar.failure(
+            message: state.optionsFailure!.localizedMessage(context),
+          );
+          cubit.clearOptionsFailure();
         }
       },
       child: Scaffold(

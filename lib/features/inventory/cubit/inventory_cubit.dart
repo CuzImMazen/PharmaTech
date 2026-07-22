@@ -200,6 +200,11 @@ class InventoryCubit extends Cubit<InventoryState> {
     _fetchProducts(reset: true);
   }
 
+  void clearFailure() {
+    if (isClosed) return;
+    if (state.failure != null) emit(state.copyWith(failure: null));
+  }
+
   Future<void> _fetchProducts({
     bool reset = false,
     bool append = false,

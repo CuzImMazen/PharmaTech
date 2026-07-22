@@ -12,9 +12,12 @@ class RecentTransactionsCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<DashboardCubit, DashboardState>(
-      buildWhen: (p, c) => p.recentTransactions != c.recentTransactions,
+      buildWhen: (p, c) =>
+          p.recentTransactions != c.recentTransactions ||
+          p.failure != c.failure,
       builder: (context, state) {
         final transactions = state.recentTransactions;
+        final isFailure = state.failure != null && transactions.isEmpty;
 
         if (transactions.isEmpty) {
           return SliverPadding(
@@ -29,14 +32,28 @@ class RecentTransactionsCard extends StatelessWidget {
                     color: Theme.of(context).colorScheme.outline.withAlpha(38),
                   ),
                 ),
-                child: Center(
-                  child: Text(
-                    context.tr.no_recent_transactions,
-                    style: context.text.bodyMedium?.copyWith(
-                      color: context.muted,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      isFailure
+                          ? context.tr.stock_alerts_error
+                          : context.tr.no_recent_transactions,
+                      style: context.text.bodyMedium?.copyWith(
+                        color: context.muted,
+                      ),
+                      textAlign: TextAlign.center,
                     ),
-                    textAlign: TextAlign.center,
-                  ),
+                    if (isFailure) ...[
+                      const SizedBox(height: 12),
+                      OutlinedButton.icon(
+                        onPressed: () =>
+                            context.read<DashboardCubit>().refreshTransactions(),
+                        icon: const Icon(Icons.refresh_rounded, size: 16),
+                        label: Text(context.tr.inventory_retry),
+                      ),
+                    ],
+                  ],
                 ),
               ),
             ),

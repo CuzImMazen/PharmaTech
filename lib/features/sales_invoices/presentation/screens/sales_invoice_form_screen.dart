@@ -158,7 +158,9 @@ class _SalesInvoiceFormScreenState extends State<SalesInvoiceFormScreen> {
 
     return BlocListener<SalesInvoiceFormCubit, SalesInvoiceFormState>(
       listenWhen: (p, c) =>
-          p.failure != c.failure || (!p.saved && c.saved),
+          p.failure != c.failure ||
+          p.optionsFailure != c.optionsFailure ||
+          (!p.saved && c.saved),
       listener: (context, state) {
         if (state.saved) {
           AppSnackbar.success(message: tr.sales_invoice_created);
@@ -170,6 +172,13 @@ class _SalesInvoiceFormScreenState extends State<SalesInvoiceFormScreen> {
             message: state.failure!.localizedMessage(context),
           );
           cubit.clearFailure();
+          return;
+        }
+        if (state.optionsFailure != null) {
+          AppSnackbar.failure(
+            message: state.optionsFailure!.localizedMessage(context),
+          );
+          cubit.clearOptionsFailure();
         }
       },
       child: Scaffold(

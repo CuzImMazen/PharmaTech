@@ -55,7 +55,13 @@ class SalesInvoiceFormCubit extends Cubit<SalesInvoiceFormState> {
 
   Future<void> loadOptions() async {
     if (isClosed) return;
-    emit(state.copyWith(isOptionsLoading: true, hasOptionsError: false));
+    emit(
+      state.copyWith(
+        isOptionsLoading: true,
+        hasOptionsError: false,
+        optionsFailure: null,
+      ),
+    );
     final customersResult = await customerRepository.fetchCustomers(
       perPage: 200,
     );
@@ -66,7 +72,16 @@ class SalesInvoiceFormCubit extends Cubit<SalesInvoiceFormState> {
     if (isClosed) return;
 
     if (customersResult.isLeft() || productsResult.isLeft()) {
-      emit(state.copyWith(isOptionsLoading: false, hasOptionsError: true));
+      Failure? failure;
+      customersResult.fold((f) => failure = f, (_) {});
+      productsResult.fold((f) => failure ??= f, (_) {});
+      emit(
+        state.copyWith(
+          isOptionsLoading: false,
+          hasOptionsError: true,
+          optionsFailure: failure,
+        ),
+      );
       return;
     }
 
@@ -78,6 +93,7 @@ class SalesInvoiceFormCubit extends Cubit<SalesInvoiceFormState> {
       state.copyWith(
         isOptionsLoading: false,
         hasOptionsError: false,
+        optionsFailure: null,
         customers: customers,
         products: products,
       ),
@@ -265,6 +281,13 @@ class SalesInvoiceFormCubit extends Cubit<SalesInvoiceFormState> {
   void clearFailure() {
     if (isClosed) return;
     if (state.failure != null) emit(state.copyWith(failure: null));
+  }
+
+  void clearOptionsFailure() {
+    if (isClosed) return;
+    if (state.optionsFailure != null) {
+      emit(state.copyWith(optionsFailure: null));
+    }
   }
 
   double _num(String s) => double.tryParse(s.trim()) ?? 0;

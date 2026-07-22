@@ -66,7 +66,13 @@ class SupplierReturnInvoiceFormCubit
 
   Future<void> loadOptions() async {
     if (isClosed) return;
-    emit(state.copyWith(isOptionsLoading: true, hasOptionsError: false));
+    emit(
+      state.copyWith(
+        isOptionsLoading: true,
+        hasOptionsError: false,
+        optionsFailure: null,
+      ),
+    );
     final suppliersResult = await supplierRepository.fetchSuppliers(
       perPage: 200,
     );
@@ -77,7 +83,16 @@ class SupplierReturnInvoiceFormCubit
     if (isClosed) return;
 
     if (suppliersResult.isLeft() || productsResult.isLeft()) {
-      emit(state.copyWith(isOptionsLoading: false, hasOptionsError: true));
+      Failure? failure;
+      suppliersResult.fold((f) => failure = f, (_) {});
+      productsResult.fold((f) => failure ??= f, (_) {});
+      emit(
+        state.copyWith(
+          isOptionsLoading: false,
+          hasOptionsError: true,
+          optionsFailure: failure,
+        ),
+      );
       return;
     }
 
@@ -92,6 +107,7 @@ class SupplierReturnInvoiceFormCubit
       state.copyWith(
         isOptionsLoading: false,
         hasOptionsError: false,
+        optionsFailure: null,
         suppliers: suppliers,
         products: products,
         items: autoFilledItems,
@@ -399,6 +415,13 @@ class SupplierReturnInvoiceFormCubit
   void clearFailure() {
     if (isClosed) return;
     if (state.failure != null) emit(state.copyWith(failure: null));
+  }
+
+  void clearOptionsFailure() {
+    if (isClosed) return;
+    if (state.optionsFailure != null) {
+      emit(state.copyWith(optionsFailure: null));
+    }
   }
 
   double _num(String s) => double.tryParse(s.trim()) ?? 0;

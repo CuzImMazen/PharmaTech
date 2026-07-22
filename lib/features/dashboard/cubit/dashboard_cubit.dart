@@ -70,27 +70,6 @@ class DashboardCubit extends Cubit<DashboardState> {
     final lowStockResult =
         results[4] as Either<Failure, List<ProductCardModel>>;
 
-    headerResult.fold(
-      (f) => print('❌ Header Failed: $f'),
-      (_) => print('✅ Header Success'),
-    );
-    cardsResult.fold(
-      (f) => print('❌ Cards Failed: $f'),
-      (_) => print('✅ Cards Success'),
-    );
-    weeklyRevenueResult.fold(
-      (f) => print('❌ Weekly Revenue Failed: $f'),
-      (_) => print('✅ Weekly Revenue Success'),
-    );
-    transactionsPageResult.fold(
-      (f) => print('❌ Transactions Failed: $f'),
-      (_) => print('✅ Transactions Success'),
-    );
-    lowStockResult.fold(
-      (f) => print('❌ Low Stock Failed: $f'),
-      (_) => print('✅ Low Stock Success'),
-    );
-
     final firstFailure = _firstFailure([
       headerResult,
       cardsResult,
@@ -114,14 +93,80 @@ class DashboardCubit extends Cubit<DashboardState> {
         failure: firstFailure,
       ),
     );
-    print(
-      'DashboardCubit: loadDashboard completed with failure: $firstFailure',
-    );
-    print(firstFailure.hashCode);
   }
 
   /// Alias for [loadDashboard] to use in pull-to-refresh contexts.
   Future<void> refresh() => loadDashboard();
+
+  /// Refreshes only the header section.
+  Future<void> refreshHeader() async {
+    if (isClosed) return;
+    final result = await dashboardRepository.fetchHeader();
+    if (isClosed) return;
+    result.fold(
+      (failure) => emit(state.copyWith(failure: state.failure ?? failure)),
+      (header) => emit(
+        state.copyWith(
+          header: header,
+          failure: state.failure,
+        ),
+      ),
+    );
+  }
+
+  /// Refreshes only the summary cards section.
+  Future<void> refreshCards() async {
+    if (isClosed) return;
+    final result = await dashboardRepository.fetchCards();
+    if (isClosed) return;
+    result.fold(
+      (failure) => emit(state.copyWith(failure: state.failure ?? failure)),
+      (cards) => emit(
+        state.copyWith(
+          cards: cards,
+          failure: state.failure,
+        ),
+      ),
+    );
+  }
+
+  /// Refreshes only the weekly revenue chart section.
+  Future<void> refreshWeeklyRevenue() async {
+    if (isClosed) return;
+    final result = await dashboardRepository.fetchWeeklyRevenue();
+    if (isClosed) return;
+    result.fold(
+      (failure) => emit(state.copyWith(failure: state.failure ?? failure)),
+      (points) => emit(
+        state.copyWith(
+          weeklyRevenue: points,
+          failure: state.failure,
+        ),
+      ),
+    );
+  }
+
+  /// Refreshes only the recent transactions section.
+  Future<void> refreshTransactions() async {
+    if (isClosed) return;
+    final result = await dashboardRepository.fetchTransactions(perPage: 5);
+    if (isClosed) return;
+    result.fold(
+      (failure) => emit(state.copyWith(failure: state.failure ?? failure)),
+      (page) => emit(
+        state.copyWith(
+          recentTransactions: page.transactions,
+          failure: state.failure,
+        ),
+      ),
+    );
+  }
+
+  /// Clears the transient failure after the UI has shown it.
+  void clearFailure() {
+    if (isClosed) return;
+    if (state.failure != null) emit(state.copyWith(failure: null));
+  }
 
   /// Refreshes only the low-stock alerts section without disturbing the rest of
   /// the dashboard.

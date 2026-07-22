@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$SupplierReturnInvoiceFormState {
 
- List<SupplierModel> get suppliers; List<ProductCardModel> get products; bool get isOptionsLoading; bool get hasOptionsError; SupplierModel? get selectedSupplier;/// The optional original purchase invoice this return is linked to.
+ List<SupplierModel> get suppliers; List<ProductCardModel> get products; bool get isOptionsLoading; bool get hasOptionsError; Failure? get optionsFailure; SupplierModel? get selectedSupplier;/// The optional original purchase invoice this return is linked to.
  int? get originalPurchaseInvoiceId;/// Products allowed to be selected when seeded from an invoice. Empty means
 /// no restriction (standalone return). Used to filter the product dropdown.
  Set<int> get allowedProductIds;/// Maps each original invoice product id to its purchased quantity for
@@ -32,16 +32,16 @@ $SupplierReturnInvoiceFormStateCopyWith<SupplierReturnInvoiceFormState> get copy
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SupplierReturnInvoiceFormState&&const DeepCollectionEquality().equals(other.suppliers, suppliers)&&const DeepCollectionEquality().equals(other.products, products)&&(identical(other.isOptionsLoading, isOptionsLoading) || other.isOptionsLoading == isOptionsLoading)&&(identical(other.hasOptionsError, hasOptionsError) || other.hasOptionsError == hasOptionsError)&&(identical(other.selectedSupplier, selectedSupplier) || other.selectedSupplier == selectedSupplier)&&(identical(other.originalPurchaseInvoiceId, originalPurchaseInvoiceId) || other.originalPurchaseInvoiceId == originalPurchaseInvoiceId)&&const DeepCollectionEquality().equals(other.allowedProductIds, allowedProductIds)&&const DeepCollectionEquality().equals(other.originalInvoiceQuantities, originalInvoiceQuantities)&&const DeepCollectionEquality().equals(other.items, items)&&(identical(other.isSaving, isSaving) || other.isSaving == isSaving)&&(identical(other.failure, failure) || other.failure == failure)&&(identical(other.saved, saved) || other.saved == saved)&&(identical(other.isScanning, isScanning) || other.isScanning == isScanning));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SupplierReturnInvoiceFormState&&const DeepCollectionEquality().equals(other.suppliers, suppliers)&&const DeepCollectionEquality().equals(other.products, products)&&(identical(other.isOptionsLoading, isOptionsLoading) || other.isOptionsLoading == isOptionsLoading)&&(identical(other.hasOptionsError, hasOptionsError) || other.hasOptionsError == hasOptionsError)&&(identical(other.optionsFailure, optionsFailure) || other.optionsFailure == optionsFailure)&&(identical(other.selectedSupplier, selectedSupplier) || other.selectedSupplier == selectedSupplier)&&(identical(other.originalPurchaseInvoiceId, originalPurchaseInvoiceId) || other.originalPurchaseInvoiceId == originalPurchaseInvoiceId)&&const DeepCollectionEquality().equals(other.allowedProductIds, allowedProductIds)&&const DeepCollectionEquality().equals(other.originalInvoiceQuantities, originalInvoiceQuantities)&&const DeepCollectionEquality().equals(other.items, items)&&(identical(other.isSaving, isSaving) || other.isSaving == isSaving)&&(identical(other.failure, failure) || other.failure == failure)&&(identical(other.saved, saved) || other.saved == saved)&&(identical(other.isScanning, isScanning) || other.isScanning == isScanning));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(suppliers),const DeepCollectionEquality().hash(products),isOptionsLoading,hasOptionsError,selectedSupplier,originalPurchaseInvoiceId,const DeepCollectionEquality().hash(allowedProductIds),const DeepCollectionEquality().hash(originalInvoiceQuantities),const DeepCollectionEquality().hash(items),isSaving,failure,saved,isScanning);
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(suppliers),const DeepCollectionEquality().hash(products),isOptionsLoading,hasOptionsError,optionsFailure,selectedSupplier,originalPurchaseInvoiceId,const DeepCollectionEquality().hash(allowedProductIds),const DeepCollectionEquality().hash(originalInvoiceQuantities),const DeepCollectionEquality().hash(items),isSaving,failure,saved,isScanning);
 
 @override
 String toString() {
-  return 'SupplierReturnInvoiceFormState(suppliers: $suppliers, products: $products, isOptionsLoading: $isOptionsLoading, hasOptionsError: $hasOptionsError, selectedSupplier: $selectedSupplier, originalPurchaseInvoiceId: $originalPurchaseInvoiceId, allowedProductIds: $allowedProductIds, originalInvoiceQuantities: $originalInvoiceQuantities, items: $items, isSaving: $isSaving, failure: $failure, saved: $saved, isScanning: $isScanning)';
+  return 'SupplierReturnInvoiceFormState(suppliers: $suppliers, products: $products, isOptionsLoading: $isOptionsLoading, hasOptionsError: $hasOptionsError, optionsFailure: $optionsFailure, selectedSupplier: $selectedSupplier, originalPurchaseInvoiceId: $originalPurchaseInvoiceId, allowedProductIds: $allowedProductIds, originalInvoiceQuantities: $originalInvoiceQuantities, items: $items, isSaving: $isSaving, failure: $failure, saved: $saved, isScanning: $isScanning)';
 }
 
 
@@ -52,7 +52,7 @@ abstract mixin class $SupplierReturnInvoiceFormStateCopyWith<$Res>  {
   factory $SupplierReturnInvoiceFormStateCopyWith(SupplierReturnInvoiceFormState value, $Res Function(SupplierReturnInvoiceFormState) _then) = _$SupplierReturnInvoiceFormStateCopyWithImpl;
 @useResult
 $Res call({
- List<SupplierModel> suppliers, List<ProductCardModel> products, bool isOptionsLoading, bool hasOptionsError, SupplierModel? selectedSupplier, int? originalPurchaseInvoiceId, Set<int> allowedProductIds, Map<int, int> originalInvoiceQuantities, List<SupplierReturnItemInput> items, bool isSaving, Failure? failure, bool saved, bool isScanning
+ List<SupplierModel> suppliers, List<ProductCardModel> products, bool isOptionsLoading, bool hasOptionsError, Failure? optionsFailure, SupplierModel? selectedSupplier, int? originalPurchaseInvoiceId, Set<int> allowedProductIds, Map<int, int> originalInvoiceQuantities, List<SupplierReturnItemInput> items, bool isSaving, Failure? failure, bool saved, bool isScanning
 });
 
 
@@ -69,13 +69,14 @@ class _$SupplierReturnInvoiceFormStateCopyWithImpl<$Res>
 
 /// Create a copy of SupplierReturnInvoiceFormState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? suppliers = null,Object? products = null,Object? isOptionsLoading = null,Object? hasOptionsError = null,Object? selectedSupplier = freezed,Object? originalPurchaseInvoiceId = freezed,Object? allowedProductIds = null,Object? originalInvoiceQuantities = null,Object? items = null,Object? isSaving = null,Object? failure = freezed,Object? saved = null,Object? isScanning = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? suppliers = null,Object? products = null,Object? isOptionsLoading = null,Object? hasOptionsError = null,Object? optionsFailure = freezed,Object? selectedSupplier = freezed,Object? originalPurchaseInvoiceId = freezed,Object? allowedProductIds = null,Object? originalInvoiceQuantities = null,Object? items = null,Object? isSaving = null,Object? failure = freezed,Object? saved = null,Object? isScanning = null,}) {
   return _then(SupplierReturnInvoiceFormState(
 suppliers: null == suppliers ? _self.suppliers : suppliers // ignore: cast_nullable_to_non_nullable
 as List<SupplierModel>,products: null == products ? _self.products : products // ignore: cast_nullable_to_non_nullable
 as List<ProductCardModel>,isOptionsLoading: null == isOptionsLoading ? _self.isOptionsLoading : isOptionsLoading // ignore: cast_nullable_to_non_nullable
 as bool,hasOptionsError: null == hasOptionsError ? _self.hasOptionsError : hasOptionsError // ignore: cast_nullable_to_non_nullable
-as bool,selectedSupplier: freezed == selectedSupplier ? _self.selectedSupplier : selectedSupplier // ignore: cast_nullable_to_non_nullable
+as bool,optionsFailure: freezed == optionsFailure ? _self.optionsFailure : optionsFailure // ignore: cast_nullable_to_non_nullable
+as Failure?,selectedSupplier: freezed == selectedSupplier ? _self.selectedSupplier : selectedSupplier // ignore: cast_nullable_to_non_nullable
 as SupplierModel?,originalPurchaseInvoiceId: freezed == originalPurchaseInvoiceId ? _self.originalPurchaseInvoiceId : originalPurchaseInvoiceId // ignore: cast_nullable_to_non_nullable
 as int?,allowedProductIds: null == allowedProductIds ? _self.allowedProductIds : allowedProductIds // ignore: cast_nullable_to_non_nullable
 as Set<int>,originalInvoiceQuantities: null == originalInvoiceQuantities ? _self.originalInvoiceQuantities : originalInvoiceQuantities // ignore: cast_nullable_to_non_nullable
@@ -169,10 +170,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<SupplierModel> suppliers,  List<ProductCardModel> products,  bool isOptionsLoading,  bool hasOptionsError,  SupplierModel? selectedSupplier,  int? originalPurchaseInvoiceId,  Set<int> allowedProductIds,  Map<int, int> originalInvoiceQuantities,  List<SupplierReturnItemInput> items,  bool isSaving,  Failure? failure,  bool saved,  bool isScanning)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<SupplierModel> suppliers,  List<ProductCardModel> products,  bool isOptionsLoading,  bool hasOptionsError,  Failure? optionsFailure,  SupplierModel? selectedSupplier,  int? originalPurchaseInvoiceId,  Set<int> allowedProductIds,  Map<int, int> originalInvoiceQuantities,  List<SupplierReturnItemInput> items,  bool isSaving,  Failure? failure,  bool saved,  bool isScanning)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _SupplierReturnInvoiceFormState() when $default != null:
-return $default(_that.suppliers,_that.products,_that.isOptionsLoading,_that.hasOptionsError,_that.selectedSupplier,_that.originalPurchaseInvoiceId,_that.allowedProductIds,_that.originalInvoiceQuantities,_that.items,_that.isSaving,_that.failure,_that.saved,_that.isScanning);case _:
+return $default(_that.suppliers,_that.products,_that.isOptionsLoading,_that.hasOptionsError,_that.optionsFailure,_that.selectedSupplier,_that.originalPurchaseInvoiceId,_that.allowedProductIds,_that.originalInvoiceQuantities,_that.items,_that.isSaving,_that.failure,_that.saved,_that.isScanning);case _:
   return orElse();
 
 }
@@ -190,10 +191,10 @@ return $default(_that.suppliers,_that.products,_that.isOptionsLoading,_that.hasO
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<SupplierModel> suppliers,  List<ProductCardModel> products,  bool isOptionsLoading,  bool hasOptionsError,  SupplierModel? selectedSupplier,  int? originalPurchaseInvoiceId,  Set<int> allowedProductIds,  Map<int, int> originalInvoiceQuantities,  List<SupplierReturnItemInput> items,  bool isSaving,  Failure? failure,  bool saved,  bool isScanning)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<SupplierModel> suppliers,  List<ProductCardModel> products,  bool isOptionsLoading,  bool hasOptionsError,  Failure? optionsFailure,  SupplierModel? selectedSupplier,  int? originalPurchaseInvoiceId,  Set<int> allowedProductIds,  Map<int, int> originalInvoiceQuantities,  List<SupplierReturnItemInput> items,  bool isSaving,  Failure? failure,  bool saved,  bool isScanning)  $default,) {final _that = this;
 switch (_that) {
 case _SupplierReturnInvoiceFormState():
-return $default(_that.suppliers,_that.products,_that.isOptionsLoading,_that.hasOptionsError,_that.selectedSupplier,_that.originalPurchaseInvoiceId,_that.allowedProductIds,_that.originalInvoiceQuantities,_that.items,_that.isSaving,_that.failure,_that.saved,_that.isScanning);case _:
+return $default(_that.suppliers,_that.products,_that.isOptionsLoading,_that.hasOptionsError,_that.optionsFailure,_that.selectedSupplier,_that.originalPurchaseInvoiceId,_that.allowedProductIds,_that.originalInvoiceQuantities,_that.items,_that.isSaving,_that.failure,_that.saved,_that.isScanning);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -210,10 +211,10 @@ return $default(_that.suppliers,_that.products,_that.isOptionsLoading,_that.hasO
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<SupplierModel> suppliers,  List<ProductCardModel> products,  bool isOptionsLoading,  bool hasOptionsError,  SupplierModel? selectedSupplier,  int? originalPurchaseInvoiceId,  Set<int> allowedProductIds,  Map<int, int> originalInvoiceQuantities,  List<SupplierReturnItemInput> items,  bool isSaving,  Failure? failure,  bool saved,  bool isScanning)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<SupplierModel> suppliers,  List<ProductCardModel> products,  bool isOptionsLoading,  bool hasOptionsError,  Failure? optionsFailure,  SupplierModel? selectedSupplier,  int? originalPurchaseInvoiceId,  Set<int> allowedProductIds,  Map<int, int> originalInvoiceQuantities,  List<SupplierReturnItemInput> items,  bool isSaving,  Failure? failure,  bool saved,  bool isScanning)?  $default,) {final _that = this;
 switch (_that) {
 case _SupplierReturnInvoiceFormState() when $default != null:
-return $default(_that.suppliers,_that.products,_that.isOptionsLoading,_that.hasOptionsError,_that.selectedSupplier,_that.originalPurchaseInvoiceId,_that.allowedProductIds,_that.originalInvoiceQuantities,_that.items,_that.isSaving,_that.failure,_that.saved,_that.isScanning);case _:
+return $default(_that.suppliers,_that.products,_that.isOptionsLoading,_that.hasOptionsError,_that.optionsFailure,_that.selectedSupplier,_that.originalPurchaseInvoiceId,_that.allowedProductIds,_that.originalInvoiceQuantities,_that.items,_that.isSaving,_that.failure,_that.saved,_that.isScanning);case _:
   return null;
 
 }
@@ -225,7 +226,7 @@ return $default(_that.suppliers,_that.products,_that.isOptionsLoading,_that.hasO
 
 
 class _SupplierReturnInvoiceFormState implements SupplierReturnInvoiceFormState {
-  const _SupplierReturnInvoiceFormState({ List<SupplierModel> suppliers = const <SupplierModel>[],  List<ProductCardModel> products = const <ProductCardModel>[], this.isOptionsLoading = false, this.hasOptionsError = false, this.selectedSupplier, this.originalPurchaseInvoiceId,  Set<int> allowedProductIds = const <int>{},  Map<int, int> originalInvoiceQuantities = const <int, int>{},  List<SupplierReturnItemInput> items = const <SupplierReturnItemInput>[], this.isSaving = false, this.failure, this.saved = false, this.isScanning = false}): _suppliers = suppliers,_products = products,_allowedProductIds = allowedProductIds,_originalInvoiceQuantities = originalInvoiceQuantities,_items = items;
+  const _SupplierReturnInvoiceFormState({ List<SupplierModel> suppliers = const <SupplierModel>[],  List<ProductCardModel> products = const <ProductCardModel>[], this.isOptionsLoading = false, this.hasOptionsError = false, this.optionsFailure, this.selectedSupplier, this.originalPurchaseInvoiceId,  Set<int> allowedProductIds = const <int>{},  Map<int, int> originalInvoiceQuantities = const <int, int>{},  List<SupplierReturnItemInput> items = const <SupplierReturnItemInput>[], this.isSaving = false, this.failure, this.saved = false, this.isScanning = false}): _suppliers = suppliers,_products = products,_allowedProductIds = allowedProductIds,_originalInvoiceQuantities = originalInvoiceQuantities,_items = items;
   
 
  final  List<SupplierModel> _suppliers;
@@ -244,6 +245,7 @@ class _SupplierReturnInvoiceFormState implements SupplierReturnInvoiceFormState 
 
 @override@JsonKey() final  bool isOptionsLoading;
 @override@JsonKey() final  bool hasOptionsError;
+@override final  Failure? optionsFailure;
 @override final  SupplierModel? selectedSupplier;
 /// The optional original purchase invoice this return is linked to.
 @override final  int? originalPurchaseInvoiceId;
@@ -292,16 +294,16 @@ _$SupplierReturnInvoiceFormStateCopyWith<_SupplierReturnInvoiceFormState> get co
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SupplierReturnInvoiceFormState&&const DeepCollectionEquality().equals(other._suppliers, _suppliers)&&const DeepCollectionEquality().equals(other._products, _products)&&(identical(other.isOptionsLoading, isOptionsLoading) || other.isOptionsLoading == isOptionsLoading)&&(identical(other.hasOptionsError, hasOptionsError) || other.hasOptionsError == hasOptionsError)&&(identical(other.selectedSupplier, selectedSupplier) || other.selectedSupplier == selectedSupplier)&&(identical(other.originalPurchaseInvoiceId, originalPurchaseInvoiceId) || other.originalPurchaseInvoiceId == originalPurchaseInvoiceId)&&const DeepCollectionEquality().equals(other._allowedProductIds, _allowedProductIds)&&const DeepCollectionEquality().equals(other._originalInvoiceQuantities, _originalInvoiceQuantities)&&const DeepCollectionEquality().equals(other._items, _items)&&(identical(other.isSaving, isSaving) || other.isSaving == isSaving)&&(identical(other.failure, failure) || other.failure == failure)&&(identical(other.saved, saved) || other.saved == saved)&&(identical(other.isScanning, isScanning) || other.isScanning == isScanning));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SupplierReturnInvoiceFormState&&const DeepCollectionEquality().equals(other._suppliers, _suppliers)&&const DeepCollectionEquality().equals(other._products, _products)&&(identical(other.isOptionsLoading, isOptionsLoading) || other.isOptionsLoading == isOptionsLoading)&&(identical(other.hasOptionsError, hasOptionsError) || other.hasOptionsError == hasOptionsError)&&(identical(other.optionsFailure, optionsFailure) || other.optionsFailure == optionsFailure)&&(identical(other.selectedSupplier, selectedSupplier) || other.selectedSupplier == selectedSupplier)&&(identical(other.originalPurchaseInvoiceId, originalPurchaseInvoiceId) || other.originalPurchaseInvoiceId == originalPurchaseInvoiceId)&&const DeepCollectionEquality().equals(other._allowedProductIds, _allowedProductIds)&&const DeepCollectionEquality().equals(other._originalInvoiceQuantities, _originalInvoiceQuantities)&&const DeepCollectionEquality().equals(other._items, _items)&&(identical(other.isSaving, isSaving) || other.isSaving == isSaving)&&(identical(other.failure, failure) || other.failure == failure)&&(identical(other.saved, saved) || other.saved == saved)&&(identical(other.isScanning, isScanning) || other.isScanning == isScanning));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_suppliers),const DeepCollectionEquality().hash(_products),isOptionsLoading,hasOptionsError,selectedSupplier,originalPurchaseInvoiceId,const DeepCollectionEquality().hash(_allowedProductIds),const DeepCollectionEquality().hash(_originalInvoiceQuantities),const DeepCollectionEquality().hash(_items),isSaving,failure,saved,isScanning);
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_suppliers),const DeepCollectionEquality().hash(_products),isOptionsLoading,hasOptionsError,optionsFailure,selectedSupplier,originalPurchaseInvoiceId,const DeepCollectionEquality().hash(_allowedProductIds),const DeepCollectionEquality().hash(_originalInvoiceQuantities),const DeepCollectionEquality().hash(_items),isSaving,failure,saved,isScanning);
 
 @override
 String toString() {
-  return 'SupplierReturnInvoiceFormState(suppliers: $suppliers, products: $products, isOptionsLoading: $isOptionsLoading, hasOptionsError: $hasOptionsError, selectedSupplier: $selectedSupplier, originalPurchaseInvoiceId: $originalPurchaseInvoiceId, allowedProductIds: $allowedProductIds, originalInvoiceQuantities: $originalInvoiceQuantities, items: $items, isSaving: $isSaving, failure: $failure, saved: $saved, isScanning: $isScanning)';
+  return 'SupplierReturnInvoiceFormState(suppliers: $suppliers, products: $products, isOptionsLoading: $isOptionsLoading, hasOptionsError: $hasOptionsError, optionsFailure: $optionsFailure, selectedSupplier: $selectedSupplier, originalPurchaseInvoiceId: $originalPurchaseInvoiceId, allowedProductIds: $allowedProductIds, originalInvoiceQuantities: $originalInvoiceQuantities, items: $items, isSaving: $isSaving, failure: $failure, saved: $saved, isScanning: $isScanning)';
 }
 
 
@@ -312,7 +314,7 @@ abstract mixin class _$SupplierReturnInvoiceFormStateCopyWith<$Res> implements $
   factory _$SupplierReturnInvoiceFormStateCopyWith(_SupplierReturnInvoiceFormState value, $Res Function(_SupplierReturnInvoiceFormState) _then) = __$SupplierReturnInvoiceFormStateCopyWithImpl;
 @override @useResult
 $Res call({
- List<SupplierModel> suppliers, List<ProductCardModel> products, bool isOptionsLoading, bool hasOptionsError, SupplierModel? selectedSupplier, int? originalPurchaseInvoiceId, Set<int> allowedProductIds, Map<int, int> originalInvoiceQuantities, List<SupplierReturnItemInput> items, bool isSaving, Failure? failure, bool saved, bool isScanning
+ List<SupplierModel> suppliers, List<ProductCardModel> products, bool isOptionsLoading, bool hasOptionsError, Failure? optionsFailure, SupplierModel? selectedSupplier, int? originalPurchaseInvoiceId, Set<int> allowedProductIds, Map<int, int> originalInvoiceQuantities, List<SupplierReturnItemInput> items, bool isSaving, Failure? failure, bool saved, bool isScanning
 });
 
 
@@ -329,13 +331,14 @@ class __$SupplierReturnInvoiceFormStateCopyWithImpl<$Res>
 
 /// Create a copy of SupplierReturnInvoiceFormState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? suppliers = null,Object? products = null,Object? isOptionsLoading = null,Object? hasOptionsError = null,Object? selectedSupplier = freezed,Object? originalPurchaseInvoiceId = freezed,Object? allowedProductIds = null,Object? originalInvoiceQuantities = null,Object? items = null,Object? isSaving = null,Object? failure = freezed,Object? saved = null,Object? isScanning = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? suppliers = null,Object? products = null,Object? isOptionsLoading = null,Object? hasOptionsError = null,Object? optionsFailure = freezed,Object? selectedSupplier = freezed,Object? originalPurchaseInvoiceId = freezed,Object? allowedProductIds = null,Object? originalInvoiceQuantities = null,Object? items = null,Object? isSaving = null,Object? failure = freezed,Object? saved = null,Object? isScanning = null,}) {
   return _then(_SupplierReturnInvoiceFormState(
 suppliers: null == suppliers ? _self._suppliers : suppliers // ignore: cast_nullable_to_non_nullable
 as List<SupplierModel>,products: null == products ? _self._products : products // ignore: cast_nullable_to_non_nullable
 as List<ProductCardModel>,isOptionsLoading: null == isOptionsLoading ? _self.isOptionsLoading : isOptionsLoading // ignore: cast_nullable_to_non_nullable
 as bool,hasOptionsError: null == hasOptionsError ? _self.hasOptionsError : hasOptionsError // ignore: cast_nullable_to_non_nullable
-as bool,selectedSupplier: freezed == selectedSupplier ? _self.selectedSupplier : selectedSupplier // ignore: cast_nullable_to_non_nullable
+as bool,optionsFailure: freezed == optionsFailure ? _self.optionsFailure : optionsFailure // ignore: cast_nullable_to_non_nullable
+as Failure?,selectedSupplier: freezed == selectedSupplier ? _self.selectedSupplier : selectedSupplier // ignore: cast_nullable_to_non_nullable
 as SupplierModel?,originalPurchaseInvoiceId: freezed == originalPurchaseInvoiceId ? _self.originalPurchaseInvoiceId : originalPurchaseInvoiceId // ignore: cast_nullable_to_non_nullable
 as int?,allowedProductIds: null == allowedProductIds ? _self._allowedProductIds : allowedProductIds // ignore: cast_nullable_to_non_nullable
 as Set<int>,originalInvoiceQuantities: null == originalInvoiceQuantities ? _self._originalInvoiceQuantities : originalInvoiceQuantities // ignore: cast_nullable_to_non_nullable
